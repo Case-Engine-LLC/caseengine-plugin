@@ -1,0 +1,24 @@
+{
+  "name": "caseengine",
+  "displayName": "Case Engine",
+  "version": "0.1.0",
+  "description": "Connects Claude Code to the Case Engine dashboard (tool.caseengine.com) — pull your task queue, read tasks and approvals, dump a client profile, and drive content generation.",
+  "author": {
+    "name": "Case Engine",
+    "email": "connor@caseengine.ai",
+    "url": "https://tool.caseengine.com"
+  },
+  "homepage": "https://tool.caseengine.com",
+  "repository": "https://github.com/Case-Engine-LLC/caseengine-plugin",
+  "license": "UNLICENSED",
+  "keywords": [
+    "caseengine",
+    "tasks",
+    "mcp",
+    "seo",
+    "agency"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "commands": "./commands/"
+}
