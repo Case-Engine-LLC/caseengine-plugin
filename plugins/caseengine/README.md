@@ -1,8 +1,9 @@
-# Case Engine plugin for Claude Code
+# Case Engine plugin for Claude
 
-Connects Claude Code to the **Case Engine dashboard** (`tool.caseengine.com`)
+Connects Claude to the **Case Engine dashboard** (`tool.caseengine.com`)
 so you can pull your task queue, read tasks and approvals, dump a client
-profile, and drive content generation — without leaving the terminal.
+profile, and drive content generation from Claude Chat, Cowork, Desktop, or
+Claude Code.
 
 This is why "pull the tasks from the CE dashboard" used to come back *not
 connected*: nothing was wired up. This plugin is the wiring.
@@ -19,34 +20,18 @@ claude plugin install caseengine@caseengine
 
 ## Connect
 
-> **Heads up — this changes in v0.2.** Pasting a key is temporary. Per-user
-> OAuth is being built: you'll sign in to your own Case Engine account in the
-> browser and Claude Code will handle the token, with no key to copy and no
-> environment variable to set. When that ships, update the plugin, run
-> `/caseengine:connect` once more to sign in, and delete
-> `CASE_ENGINE_MCP_KEY` — the keys issued below get revoked at cutover.
-
 Run `/caseengine:connect` and follow it. In short:
 
-1. Sign in to <https://tool.caseengine.com>.
-2. Open the Copilot widget (bottom-right), click the **plug** icon.
-3. Click **Generate my MCP key**, copy the `ce_mcp_...` value — shown once.
-4. Put it in your environment as `CASE_ENGINE_MCP_KEY`, then start a fresh
-   session.
-
-```powershell
-setx CASE_ENGINE_MCP_KEY "ce_mcp_..."
-```
-
-```bash
-export CASE_ENGINE_MCP_KEY="ce_mcp_..."
-```
+1. Click **Connect** or **Sign in** when Claude prompts you.
+2. Sign in to <https://tool.caseengine.com>.
+3. Review the access request and click **Allow access**.
+4. Return to Claude. No key or environment variable is required.
 
 ## Commands
 
 | Command | Does |
 |---|---|
-| `/caseengine:connect` | Mint a key, set it, verify the connection end-to-end |
+| `/caseengine:connect` | Sign in with Case Engine and verify the connection end-to-end |
 | `/caseengine:my-tasks` | Your open work queue, or one client's |
 | `/caseengine:meeting-doc` | Build a client meeting doc from live board data |
 
@@ -68,18 +53,16 @@ jobs, cancel a job, transition a piece.
   accept `'published'`.
 - **Approve your own work.** Enforced in the underlying service, not just
   here.
-- **Write anything on a read-only key.** Self-serve keys are read-only and
-  scoped to `tasks` + `content_generation`. `tasks_write` / `tasks_approve`
-  are grants from Connor.
+- **Write anything through the default OAuth grant.** OAuth access is
+  read-only and scoped to `tasks` + `content_generation`.
 - **Touch site changes.** Separate superadmin domain, not bundled here.
 - **Touch ClickUp.** Retired.
 
 ## Security
 
-The key is a per-user credential tied to your dashboard account — every write
-is attributed to you. Keep it in the environment, never in a repo, never
-pasted into a chat. Revoke from the same plugin panel that minted it. Max 5
-active keys per user.
+OAuth is per-user and tied to the Case Engine account that approved access.
+Claude receives opaque, short-lived access tokens and rotates refresh tokens;
+no Case Engine password or copied API key is stored in the plugin.
 
 ## Not to be confused with
 

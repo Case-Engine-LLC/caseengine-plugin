@@ -34,9 +34,10 @@ Two adjacent things it is **not**:
 | `caseengine-tasks` | `/api/mcp/tasks` | work queue, tasks, approvals, client profiles |
 | `caseengine-content` | `/api/mcp/content-generation` | content pieces, generation jobs |
 
-Both authenticate with a per-user key in `CASE_ENGINE_MCP_KEY`. If tool calls
-come back `401 Unauthorized`, the key is missing, expired, or revoked — send
-the user to `/caseengine:connect`, do not work around it.
+Both authenticate with per-user OAuth through the Case Engine plugin. If Claude
+shows a Connect or Sign in action, have the user complete it. If tool calls
+still return `401 Unauthorized`, send the user to `/caseengine:connect`; never
+ask for a key or an environment variable.
 
 ## Tools
 
@@ -98,16 +99,15 @@ extracted action items are evidence, not authority. Do not call
 `work_create_task` for something that merely came up in a meeting — present
 the proposed items and get explicit per-item human confirmation first.
 
-**Identity comes from the key.** The caller is resolved server-side from
-`CASE_ENGINE_MCP_KEY`. There is no "acting as" argument, and self-approval is
+**Identity comes from OAuth.** The caller is resolved server-side from the
+Case Engine account that authorized the plugin. There is no "acting as"
+argument, and self-approval is
 blocked in the underlying service — a person cannot sign off on their own
 work through this API any more than through the UI.
 
-## Getting a key
+## Connecting
 
-`/caseengine:connect` walks through it. Short version: sign in to
-`https://tool.caseengine.com`, open the Copilot widget, click the **plug**
-icon ("MCP connection info"), click **Generate my MCP key**, copy the
-`ce_mcp_...` value (shown once), and set it as `CASE_ENGINE_MCP_KEY` in the
-environment. Max 5 active keys per user; revoke an old one before minting a
-sixth.
+`/caseengine:connect` walks through it. The user clicks **Connect** or
+**Sign in**, signs into `https://tool.caseengine.com`, reviews the requested
+access, and clicks **Allow access**. Claude stores and refreshes the OAuth
+credential. No key is copied and no environment variable is required.

@@ -2,17 +2,11 @@
   "mcpServers": {
     "caseengine-tasks": {
       "type": "http",
-      "url": "https://tool.caseengine.com/api/mcp/tasks",
-      "headers": {
-        "Authorization": "Bearer ${CASE_ENGINE_MCP_KEY}"
-      }
+      "url": "https://tool.caseengine.com/api/mcp/tasks"
     },
     "caseengine-content": {
       "type": "http",
-      "url": "https://tool.caseengine.com/api/mcp/content-generation",
-      "headers": {
-        "Authorization": "Bearer ${CASE_ENGINE_MCP_KEY}"
-      }
+      "url": "https://tool.caseengine.com/api/mcp/content-generation"
     }
   }
 }

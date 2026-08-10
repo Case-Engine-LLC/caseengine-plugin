@@ -4,14 +4,14 @@
     "name": "Case Engine",
     "email": "connor@caseengine.ai"
   },
-  "description": "Case Engine internal plugin marketplace — connects Claude Code to the Case Engine dashboard (tool.caseengine.com) for tasks, approvals, client profiles, and content generation.",
-  "version": "0.1.0",
+  "description": "Case Engine internal plugin marketplace — connects Claude to the Case Engine dashboard (tool.caseengine.com) for tasks, approvals, client profiles, and content generation.",
+  "version": "0.2.0",
   "plugins": [
     {
       "name": "caseengine",
       "source": "./plugins/caseengine",
-      "description": "Read and act on Case Engine dashboard tasks, approvals, clients, and content from Claude Code.",
-      "version": "0.1.0",
+      "description": "Read and act on Case Engine dashboard tasks, approvals, clients, and content from Claude.",
+      "version": "0.2.0",
       "author": {
         "name": "Case Engine",
         "email": "connor@caseengine.ai"
