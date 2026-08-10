@@ -8,6 +8,8 @@ works. Do not stop at instructions — verify.
 ## 1. Check whether it is already working
 
 Call `work_list_items` (no arguments) on the `caseengine-tasks` server.
+Do not search an MCP registry or plugin catalog: the server is bundled in this
+plugin and its tools should already be present in the session.
 
 - **It returns items or an empty list** → already connected. Report the
   identity it resolved (`identity.personName` / `identity.email`) so the user
@@ -16,8 +18,9 @@ Call `work_list_items` (no arguments) on the `caseengine-tasks` server.
 - **`401 Unauthorized` without a sign-in option** → refresh or restart after
   updating the plugin, then continue.
 - **The tool does not exist / server not connected** → the plugin's MCP
-  servers did not load. Confirm the plugin is installed and the session was
-  restarted after installing, then continue.
+  servers did not load. State that exact failure. Do not replace it with a
+  walkthrough or claim the user can connect manually. Confirm plugin version
+  0.2.2 or later is installed and start a new session after updating.
 
 ## 2. Sign in
 
