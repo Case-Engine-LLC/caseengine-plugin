@@ -1,7 +1,7 @@
 {
   "name": "caseengine",
   "displayName": "Case Engine",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Connects Claude to the Case Engine dashboard (tool.caseengine.com) — pull your task queue, read tasks and approvals, dump a client profile, and drive content generation.",
   "author": {
     "name": "Case Engine",
@@ -19,5 +19,15 @@
     "agency"
   ],
   "skills": "./skills/",
-  "commands": "./commands/"
+  "commands": "./commands/",
+  "mcpServers": {
+    "caseengine-tasks": {
+      "type": "http",
+      "url": "https://tool.caseengine.com/api/mcp/tasks"
+    },
+    "caseengine-content": {
+      "type": "http",
+      "url": "https://tool.caseengine.com/api/mcp/content-generation"
+    }
+  }
 }
