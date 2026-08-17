@@ -37,7 +37,27 @@ The MCP servers this plugin points at live in
 **Adding a tool** is a webapp change, not a plugin change — add it to the
 catalog and it appears in `tools/list` automatically. Only update this repo
 when the tool inventory in `skills/caseengine/SKILL.md` drifts far enough to
-mislead, or when a new domain/server needs adding to `.mcp.json`.
+mislead, or when a new domain/server needs adding to the `mcpServers` block
+in `plugins/caseengine/.claude-plugin/plugin.json`.
+
+### Known blocker: OAuth loopback redirect
+
+Connecting currently fails in Claude Code with:
+
+```
+✗ Failed to connect — redirect_uri must be https, or http on a
+loopback address: http://localhost:<port>/callback
+```
+
+This is **not** a plugin bug. `/api/oauth/register` accepts
+`http://127.0.0.1:<port>/callback` but rejects `http://localhost:<port>/callback`,
+and Claude Code registers the `localhost` form. Because dynamic client
+registration fails, no Connect prompt is ever shown.
+
+Fix belongs in `case-engine-webapp`'s redirect-URI validator: treat the
+hostname `localhost` as loopback alongside the `127.0.0.1` and `::1` literals
+(RFC 8252 §7.3). Until that ships, no change in this repo will connect the
+plugin — do not bump versions chasing it.
 
 Validate before pushing:
 

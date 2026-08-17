@@ -19,8 +19,30 @@ plugin and its tools should already be present in the session.
   updating the plugin, then continue.
 - **The tool does not exist / server not connected** → the plugin's MCP
   servers did not load. State that exact failure. Do not replace it with a
-  walkthrough or claim the user can connect manually. Confirm plugin version
-  0.2.2 or later is installed and start a new session after updating.
+  walkthrough or claim the user can connect manually. Run `claude mcp list`
+  and read the error before doing anything else — in particular, check it
+  against the known server-side failure below.
+
+### Known failure: loopback redirect rejected
+
+If `claude mcp list` reports:
+
+```
+plugin:caseengine:caseengine-tasks: ... - ✗ Failed to connect —
+redirect_uri must be https, or http on a loopback address:
+http://localhost:<port>/callback
+```
+
+then the plugin is installed correctly and the fault is server-side. The
+Case Engine OAuth server's dynamic-client-registration endpoint
+(`/api/oauth/register`) rejects `localhost` as a loopback host, and Claude
+Code registers exactly that redirect URI. Registration fails, so no Connect
+prompt is ever offered.
+
+**Reinstalling the plugin, bumping its version, or starting a new session
+will not fix this.** The fix belongs in `case-engine-webapp`: treat the
+hostname `localhost` as loopback alongside `127.0.0.1` and `::1`. Report it
+and stop; do not loop on plugin reinstalls.
 
 ## 2. Sign in
 
