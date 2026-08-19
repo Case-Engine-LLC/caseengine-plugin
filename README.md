@@ -40,24 +40,16 @@ when the tool inventory in `skills/caseengine/SKILL.md` drifts far enough to
 mislead, or when a new domain/server needs adding to the `mcpServers` block
 in `plugins/caseengine/.claude-plugin/plugin.json`.
 
-### Known blocker: OAuth loopback redirect
+### Resolved: OAuth loopback redirect
 
-Connecting currently fails in Claude Code with:
-
-```
-✗ Failed to connect — redirect_uri must be https, or http on a
-loopback address: http://localhost:<port>/callback
-```
-
-This is **not** a plugin bug. `/api/oauth/register` accepts
-`http://127.0.0.1:<port>/callback` but rejects `http://localhost:<port>/callback`,
-and Claude Code registers the `localhost` form. Because dynamic client
-registration fails, no Connect prompt is ever shown.
-
-Fix belongs in `case-engine-webapp`'s redirect-URI validator: treat the
-hostname `localhost` as loopback alongside the `127.0.0.1` and `::1` literals
-(RFC 8252 §7.3). Until that ships, no change in this repo will connect the
-plugin — do not bump versions chasing it.
+Connecting used to fail in Claude Code with `redirect_uri must be https, or
+http on a loopback address: http://localhost:<port>/callback` —
+`/api/oauth/register` rejected the `localhost` form Claude Code registers.
+Fixed server-side in `case-engine-webapp`
+[#1587](https://github.com/Case-Engine-LLC/case-engine-webapp/pull/1587),
+merged 2026-08-11 and live on `main`. If a teammate still hits this exact
+error, they're likely on a session that predates the fix — have them retry
+`/caseengine:connect` in a fresh session before assuming it's back.
 
 Validate before pushing:
 

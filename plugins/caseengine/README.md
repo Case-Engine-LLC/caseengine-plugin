@@ -34,6 +34,8 @@ Run `/caseengine:connect` and follow it. In short:
 | `/caseengine:connect` | Sign in with Case Engine and verify the connection end-to-end |
 | `/caseengine:my-tasks` | Your open work queue, or one client's |
 | `/caseengine:meeting-doc` | Build a client meeting doc from live board data |
+| `/caseengine:approvals` | Pending approvals waiting on a decision, or one client's |
+| `/caseengine:workload` | Open/overdue/awaiting-review counts per person on the team |
 
 You do not have to use the commands. With the plugin installed, "what's on my
 plate in CE?" or "pull Wolf's open tasks" routes correctly on its own.
