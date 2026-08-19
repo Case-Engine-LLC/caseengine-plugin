@@ -40,9 +40,12 @@ plate in CE?" or "pull Wolf's open tasks" routes correctly on its own.
 
 ## What it can do
 
-**`caseengine-tasks`** — `work_list_items`, `work_get_task`,
-`work_list_approvals`, `client_get_profile`, plus (capability-gated)
-`work_create_task`, `work_transition_task`, `work_approve_step`.
+**`caseengine-tasks`** — `work_list_items`, `work_get_task`, `work_list_tasks`,
+`work_list_people`, `work_team_workload`, `work_list_approvals`,
+`client_get_profile`, plus (capability-gated) `work_create_task`,
+`work_assign_task`, `work_transition_task`, `work_approve_step`. Creating or
+assigning a task to someone else needs no special role beyond the standard
+OAuth grant below — resolve their id with `work_list_people` first.
 
 **`caseengine-content`** — list/get content pieces, poll and start generation
 jobs, cancel a job, transition a piece.
@@ -52,9 +55,10 @@ jobs, cancel a job, transition a piece.
 - **Publish to WordPress.** Not exposed. `content_transition_piece` does not
   accept `'published'`.
 - **Approve your own work.** Enforced in the underlying service, not just
-  here.
-- **Write anything through the default OAuth grant.** OAuth access is
-  read-only and scoped to `tasks` + `content_generation`.
+  here — this holds even though the OAuth grant below includes
+  `tasks_approve`.
+- **Write content generation through the default OAuth grant.** OAuth access
+  for `content_generation` stays read-only.
 - **Touch site changes.** Separate superadmin domain, not bundled here.
 - **Touch ClickUp.** Retired.
 

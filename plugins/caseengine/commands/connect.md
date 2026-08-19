@@ -71,9 +71,10 @@ same Case Engine account completed consent, then retry in a fresh conversation.
 
 ## Scope note
 
-An OAuth grant is **read-only** and scoped to the `tasks` and
-`content_generation` domains. Write tools (`work_create_task`,
-`work_transition_task`, `work_approve_step`) return
-`{ success: false, error: "missing_capability" }`. Site-change tools are a
-separate superadmin grant and are not part of this plugin. Do not look for
-another route around those controls.
+An OAuth grant is scoped to the `tasks` and `content_generation` domains.
+Within `tasks`, consent grants full read/write/approve access — creating,
+assigning, transitioning, and approving work items. `content_generation`
+stays read-only; its write tools return
+`{ success: false, error: "missing_capability" }` until that changes.
+Site-change tools are a separate superadmin grant and are not part of this
+plugin. Do not look for another route around those controls.
