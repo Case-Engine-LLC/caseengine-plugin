@@ -50,6 +50,17 @@ ask for a key or an environment variable.
   - Pass `client_id` for one client's queue.
   - `include_closed: true` to see completed items (default is open only).
 - `work_get_task` — one `campaign_task` by id, full row.
+- `work_list_tasks` — one selected person's tasks across all clients (or the
+  whole team's), with an `active_only` filter — the team-planning counterpart
+  to `work_list_items`'s "my work" view.
+- `work_list_people` — the active staff directory (id, full_name, job_title,
+  email, status). Use this to resolve a name like "Connor Gallic" to a
+  `person_id` before assigning a task to them — there is no name-matching
+  argument on the write tools themselves, by design (a prior fuzzy-match
+  helper elsewhere in the system was removed after it silently matched the
+  wrong person).
+- `work_team_workload` — open/overdue/awaiting-review counts per person, as of
+  a given date, for reasoning about who's overloaded.
 - `work_list_approvals` — approvals with their steps; filter by `client_id`,
   `entity_type`, `status`.
 - `client_get_profile` — full client dump by UUID **or slug**: the `clients`
@@ -58,15 +69,27 @@ ask for a key or an environment variable.
 
 ### Writing work
 
-- `work_create_task` — create a one-off internal task. **Always self-assigned**
-  to the caller; there is no "assign to someone else" option.
+- `work_create_task` — create a one-off internal task. Defaults to
+  self-assigned; pass `deliverer_person_id` (and optionally
+  `verifier_person_id`) to assign it to someone else at creation time —
+  resolve the name to an id via `work_list_people` first.
+- `work_assign_task` — reassign an **existing** task's deliverer or verifier
+  to someone else. Use this instead of `work_create_task` when the task
+  already exists. No ownership check beyond the target being an active person
+  — the same bar the staff UI holds.
 - `work_transition_task` — move a task to a new status.
 - `work_approve_step` — approve or reject a manual approval step.
 
 Write tools need capabilities on the key (`tasks_write`, and `tasks_approve`
-for approving). A self-serve key is **read-only** by default and returns
-`{ success: false, error: "missing_capability", required: "tasks_write" }`.
-That is a scope grant from Connor, not a bug to route around.
+for approving). Completing the OAuth consent screen for the `tasks` scope
+grants both automatically — every staff member who connects the plugin can
+create, assign, and approve work items, not just read them. (Self-approval is
+still blocked in the underlying service regardless of this grant — a person
+can't sign off on their own work through this API any more than through the
+UI.) A statically-minted `ce_mcp_` key is the one exception: those stay
+read-only until a superadmin grants capabilities on that specific key — if a
+write tool returns `{ success: false, error: "missing_capability", required:
+"tasks_write" }`, that's the credential type you're on.
 
 ### Content generation
 
