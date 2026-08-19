@@ -22,7 +22,12 @@ Two adjacent things it is **not**:
 
 - **ClickUp.** Retired. Do not create, close, or comment on ClickUp work.
   Native `campaign_plan` / `campaign_task` lifecycle is the only operational
-  task system.
+  task system. `work_list_items` no longer has a `clickup` source at all —
+  it used to, and would routinely fail with an aggregator error
+  (`invalid input syntax for type json`) reading the stale ClickUp mirror
+  table. If you see a `clickup` entry in `errors` again, that's a
+  regression, not expected noise — say so rather than reporting a partial
+  queue as complete.
 - **The Content Generator MCP** at `contentgenapi.caseengine.com`. That is a
   separate external server with its own shared secret. This plugin's
   `caseengine-content` server is the dashboard's own per-user content layer.
@@ -49,10 +54,19 @@ ask for a key or an environment variable.
   - Omit `client_id` for the caller's **own** "my work" view.
   - Pass `client_id` for one client's queue.
   - `include_closed: true` to see completed items (default is open only).
-- `work_get_task` — one `campaign_task` by id, full row.
+  - Paginated — `limit` (default 100, max 500) and `offset`; the response
+    carries `total_count` and `has_more`. A default-scoped personal query
+    across every source routinely runs past 500 open items, so check
+    `has_more` before treating a page as the whole queue.
+- `work_get_task` — one `campaign_task` by id, full row, plus `url`: the
+  task's in-app deep link (`https://tool.caseengine.com/my-tasks?taskId=…`).
 - `work_list_tasks` — one selected person's tasks across all clients (or the
   whole team's), with an `active_only` filter — the team-planning counterpart
-  to `work_list_items`'s "my work" view.
+  to `work_list_items`'s "my work" view. Each task includes `url`. Also
+  paginated — `limit` (default 200, max 1000) and `offset`, response carries
+  `total_count`/`has_more`. Pass `active_only: true` whenever you don't
+  specifically need closed/cancelled history — an unfiltered pull for one
+  person can be 800+ rows.
 - `work_list_people` — the active staff directory (id, full_name, job_title,
   email, status). Use this to resolve a name like "Connor Gallic" to a
   `person_id` before assigning a task to them — there is no name-matching
@@ -116,6 +130,17 @@ works without a UUID lookup. Use the returned `client.id` for
 queue is empty, say it is empty — do not pad a meeting doc with plausible
 work. `work_list_items` also returns `unmatched` and `errors`; if either is
 non-empty, surface it rather than silently presenting a partial list.
+
+**Watch `has_more`.** `work_list_items` and `work_list_tasks` are both
+paginated (see above). A truncated page silently presented as the whole
+queue is worse than the same page with "and N more" — check `has_more`
+before you say "that's everything," and page with `offset` (or narrow with
+`client_id`/`active_only`) instead of assuming one call got it all.
+
+**Link back to the dashboard, don't paraphrase an id.** Every task-shaped
+result now carries a ready-to-use `url` — a bare id or a hand-built path is
+never necessary. When presenting tasks to a person, use that `url` directly
+rather than composing one.
 
 **Never invent a task from a meeting.** Fathom recordings, transcripts, and
 extracted action items are evidence, not authority. Do not call
