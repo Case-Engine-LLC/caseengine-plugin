@@ -20,12 +20,16 @@ that client. Empty means the caller's own "my work" view.
      client.
 
 2. **Group and present.** Group by client (or by source, for a single-client
-   queue). Per item show: title, status, source, due date if set, and the id.
+   queue). Per item show: title, status, source, due date if set, and its
+   `url` — link to the task itself, don't paraphrase a bare id.
    Lead with what is overdue or blocked — not with the longest list.
 
 3. **Surface gaps.** If the response has non-empty `unmatched` or `errors`,
    say so explicitly. A partial queue presented as complete is worse than an
-   error.
+   error. Same for `has_more: true` — `work_list_items` is paginated
+   (100/page by default), so a large queue needs more than one call
+   (`offset`) before "here's everything" is true; say how many you're
+   showing out of `total_count` if you stop short.
 
 4. **Confirm identity once.** State the `identity.personName` / `email` the
    server resolved, so a wrong-key situation is obvious immediately rather
