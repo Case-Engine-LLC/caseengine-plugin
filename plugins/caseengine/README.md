@@ -76,8 +76,12 @@ Four pieces:
 - **`hooks/content_check.py`** — the pre-submission checklist from Section 6 of
   the Content Writing Training Guide, run against a draft: H1 pattern, heading
   hierarchy, numerals, settlement ranges, win-rate band, city density, italicised
-  CTAs, placeholders, firm naming. Catches the guide's five named rejection
-  reasons before a draft is sent rather than a day later.
+  CTAs, placeholders, firm naming — plus Maja's legal-content-review skill (the
+  Algorithmic Authorship rules and banned-phrase blocklist, returning the
+  replacement rather than just the objection) and a uniqueness score against the
+  client's other drafts using the same shingle method and 60% floor as the
+  pipeline's own checker. Catches the guide's five named rejection reasons before
+  a draft is sent rather than a day later.
 
 Two kinds of evidence count. A **verify** is something observed on a public
 surface — a URL returned 200, an API confirmed the post. An **attestation** is a

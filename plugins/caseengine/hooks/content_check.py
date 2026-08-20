@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Run the pre-submission checklist against a draft before it gets sent.
 
-Section 6 of the Content Writing Training Guide is a checklist writers are
-supposed to complete before submitting, and it lists five "common rejection
-reasons". Most of those rejections are mechanical — a skipped heading level, a
+Three rulesets live behind this, and none of them were being checked
+automatically: Section 6 of the Content Writing Training Guide (the
+pre-submission checklist and its five named rejection reasons), Maja's
+legal-content-review skill (the Algorithmic Authorship rules and the banned
+phrase blocklist), and the pipeline's own uniqueness threshold. Most of those rejections are mechanical — a skipped heading level, a
 spelled-out number, a settlement range that does not end in "+" — and a person
 re-reading their own draft is the worst possible instrument for catching them.
 
@@ -27,6 +29,44 @@ import json
 import re
 import sys
 from pathlib import Path
+
+# Maja's legal-content-review skill: the Algorithmic Authorship blocklist.
+# These are "automatic failure" phrases — the replacement matters as much as the
+# ban, so the checker hands back what to write instead rather than just objecting.
+BANNED = {
+    "for example": "integrate the example into the sentence",
+    "for instance": "list examples directly after a declaration",
+    "maximum compensation": "full compensation",
+    "maximum recovery": "fair compensation",
+    "maximize your compensation": "the compensation you deserve",
+    "maximize recovery": "complete recovery",
+    "maximum damages": "fair damages",
+    "maximum settlement": "the settlement you're entitled to",
+    "maximizing your": "recovering your full",
+    "maximizing compensation": "pursuing fair compensation",
+    "expert attorney": "experienced attorney",
+    "expert lawyer": "skilled lawyer",
+    "attorney expert": "knowledgeable attorney",
+    "lawyer expert": "seasoned lawyer",
+    "our experts": "our attorneys",
+    "legal experts": "legal professionals",
+    "expertise in": "experience with",
+    "specialized expertise": "focused experience",
+    "specialist attorney": "qualified attorney",
+    "specialist lawyer": "dedicated lawyer",
+    "in conclusion": "just state the content",
+    "in summary": "just state the content",
+    "it's important to note": "state the fact directly",
+    "it's crucial to": "state the requirement directly",
+    "when it comes to": "remove and rephrase",
+    "navigating the": "use a specific action verb",
+    "comprehensive approach": "describe the specific actions",
+    "complex legal": "be specific about what is complex",
+}
+
+# Allowed, but rationed — three per document.
+RATIONED = {"such as": 3, "including but not limited to": 3, "moreover": 3,
+            "furthermore": 3, "additionally": 3}
 
 NUMBER_WORDS = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
                 "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
@@ -164,8 +204,120 @@ def check_firm(text: str, args) -> list[dict]:
                     "Use the firm name from the assignment, spelled consistently.")]
 
 
+def check_banned(text: str, _args) -> list[dict]:
+    body = text.lower()
+    hits = [(b, r) for b, r in BANNED.items() if b in body]
+    detail = "; ".join(f'"{b}" → {r}' for b, r in hits[:4])
+    if len(hits) > 4:
+        detail += f" (+{len(hits) - 4} more)"
+    return [finding("no banned phrases", not hits,
+                    detail if hits else f"clean against {len(BANNED)} blocked phrases",
+                    "Algorithmic Authorship blocklist — these are automatic rejections.")]
+
+
+def check_rationed(text: str, _args) -> list[dict]:
+    body = text.lower()
+    over = [f'"{w}" ×{body.count(w)}' for w, cap in RATIONED.items() if body.count(w) > cap]
+    return [finding("connectives within their limit", not over,
+                    ", ".join(over) if over else "all within 3 per document",
+                    "such as / moreover / furthermore / additionally: three per document.")]
+
+
+def check_em_dash(text: str, _args) -> list[dict]:
+    n = len(re.findall(r"—|(?<!-)--(?!-)", text))
+    return [finding("no em-dashes", n == 0, f"{n} found" if n else "none",
+                    "Use commas, semicolons or parentheses instead.")]
+
+
+def check_heading_integration(text: str, _args) -> list[dict]:
+    """Rule: the first sentence after a heading must pick up words from it."""
+    lines = text.splitlines()
+    misses = []
+    for i, line in enumerate(lines):
+        m = re.match(r"^#{2,6}\s+(.*)", line.strip())
+        if not m:
+            continue
+        title = m.group(1)
+        words = {w.lower() for w in re.findall(r"[A-Za-z]{4,}", title)}
+        if not words:
+            continue
+        nxt = next((l.strip() for l in lines[i + 1:i + 5]
+                    if l.strip() and not l.strip().startswith(("#", "-", "*", "|"))), "")
+        if not nxt:
+            continue
+        first = nxt.split(".")[0].lower()
+        if not any(w in first for w in words):
+            misses.append(title[:40])
+    return [finding("first sentence echoes its heading", not misses,
+                    "; ".join(misses[:4]) if misses else "every section opens on its heading",
+                    "The sentence after a heading must reuse key words from it.")]
+
+
+def check_bold_usage(text: str, _args) -> list[dict]:
+    """Bold is for headings and list labels only, never mid-paragraph."""
+    bad = []
+    for line in text.splitlines():
+        st = line.strip()
+        if not st or st.startswith(("#", "-", "*", "|", ">")):
+            continue
+        if re.search(r"\*\*[^*]+\*\*", st) and not st.startswith("**"):
+            bad.append(st[:52])
+    return [finding("bold only on headings and labels", not bad,
+                    f"{len(bad)} paragraph(s) with inline bold" + (f": {bad[0]}" if bad else ""),
+                    "Bold headings and list headwords; never bold inside prose.")]
+
+
+def check_clause_placement(text: str, _args) -> list[dict]:
+    """Rules 1-2: if/when/because/as clauses move to the END of the sentence."""
+    hits = re.findall(r"(?:^|\.\s+)((?:If|When|Because|As)\s+[^.]{10,70}\.)", text)
+    return [finding("subordinate clauses at the end", len(hits) <= 2,
+                    f"{len(hits)} sentence(s) open with if/when/because/as"
+                    + (f': "{hits[0][:50]}"' if hits else ""),
+                    "Move the clause to the end: 'You may recover damages if...'")]
+
+
+def _shingles(text: str, n: int = 5) -> set:
+    words = re.findall(r"[a-z0-9]+", text.lower())
+    return {tuple(words[i:i + n]) for i in range(max(0, len(words) - n + 1))}
+
+
+def check_uniqueness(text: str, args) -> list[dict]:
+    """Uniqueness against the client's other drafts, the way the VPS checker does it.
+
+    The engine reuses the same sentence skeletons across a client's city and
+    practice-area pages, and that is the biggest controllable cause of a low
+    originality score. Word-shingle overlap against sibling files catches it
+    before anything reaches a paid scanner.
+    """
+    if not args.against:
+        return [finding("uniqueness vs sibling pages", True,
+                        "no --against directory given, skipped", "")]
+    folder = Path(args.against).expanduser()
+    if not folder.is_dir():
+        return [finding("uniqueness vs sibling pages", True, f"{folder} is not a directory", "")]
+    mine = _shingles(text)
+    if not mine:
+        return [finding("uniqueness vs sibling pages", True, "draft too short to score", "")]
+    worst, worst_name = 0.0, ""
+    for sib in sorted(folder.glob("*.md")):
+        if sib.resolve() == Path(args.file).expanduser().resolve():
+            continue
+        overlap = len(mine & _shingles(sib.read_text(encoding="utf-8", errors="replace")))
+        score = overlap / len(mine)
+        if score > worst:
+            worst, worst_name = score, sib.name
+    unique_pct = round((1 - worst) * 100)
+    return [finding(f"uniqueness ≥ {args.threshold}%", unique_pct >= args.threshold,
+                    f"{unique_pct}% unique"
+                    + (f"; closest sibling {worst_name} shares {round(worst * 100)}%" if worst_name else ""),
+                    "Rewrite the repeated passages — reused skeletons across a client's "
+                    "pages are the main cause of low originality scores.")]
+
+
 CHECKS = [check_h1, check_hierarchy, check_numerals, check_settlements, check_win_rates,
-          check_city_density, check_ctas, check_placeholders, check_firm]
+          check_city_density, check_ctas, check_placeholders, check_firm,
+          check_banned, check_rationed, check_em_dash, check_heading_integration,
+          check_bold_usage, check_clause_placement, check_uniqueness]
 
 
 def main() -> int:
@@ -173,6 +325,10 @@ def main() -> int:
     ap.add_argument("--file", required=True, help="markdown or text file holding the draft")
     ap.add_argument("--city", default="", help="target city, for the H1 and density rules")
     ap.add_argument("--firm", default="", help="firm name from the assignment")
+    ap.add_argument("--against", default="",
+                    help="directory of the client's other drafts, for the uniqueness score")
+    ap.add_argument("--threshold", type=int, default=60,
+                    help="minimum uniqueness percent (default 60, matching the pipeline)")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 

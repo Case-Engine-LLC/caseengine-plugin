@@ -66,13 +66,28 @@ Save the draft and run:
 
 ```bash
 python3 "${CLAUDE_PLUGIN_ROOT}/hooks/content_check.py" \
-  --file draft.md --city "<target city>" --firm "<firm name>"
+  --file draft.md --city "<target city>" --firm "<firm name>" \
+  --against <folder of this client's other drafts>
 ```
 
-It checks the H1 pattern, heading hierarchy with no skipped levels, numerals over
-spelled-out numbers, settlement ranges starting low and ending in "+", win rates
-inside the 70–92% band, city density, italicised CTAs, leftover placeholders and
-consistent firm naming.
+It runs three rulesets that were never checked automatically:
+
+- **The training guide's checklist** — H1 pattern, heading hierarchy with no
+  skipped levels, numerals over spelled-out numbers, settlement ranges starting
+  low and ending in "+", win rates inside the 70–92% band, city density,
+  italicised CTAs, placeholders, consistent firm naming.
+- **Maja's legal-content-review skill** — the Algorithmic Authorship rules and
+  the banned-phrase blocklist. It gives you the replacement, not just the
+  objection: *"maximum compensation" → full compensation*, *"legal experts" →
+  legal professionals*. Plus em-dashes, bold used mid-paragraph, subordinate
+  clauses opening a sentence instead of closing it, connectives rationed to
+  three per document, and the rule that the first sentence after a heading must
+  reuse words from that heading.
+- **Uniqueness** — word-shingle overlap against the client's other drafts, the
+  same method the pipeline's own checker uses, with the same 60% floor. Reused
+  sentence skeletons across a client's city and practice-area pages are the
+  single biggest controllable cause of a low originality score, and this catches
+  them before anything reaches a paid scanner.
 
 Fix what it flags, then run it again. A clean run is what "ready to send" means.
 
