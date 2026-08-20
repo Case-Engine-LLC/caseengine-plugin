@@ -24,10 +24,33 @@ from pathlib import Path
 
 SCHEMA = "caseengine.evidence.v1"
 
-# How long an observation stays good for. Long enough to gather evidence, do a
-# little more work, and then close; short enough that yesterday's check cannot
-# quietly satisfy today's close.
-DEFAULT_TTL_HOURS = 12
+# How long evidence stays good for.
+#
+# Originally 12 hours, which was wrong for how people actually work. A client
+# approves something on Friday afternoon and the account manager closes it out
+# Monday morning; under a 12-hour window that approval had expired and the
+# person got blocked for doing nothing wrong. 72 hours covers a weekend, which
+# is the shortest span that survives contact with a real week.
+#
+# Override with CASEENGINE_EVIDENCE_TTL_HOURS, or `ttl_hours` in proof.json.
+DEFAULT_TTL_HOURS = 72
+
+
+def ttl_hours(default: int = DEFAULT_TTL_HOURS) -> int:
+    """Resolve the evidence window: env, then config file, then the default."""
+    raw = os.environ.get("CASEENGINE_EVIDENCE_TTL_HOURS")
+    if not raw:
+        try:
+            config_path = Path.home() / ".claude" / "caseengine" / "proof.json"
+            if config_path.exists():
+                raw = json.loads(config_path.read_text(encoding="utf-8")).get("ttl_hours")
+        except Exception:
+            raw = None
+    try:
+        value = int(raw)
+        return value if value > 0 else default
+    except (TypeError, ValueError):
+        return default
 
 # Statuses that mean "this work is finished" and therefore need evidence behind
 # them. Mirrors TASK_TRANSITION_STATUSES in the webapp; anything not listed here
@@ -44,6 +67,18 @@ def now() -> datetime:
 
 
 def evidence_dir() -> Path:
+    """Where the ledger lives.
+
+    Defaults to this machine, which is the honest limitation of this version:
+    evidence recorded on one person's laptop is invisible to everybody else. If
+    the designer checks a page and the account manager closes the task, the gate
+    sees nothing and blocks the wrong person.
+
+    Pointing CASEENGINE_EVIDENCE_DIR at a shared or synced directory makes a
+    team share one ledger, which is a workable stopgap. The real fix is writing
+    evidence to Supabase alongside the task so it is simply a fact about the
+    work rather than a file on somebody's machine.
+    """
     override = os.environ.get("CASEENGINE_EVIDENCE_DIR")
     if override:
         return Path(override).expanduser()
@@ -69,12 +104,13 @@ def append(entry: dict) -> None:
         pass
 
 
-def read_recent(ttl_hours: int = DEFAULT_TTL_HOURS) -> list[dict]:
-    """Every observation still inside its TTL. Reads today's file and
-    yesterday's, so a check made at 23:50 still counts at 00:10."""
-    cutoff = now() - timedelta(hours=ttl_hours)
+def read_recent(hours: int | None = None) -> list[dict]:
+    """Every piece of evidence still inside the window. Reads back far enough
+    to cover the window itself, so a Friday approval is still there on Monday."""
+    window = hours if hours is not None else ttl_hours()
+    cutoff = now() - timedelta(hours=window)
     entries: list[dict] = []
-    for day_offset in (0, 1):
+    for day_offset in range(0, int(window / 24) + 2):
         path = ledger_path(now() - timedelta(days=day_offset))
         if not path.exists():
             continue
@@ -117,7 +153,7 @@ def read_recent(ttl_hours: int = DEFAULT_TTL_HOURS) -> list[dict]:
 EVIDENCE_KINDS = ("verify", "attestation")
 
 
-def evidence_for_task(task_id: str, ttl_hours: int = DEFAULT_TTL_HOURS) -> list[dict]:
+def evidence_for_task(task_id: str, hours: int | None = None) -> list[dict]:
     """Evidence bound to this task and still in date. Matching is exact on the
     task id — a screenshot of a different page is not evidence for this ticket,
     which is the whole point."""
@@ -126,7 +162,7 @@ def evidence_for_task(task_id: str, ttl_hours: int = DEFAULT_TTL_HOURS) -> list[
     needle = task_id.strip().lower()
     return [
         e
-        for e in read_recent(ttl_hours)
+        for e in read_recent(hours)
         if str(e.get("task_id", "")).strip().lower() == needle
         and e.get("kind") in EVIDENCE_KINDS
         and passing(e.get("status"))

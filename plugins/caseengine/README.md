@@ -79,6 +79,22 @@ python3 "$CLAUDE_PLUGIN_ROOT/hooks/record.py" \
   --note "HTTP 200, headline matches the brief"
 ```
 
+### Known limits, in plain terms
+
+**The ledger is per-machine.** Evidence recorded on one person's laptop is
+invisible to everyone else. If the designer checks a page and the account
+manager closes the task, the gate sees nothing and blocks the wrong person.
+Point `CASEENGINE_EVIDENCE_DIR` at a shared or synced directory as a stopgap;
+the real fix is writing evidence to Supabase next to the task, so it is a fact
+about the work rather than a file on somebody's machine.
+
+**It only governs work done through Claude.** Someone clicking Done in the
+dashboard never touches this hook. The database trigger on website tasks
+governs everything regardless of client — this does not.
+
+**Evidence expires after 72 hours** by default, which covers a weekend. Change
+it with `CASEENGINE_EVIDENCE_TTL_HOURS` or `ttl_hours` in `proof.json`.
+
 ### Modes
 
 | `CASEENGINE_PROOF_MODE` | Behaviour |

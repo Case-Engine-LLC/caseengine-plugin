@@ -42,10 +42,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from ledger import (  # noqa: E402
     COMPLETION_STATUSES,
-    DEFAULT_TTL_HOURS,
     append,
     evidence_for_task,
     find_task_id,
+    ttl_hours,
 )
 
 # The dashboard MCP tools that can finish a task. Suffix-matched so the
@@ -118,11 +118,12 @@ def missing_evidence_message(task_id: str, status: str, enforcing: bool) -> str:
         else "This close is being allowed, but nothing was recorded. Record what you observed."
     )
     return (
-        f"{lead}: moving task {task_id} to '{status}' with no observation on record "
-        f"from the last {DEFAULT_TTL_HOURS}h.\n\n"
+        f"{lead}: moving task {task_id} to '{status}' with no evidence on record "
+        f"from the last {ttl_hours()}h.\n\n"
         "A task is not done because the work ran. It is done because someone "
         "looked at the result. Do that, then write down what you looked at:\n\n"
-        f'  /caseengine:prove {task_id} <url-or-what-you-checked>\n\n'
+        "  /caseengine:prove <task>          you checked it yourself\n"
+        "  /caseengine:approved <task>       a client approved it in Slack or via an AM\n\n"
         "Or record it directly:\n\n"
         f'  python3 "$CLAUDE_PLUGIN_ROOT/hooks/record.py" \\\n'
         f'    --task {task_id} --status pass \\\n'
