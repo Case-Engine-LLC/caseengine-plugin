@@ -58,15 +58,30 @@ ask for a key or an environment variable.
     carries `total_count` and `has_more`. A default-scoped personal query
     across every source routinely runs past 500 open items, so check
     `has_more` before treating a page as the whole queue.
-- `work_get_task` — one `campaign_task` by id, full row, plus `url`: the
-  task's in-app deep link (`https://tool.caseengine.com/my-tasks?taskId=…`).
+  - Every row carries **two** statuses. `status` is the canonical bucket
+    (`backlog` / `active` / `blocked` / `in_review` / `approved` / `done` /
+    `dropped`); `rawStatus` is the source's own value (`todo`,
+    `in_progress`, `needs_approval`, …). Only `rawStatus` is a legal
+    `work_transition_task` argument. The response ships `status_legend`,
+    `my_role_legend` and `counting_basis` so the mapping is on screen rather
+    than guessed — including `myRole: "both"`, a task where the caller is
+    deliverer *and* verifier (self-review, no second pair of eyes).
+- `work_get_task` — one `campaign_task` by id, full row (including
+  `description`, the SOP body the list tools omit), plus `url`: the task's
+  in-app deep link (`https://tool.caseengine.com/my-tasks?taskId=…`) and
+  `allowed_transitions`, the statuses `work_transition_task` will accept from
+  where this task is now.
 - `work_list_tasks` — one selected person's tasks across all clients (or the
   whole team's), with an `active_only` filter — the team-planning counterpart
   to `work_list_items`'s "my work" view. Each task includes `url`. Also
   paginated — `limit` (default 200, max 1000) and `offset`, response carries
   `total_count`/`has_more`. Pass `active_only: true` whenever you don't
   specifically need closed/cancelled history — an unfiltered pull for one
-  person can be 800+ rows.
+  person can be 800+ rows. Rows return a summary field set that omits
+  `description` (the SOP markdown, byte-identical across every task built
+  from the same template item) and report `description_chars` instead; pass
+  `fields: [...]` to choose columns explicitly, or read the one task you
+  actually need with `work_get_task`. `status` here is the **raw** value.
 - `work_list_people` — the active staff directory (id, full_name, job_title,
   email, status). Use this to resolve a name like "Connor Gallic" to a
   `person_id` before assigning a task to them — there is no name-matching
@@ -74,12 +89,25 @@ ask for a key or an environment variable.
   helper elsewhere in the system was removed after it silently matched the
   wrong person).
 - `work_team_workload` — open/overdue/awaiting-review counts per person, as of
-  a given date, for reasoning about who's overloaded.
+  a given date, for reasoning about who's overloaded. Counts `campaign_task`
+  only, and `open` counts only tasks a person **delivers** — verifier work is
+  in `awaiting_review`, and the other five sources are not counted. That is a
+  narrower question than `work_list_items` answers, so the two totals differ
+  by design; the response returns `counting_basis` and `tasks_counted` saying
+  which. Do not present one number as a correction of the other.
 - `work_list_approvals` — approvals with their steps; filter by `client_id`,
   `entity_type`, `status`.
+- `client_list` — the client directory: `id`, `name`, `official_name`, `slug`,
+  `aliases`, `status`, `canonical_id`, `merged_into`. The client-side
+  counterpart to `work_list_people`, and the way to turn a spoken name into an
+  exact id. Filter with `query` (matches name, official name, slug and
+  aliases), `status`, `include_inactive`, `include_merged`.
 - `client_get_profile` — full client dump by UUID **or slug**: the `clients`
   row plus branding, integrations, SEO config, services, team assignments,
-  websites, custom fields, links, GBP locations, social accounts.
+  websites, custom fields, links, GBP locations, social accounts. Null columns
+  and `gbp_embed_code` (`<iframe>` markup, one per location) are omitted by
+  default — pass `include_null_fields` / `include_embed_codes` when you
+  genuinely need them.
 
 ### Writing work
 
@@ -91,7 +119,12 @@ ask for a key or an environment variable.
   to someone else. Use this instead of `work_create_task` when the task
   already exists. No ownership check beyond the target being an active person
   — the same bar the staff UI holds.
-- `work_transition_task` — move a task to a new status.
+- `work_transition_task` — move a task to a new status. `status` is a fixed
+  set — `todo`, `in_progress`, `needs_approval`, `approved`, `done`,
+  `blocked`, `cancelled` — enumerated in the tool's own schema, so read it
+  there rather than guessing between `done`/`complete` or
+  `cancelled`/`canceled`. It takes the **raw** value, not the canonical
+  bucket `work_list_items` shows in `status`.
 - `work_approve_step` — approve or reject a manual approval step.
 
 Write tools need capabilities on the key (`tasks_write`, and `tasks_approve`
@@ -121,10 +154,13 @@ publishing to WordPress is not exposed through MCP.
 filtering. Do not reach for `work_get_task` in a loop until you know which
 tasks matter.
 
-**Resolve the client first when a name is mentioned.** `client_get_profile`
-accepts a slug, so `client_get_profile({ client_id: "wolf-of-law-street" })`
-works without a UUID lookup. Use the returned `client.id` for
-`work_list_items`.
+**Resolve the client first when a name is mentioned — from `client_list`, not
+from a guess.** Every `client_*` tool and `client_id` filter takes a UUID or a
+slug, and a wrong slug returns an empty result that looks exactly like a client
+with no work. Call `client_list({ query: "wolf" })`, pick the exact `id`, and
+use it — the same discipline `work_list_people` exists to enforce for people.
+Guessing a slug from a firm's name is how you report "nothing open" for a busy
+client.
 
 **Report what the data says.** These tools return the real board state. If a
 queue is empty, say it is empty — do not pad a meeting doc with plausible

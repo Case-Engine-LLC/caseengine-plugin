@@ -13,9 +13,10 @@ that client. Empty means the caller's own "my work" view.
 
 1. **Resolve scope.**
    - No argument → call `work_list_items` with no `client_id`.
-   - A client named → `client_get_profile` with the slug (it accepts slugs, so
-     `wolf-of-law-street` works without a UUID), then `work_list_items` with
-     the returned `client.id`.
+   - A client named → `client_list` with `query` set to the name, pick the
+     exact row, then `work_list_items` with that `id`. Do not hand a guessed
+     slug straight to `work_list_items`: a slug that does not exist returns an
+     empty queue, which is indistinguishable from a client with no open work.
    - Client not found → say so and list nothing. Do not guess a neighbouring
      client.
 
