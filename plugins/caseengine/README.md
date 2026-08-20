@@ -44,6 +44,7 @@ Run `/caseengine:connect` and follow it. In short:
 | `/caseengine:approved` | Record a client approval that came in via Slack or an account manager |
 | `/caseengine:check` | Run the automated QA checks against a live URL and record the results |
 | `/caseengine:queue` | Your queue grouped by what it actually is, not 200 identical rows |
+| `/caseengine:reconcile` | Compare a client's real deliverables against what the board thinks |
 
 You do not have to use the commands. With the plugin installed, "what's on my
 plate in CE?" or "pull Wolf's open tasks" routes correctly on its own.
@@ -88,6 +89,24 @@ python3 "$CLAUDE_PLUGIN_ROOT/hooks/record.py" \
   --observed "https://client.com/the-page/" \
   --note "HTTP 200, headline matches the brief"
 ```
+
+### Tasks are not deliverables
+
+The board tracks two different things and conflating them gives wrong answers.
+Of 3,116 open tasks, **83% are outputs** (make the thing) and **16% are gates**
+(approve the thing). On a gate task the *deliverer* is whoever is submitting for
+approval and the *verifier* is the approver — so reading a gate's deliverer as
+"the approver" inverts it.
+
+More importantly, closing a task and producing a deliverable are independent
+events today. Conn Law has show notes recorded as made on 9 episodes and 12
+`Show Notes` tasks still open; Eberst has 8 sets made and no tasks at all; Perry
+has 12 open tasks against 2 episodes. **An open task does not mean outstanding
+work, and a closed one does not mean it was done.**
+
+And **56% of open output tasks have no deliverer**, against 15% of gates — the
+work is unassigned while the approvals are staffed. The visible queues are the
+tail, not the body. `/caseengine:reconcile` puts the two accounts side by side.
 
 ### A note on how the queue actually looks
 
