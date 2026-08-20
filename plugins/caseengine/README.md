@@ -49,6 +49,27 @@ Run `/caseengine:connect` and follow it. In short:
 You do not have to use the commands. With the plugin installed, "what's on my
 plate in CE?" or "pull Wolf's open tasks" routes correctly on its own.
 
+## The content skills
+
+The plugin ships Case Engine's own content skills, so anyone with it installed
+gets the house rules without hunting for a repo:
+
+| Skill | Covers |
+|---|---|
+| `algorithmic-authorship` | The 48 SEO writing rules for passage ranking, snippets and AI Overviews |
+| `legal-content-review` | Banned phrases with replacements, formatting standards, good/bad examples |
+| `statute-lookup` | State statutes and citations for personal injury |
+| `statute-reviewer` | Verifying citations, dollar amounts and legal references in a draft |
+| `legal-schema-generator` | JSON-LD for law firm sites — org, location, attorney schema |
+| `seo-topical-map` | Topical map architecture, quality and trending nodes, PageRank flow |
+| `seo-dynamic-navigation` | Header/footer navigation and anchor-text optimisation |
+| `seo-trending-pages` | Time-sensitive stats pages without URL bloat |
+| `client-config` | Client configuration JSON for the content generator |
+
+These are the source of truth for how content gets written and reviewed. Where a
+rule is a matter of judgment, the skill holds it; the scripts in `hooks/` only do
+things a model cannot do by reading, like scoring uniqueness against a corpus.
+
 ## The proof harness
 
 A task is not done because the work ran. It is done because someone observed
@@ -73,15 +94,10 @@ Four pieces:
   check written once pays off on every future client. Takes many `--url`s or a
   `--urls-file` and reports exceptions first, which is how recurring ops work
   actually arrives — one procedure across a slate of clients.
-- **`hooks/content_check.py`** — the pre-submission checklist from Section 6 of
-  the Content Writing Training Guide, run against a draft: H1 pattern, heading
-  hierarchy, numerals, settlement ranges, win-rate band, city density, italicised
-  CTAs, placeholders, firm naming — plus Maja's legal-content-review skill (the
-  Algorithmic Authorship rules and banned-phrase blocklist, returning the
-  replacement rather than just the objection) and a uniqueness score against the
-  client's other drafts using the same shingle method and 60% floor as the
-  pipeline's own checker. Catches the guide's five named rejection reasons before
-  a draft is sent rather than a day later.
+- **`hooks/content_check.py`** — the two draft checks reading cannot do: a
+  uniqueness score against the client's other drafts (same shingle method and 60%
+  floor as `uniqueness_checker.py` on the VPS) and city-mention density. The style
+  rules live in the skills, not here.
 
 Two kinds of evidence count. A **verify** is something observed on a public
 surface — a URL returned 200, an API confirmed the post. An **attestation** is a

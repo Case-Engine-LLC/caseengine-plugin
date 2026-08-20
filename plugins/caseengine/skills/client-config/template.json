@@ -1,0 +1,65 @@
+{
+  "_comment": "Client Configuration Template - Copy and customize for new clients",
+
+  "client_id": "firm_name_here",
+  "_client_id_note": "Lowercase with underscores. Used for file naming and identification.",
+
+  "law_firm": "Full Law Firm Name",
+  "_law_firm_note": "Official firm name as it should appear in content.",
+
+  "city": "City Name",
+  "_city_note": "Primary city. For multiple cities use 'City1 and City2' format.",
+
+  "state": "California",
+  "_state_note": "Full state name, not abbreviation.",
+
+  "county": "County Name County",
+  "_county_note": "Include 'County' suffix (e.g., 'Orange County').",
+
+  "output_dir": "output/firm_folder",
+  "_output_dir_note": "Where generated content will be saved.",
+
+  "contact": {
+    "email": "info@lawfirm.com",
+    "phone": "(555) 123-4567"
+  },
+  "_contact_note": "Optional but recommended for CTAs in content.",
+
+  "offices": [
+    {
+      "name": "Main Office",
+      "address": "123 Main Street, Suite 100",
+      "city": "City Name",
+      "state": "CA",
+      "zip": "90000"
+    }
+  ],
+  "_offices_note": "Optional. Add multiple office objects for firms with multiple locations.",
+
+  "attorneys": [
+    {
+      "name": "Attorney Full Name",
+      "_name_note": "Include honorifics if used (e.g., 'J. Michael Moore').",
+
+      "credentials": "California Bar, J.D. from [Law School], [Years] years experience, [Notable achievement like '$X million verdict'], [Awards like 'Super Lawyers Rising Star']",
+      "_credentials_note": "CRITICAL: Include specific achievements, verdicts, settlements, awards. Never use generic descriptions.",
+
+      "specialties": [
+        "Personal Injury",
+        "Car Accidents",
+        "Truck Accidents",
+        "Motorcycle Accidents",
+        "Wrongful Death"
+      ],
+      "_specialties_note": "List actual practice areas the attorney handles."
+    }
+  ],
+  "_attorneys_note": "REQUIRED: At least one attorney. Content will reference these names and credentials.",
+
+  "firm_highlights": [
+    "$X million in total recoveries",
+    "Over X years of combined experience",
+    "X+ successful verdicts and settlements"
+  ],
+  "_firm_highlights_note": "Optional: Firm-wide achievements to feature in content."
+}

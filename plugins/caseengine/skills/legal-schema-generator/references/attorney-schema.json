@@ -1,0 +1,179 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "{{website_url}}/#website",
+      "url": "{{website_url}}",
+      "name": "{{firm_name}}",
+      "inLanguage": "en",
+      "publisher": { "@id": "{{website_url}}/lawfirm#org" }
+    },
+    {
+      "@type": ["LegalService", "Organization"],
+      "@id": "{{website_url}}/lawfirm#org",
+      "name": "{{firm_name}}",
+      "url": "{{website_url}}",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "{{website_url}}/#logo",
+        "url": "{{logo_url}}"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{street_address}}",
+        "addressLocality": "{{city}}",
+        "addressRegion": "{{state_abbr}}",
+        "postalCode": "{{postal_code}}",
+        "addressCountry": "US"
+      },
+      "telephone": "{{firm_telephone}}",
+      "founder": { "@id": "{{attorney_page_url}}#person" },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "{{contact_type}}",
+        "telephone": "{{contact_telephone}}",
+        "email": "{{contact_email}}",
+        "areaServed": "{{area_served}}",
+        "availableLanguage": {{available_languages_array}}
+      },
+      "publishingPrinciples": "{{website_url}}/editorial-guidelines",
+      "sameAs": {{firm_same_as_array}}
+    },
+    {
+      "@type": ["WebPage", "ProfilePage"],
+      "@id": "{{attorney_page_url}}#webpage",
+      "url": "{{attorney_page_url}}",
+      "name": "{{attorney_name}} – Attorney at Law",
+      "headline": "{{attorney_name}} – {{attorney_specialty}} Attorney",
+      "inLanguage": "en",
+      "isPartOf": { "@id": "{{website_url}}/#website" },
+      "about": { "@id": "{{attorney_page_url}}#person" },
+      "mainEntity": { "@id": "{{attorney_page_url}}#person" },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "@id": "{{headshot_url}}#primaryimage",
+        "url": "{{headshot_url}}",
+        "width": {{headshot_width}},
+        "height": {{headshot_height}}
+      },
+      "breadcrumb": { "@id": "{{attorney_page_url}}#breadcrumb" },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": ["article h1", "article .bio-summary"]
+      },
+      "hasPart": [
+        { "@id": "{{attorney_page_url}}#intro-video" },
+        { "@id": "{{attorney_page_url}}#case-1" },
+        { "@id": "{{blog_article_url}}#article" }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "{{attorney_page_url}}#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{website_url}}/" },
+        { "@type": "ListItem", "position": 2, "name": "Our Attorneys", "item": "{{website_url}}/attorneys/" },
+        { "@type": "ListItem", "position": 3, "name": "{{attorney_name}}", "item": "{{attorney_page_url}}" }
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "{{attorney_page_url}}#person",
+      "name": "{{attorney_name}}",
+      "givenName": "{{given_name}}",
+      "familyName": "{{family_name}}",
+      "jobTitle": "{{job_title}}",
+      "description": "{{bio_description}}",
+      "image": {
+        "@type": "ImageObject",
+        "@id": "{{headshot_url}}#image",
+        "url": "{{headshot_url}}"
+      },
+      "url": "{{attorney_page_url}}",
+      "worksFor": { "@id": "{{website_url}}/lawfirm#org" },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "{{law_school_name}}",
+        "sameAs": "{{law_school_wikidata}}"
+      },
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Professional license",
+        "name": "{{bar_association_name}}",
+        "identifier": "{{bar_number}}",
+        "url": "{{bar_url}}"
+      },
+      "sameAs": {{attorney_same_as_array}},
+      "knowsAbout": {{knows_about_array}},
+      "review": [
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "{{review1_author}}" },
+          "reviewBody": "{{review1_body}}",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "{{review1_rating}}",
+            "bestRating": "5",
+            "worstRating": "1"
+          }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "{{review2_author}}" },
+          "reviewBody": "{{review2_body}}",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "{{review2_rating}}",
+            "bestRating": "5",
+            "worstRating": "1"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Role",
+      "@id": "{{attorney_page_url}}#role-{{role_slug}}",
+      "roleName": "{{role_name}}",
+      "startDate": "{{role_start_date}}",
+      "member": { "@id": "{{attorney_page_url}}#person" },
+      "organization": { "@id": "{{website_url}}/lawfirm#org" }
+    },
+    {
+      "@type": "VideoObject",
+      "@id": "{{attorney_page_url}}#intro-video",
+      "name": "Meet {{attorney_name}} – {{attorney_specialty}} Attorney",
+      "description": "{{video_description}}",
+      "thumbnailUrl": "{{video_thumbnail_url}}",
+      "uploadDate": "{{video_upload_date}}",
+      "contentUrl": "{{video_content_url}}",
+      "embedUrl": "{{video_embed_url}}",
+      "publisher": { "@id": "{{website_url}}/lawfirm#org" }
+    },
+    {
+      "@type": "LegalCase",
+      "@id": "{{attorney_page_url}}#case-1",
+      "name": "{{case_name}}",
+      "description": "{{case_description}}",
+      "jurisdiction": "{{jurisdiction}}",
+      "provider": [
+        { "@id": "{{attorney_page_url}}#person" },
+        { "@id": "{{website_url}}/lawfirm#org" }
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "{{blog_article_url}}#article",
+      "headline": "{{article_headline}}",
+      "name": "{{article_headline}}",
+      "author": { "@id": "{{attorney_page_url}}#person" },
+      "publisher": { "@id": "{{website_url}}/lawfirm#org" },
+      "datePublished": "{{article_date_published}}",
+      "dateModified": "{{article_date_modified}}",
+      "url": "{{blog_article_url}}",
+      "inLanguage": "en",
+      "mainEntityOfPage": "{{blog_article_url}}",
+      "description": "{{article_description}}"
+    }
+  ]
+}

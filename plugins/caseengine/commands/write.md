@@ -66,28 +66,19 @@ Save the draft and run:
 
 ```bash
 python3 "${CLAUDE_PLUGIN_ROOT}/hooks/content_check.py" \
-  --file draft.md --city "<target city>" --firm "<firm name>" \
+  --file draft.md --city "<target city>" \
   --against <folder of this client's other drafts>
 ```
 
-It runs three rulesets that were never checked automatically:
+The style rules are not in that script. They are in the skills this plugin
+ships — `legal-content-review` (banned phrases, formatting standards) and
+`algorithmic-authorship` (the 48 rules). Claude reads those and applies them
+with judgment, and they stay right when Maja edits them. Ask for a review
+against the skill; do not expect a regex to have an opinion.
 
-- **The training guide's checklist** — H1 pattern, heading hierarchy with no
-  skipped levels, numerals over spelled-out numbers, settlement ranges starting
-  low and ending in "+", win rates inside the 70–92% band, city density,
-  italicised CTAs, placeholders, consistent firm naming.
-- **Maja's legal-content-review skill** — the Algorithmic Authorship rules and
-  the banned-phrase blocklist. It gives you the replacement, not just the
-  objection: *"maximum compensation" → full compensation*, *"legal experts" →
-  legal professionals*. Plus em-dashes, bold used mid-paragraph, subordinate
-  clauses opening a sentence instead of closing it, connectives rationed to
-  three per document, and the rule that the first sentence after a heading must
-  reuse words from that heading.
-- **Uniqueness** — word-shingle overlap against the client's other drafts, the
-  same method the pipeline's own checker uses, with the same 60% floor. Reused
-  sentence skeletons across a client's city and practice-area pages are the
-  single biggest controllable cause of a low originality score, and this catches
-  them before anything reaches a paid scanner.
+The script covers only the two things reading cannot do: the uniqueness score
+against the client's other drafts, and counting city mentions across a long
+document.
 
 Fix what it flags, then run it again. A clean run is what "ready to send" means.
 
