@@ -37,6 +37,9 @@ Run `/caseengine:connect` and follow it. In short:
 | `/caseengine:approvals` | Pending approvals waiting on a decision, or one client's |
 | `/caseengine:workload` | Open/overdue/awaiting-review counts per person on the team |
 | `/caseengine:prove` | Check that a task's work actually landed, then record what you observed |
+| `/caseengine:client` | Everything on file for a client — websites, hosting, tracking, team, brand |
+| `/caseengine:blogs` | A client's blog inventory: published, scheduled, still an idea |
+| `/caseengine:podcast` | Episodes and the run of show for each, and what the slate is waiting on |
 
 You do not have to use the commands. With the plugin installed, "what's on my
 plate in CE?" or "pull Wolf's open tasks" routes correctly on its own.
@@ -99,6 +102,12 @@ Tests: `python3 plugins/caseengine/hooks/test_proof_gate.py`
 assigning a task to someone else needs no special role beyond the standard
 OAuth grant below — resolve their id with `work_list_people` first.
 
+**`caseengine-tasks`, deliverable inventories** — `client_list_blogs`
+(`client_content_inventory`), `client_list_podcast_episodes`
+(`client_podcast_inventory`, with a derived run of show), `client_list_websites`.
+These are the deliverables themselves rather than the tasks about them, and they
+share the tasks OAuth grant.
+
 **`caseengine-content`** — list/get content pieces, poll and start generation
 jobs, cancel a job, transition a piece.
 
@@ -113,6 +122,11 @@ jobs, cancel a job, transition a piece.
   for `content_generation` stays read-only.
 - **Touch site changes.** Separate superadmin domain, not bundled here.
 - **Touch ClickUp.** Retired.
+- **Pull eBooks or a standalone run-of-show.** Neither exists as data. eBook
+  work lives only as `campaign_task` rows under the eBook template plus files in
+  Drive and the `ebook-*` repos, and "run of show" is the stage ladder on
+  `client_podcast_inventory`, not its own table. Nothing here can surface an
+  eBook inventory until one exists.
 - **Vouch for work it did not check.** The gate reads the evidence ledger; it
   cannot tell whether an observation was honest. That part is on us, and it is
   why the skill leads on not recording something you did not see.
