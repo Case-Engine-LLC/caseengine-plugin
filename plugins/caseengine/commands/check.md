@@ -27,6 +27,27 @@ Pass `--expect-gtm GTM-XXXX` or `--expect-ga4 G-XXXX` when you know what should
 be there. Presence of *a* tag is not proof; the right container is. Pull the
 expected IDs from `client_get_profile` first when you have a client in hand.
 
+## Run it across every client at once
+
+Recurring ops work is one procedure repeated across a slate of clients — Monika
+runs maintenance across 15, Rain schedules GBP posts for 15, Kara emails 14. Give
+the checker the whole list rather than running it fifteen times:
+
+```bash
+python3 "${CLAUDE_PLUGIN_ROOT}/hooks/checks.py" \
+  --url https://a.com/ --url https://b.com/ --check all
+# or
+python3 "${CLAUDE_PLUGIN_ROOT}/hooks/checks.py" --urls-file sites.txt --check all
+```
+
+A batch reports **exceptions first**: the sites that need attention with their
+failures spelled out, then a one-line-per-site list of the clean ones. That
+inversion is the point — nobody reads fifteen green reports, and the two broken
+ones are the actual work.
+
+Pull the URL list from `client_list_websites` per client, or from
+`client_get_profile` when you need the expected tracking IDs too.
+
 ## Record it against a task
 
 ```bash

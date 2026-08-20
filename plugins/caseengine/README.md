@@ -69,7 +69,9 @@ Four pieces:
   looking rather than by someone ticking. Dependency-free; `--record` writes each
   verdict to the ledger. Roughly 575 checklist task rows across the corpus are of
   this kind, and since three quarters of all tasks are template redeployments, a
-  check written once pays off on every future client.
+  check written once pays off on every future client. Takes many `--url`s or a
+  `--urls-file` and reports exceptions first, which is how recurring ops work
+  actually arrives — one procedure across a slate of clients.
 
 Two kinds of evidence count. A **verify** is something observed on a public
 surface — a URL returned 200, an API confirmed the post. An **attestation** is a

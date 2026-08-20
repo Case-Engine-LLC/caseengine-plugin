@@ -264,7 +264,10 @@ CHECKS = {
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run automated checks against a live URL.")
-    parser.add_argument("--url", required=True)
+    parser.add_argument("--url", action="append", default=[],
+                        help="URL to check; repeat for several")
+    parser.add_argument("--urls-file", default="",
+                        help="file of URLs, one per line — for running the same check across every client")
     parser.add_argument("--check", default="all", help=f"one of {sorted(CHECKS)} or 'all'")
     parser.add_argument("--expect-gtm", default="", help="expected GTM container id")
     parser.add_argument("--expect-ga4", default="", help="expected GA4 measurement id")
@@ -273,44 +276,92 @@ def main() -> int:
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
 
+    urls = list(args.url)
+    if args.urls_file:
+        try:
+            urls += [
+                line.strip()
+                for line in Path(args.urls_file).expanduser().read_text(encoding="utf-8").splitlines()
+                if line.strip() and not line.strip().startswith("#")
+            ]
+        except Exception as exc:
+            print(f"could not read {args.urls_file}: {exc}", file=sys.stderr)
+            return 2
+    if not urls:
+        print("need at least one --url or a --urls-file", file=sys.stderr)
+        return 2
+
     names = sorted(CHECKS) if args.check == "all" else [args.check]
     unknown = [n for n in names if n not in CHECKS]
     if unknown:
         print(f"unknown check(s): {', '.join(unknown)}", file=sys.stderr)
         return 2
 
-    results = [CHECKS[name](args.url, args) for name in names]
-    failed = [r for r in results if r["status"] != "pass"]
+    if args.record and not args.task:
+        print("--record needs --task", file=sys.stderr)
+        return 2
+    if args.record and len(urls) > 1:
+        print("--record takes one --url; a batch spans many tasks", file=sys.stderr)
+        return 2
+
+    # A batch is the normal case for recurring ops work. Monika runs the same
+    # maintenance across 15 clients, Rain schedules GBP posts across 15, Kara
+    # emails 14 — the job is one procedure repeated, so the tool should take the
+    # whole list and report the exceptions rather than being run 15 times.
+    per_url = []
+    for target in urls:
+        results = [CHECKS[name](target, args) for name in names]
+        per_url.append({"url": target, "results": results,
+                        "failed": [r for r in results if r["status"] != "pass"]})
+
+    total_failed = sum(len(entry["failed"]) for entry in per_url)
 
     if args.record:
-        if not args.task:
-            print("--record needs --task", file=sys.stderr)
-            return 2
         from ledger import append  # noqa: E402
-        for item in results:
+        for item in per_url[0]["results"]:
             append({
                 "kind": "verify",
                 "task_id": args.task.strip(),
                 "status": item["status"],
-                "observed": args.url,
+                "observed": urls[0],
                 "note": f"{item['check']}: {item['summary']}",
                 "method": "caseengine checks.py",
                 "detail": item,
             })
 
     if args.json:
-        print(json.dumps({"url": args.url, "passed": len(results) - len(failed),
-                          "failed": len(failed), "results": results}, indent=2))
-        return 1 if failed else 0
+        print(json.dumps({"checked": len(urls), "failed": total_failed,
+                          "sites": per_url}, indent=2))
+        return 1 if total_failed else 0
 
-    print(f"\n{args.url}")
-    for item in results:
-        mark = "PASS" if item["status"] == "pass" else "FAIL"
-        print(f"  [{mark}] {item['check']:14s} {item['summary']}")
-    print(f"\n{len(results) - len(failed)} passed, {len(failed)} failed")
-    if args.record:
-        print(f"recorded against task {args.task}")
-    return 1 if failed else 0
+    if len(urls) == 1:
+        entry = per_url[0]
+        print(f"\n{entry['url']}")
+        for item in entry["results"]:
+            mark = "PASS" if item["status"] == "pass" else "FAIL"
+            print(f"  [{mark}] {item['check']:14s} {item['summary']}")
+        print(f"\n{len(entry['results']) - len(entry['failed'])} passed, {len(entry['failed'])} failed")
+        if args.record:
+            print(f"recorded against task {args.task}")
+        return 1 if entry["failed"] else 0
+
+    # Batch: exceptions first, because a clean site needs one line and a broken
+    # one needs attention. This is the inversion — nobody reads 15 green reports.
+    print(f"\nchecked {len(urls)} sites · {len(names)} check(s) each")
+    clean = [e for e in per_url if not e["failed"]]
+    broken = [e for e in per_url if e["failed"]]
+    if broken:
+        print(f"\n{len(broken)} need attention:")
+        for entry in broken:
+            print(f"\n  {entry['url']}")
+            for item in entry["failed"]:
+                print(f"     [FAIL] {item['check']:14s} {item['summary'][:88]}")
+    if clean:
+        print(f"\n{len(clean)} clean:")
+        for entry in clean:
+            print(f"     ok  {entry['url']}")
+    print(f"\n{len(clean)} clean, {len(broken)} with failures, {total_failed} failed checks total")
+    return 1 if total_failed else 0
 
 
 if __name__ == "__main__":
