@@ -73,6 +73,11 @@ Four pieces:
   check written once pays off on every future client. Takes many `--url`s or a
   `--urls-file` and reports exceptions first, which is how recurring ops work
   actually arrives — one procedure across a slate of clients.
+- **`hooks/content_check.py`** — the pre-submission checklist from Section 6 of
+  the Content Writing Training Guide, run against a draft: H1 pattern, heading
+  hierarchy, numerals, settlement ranges, win-rate band, city density, italicised
+  CTAs, placeholders, firm naming. Catches the guide's five named rejection
+  reasons before a draft is sent rather than a day later.
 
 Two kinds of evidence count. A **verify** is something observed on a public
 surface — a URL returned 200, an API confirmed the post. An **attestation** is a

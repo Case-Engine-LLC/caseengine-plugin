@@ -28,9 +28,16 @@ does not take those cases is the expensive kind of mistake.
 **`client_list_blogs`** — every post the client already has, 5,104 rows across
 the roster. Two things to do with it:
 
-- **Check for duplicates.** Search the titles and slugs for the topic you are
-  about to write. If something close already exists, say so and ask whether this
-  is a rewrite, a refresh, or a genuine gap.
+- **Check for duplicates against what is actually on their site.** The inventory
+  is the first pass — search titles and slugs for the topic. But the inventory
+  can lag, so for anything that looks close, confirm against the live sitemap:
+
+  ```bash
+  python3 "${CLAUDE_PLUGIN_ROOT}/hooks/checks.py" --url <client-homepage> --check sitemap
+  ```
+
+  That pulls every URL the site publishes. A topic already live is a rewrite or a
+  refresh, not a new post — say which, and get it confirmed before writing.
 - **Match the register.** Read two or three published pieces for the same client
   before drafting. Their voice is in there.
 
@@ -49,7 +56,30 @@ Write it properly. House rules that come up repeatedly in review comments:
 - Statutes and deadlines get cited precisely, with the code reference.
 - No placeholder text. Not even temporarily.
 
-## 4. Submit
+## 4. Check it before you send it
+
+Section 6 of the Content Writing Training Guide is a pre-submission checklist,
+and it names five common rejection reasons. Most of them are mechanical, and a
+writer re-reading their own draft is the worst instrument for catching them.
+
+Save the draft and run:
+
+```bash
+python3 "${CLAUDE_PLUGIN_ROOT}/hooks/content_check.py" \
+  --file draft.md --city "<target city>" --firm "<firm name>"
+```
+
+It checks the H1 pattern, heading hierarchy with no skipped levels, numerals over
+spelled-out numbers, settlement ranges starting low and ending in "+", win rates
+inside the 70–92% band, city density, italicised CTAs, leftover placeholders and
+consistent firm naming.
+
+Fix what it flags, then run it again. A clean run is what "ready to send" means.
+
+It does not judge whether the writing is good, whether the argument holds, or
+whether the client will like it. That is the editor's call and always was.
+
+## 5. Submit
 
 Where the draft goes depends on which path this client is on.
 
@@ -62,14 +92,20 @@ is no verified WordPress push behind it, and the codebase refuses to let a statu
 say "published" when nothing was pushed. Do not work around that.
 
 **Everything else**: the draft is a Google Doc and the workbook row is the
-record. Put the draft where the client's work already lives, update the workbook
-row, and say plainly in your handoff which of those you did.
+record. The generation pipeline already writes .docx into the client's Drive
+folder, so the Doc is usually where the piece lives before anyone reads it.
+
+Send it properly. A handoff someone can act on without asking you a question
+contains: what it is and who it is for, the link, the target URL and title, what
+the pre-submission check returned, and the one thing you want from the reader —
+review, approval, or scheduling. Put the draft where the client's work already
+lives, update the workbook row, and say which of those you did.
 
 Then close your writing task — and be honest that writing it is not publishing
 it. The scheduling task belongs to a developer, and the piece is not live until
 someone confirms it is.
 
-## Known gap, worth saying out loud
+## 6. Known gap, worth saying out loud
 
 There is no tool that takes a human-written draft and attaches it to a piece.
 `content_start_generation` creates AI-generated content from a brief; it is not
