@@ -28,10 +28,21 @@ list so the person can see what they are committing to.
 
 These are known and recur; do not follow them blindly.
 
-**Dead ClickUp links.** 178 open tasks still send you to `app.clickup.com`.
-ClickUp is retired. Where an SOP says "go to the service tab of the client
-profile" and links ClickUp, use `client_get_profile` instead and say you
-substituted it.
+**ClickUp links.** ClickUp is retired and its content was migrated into the
+dashboard or Google Drive. 178 open tasks still carry the old links, from just
+27 template items.
+
+What to do depends on what the link was:
+
+- **A client profile or list view** — use `client_get_profile` or
+  `client_list_websites` instead, and say you substituted it.
+- **A ClickUp Doc** (`/docs/dmuy3-...`) — that is a piece of the procedure, not
+  navigation. It now lives in Google Drive. Ask where rather than guessing, and
+  **do not improvise the missing steps** — an SOP step you invented is worse than
+  one you flagged as unreachable.
+
+Either way, mention the stale link so the template can be fixed. Fixing 27
+template items clears all 178 and every future deployment.
 
 **Unfilled template headers.** Around 2,000 SOPs still read `role, backup role |
 hr` or `X | Xm` — the placeholder was never filled in. Ignore it rather than
