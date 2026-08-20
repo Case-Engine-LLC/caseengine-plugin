@@ -44,10 +44,23 @@ Run `/caseengine:connect` and follow it. In short:
 | `/caseengine:approved` | Record a client approval that came in via Slack or an account manager |
 | `/caseengine:check` | Run the automated QA checks against a live URL and record the results |
 | `/caseengine:queue` | Your queue grouped by the job it is, not 200 identical rows |
+| `/caseengine:do` | Work a task by its own SOP — read the steps, gather inputs, hand it off |
 | `/caseengine:write` | Pick up a writing assignment, get context, draft it, submit it |
 
 You do not have to use the commands. With the plugin installed, "what's on my
 plate in CE?" or "pull Wolf's open tasks" routes correctly on its own.
+
+## The checklists are already in the tasks
+
+Worth knowing before adding any tooling: **82% of open tasks carry a Standard
+Operating Procedure in the description**, averaging six steps, 252 of them with
+Loom walkthroughs. The people doing the work wrote them. `/caseengine:do` reads
+the SOP off the task and works it, rather than substituting a checklist of our
+own.
+
+It also handles what those SOPs get wrong — 178 still link to ClickUp, which is
+retired, and around 2,000 still carry the unfilled `role, backup role | hr`
+template header.
 
 ## The content skills
 
