@@ -42,6 +42,7 @@ Run `/caseengine:connect` and follow it. In short:
 | `/caseengine:podcast` | Episodes and the run of show for each, and what the slate is waiting on |
 | `/caseengine:ebook` | eBook and run-of-show generation runs, and where each one is |
 | `/caseengine:approved` | Record a client approval that came in via Slack or an account manager |
+| `/caseengine:check` | Run the automated QA checks against a live URL and record the results |
 
 You do not have to use the commands. With the plugin installed, "what's on my
 plate in CE?" or "pull Wolf's open tasks" routes correctly on its own.
@@ -52,7 +53,7 @@ A task is not done because the work ran. It is done because someone observed
 the outcome. Since 0.4.0 the plugin carries that rule with it, so it arrives by
 installing rather than by wiring something into each project.
 
-Three pieces:
+Four pieces:
 
 - **`/caseengine:prove <task>`** — resolves the task, works out what would
   settle whether it worked, checks it, and writes down what it saw.
@@ -60,8 +61,14 @@ Three pieces:
   evidence for each of our deliverables, and applies to ordinary knowledge work
   as much as to websites.
 - **A `PreToolUse` gate** — watches for a task being transitioned to `done` or
-  `approved` and looks for a passing observation recorded against it in the last
-  12 hours.
+  `approved` and looks for passing evidence recorded against it.
+- **`hooks/checks.py`** — eight automated checks against a live URL (reachable,
+  tracking, indexable, sitemap, schema, custom 404, placeholders, https images).
+  These are the mechanical half of the QA checklist, and they settle it by
+  looking rather than by someone ticking. Dependency-free; `--record` writes each
+  verdict to the ledger. Roughly 575 checklist task rows across the corpus are of
+  this kind, and since three quarters of all tasks are template redeployments, a
+  check written once pays off on every future client.
 
 Two kinds of evidence count. A **verify** is something observed on a public
 surface — a URL returned 200, an API confirmed the post. An **attestation** is a
