@@ -1,0 +1,267 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caseengine.ai/schemas/pod-2A-topic-planner/scoring-model.schema.json",
+  "title": "pod-2A-topic-planner scoring model",
+  "description": "Validates references/scoring-model.json - the canonical 10-signal scoring model for podcast topic selection. INVARIANT NOT ENFORCEABLE HERE: the sum of every signals[].weight must equal 1.00 (tolerance 0.001). JSON Schema cannot sum values across an array, so this cross-field invariant is checked by scripts/validate-scoring-model.py, which validates against this schema AND asserts the weight sum. Always run that validator after editing scoring-model.json - passing this schema alone is not sufficient.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["_meta", "buckets", "signals", "corroboration", "rationale"],
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "description": "Provenance and invariants for the scoring model.",
+      "additionalProperties": true,
+      "required": ["skill", "artifact", "version", "invariants"],
+      "properties": {
+        "skill": {
+          "type": "string",
+          "description": "Owning skill. Must be pod-2A-topic-planner.",
+          "const": "pod-2A-topic-planner"
+        },
+        "artifact": {
+          "type": "string",
+          "description": "Artifact identifier. Must be scoring-model.",
+          "const": "scoring-model"
+        },
+        "version": {
+          "type": "string",
+          "description": "Semantic version of the scoring model.",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "last_updated": {
+          "type": "string",
+          "description": "ISO date of the last edit.",
+          "format": "date"
+        },
+        "owner": {
+          "type": "string",
+          "description": "Human owner of the model."
+        },
+        "purpose": {
+          "type": "string",
+          "description": "What this file is and how it is consumed."
+        },
+        "status": {
+          "type": "string",
+          "description": "Lifecycle status note (e.g. SPEC vs wired)."
+        },
+        "invariants": {
+          "type": "object",
+          "description": "Hard rules the model must satisfy. weights_sum_to + tolerance are enforced by scripts/validate-scoring-model.py, not by this schema.",
+          "additionalProperties": true,
+          "required": ["weights_sum_to", "tolerance", "optional_signal_handling"],
+          "properties": {
+            "weights_sum_to": {
+              "type": "number",
+              "description": "Target sum of all signal weights.",
+              "const": 1.0
+            },
+            "tolerance": {
+              "type": "number",
+              "description": "Allowed floating-point drift on the weight sum.",
+              "exclusiveMinimum": 0,
+              "maximum": 0.01
+            },
+            "optional_signal_handling": {
+              "type": "string",
+              "description": "How a missing optional signal's weight is redistributed at runtime."
+            }
+          }
+        }
+      }
+    },
+    "buckets": {
+      "type": "object",
+      "description": "Named scoring buckets. Each property key is a bucket id referenced by signals[].bucket.",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "description": "A single scoring bucket.",
+        "additionalProperties": false,
+        "required": ["label", "intent", "weight"],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Human-readable bucket name."
+          },
+          "intent": {
+            "type": "string",
+            "description": "The question this bucket answers."
+          },
+          "weight": {
+            "type": "number",
+            "description": "Bucket weight, 0-1.",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    },
+    "signals": {
+      "type": "array",
+      "description": "The scoring signals. Every signal's weight contributes to a sum that must equal 1.00 (checked by validate-scoring-model.py).",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "description": "A single scoring signal.",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "bucket",
+          "evidence_family",
+          "definition",
+          "source",
+          "normalization",
+          "weight",
+          "optional"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Unique signal identifier.",
+            "minLength": 1
+          },
+          "bucket": {
+            "type": "string",
+            "description": "Bucket this signal belongs to. Must match a key in the top-level buckets object - cross-checked by validate-scoring-model.py.",
+            "minLength": 1
+          },
+          "evidence_family": {
+            "type": "string",
+            "description": "Independent evidence family used for corroboration (e.g. entity, search-demand, trend, competitive).",
+            "minLength": 1
+          },
+          "definition": {
+            "type": "string",
+            "description": "Plain-language definition of what the signal measures."
+          },
+          "source": {
+            "type": "string",
+            "description": "Data file or report the signal is computed from."
+          },
+          "normalization": {
+            "type": "string",
+            "description": "How the raw value is normalized to 0-1."
+          },
+          "weight": {
+            "type": "number",
+            "description": "Signal weight, 0-1. Sum of all signal weights must equal 1.00 (tolerance 0.001).",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "optional": {
+            "type": "boolean",
+            "description": "True if the signal can be absent at runtime; its weight then redistributes across present signals."
+          },
+          "absent_when": {
+            "type": "string",
+            "description": "Condition under which the signal is missing, and the fallback behavior."
+          }
+        }
+      }
+    },
+    "corroboration": {
+      "type": "object",
+      "description": "Cross-family convergence rules. Sets a confidence flag and an optional ranking floor; does not alter the numeric score.",
+      "additionalProperties": true,
+      "required": ["description", "evidence_families", "levels", "ranking_floor"],
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "What corroboration is and why it matters."
+        },
+        "evidence_families": {
+          "type": "object",
+          "description": "Per-family firing conditions.",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "description": "A single evidence family's firing rule.",
+            "additionalProperties": false,
+            "required": ["fires_when"],
+            "properties": {
+              "fires_when": {
+                "type": "string",
+                "description": "Condition under which this family fires."
+              },
+              "optional": {
+                "type": "boolean",
+                "description": "True if this family may be absent at runtime."
+              }
+            }
+          }
+        },
+        "levels": {
+          "type": "array",
+          "description": "Ordered corroboration levels from strongest to weakest.",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "description": "A single corroboration level.",
+            "additionalProperties": false,
+            "required": ["flag", "when", "meaning"],
+            "properties": {
+              "flag": {
+                "type": "string",
+                "description": "Flag value emitted at this level."
+              },
+              "when": {
+                "type": "string",
+                "description": "Condition that produces this flag."
+              },
+              "meaning": {
+                "type": "string",
+                "description": "Plain-language interpretation of the flag."
+              }
+            }
+          }
+        },
+        "ranking_floor": {
+          "type": "object",
+          "description": "Optional protection that keeps corroborated topics in the main set.",
+          "additionalProperties": false,
+          "required": ["enabled", "rule"],
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Whether the ranking floor is active."
+            },
+            "score_margin": {
+              "type": "number",
+              "description": "Maximum authority_score gap a corroborated topic may rise across when promoted past a non-corroborated topic. Bounds the floor to near-ties so it never becomes a global re-sort."
+            },
+            "rule": {
+              "type": "string",
+              "description": "The floor rule in plain language."
+            },
+            "note": {
+              "type": "string",
+              "description": "Rationale or reversibility note."
+            }
+          }
+        }
+      }
+    },
+    "rationale": {
+      "type": "object",
+      "description": "Rules that generate the Rationale column text from signal scores plus the corroboration flag.",
+      "additionalProperties": true,
+      "required": ["description", "rules"],
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "What the rationale text is and what it must convey."
+        },
+        "rules": {
+          "type": "array",
+          "description": "Ordered rules for composing the rationale text.",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "description": "A single rationale-composition rule."
+          }
+        }
+      }
+    }
+  }
+}

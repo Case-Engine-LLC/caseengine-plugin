@@ -1,0 +1,255 @@
+{
+  "_meta": {
+    "skill": "pod-2A-topic-planner",
+    "artifact": "topic-seed-catalog",
+    "version": "1.0.0",
+    "last_updated": "2026-05-21",
+    "owner": "Gabe Jordan",
+    "purpose": "Seed taxonomy for the candidate topic universe. Three levels: legal domain -> practice areas -> seed episode topics. The Checks phase resolves the client's legal domain, scrapes the firm website to confirm which practice areas the firm actually covers, and loads each confirmed area's seed_topics as the STARTING POINT of the candidate set. The research pass (2A entity + 2B keyword + 2C virality) then adds whatever it surfaces - location-specific topics, newly-trending topics - and score-topics.py scores the whole set. The seed is ONLY a starting point, never a guaranteed shortlist: every seed topic is scored exactly like a research-derived topic, gets NO scoring or selection advantage, and a seed topic the data does not support scores low and lands RESERVE or CUT just like any other weak candidate. The seed guarantees a topic is CONSIDERED every run; the score and the selection decide everything after that.",
+    "how_it_is_used": "Checks -> 'Resolve client, domain, and practice areas' loads this file. For each confirmed practice area, seed_topics seed the candidate list before research-derived topics are merged in. score-topics.py scores the merged set.",
+    "how_it_grows": "Two ways. (1) DEPTH - topics surfaced during research or the n-gram step (rows tagged 'surfaced from n-gram table' in the Topic Ideas Notes column) that prove out and are evergreen get folded back into the relevant practice area's seed_topics, so existing branches compound with every client run. Only generic, evergreen topics promote - genericize first (strip client / city / jurisdiction specifics); location-specific or passing-trend topics stay in that client's run and never enter the seed. (2) BREADTH - when CE breaks into a practice area or legal domain not yet in the catalog, add the new practice area (or whole domain) branch and seed it from that first client's research, the way Family Law was seeded from the Law Offices of Todd K. Mohink plan. A stub branch (status 'stub', empty seed_topics) is populated this way on its first real client. The catalog never ossifies and is never frozen - it deepens with every run and widens with every new practice area.",
+    "status": "Personal Injury and Family Law are populated (Family Law seeded from the Law Offices of Todd K. Mohink topic plan, genericized). Criminal Defense is stubbed - practice areas listed, seed_topics empty - populate before the first criminal-defense client."
+  },
+
+  "domains": {
+    "Personal Injury": {
+      "status": "populated",
+      "practice_areas": {
+        "Car Accidents": {
+          "seed_topics": [
+            "Fault and Comparative Negligence",
+            "Statute of Limitations and Filing Deadlines",
+            "Minimum Auto Insurance and Coverage Types",
+            "Uninsured and Underinsured Motorist Coverage",
+            "What a Car Accident Settlement Is Worth",
+            "Dealing with the Insurance Adjuster",
+            "Hit-and-Run Accidents",
+            "Drunk Driving Crashes",
+            "Distracted Driving",
+            "Rear-End Collisions",
+            "Intersection and T-Bone Collisions",
+            "Traumatic Brain Injury Cases",
+            "Soft-Tissue and Whiplash Injuries",
+            "Property Damage and Diminished Value",
+            "Wrongful Death from a Car Accident",
+            "Hiring a Lawyer and How Contingency Fees Work"
+          ],
+          "notes": "The anchor practice area for most PI firms."
+        },
+        "Truck Accidents": {
+          "seed_topics": [
+            "Why Trucking Cases Differ from Car Accident Cases",
+            "Federal Trucking Regulation (FMCSA)",
+            "Hours of Service and Driver Fatigue",
+            "Black Box, ELD, and Electronic Evidence",
+            "The Spoliation Letter and Early Investigation",
+            "Who Can Be Sued (the Liability Layers)",
+            "Negligent Hiring and Negligent Entrustment",
+            "Broker and Shipper Liability",
+            "What a Truck Accident Settlement Is Worth",
+            "Catastrophic Injury and Life Care Plans",
+            "Wrongful Death from a Truck Crash",
+            "Commercial Insurance Coverage and Policy Stacks"
+          ],
+          "notes": "Highest case value in most PI books."
+        },
+        "Motorcycle Accidents": {
+          "seed_topics": [
+            "Helmet Laws and the Helmet Non-Use Defense",
+            "Lane-Splitting and Lane-Filtering Laws",
+            "Gear Bias and the Rider-as-Risk-Taker Stereotype",
+            "Left-Cross and Common Rider Collision Patterns",
+            "Catastrophic Rider Injuries (TBI, Road Rash, Fractures, Spinal)",
+            "Uninsured and Underinsured Motorist Coverage for Riders",
+            "What a Motorcycle Accident Settlement Is Worth",
+            "Comparative Fault in Rider Cases",
+            "What to Do at the Scene of a Motorcycle Crash"
+          ],
+          "notes": ""
+        },
+        "Rideshare Accidents": {
+          "seed_topics": [
+            "The Rideshare Insurance Period System (0, 1, 2, 3)",
+            "The Period 1 Coverage Gap",
+            "The $1M Commercial Rideshare Policy",
+            "Suing Uber or Lyft Directly",
+            "Independent-Contractor Status and Vicarious Liability",
+            "Forced Arbitration in the Terms of Service",
+            "Passenger, Driver, and Third-Party Claim Types",
+            "App Data and Evidence Preservation",
+            "Rideshare Driver Assault and Negligent-Hiring Claims",
+            "What a Rideshare Accident Settlement Is Worth"
+          ],
+          "notes": "Uber / Lyft. Distinct insurance-period architecture is the signature topic."
+        },
+        "Slip and Fall": {
+          "seed_topics": [
+            "Premises Liability and Duty of Care",
+            "Proving the Property Owner Knew (Notice)",
+            "Comparative Fault in Slip-and-Fall Cases",
+            "Common Hazards and Injuries",
+            "What a Slip-and-Fall Settlement Is Worth"
+          ],
+          "notes": ""
+        },
+        "Premises Liability": {
+          "seed_topics": [
+            "Duty of Care by Visitor Type",
+            "Negligent Security and Third-Party Crime",
+            "Inadequate Maintenance and Hazard Liability",
+            "Comparative Fault and Open-and-Obvious Hazards",
+            "Damages in Premises Cases"
+          ],
+          "notes": "Overlaps Slip and Fall; keep separate when the firm markets it separately."
+        },
+        "Dog Bites": {
+          "seed_topics": [
+            "Strict Liability vs the One-Bite Rule",
+            "Homeowner and Renter Insurance Coverage",
+            "Common Dog-Bite Injuries and Damages",
+            "The Provocation and Comparative-Fault Defenses",
+            "Liability for Bites by a Landlord's or Neighbor's Dog"
+          ],
+          "notes": ""
+        },
+        "Bicycle Accidents": {
+          "seed_topics": [
+            "Right-of-Way and Fault in Bicycle Collisions",
+            "Common Car-vs-Bike Collision Patterns (Dooring, Right Hook)",
+            "Insurance Coverage When a Cyclist Is Hit",
+            "Catastrophic Cyclist Injuries",
+            "Share-the-Road Laws"
+          ],
+          "notes": ""
+        },
+        "Pedestrian Accidents": {
+          "seed_topics": [
+            "Right-of-Way and Crosswalk Law",
+            "Fault When a Pedestrian Is Hit",
+            "Insurance Coverage and Underinsured-Motorist Claims",
+            "Catastrophic Pedestrian Injuries",
+            "Hit-and-Run Involving a Pedestrian"
+          ],
+          "notes": ""
+        },
+        "Wrongful Death": {
+          "seed_topics": [
+            "Who Can File a Wrongful-Death Claim",
+            "Wrongful-Death vs Survival Actions",
+            "Damages and Compensation in a Wrongful-Death Case",
+            "The Statute of Limitations for Wrongful Death",
+            "Proving Fault in a Fatal-Accident Case"
+          ],
+          "notes": "Often a cross-cutting topic inside other practice areas; standalone when the firm markets it."
+        }
+      }
+    },
+
+    "Family Law": {
+      "status": "populated",
+      "seeded_from": "Law Offices of Todd K. Mohink topic plan (2026-05) - genericized; jurisdiction-specific angles (e.g. Braun v. Headley, Maryland statutes) come from per-client research, not the seed.",
+      "practice_areas": {
+        "Divorce": {
+          "seed_topics": [
+            "The Divorce Timeline: Filing to Final Decree",
+            "Contested vs Uncontested and Mutual-Consent Divorce",
+            "Grounds for Divorce and Residency Requirements",
+            "Mediation vs Litigation in Family Court",
+            "Prenuptial Agreements: What Holds Up in Court",
+            "Postnuptial Agreements",
+            "Military Divorce and Federal-Benefit Division",
+            "First-Responder and Federal-Employee Divorce",
+            "Same-Sex Divorce and Co-Parenting"
+          ],
+          "notes": "The volume audience and primary revenue stream for most family-law firms."
+        },
+        "Child Custody": {
+          "seed_topics": [
+            "Legal vs Physical Custody and Common Arrangements",
+            "The Best-Interests-of-the-Child Standard",
+            "Custody Relocation and Move-Away Cases",
+            "Custody Evaluations: What the Evaluator Looks For",
+            "Out-of-State Custody and the UCCJEA",
+            "Defending Against False Abuse Allegations in a Custody Fight",
+            "Digital and AI Evidence in Custody Cases"
+          ],
+          "notes": ""
+        },
+        "Child Support": {
+          "seed_topics": [
+            "How Child Support Is Calculated",
+            "Support Guidelines and Deviations",
+            "Voluntary Impoverishment and Imputed Income",
+            "Enforcing and Collecting Unpaid Support"
+          ],
+          "notes": ""
+        },
+        "Property and Asset Division": {
+          "seed_topics": [
+            "Equitable Distribution and the Marital Home",
+            "Marital vs Separate Property",
+            "Dividing Retirement Accounts and Pensions (QDROs)",
+            "Valuing and Dividing a Family Business",
+            "Dividing Debt in a Divorce"
+          ],
+          "notes": ""
+        },
+        "Spousal Support / Alimony": {
+          "seed_topics": [
+            "Types of Alimony: Rehabilitative, Indefinite, and Temporary",
+            "How Judges Decide Alimony",
+            "Modifying or Terminating Alimony"
+          ],
+          "notes": ""
+        },
+        "Protective Orders and Domestic Violence": {
+          "seed_topics": [
+            "How Protective Orders Work and What They Do Not Do",
+            "Peace Order vs Protective Order",
+            "Violating a Protective Order",
+            "When a Family Case Becomes a Criminal Case"
+          ],
+          "notes": "Sits at the family-law / criminal intersection; feeds both books."
+        },
+        "Modifications and Enforcement": {
+          "seed_topics": [
+            "Modifying a Custody Order: the Material-Change Standard",
+            "Modifying a Child-Support or Alimony Order",
+            "Enforcing a Family-Court Order and Contempt"
+          ],
+          "notes": "Post-decree, repeat-client territory."
+        },
+        "Adoption": {
+          "seed_topics": [
+            "The Adoption Process",
+            "Stepparent and Second-Parent Adoption",
+            "Termination of Parental Rights"
+          ],
+          "notes": ""
+        },
+        "CPS and Child Welfare Defense": {
+          "seed_topics": [
+            "Responding to a CPS Investigation",
+            "CINA / Dependency Proceedings Explained",
+            "Defending Against a False Abuse or Neglect Report",
+            "Reunification: Getting Your Children Back"
+          ],
+          "notes": "Family-adjacent niche; market it under Family Law when the firm does."
+        }
+      }
+    },
+
+    "Criminal Defense": {
+      "status": "stub - populate before the first criminal-defense client",
+      "practice_areas": {
+        "DUI / DWI": {"seed_topics": [], "notes": "stub"},
+        "Drug Crimes": {"seed_topics": [], "notes": "stub"},
+        "Assault and Violent Crimes": {"seed_topics": [], "notes": "stub"},
+        "Theft and Property Crimes": {"seed_topics": [], "notes": "stub"},
+        "White-Collar Crimes": {"seed_topics": [], "notes": "stub"},
+        "Domestic Violence": {"seed_topics": [], "notes": "stub"},
+        "Expungement and Record Sealing": {"seed_topics": [], "notes": "stub"}
+      }
+    }
+  }
+}

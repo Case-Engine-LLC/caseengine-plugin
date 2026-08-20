@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "skill_name": "pod-2A-entity-research",
+    "schema_version": "1.0",
+    "created": "2026-04-28",
+    "notes": "Append-only iteration log. Read at run start; never written at runtime. New entries appended manually or proposed by scripts/diff_against_template.py with status='proposed' awaiting human sign-off. ID format YYYY-MM-DD-NNN (zero-padded daily counter). Categories: rendering / content / branding / logic / data / ux / schema / infra. Severities: low / medium / high / critical. Statuses: open / in-progress / resolved / wontfix / proposed."
+  },
+  "entries": [
+    {
+      "id": "2026-04-28-001",
+      "ts": "2026-04-28T13:59:04Z",
+      "skill_version_at_run": "1.0.0",
+      "context": {
+        "firm": "Spaulding Injury Law",
+        "scope": "GA - Atlanta",
+        "topic": "Trucking Company Liability",
+        "episode_id": "B1",
+        "trigger": "Manual rebrand of legacy Spaulding docs"
+      },
+      "category": "branding",
+      "severity": "medium",
+      "description": "Cover page subtitle rendered episode topic at 22pt while firm name was demoted to the 14pt scope line. Hierarchy inverted - for client-specific deliverables, firm name should be the primary identity (subtitle), not the topic.",
+      "resolution": "Codified canonical Cover Page Spec at https://docs.google.com/document/d/1oydpI055jbj1FYDGeZfHQeMNjaWKUCFVGCRveeuJJCk/edit. Spec rule: subtitle = firm name (client-specific) or practice area (foundation). Re-rebranded all 5 Spaulding docs with corrected hierarchy. Added cover-page block to all 5 SKILL.md files under Outputs.",
+      "fix_in_version": "1.0.1",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-04-28-002",
+      "date": "2026-04-28",
+      "context": {
+        "client": "Empire Law",
+        "scope": "Topic Only + Location (CA - Inland Empire)",
+        "practice_area": "Car Accidents",
+        "trigger": "First production run of /entity-research after the v1.0.0 ship cut. Built foundation Topic Only map + IE Location cascade for Episode 3 prep."
+      },
+      "category": "schema",
+      "severity": "high",
+      "description": "Build script `build-entity-map-docx.py` references entity field `cluster` (e.g. line 497, 718) and bridge fields `name` + `reason` (lines 187, 294, 567). The canonical schema `_references/schemas/entity-map.json` declares `cluster_id` for entities and only `id`/`clusters_connected`/`connection_count` for bridges. Schema-conformant JSON output crashes the build script with KeyError on both fields. Also: `entity-vector-space.py` does not accept the `--map-file` flag documented in SKILL.md SOP step (Push to Drive > Generate vector-space chart) - script signature is `entity-vector-space.py {scope-folder-path}` with optional `--output` only.",
+      "resolution": "Worked around by patching JSON to include both fields (added `cluster` alias alongside `cluster_id`, and added `name` + `reason` to each bridge). Future fix: either (a) update the schema to require `name` + `reason` on bridges and rename `cluster_id` \u2192 `cluster` (or vice versa), OR (b) update the build script to read the schema-conformant field names. Recommend (a) - the script's field names are more readable and the bridge `reason` field is genuinely useful for downstream consumers. Also fix SKILL.md SOP to remove the bogus `--map-file` flag from the `entity-vector-space.py` invocation example.",
+      "fix_in_version": "1.0.2",
+      "status": "open"
+    }
+  ]
+}

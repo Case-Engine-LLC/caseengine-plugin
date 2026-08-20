@@ -1,0 +1,17 @@
+{
+ "_meta": {
+  "skill_name": "pod-2B-n-gram-table",
+  "schema_version": "1.0",
+  "created": "2026-05-20",
+  "notes": "Append-only iteration log. Read at run start; never written at runtime. New entries appended manually or proposed by scripts/diff_against_template.py with status='proposed' awaiting human sign-off. ID format YYYY-MM-DD-NNN (zero-padded daily counter). Validates against ../schema/iteration-log.schema.json."
+ },
+ "entries": [
+  {
+   "id": "2026-06-12-001",
+   "status": "resolved",
+   "summary": "Geo-hierarchy drift: tables/scripts defaulted to county/state phrasing, target city underrepresented in question text (Mohink EP2). Fix: Editorial Guideline 4 (city-first, county earned, state for law) + city-share quality gate added to SKILL.md; matching Guideline 6 added to pod-3B-client-ros.",
+   "spotted": "2026-06-12",
+   "resolution": "SKILL.md updated 2026-06-12; also note new single-level extension structure (no state primary, 2 city minis, alternatives appendix after End of ROS) pending full skill update after Mohink batch"
+  }
+ ]
+}

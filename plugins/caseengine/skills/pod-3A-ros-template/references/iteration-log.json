@@ -1,0 +1,134 @@
+{
+  "_meta": {
+    "schema_version": "1.0",
+    "purpose": "Append-only log of runs that surfaced issues. Captures input context + failure mode + resolution so we can spot patterns and iterate the skill / build script.",
+    "append_only": true,
+    "entry_categories": [
+      "rendering",
+      "content",
+      "branding",
+      "logic",
+      "data",
+      "ux",
+      "schema",
+      "infra"
+    ],
+    "severities": [
+      "low",
+      "medium",
+      "high",
+      "critical"
+    ],
+    "statuses": [
+      "open",
+      "in-progress",
+      "resolved",
+      "wontfix"
+    ],
+    "id_format": "YYYY-MM-DD-NNN (date + zero-padded counter for the day)",
+    "skill_name": "pod-3A-ros-template",
+    "created": "2026-05-20"
+  },
+  "entries": [
+    {
+      "id": "2026-04-28-001",
+      "ts": "2026-04-28T13:59:04Z",
+      "skill_version_at_run": "1.0.0",
+      "context": {
+        "firm": "Spaulding Injury Law",
+        "scope": "GA - Atlanta",
+        "topic": "Trucking Company Liability",
+        "episode_id": "B1",
+        "trigger": "Manual rebrand of legacy Spaulding docs"
+      },
+      "category": "branding",
+      "severity": "medium",
+      "description": "Cover page subtitle rendered episode topic at 22pt while firm name was demoted to the 14pt scope line. Hierarchy inverted - for client-specific deliverables, firm name should be the primary identity (subtitle), not the topic.",
+      "resolution": "Codified canonical Cover Page Spec at https://docs.google.com/document/d/1oydpI055jbj1FYDGeZfHQeMNjaWKUCFVGCRveeuJJCk/edit. Spec rule: subtitle = firm name (client-specific) or practice area (foundation). Re-rebranded all 5 Spaulding docs with corrected hierarchy. Added cover-page block to all 5 SKILL.md files under Outputs.",
+      "fix_in_version": "1.0.1",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-04-28-002",
+      "ts": "2026-04-28T20:00:00Z",
+      "skill_version_at_run": "1.0.1",
+      "context": {
+        "trigger": "Spec review alongside Client Guide brand-agnostic clarification"
+      },
+      "category": "branding",
+      "severity": "low",
+      "description": "ROS Template SKILL.md cover-page table needed to make the brand-agnostic intent explicit (firm name is NEVER on this cover; Client ROS adds it downstream).",
+      "resolution": "Updated Cover Page Spec at https://docs.google.com/document/d/1oydpI055jbj1FYDGeZfHQeMNjaWKUCFVGCRveeuJJCk/edit with per-skill subtitle table differentiating brand-agnostic (Client Guide / ROS Template / foundation research) from firm-specific (Client ROS / Show Bible / Topic Planner) deliverables. Updated each SKILL.md cover-page subtitle row. Re-rebranded 2 Spaulding Client Guides to swap subtitle back to topic.",
+      "fix_in_version": "1.0.2",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-04-30-001",
+      "ts": "2026-04-30T23:00:00Z",
+      "skill_version_at_run": "1.0.x",
+      "context": {
+        "firm": "(propagated from 15-cell client-ros + client-guide batch: MVP, Lem Garcia, 1800 The Wolf, Conn Law, Eberst — anchor + multi-extension cells)",
+        "scope": "all ros-template runs",
+        "topic": "Car Accidents",
+        "trigger": "Multiple ROS Templates exist for the same topic + episode at different scopes (e.g., one anchor + several city extensions). All cells produced the identical filename `ROS Template.md`, collapsing in Drive search and any aggregated 'recent files' view."
+      },
+      "category": "schema",
+      "severity": "high",
+      "description": "Generic filename `ROS Template.md` (and Google Doc sibling `ROS Template`) was insufficient when multiple templates exist at different scopes for the same topic/episode (e.g., California anchor + Bakersfield + Fresno + Long Beach extensions). The folder path carried the location, but Drive search and 'recent files' surfaces flatten across folders and only show filename — losing the disambiguation.",
+      "resolution": "Updated SKILL.md filename naming spec to require ` - {Location}` suffix on all Location/Extension scope ROS Templates and ` - {Location} (Extension)` on extension cells. Topic Only scope continues to drop the suffix. Aligns with sibling client-ros and client-guide skill location-suffix rule (entries 2026-04-30-002 in those skills). Future runs will produce correctly-disambiguated filenames automatically.",
+      "fix_in_version": "1.0.3",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-05-12-001",
+      "ts": "2026-05-12T20:00:00Z",
+      "skill_version_at_run": "1.0.x",
+      "context": {
+        "trigger": "Cowork ROS skill rework - Part B (template relocation + branded wrapper + QA gate)"
+      },
+      "category": "infra",
+      "severity": "high",
+      "description": "Tokenized ROS Template lived in a separate `templates [master]/AEO/Podcast/Episode Templates/{Topic}/{Episode}/{Scope}/06 ROS Template/` tree, away from the firm's episode delivery folder where the Client ROS + Client Guide land. Also: the skill instructed uploading the raw .md as `application/vnd.google-apps.document` to make the Google Doc, which (a) produces an unbranded Doc with no CE cover page and (b) leaks pandoc `[entity]{.underline}` markup as visible text because Google's MD import doesn't render inline attributes.",
+      "resolution": "At Location/Extension scope the ROS Template now writes into `{Firm} Podcast/Episodes/E{N} - {Episode} - {Location}/01 Strategy/` alongside the Client ROS + Client Guide; Topic Only scope (the generic base template) stays in the templates tree. /client-ros now reads the template from that same 01 Strategy/ folder (old Locations->Extensions->Topic Only traversal removed). Branded DOCX->Doc made the mandatory output path (build-ros-template-docx.py emits real Word underline runs + CE cover page; Drive auto-converts the DOCX to a clean Doc). Removed the inaccurate 'renders cleanly via MD upload convert=true' claim. Font switched to Roboto. Added a mandatory QA gate to the SOP modeled on ops-skill-creator (markup cleanliness, 12-placeholder discipline, document-structure conformance, question-count <=20 in main body with overflow to a `## Additional Questions (Optional Pull)` appendix, jurisdiction consistency, no Formatting Guide section, branded-DOCX rendering).",
+      "fix_in_version": "1.1.0",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-05-12-002",
+      "ts": "2026-05-12T22:30:00Z",
+      "skill_version_at_run": "1.1.x",
+      "context": {
+        "trigger": "Backfill pass: rebuild the 12 in-flight Drive Docs (Spaulding E4 / Stout E5 / Empire E4 IE anchor / Empire E4 Norco) to the branded cowork spec, in place. Surfaced 2 build-script bugs."
+      },
+      "category": "bug",
+      "severity": "high",
+      "description": "build-ros-template-docx.py rendered `**[entity]{.underline}**` (a markdown-bold-wrapped pandoc span - the firm/attorney/podcast name pattern in intro lines + bullets) by leaking the literal `**` markers and, for the pandoc span, only catching it when NOT bold-wrapped; `add_pandoc_para` didn't honor markdown bold/italic at all. build-client-ros-docx.py had the same nested-marker leak (`INLINE_TOKEN_RE` greedily matched `**...**` then never re-tokenized the inner pandoc span), plus an em-dash in the .docx cover subtitle (`{firm} — {location}`) and in the .md `Prepared by Case Engine — {date}` line, and the cover title said 'Run of Show' instead of 'Client Run of Show' per the QA gate.",
+      "resolution": "Added a unified recursive `parse_inline` (ros-template) / recursive `tokenize_inline` (client-ros) that descends into **bold** / *italic* spans so nested `[entity]{.underline}` renders as ONE run carrying every applicable style - zero literal `**`/`*`/`[...]{.underline}`/`<u>` markers leak. Rewired `add_pandoc_para`, `add_question_text`, `add_bullet` (ros-template) onto it. Fixed both em-dashes in build-client-ros-docx.py (hyphens now). Cover title -> 'Client Run of Show'; header text -> 'Case Engine | Client Run of Show | {firm}, {location}'. Verified: all 12 rendered Drive Docs show entities as actual underlined text, zero visible markup, Roboto, branded cover page, zero em-dashes; tokenized ROS Template Docs correctly keep the 12 {{PLACEHOLDERS}}.",
+      "fix_in_version": "1.1.2",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-05-14-001",
+      "category": "schema",
+      "severity": "medium",
+      "description": "Extension folder placement and filename canonical were ambiguous; producers were creating extensions as siblings of EP{N} and using Type-first filenames.",
+      "resolution": "SKILL.md updated to lock extensions inside the parent episode folder and to require E{N}: {Episode Title} // {Firm} // {Type} - {Location} naming.",
+      "fix_in_version": "vNEXT",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-07-10-001",
+      "ts": "2026-07-10T00:00:00Z",
+      "skill_version_at_run": "3.1.0",
+      "context": {
+        "trigger": "Canonical three-field geo model alignment across all pod skills (Gabe directive 2026-07-10, Whalen scoping). Source of truth: pod-1-podcast-bible."
+      },
+      "category": "content",
+      "severity": "medium",
+      "description": "Skill conflated the show-wide anchor scope with the per-episode location target. Greeting Q2 was labeled 'Podcast anchor scope' and the {{CITY}} placeholder said only 'City name (from Location if city-level)', with no statement that a Location/Extension episode targets a specific city that may differ from the show anchor - the failure mode where a multi-location statewide firm ends up with episodes that all sound like one city, or where city emphasis silently becomes a city floor.",
+      "resolution": "Stamped the canonical three-field geo model with exact field names: Targeting strategy / Optimization scope (show anchor) / Episode geo target. Added a `### Framing -> Geo model` block defining all three plus the rule 'anchor scope != per-episode target' (ceiling-not-floor; preserves no-city-quota / natural-tonality). Relabeled Greeting Q2 -> 'Optimization scope (show anchor)'; clarified Q4 resolves the Episode geo target; updated the {{CITY}} placeholder to resolve to the Episode geo target city. Bumped references/schema/ros-template.json 1.0 -> 1.0.1 (location-field description clarified as the Episode geo target; description-only, no field added/renamed/reordered). Placeholder taxonomy, document structure, chain order, and Drive destinations unchanged.",
+      "fix_in_version": "3.1.1",
+      "status": "resolved"
+    }
+  ]
+}

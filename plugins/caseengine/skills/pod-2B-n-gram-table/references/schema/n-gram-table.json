@@ -1,0 +1,276 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caseengine.ai/schemas/pod-2B-n-gram-table.schema.json",
+  "title": "3B N-Gram Table",
+  "description": "Schema for n-gram-table.json - the machine-readable LLM Collation Table a single podcast episode produces at one scope (Topic Only / Location / Extension). The JSON has three top-level members: a `content` block (the table itself - four-column row set, scope, location, counts, dedup, localization result), a generated `research_summary` text field (the plain-language Executive Summary lead paragraph), and an `internal` block. The `internal` block carries two kinds of content: (a) the four review-tier blocks that render under the Doc's bottom `INTERNAL` H1 in a locked order - Cluster Architecture, Topic Entities, Local Anchors, Bridge Entity Coverage; and (b) provenance / metadata (topic, industry, jurisdiction, episode, version, created, parent anchor, skill, run provenance) plus the pipe-delimited metadata header line, which by contract NEVER render into the Doc and live in the JSON `internal` block + metadata.json only. The `content` block, `research_summary`, and the four `internal` review-tier blocks are what render into the client-facing Google Doc; the `internal` provenance/metadata fields do not.",
+  "type": "object",
+  "required": ["content", "research_summary", "internal"],
+  "additionalProperties": false,
+  "properties": {
+    "content": {
+      "$ref": "#/$defs/Content"
+    },
+    "research_summary": {
+      "type": "string",
+      "description": "The generated plain-language narrative paragraph that leads the client-facing Executive Summary section (heading -> this paragraph -> stat bullets). Generated per run, jargon-free, client-facing. Names the top recurring entities, states they recur whenever the topic is searched and discussed, frames the jurisdictional picture (local roads / hospitals / courts / agencies; Topic Only scope drops the local framing and notes comprehensive coverage instead), and ties to the N planned questions in plain terms.",
+      "minLength": 1
+    },
+    "internal": {
+      "$ref": "#/$defs/Internal"
+    }
+  },
+  "$defs": {
+    "StringOrStringArray": {
+      "description": "Either a single string or an array of strings. The skill writes column cells in either form depending on how many items the row carries.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      ]
+    },
+    "Content": {
+      "type": "object",
+      "description": "The n-gram table content - everything that renders into the client-facing Google Doc body.",
+      "required": ["scope", "row_count", "entities_per_row_avg", "dedup_merges", "localization_scan_result", "rows"],
+      "additionalProperties": false,
+      "properties": {
+        "scope": {
+          "type": "string",
+          "description": "The episode scope this table was generated at. Governs entity form, acronym convention, separator, and per-row entity count. Maps to the three-field geo model: a Location / Extension scope is the Episode geo target (the one city this table emphasizes); Topic Only carries no episode geo target. Distinct from the Optimization scope (show anchor) - the show-wide breadth the upstream research was gathered at, which is not a field on this table.",
+          "enum": ["Topic Only", "Location", "Extension"]
+        },
+        "location": {
+          "type": "string",
+          "description": "Jurisdiction label = the Episode geo target city this table is built to rank for (geo-model field 3). Required when scope is Location or Extension. Format: 'CA', 'CA - Los Angeles County', or 'CA - Long Beach'. No colons, dashes only.",
+          "minLength": 1
+        },
+        "row_count": {
+          "type": "integer",
+          "description": "Final row count after the dedup pass. Topic Only / Location target 25-35; Extension is 10.",
+          "minimum": 1
+        },
+        "entities_per_row_avg": {
+          "type": "number",
+          "description": "Average count of entities per row across the table. Reported in the client-facing Executive Summary stat bullets.",
+          "minimum": 0
+        },
+        "dedup_merges": {
+          "description": "Dedup pass result. Either an integer count of merges performed, or an array of merge records (each describing the question pair folded together).",
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "A single dedup merge: the weaker question folded into the survivor.",
+                "additionalProperties": true
+              }
+            }
+          ]
+        },
+        "localization_scan_result": {
+          "type": "string",
+          "description": "Result of the localization scan. PASS or FAIL when scope is Location/Extension; N/A when scope is Topic Only (scan does not apply).",
+          "enum": ["PASS", "FAIL", "N/A"]
+        },
+        "rows": {
+          "type": "array",
+          "description": "The four-column collation rows. Every row carries a question and its n-grams, entities, and predicates.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/Row"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "scope": { "enum": ["Location", "Extension"] }
+            },
+            "required": ["scope"]
+          },
+          "then": {
+            "required": ["location"]
+          }
+        }
+      ]
+    },
+    "Row": {
+      "type": "object",
+      "description": "One row of the collation table.",
+      "required": ["question_text", "ngrams", "entities", "predicates"],
+      "additionalProperties": false,
+      "properties": {
+        "question_text": {
+          "type": "string",
+          "description": "The on-air question, phrased conversationally the way a co-host would ask it.",
+          "minLength": 1
+        },
+        "ngrams": {
+          "$ref": "#/$defs/StringOrStringArray",
+          "description": "N-grams to mention. 3-5 per row - a mix of high-intent, long-tail, and process-oriented phrases."
+        },
+        "entities": {
+          "$ref": "#/$defs/StringOrStringArray",
+          "description": "Entities to mention. Real-world named orgs only, drawn from the matching-scope entity map. Per-row count, acronym convention, and separator vary by scope."
+        },
+        "predicates": {
+          "$ref": "#/$defs/StringOrStringArray",
+          "description": "Predicates to mention. 3-5 per row - action verb phrases describing what a practitioner does."
+        }
+      }
+    },
+    "QuestionRefList": {
+      "type": "array",
+      "description": "An ordered list of 1-based question numbers (Q-refs) from the collation table. Used by the Cluster Architecture and Bridge Entity Coverage blocks to map a pillar / bridge entity back to the questions it covers.",
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "minItems": 1
+    },
+    "GroupedEntityBlock": {
+      "type": "object",
+      "description": "A grouped-by-type entity block. Each key is a type sub-label (e.g. 'Accident Types', 'Law Enforcement') and each value is the array of entity names under that type. Renders in the Doc as a section heading, then per type a bold sub-label followed by a bullet list. The Topic Entities and Local Anchors INTERNAL blocks both use this identical shape.",
+      "minProperties": 0,
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 1
+      }
+    },
+    "Internal": {
+      "type": "object",
+      "description": "Internal block. Carries TWO kinds of content: (1) the four review-tier blocks that DO render under the bottom `INTERNAL` H1 of the client-facing Doc - `cluster_architecture`, `topic_entities`, `local_anchors`, `bridge_entity_coverage`, in that locked order; and (2) provenance / metadata fields (topic, industry, jurisdiction, episode, version, created, parent_anchor, skill, run provenance) plus the pipe-delimited metadata header - which by contract NEVER render into the Doc and live in the JSON `internal` block + metadata.json only. The four review-tier blocks are derived from the collation table itself. `local_anchors` is present only at Location / Extension scope; it is an empty object for Topic Only scope.",
+      "required": [
+        "cluster_architecture",
+        "topic_entities",
+        "local_anchors",
+        "bridge_entity_coverage",
+        "topic",
+        "industry",
+        "jurisdiction",
+        "episode",
+        "version",
+        "created",
+        "parent_anchor",
+        "skill",
+        "run_date",
+        "entity_map_source",
+        "entity_map_path",
+        "references_status",
+        "content_plan"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "cluster_architecture": {
+          "type": "object",
+          "description": "INTERNAL block 1 - the thematic pillars. Each key is a pillar name and each value is the list of question numbers (Q-refs) that fall under it. The lead block of the INTERNAL section. Always present, every scope.",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/QuestionRefList"
+          }
+        },
+        "topic_entities": {
+          "$ref": "#/$defs/GroupedEntityBlock",
+          "description": "INTERNAL block 2 - the universal, practice-area entities (accident types, injury types, legal standards / statutes, damages concepts, agencies, and other non-local entities), grouped by type. Always present, every scope. Same grouped-by-type shape as `local_anchors`."
+        },
+        "local_anchors": {
+          "$ref": "#/$defs/GroupedEntityBlock",
+          "description": "INTERNAL block 3 - the jurisdiction-specific entities (Roads / Highways, Law Enforcement, Medical Providers, Courts, County / Municipal), grouped by type. Present only at Location / Extension scope; an empty object {} for Topic Only scope. Same grouped-by-type shape as `topic_entities`."
+        },
+        "bridge_entity_coverage": {
+          "type": "object",
+          "description": "INTERNAL block 4 - the cross-cutting bridge entities (those recurring across multiple questions) mapped to the question numbers they appear in. Each key is an entity name and each value is its list of Q-refs. Always present, every scope; may be an empty object when no entity recurs across enough questions.",
+          "additionalProperties": {
+            "$ref": "#/$defs/QuestionRefList"
+          }
+        },
+        "topic": {
+          "type": "string",
+          "description": "Practice area / topic. Internal metadata header field.",
+          "minLength": 1
+        },
+        "industry": {
+          "type": "string",
+          "description": "Top-level industry (Legal, Healthcare, Finance, etc.). Internal metadata header field.",
+          "minLength": 1
+        },
+        "jurisdiction": {
+          "type": "string",
+          "description": "Jurisdiction the table is built for, or 'N/A' for Topic Only scope. Internal metadata header field."
+        },
+        "episode": {
+          "type": "string",
+          "description": "Episode title. Internal metadata header field.",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "description": "Version of this n-gram table. Internal metadata header field.",
+          "minLength": 1
+        },
+        "created": {
+          "type": "string",
+          "description": "ISO date the table was created. Internal metadata header field.",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "parent_anchor": {
+          "type": "string",
+          "description": "The parent anchor episode this table inherits from, or 'N/A' when this is the anchor. Internal metadata header field."
+        },
+        "skill": {
+          "type": "string",
+          "description": "The skill that produced this table. Internal metadata header field.",
+          "const": "pod-2B-n-gram-table"
+        },
+        "run_date": {
+          "type": "string",
+          "description": "ISO date the table was generated this run.",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "entity_map_source": {
+          "type": "string",
+          "description": "Where the upstream entity map was read from. 'local' = local Desktop deliverables path; 'drive' = shared Drive at matching scope.",
+          "enum": ["local", "drive"]
+        },
+        "entity_map_path": {
+          "type": "string",
+          "description": "Path to the upstream entity-map.json the table was built against.",
+          "minLength": 1
+        },
+        "references_status": {
+          "type": "string",
+          "description": "Whether the bundled references/examples were used as calibration anchors. 'used' = at least one example read; 'empty' = examples file empty, ran on in-skill methodology alone.",
+          "enum": ["used", "empty"]
+        },
+        "content_plan": {
+          "type": "string",
+          "description": "Whether a content plan (= topic plan, pod-2A-topic-planner output) was found at the per-client Topic Plan slot.",
+          "enum": ["found", "not_found"]
+        },
+        "schema_status": {
+          "type": "string",
+          "description": "Whether this schema file was present and validated against at run time. 'validated' = present and checked; 'missing' = schema file absent, validation skipped.",
+          "enum": ["validated", "missing"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "version": "1.0.1",
+  "doc": "ros-template-data.json",
+  "description": "Canonical structure for the machine-readable ROS Template payload produced by the /ros-template skill. Tokenized layer of the Run of Show pipeline - every firm-specific value MUST appear as one of the 12 approved {{PLACEHOLDERS}} (see SKILL.md > Best Practices > Placeholder taxonomy). Downstream /client-ros resolves placeholders against a specific firm's profile. If a field is added/renamed/reordered, edit this schema first, then update the skill prose. Bump `version` and append to `version_history` on every change.",
+  "consumed_by": [
+    "/client-ros",
+    "/client-guide",
+    "/clip-table"
+  ],
+  "produced_by": "/ros-template",
+  "version_history": [
+    { "version": "1.0", "date": "2026-04-27", "change": "Initial schema. Captures: practice_area, episode_topic, scope, location, total_duration_min, segments (array with per-segment intro_prompt + questions list with q_text + duration_min), optional producer_notes / intro_block / outro_block, metadata provenance." },
+    { "version": "1.0.1", "date": "2026-07-10", "change": "Three-field geo model alignment (Gabe directive 2026-07-10, Whalen scoping). Clarified the `location` field description: it is the Episode geo target (the specific city THIS episode ranks for), which is what the {{CITY}}/{{STATE}} placeholders resolve to and may differ from the show-wide Optimization scope (show anchor) - anchor scope != per-episode target. No field added/renamed/reordered; description-only change." }
+  ],
+  "shape": {
+    "practice_area": {
+      "type": "string",
+      "required": true,
+      "description": "Title-cased practice area name (e.g., 'Car Accidents'). Matches the {Practice Area} Drive folder under templates [master]/AEO/Podcast/Episode Templates/."
+    },
+    "episode_topic": {
+      "type": "string",
+      "required": true,
+      "description": "Episode title - the specific question or theme this ROS covers (e.g., 'How to File a Car Accident Claim'). Matches the {Episode} Drive subfolder."
+    },
+    "scope": {
+      "type": "string",
+      "required": true,
+      "enum": ["Topic Only", "Location", "Extension"],
+      "description": "Which scope this template was generated at. Drives destination folder + duration math."
+    },
+    "location": {
+      "type": "string",
+      "required": "conditional - required when scope is Location or Extension",
+      "description": "State-prefixed jurisdictional folder name (e.g., 'CA - Long Beach'). Format defined in the canonical Podcast Drive doc. This is the Episode geo target - the specific city THIS episode is built to rank for - which is what the {{CITY}} / {{STATE}} location placeholders resolve to. Per the three-field geo model (SKILL.md > Framing > Geo model) it may differ from the show-wide Optimization scope (show anchor): anchor scope != per-episode target."
+    },
+    "total_duration_min": {
+      "type": "integer",
+      "required": true,
+      "min": 8,
+      "max": 90,
+      "description": "Target episode runtime in minutes. Per Best Practices > Duration math: Topic Only 20-25, Location 25-30, Extension 8-10. Sum of segment duration_min values + intro + outro should be within +/-3 of this target."
+    },
+    "producer_notes": {
+      "type": "object",
+      "required": false,
+      "default": null,
+      "description": "Production-context block rendered before the Introduction. Holds jurisdiction summary, attorney bio hooks, recording-day reminders. Pandoc inline formatting tokens ([text]{.underline}, {.smallcaps}, {.mark}) are stripped by the build script when emitting the .md and translated to native DOCX runs when emitting the .docx.",
+      "shape": {
+        "jurisdiction_summary": { "type": "string", "required": false, "description": "Statute citations by section, insurance minimums, key local entities, government-notice deadlines. Plain text or pandoc-marked. May contain tokens like {{STATE}} or {{CITY}}." },
+        "attorney_bio_hooks": { "type": "string", "required": false, "description": "About-the-attorney line. Always references {{ATTORNEY_NAME}} + {{FIRM_NAME}} + {{CITY}} + {{STATE}} as tokens." },
+        "recording_notes": { "type": "string", "required": false, "description": "Free-form recording-day reminders for the producer. Optional." }
+      }
+    },
+    "intro_block": {
+      "type": "object",
+      "required": false,
+      "default": null,
+      "description": "Introduction segment scaffolding (the host opener before S1). Rendered with `*[Co-Host]*` speaker tags.",
+      "shape": {
+        "duration_min": { "type": "number", "required": false, "default": 2, "description": "Target intro length, typically 2 minutes." },
+        "host_lines": { "type": "array", "items_type": "string", "required": false, "description": "Ordered list of co-host lines. Each line is plain text or pandoc-marked. Tokens preserved verbatim." },
+        "topic_framing": { "type": "string", "required": false, "description": "2-4 sentence paragraph framing what the episode covers. Includes 1-2 local anchor entities at Location scope." }
+      }
+    },
+    "segments": {
+      "type": "array",
+      "required": true,
+      "min_items": 2,
+      "max_items": 6,
+      "description": "Ordered list of segments. Per Best Practices > Segment pacing: Topic Only / Location run 4 segments (S1-S4); Extensions collapse to 2-3.",
+      "item_shape": {
+        "name": { "type": "string", "required": true, "description": "Segment title (e.g., 'At the Scene - What to Do Right Now'). Renders as `## S{N}: {name} (~{duration_min} minutes)`." },
+        "duration_min": { "type": "integer", "required": true, "min": 2, "max": 30, "description": "Target segment duration in minutes. Sum across segments + intro + outro should land within +/-3 of total_duration_min." },
+        "intro_prompt": { "type": "string", "required": false, "description": "Co-host segment-opener line (1-2 sentences) leading into the first question. Optional - many segments transition directly into Q1." },
+        "transition_out": { "type": "string", "required": false, "description": "Co-host segment-wrap line bridging into the next segment. The ONLY co-host text between questions per Best Practices > Formatting Guide." },
+        "questions": {
+          "type": "array",
+          "required": true,
+          "min_items": 2,
+          "max_items": 10,
+          "description": "Ordered list of questions in this segment. Question text comes from the matching-scope N-Gram Table; do not invent.",
+          "item_shape": {
+            "q_id": { "type": "string", "required": true, "description": "Stable question identifier within the segment (e.g., 'Q1', 'Q2'). Renders as the H3 heading prefix." },
+            "q_text": { "type": "string", "required": true, "description": "The literal question the co-host asks on mic. Renders bold under the H3 heading." },
+            "duration_min": { "type": "number", "required": true, "min": 1, "max": 6, "description": "Target time budget for this question, including setup + attorney response." },
+            "setup": { "type": "string", "required": false, "description": "ONE sentence of co-host setup before the bolded question. Describes the listener's situation only - never explains how things work." },
+            "attorney_bullets": { "type": "array", "items_type": "string", "required": true, "min_items": 3, "max_items": 8, "description": "Production checklist (NOT a script) for the attorney response. Each bullet uses '**Label:** detail' format. Named entities wrapped in pandoc `[entity]{.underline}` (the build script translates to DOCX underline runs / strips to plain text in the paired .md). Tokens preserved verbatim." }
+          }
+        }
+      }
+    },
+    "outro_block": {
+      "type": "object",
+      "required": false,
+      "default": null,
+      "description": "Closing + Call to Action segment. Always references {{PHONE_NUMBER}} and {{WEBSITE}} tokens (both bold per quality gates).",
+      "shape": {
+        "duration_min": { "type": "number", "required": false, "default": 2, "description": "Target outro length, typically 2 minutes." },
+        "final_takeaway_prompt": { "type": "string", "required": false, "description": "Co-host prompt asking the attorney for one final piece of advice. The attorney response gets a final on-air moment before the CTA." },
+        "cta_lines": { "type": "array", "items_type": "string", "required": false, "description": "Ordered call-to-action host lines. Must include both `{{PHONE_NUMBER}}` and `{{WEBSITE}}` token references somewhere in the array." }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": true,
+      "description": "Provenance and run-level metadata. Internal-only; not consumed downstream as data, but useful for audit + the metadata.json sidecar.",
+      "shape": {
+        "version": { "type": "string", "required": true, "description": "Schema version used to produce this template (mirrors version field at top of this schema doc)." },
+        "produced_at": { "type": "string", "required": true, "description": "ISO 8601 timestamp of run completion." },
+        "produced_by_skill": { "type": "string", "required": true, "description": "/ros-template" },
+        "sources_used": { "type": "array", "items_type": "string", "required": true, "description": "Which signal sources fired - 'n-gram-table', 'entity-map', 'keyword-research', 'podcast-overview'." },
+        "sources_unavailable": { "type": "array", "items_type": "string", "required": true, "description": "Which sources were attempted but unavailable (e.g., 'keyword-research: not yet generated')." },
+        "counts": {
+          "type": "object",
+          "required": true,
+          "shape": {
+            "segments_total": { "type": "integer", "required": true },
+            "questions_total": { "type": "integer", "required": true },
+            "placeholders_used": { "type": "integer", "required": true, "description": "Distinct count from the 12-token taxonomy that appear at least once in the rendered template." },
+            "computed_duration_min": { "type": "integer", "required": true, "description": "Sum of intro + segments + outro durations. Should match total_duration_min within +/-3." }
+          }
+        },
+        "localization_scan": { "type": "string", "required": true, "enum": ["PASS", "FAIL", "NA"], "description": "PASS at Location/Extension when every entity reference uses the localized form per the entity map. NA at Topic Only scope." },
+        "references_status": { "type": "string", "required": true, "enum": ["used", "empty"], "description": "Whether _references/examples/ had calibration anchors at run time." }
+      }
+    }
+  }
+}

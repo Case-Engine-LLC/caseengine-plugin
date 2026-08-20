@@ -1,0 +1,239 @@
+﻿Case Engine  |  Run of Show  |  Traumatic Brain Injury, Location - TX - Fort Worth
+
+
+
+
+
+
+  
+
+Run of Show
+Understanding Traumatic Brain Injury Claims: From Diagnosis to What the Case Is Worth
+Location - TX - Fort Worth
+Prepared by Case Engine
+July 06, 2026
+________________
+
+
+Producer Notes
+Texas is an at-fault (tort) state. Minimum auto liability is 30/60/25 (Transp. Code §601). Modified comparative negligence bars recovery above 51% fault (Civ. Prac. & Rem. Code §33.001). Personal-injury statute of limitations is 2 years (§16.003); a government defendant triggers a 6-month notice under the Tort Claims Act (Ch. 101). Exemplary damages are capped (§41.008). Venue for a Fort Worth crash is Tarrant County District Court. Crash reports (CR-3) come from FWPD and TxDOT CRIS. Level I trauma care runs through JPS / John Peter Smith and Texas Health Harris Methodist.
+Position {{ATTORNEY_NAME}} of {{FIRM_NAME}} as the {{CITY}}, {{STATE}} attorney who handles serious brain-injury cases; surface trial credibility and work with local neurologists and trauma centers as leverage.
+Authority/education goal - keep medical and statute density high; let the attorney carry entities in responses, keep co-host setups plain. This is an emotionally heavy topic - keep tone steady and reassuring.
+Introduction (~2 minutes)
+[Co-Host]
+Welcome back to {{PODCAST_NAME}}. I'm {{HOST_NAME}}, here with {{ATTORNEY_NAME}} of {{FIRM_NAME}}.
+[Co-Host]
+Today we are tackling one of the toughest cases there is: a {{CITY}} traumatic brain injury, from diagnosis all the way to what the case is actually worth.
+[Co-Host]
+This episode walks through a brain-injury claim in Texas from the ground up - what the injury is, how an invisible injury gets proven, how the damages are valued, and how fault and insurance defenses are handled - so a listener knows what their claim is really worth before an adjuster tells them.
+S1: Understanding the Brain Injury (~6 minutes)
+[Co-Host]
+Before we get into claims and dollars, let us start with what a brain injury actually is and how it happens.
+Q1: What is a traumatic brain injury and how does it happen in an accident? (1.2 minutes)
+[Co-Host]
+A caller has heard the term but does not really know what counts as a brain injury.
+What is a traumatic brain injury and how does it happen in an accident?
+[Attorney Response]
+* Define it: a Traumatic Brain Injury (TBI) is damage to the brain from a sudden blow or jolt, from a Concussion / Mild TBI (mTBI) to life-altering harm.
+* Mechanism: rapid acceleration or impact injures the brain even without a skull fracture.
+* Link to the crash: Causation (Proximate Cause) ties the injury to the Negligence that caused the accident.
+* Not always obvious: symptoms can surface hours or days later.
+Q2: What kinds of accidents most often cause traumatic brain injuries? (1.2 minutes)
+[Co-Host]
+Someone wonders whether their type of accident is even the kind that causes a brain injury.
+What kinds of accidents most often cause traumatic brain injuries?
+[Attorney Response]
+* Common causes: high-speed wrecks, including I-35W / I-30 Fort Worth Highway Collision crashes, plus falls under Premises Liability (Falls).
+* Force matters: rollover and high-speed collisions carry the highest risk.
+* Tie to fault: each cause traces back to someone's Negligence.
+* Reality: even a low-speed collision can cause a Traumatic Brain Injury (TBI).
+Q3: What is the difference between a mild, moderate, and severe brain injury? (1.2 minutes)
+[Co-Host]
+A listener was told their injury was mild and assumes that means minor.
+What is the difference between a mild, moderate, and severe brain injury?
+[Attorney Response]
+* Grading: doctors use the Glasgow Coma Scale (GCS) to grade severity from mild to severe.
+* Mild is not minor: a Concussion / Mild TBI (mTBI) can still cause lasting problems.
+* Severe end: Diffuse Axonal Injury (DAI) and Subdural Hematoma are the most serious.
+* Why it matters: severity drives both treatment and value.
+Q4: How does a traumatic brain injury affect a person's daily life? (1.2 minutes)
+[Co-Host]
+A family notices their loved one just is not the same person after the crash.
+How does a traumatic brain injury affect a person's daily life?
+[Attorney Response]
+* Daily impact: memory, focus, mood, and sleep can all change with a Traumatic Brain Injury (TBI).
+* Lingering symptoms: Post-Concussion Syndrome (PCS) can keep symptoms going for months.
+* Human cost: this is real Pain and Suffering, not just medical bills.
+* Document it: track the changes day to day.
+Q5: What is the biggest challenge in proving a brain injury claim? (1.2 minutes)
+[Co-Host]
+A caller worries that because they look fine, no one will believe they are hurt.
+What is the biggest challenge in proving a brain injury claim?
+[Attorney Response]
+* Invisible injury: a Traumatic Brain Injury (TBI) often does not show on the surface.
+* Causation fight: proving Causation (Proximate Cause) that the crash caused the injury is the core battle.
+* The burden is yours: you must meet the Burden of Proof (Preponderance).
+* Records carry it: strong Medical Records make the invisible visible.
+[Co-Host]
+So that is the injury itself and why it is so hard to see; next let us talk about how you actually prove it.
+S2: Proving the Injury (~6 minutes)
+[Co-Host]
+Here is the part most people underestimate: an invisible injury has to be documented before it is worth anything.
+Q6: How do CT scans, MRIs, and advanced imaging document a brain injury? (1.2 minutes)
+[Co-Host]
+Someone's ER visit included a scan and they want to know what it actually shows.
+How do CT scans, MRIs, and advanced imaging document a brain injury?
+[Attorney Response]
+* Imaging tools: Neuroimaging (CT, MRI, DTI, fMRI) can reveal bleeding, swelling, and structural damage.
+* Advanced scans: newer imaging can catch Diffuse Axonal Injury (DAI) a basic CT can miss.
+* Part of the record: scans become key Medical Records.
+* Expert read: an Expert Witness explains the images to a jury.
+Q7: What is neuropsychological testing and why does it matter in a TBI case? (1.2 minutes)
+[Co-Host]
+A caller's doctor recommended cognitive testing and they are not sure why.
+What is neuropsychological testing and why does it matter in a TBI case?
+[Attorney Response]
+* What it is: Neuropsychological Testing measures memory, attention, and processing.
+* Proves deficits: it quantifies impairment imaging cannot show, including Post-Concussion Syndrome (PCS).
+* Objective proof: results back the injury with hard data.
+* Expert-driven: an Expert Witness administers and interprets it.
+Q8: What role does a neurologist play in a traumatic brain injury claim? (1.2 minutes)
+[Co-Host]
+A listener is bouncing between doctors and wonders who actually owns the brain injury.
+What role does a neurologist play in a traumatic brain injury claim?
+[Attorney Response]
+* Lead clinician: a Fort Worth / Tarrant County Neurologist diagnoses and directs care.
+* Medical narrative: their notes anchor the Medical Records.
+* Testimony: they can serve as an Expert Witness on the Traumatic Brain Injury (TBI).
+* Credibility: a specialist opinion carries weight.
+Q9: How does an attorney prove the brain injury was caused by the accident? (1.2 minutes)
+[Co-Host]
+The insurer is claiming the injury came from something else entirely.
+How does an attorney prove the brain injury was caused by the accident?
+[Attorney Response]
+* Establish causation: connect the Traumatic Brain Injury (TBI) to the crash through Causation (Proximate Cause).
+* Use the report: the Texas Peace Officer's Crash Report / TxDOT CRIS (CR-3) documents the impact.
+* Build the timeline: tie symptoms to the crash date with Medical Records.
+* Expert link: an Expert Witness bridges the medicine and the crash.
+Q10: Why is consistent medical treatment so important in a TBI claim? (1.2 minutes)
+[Co-Host]
+Life got busy and a caller has been skipping follow-up appointments.
+Why is consistent medical treatment so important in a TBI claim?
+[Attorney Response]
+* Continuity counts: steady care builds the Medical Records that prove the injury.
+* Local care: a Fort Worth / Tarrant County Treating Physician keeps the narrative consistent.
+* Reach a plateau: treating to Maximum Medical Improvement (MMI) shows the full picture.
+* Gaps hurt: a lapse lets the insurer attack Causation (Proximate Cause).
+[Co-Host]
+Strong proof establishes the injury; now let us turn to what that injury is actually worth.
+S3: What the Case Is Worth (~6 minutes)
+[Co-Host]
+Once the injury is proven, the question every family asks is what the case is actually worth.
+Q11: How are economic damages calculated in a brain injury case? (1.2 minutes)
+[Co-Host]
+A caller wants to know which of their losses actually carry a dollar figure.
+How are economic damages calculated in a brain injury case?
+[Attorney Response]
+* Hard numbers: Damages (Economic + Non-Economic) start with provable costs like bills and lost pay.
+* Future costs: include Future Medical Expenses, not just what is spent to date.
+* Lost income: factor in Loss of Earning Capacity.
+* Document everything: Medical Records anchor the totals.
+Q12: How is loss of earning capacity valued after a brain injury? (1.2 minutes)
+[Co-Host]
+A caller can no longer do the job they trained their whole life for.
+How is loss of earning capacity valued after a brain injury?
+[Attorney Response]
+* Beyond lost wages: Loss of Earning Capacity measures reduced ability to earn going forward.
+* Prove it: vocational and economic experts project the loss.
+* Expert testimony: an Expert Witness translates the injury into lost earnings.
+* Big driver: for a Traumatic Brain Injury (TBI), this can be the largest number.
+Q13: How are non-economic damages like cognitive and emotional changes valued? (1.2 minutes)
+[Co-Host]
+Someone asks how you put a price on no longer feeling like yourself.
+How are non-economic damages like cognitive and emotional changes valued?
+[Attorney Response]
+* No invoice: Pain and Suffering and cognitive change are part of Damages (Economic + Non-Economic) but have no receipt.
+* Show the change: document how Post-Concussion Syndrome (PCS) altered daily life.
+* Family harm: Loss of Consortium covers the toll on relationships.
+* Argued, not tallied: these are built with testimony.
+Q14: What is a life care plan and why is it essential in a serious TBI case? (1.2 minutes)
+[Co-Host]
+A family is scared about how they will afford decades of care.
+What is a life care plan and why is it essential in a serious TBI case?
+[Attorney Response]
+* What it is: a Life Care Plan maps every future need and cost.
+* Future costs: it captures Future Medical Expenses for years ahead.
+* Timing: built once care reaches Maximum Medical Improvement (MMI).
+* Expert work: an Expert Witness prepares and defends it.
+Q15: How is the value of a serious brain injury claim built? (1.2 minutes)
+[Co-Host]
+A caller wants to understand how all the pieces add up to a number.
+How is the value of a serious brain injury claim built?
+[Attorney Response]
+* Aggregate the harm: combine every category of Damages (Economic + Non-Economic) into Settlement Value.
+* Project forward: fold in the Life Care Plan and Future Medical Expenses.
+* Prove permanency: lasting impairment is the biggest lever.
+* Support with proof: documented severity anchors the demand.
+[Co-Host]
+That is how the number gets built; now let us look at what can cut it down and how to protect it.
+S4: Fault, Defense, and Protecting Value (~6 minutes)
+[Co-Host]
+Even a well-proven, well-valued case runs into fault rules and an insurer fighting back.
+Q16: How does comparative fault threaten the value of a brain injury claim? (1.2 minutes)
+[Co-Host]
+A caller was told they were partly to blame and fears they get nothing.
+How does comparative fault threaten the value of a brain injury claim?
+[Attorney Response]
+* The bar: under Texas 51% Modified Comparative Negligence (Tex. CPRC §33.001) you recover only if 50% or less at fault.
+* Proportional cut: your Damages (Economic + Non-Economic) drop by your share of fault.
+* Contest it: the insurer will inflate your Liability, so fight the split with evidence.
+* Stakes: cross 51% and recovery goes to zero.
+Q17: How do insurance companies fight traumatic brain injury claims? (1.2 minutes)
+[Co-Host]
+The insurer keeps insisting the caller's symptoms are exaggerated.
+How do insurance companies fight traumatic brain injury claims?
+[Attorney Response]
+* Dispute causation: they argue the Traumatic Brain Injury (TBI) was not caused by the crash.
+* Order an exam: they use an Independent Medical Examination (IME) to minimize the injury.
+* Limit exposure: they lean on Insurance Policy Limits and low Settlement Negotiation offers.
+* Answer with proof: strong records blunt these tactics.
+Q18: How does an attorney maximize a traumatic brain injury claim? (1.2 minutes)
+[Co-Host]
+A do-it-yourself caller asks whether a lawyer really changes the outcome.
+How does an attorney maximize a traumatic brain injury claim?
+[Attorney Response]
+* Build leverage: a documented Demand Letter backed by an Expert Witness resets the table.
+* Negotiate hard: experienced Settlement Negotiation pushes past the first offer.
+* Full value: counsel builds the Settlement Value the record supports.
+* Net gain: represented claims often net more even after the fee.
+Q19: When should a brain injury victim or their family contact an attorney? (1.2 minutes)
+[Co-Host]
+A family is overwhelmed and unsure whether it is too early to call.
+When should a brain injury victim or their family contact an attorney?
+[Attorney Response]
+* Sooner is better: the Texas 2-Year Statute of Limitations (Tex. CPRC §16.003) sets a hard deadline.
+* Special deadlines: a government defendant triggers the Texas Tort Claims Act 6-Month Notice (Tex. CPRC ch.101).
+* No upfront cost: a Contingency Fee means no fee unless you recover.
+* Preserve proof: early calls protect Medical Records and evidence.
+Q20: What is the single most important thing to understand about a TBI claim? (1.2 minutes)
+[Co-Host]
+To wrap up, the one thing every family should take away.
+What is the single most important thing to understand about a TBI claim?
+[Attorney Response]
+* It is provable: a Traumatic Brain Injury (TBI) is real and can be proven with the right evidence.
+* Documentation wins: consistent Medical Records and clear Causation (Proximate Cause) carry the case.
+* Protect the value: every step guards the Settlement Value.
+* Act early: get care and counsel before the insurer sets the frame.
+[Co-Host]
+That is how you protect the value and get to a fair result. Let us close it out.
+Closing and Call to Action (~2 minutes)
+[Co-Host]
+Before we close, {{ATTORNEY_FIRST_NAME}}, what is the one thing you want every {{CITY}} family dealing with a brain injury to remember?
+[Co-Host]
+If you or someone you love suffered a brain injury in a crash, do not let an insurer decide what it is worth.
+[Co-Host]
+Call {{FIRM_NAME}} at {{PHONE_NUMBER}} for a free consultation.
+[Co-Host]
+You can also reach us at {{WEBSITE}}.
+End of Run of Show
+Case Engine  |  Confidential                Page

@@ -1,0 +1,209 @@
+{
+  "version": "1.1",
+  "doc": "client-ros-data.json",
+  "description": "Canonical structure for the machine-readable Client ROS data file produced by the Client ROS skill. The Client ROS deliverable is the host-facing recording-day script with placeholders filled in for a specific firm. This JSON captures every populated value (firm, attorney, host, episode metadata, segments, questions, durations, entity checklist) so downstream skills (client-guide, clip-table, show-notes) can read structured input rather than parsing the rendered .md / Google Doc. If a field is added/renamed/reordered, edit this schema first, then update the skill prose. Bump `version` and append to `version_history` on every change.",
+  "consumed_by": [
+    "/client-guide",
+    "/clip-table",
+    "/show-notes-chapters"
+  ],
+  "produced_by": "/client-ros",
+  "version_history": [
+    { "version": "1.0", "date": "2026-04-27", "change": "Initial schema. Captures: show_name, firm, attorney, host, episode metadata, practice_area, scope, location, episode_goal, pre_show_checks, segments (with intro_prompt + questions), post_show_wrapup, closing, entity_checklist, metadata (provenance)." },
+    { "version": "1.1", "date": "2026-07-10", "change": "Aligned scope/location descriptions to the canonical three-field geo model (Targeting strategy / Optimization scope (show anchor) / Episode geo target). `location` sharpened from 'jurisdictional anchor' to the episode's Episode geo target city (may differ from the show anchor); `scope` note clarifies it is the per-episode geo breadth, not the show anchor. No field added/renamed/reordered. Gabe directive 2026-07-10, Whalen scoping." }
+  ],
+  "shape": {
+    "show_name": {
+      "type": "string",
+      "required": true,
+      "description": "Podcast name in title case (e.g., 'Car Accident Attorney w. Robert May'). Usually `{Firm} Podcast` but can deviate per the firm's brand. Matches `{{PODCAST_NAME}}` placeholder."
+    },
+    "firm": {
+      "type": "string",
+      "required": true,
+      "description": "Full firm name as it appears in Drive (e.g., 'The May Firm', 'Spaulding Injury Law', 'Sutliff & Stout'). Matches `{{FIRM_NAME}}` placeholder. Treated as a named entity - underlined every time it appears in the body."
+    },
+    "attorney": {
+      "type": "object",
+      "required": true,
+      "description": "The attorney being interviewed. Treated as a named entity - underlined every time the name appears.",
+      "shape": {
+        "full_name": { "type": "string", "required": true, "description": "Full attorney name (e.g., 'Robert May', 'Theodore \"Ted\" A. Spaulding'). Matches `{{ATTORNEY_NAME}}` placeholder." },
+        "first_name": { "type": "string", "required": true, "description": "First name only (e.g., 'Robert', 'Ted'). Matches `{{ATTORNEY_FIRST_NAME}}` placeholder. Used in the intro greet line." }
+      }
+    },
+    "host": {
+      "type": "object",
+      "required": true,
+      "description": "CE co-host on the recording.",
+      "shape": {
+        "name": { "type": "string", "required": true, "description": "Host first name as appears on-mic (e.g., 'Kara', 'Abby Arnold'). Matches `{{HOST_NAME}}` placeholder." }
+      }
+    },
+    "episode_topic": {
+      "type": "string",
+      "required": true,
+      "description": "Episode title verbatim (e.g., 'How to File a Car Accident Claim in California'). The H1 line in the body."
+    },
+    "practice_area": {
+      "type": "string",
+      "required": true,
+      "description": "Practice area lowercase plural (e.g., 'car accidents', 'truck accidents'). Matches `{{PRACTICE_AREA}}` placeholder."
+    },
+    "scope": {
+      "type": "string",
+      "required": true,
+      "enum": ["Topic Only", "Location", "Extension"],
+      "description": "Scope this Client ROS was populated at - the per-episode geo breadth, NOT the show anchor. Encoded in the firm episode-folder name (E{N} - {Episode} - {Location}). Under the canonical three-field geo model this is set by the Episode geo target, which for a multi-location firm can differ from the show's Optimization scope (show anchor)."
+    },
+    "location": {
+      "type": "object",
+      "required": "conditional - required when scope is Location or Extension",
+      "description": "The episode's Episode geo target - the specific city THIS episode is built to rank for, NOT necessarily the show's Optimization scope (show anchor). Fills the `{{CITY}}` / `{{STATE}}` placeholders. Per the canonical three-field geo model (Targeting strategy / Optimization scope (show anchor) / Episode geo target), a multi-location statewide firm anchors the show broad while each episode targets a different city here.",
+      "shape": {
+        "city": { "type": "string", "required": false, "description": "The Episode geo target city (e.g., 'Long Beach', 'Atlanta') - the city THIS episode is built to rank for, not necessarily the show anchor. Required if the Episode geo target is city-level (`CA - Long Beach`). Empty only when the Episode geo target is state-level." },
+        "state": { "type": "string", "required": true, "description": "State full name (e.g., 'California', 'Georgia'). Convert state code to full name at populate time." },
+        "county": { "type": "string", "required": false, "description": "County name (e.g., 'Fulton County', 'Los Angeles County'). Optional context." },
+        "drive_folder_label": { "type": "string", "required": true, "description": "State-prefixed jurisdictional folder name as it appears in Drive (e.g., 'CA', 'CA - Long Beach', 'CA - Los Angeles County'). Format defined in the canonical Podcast Drive doc." }
+      }
+    },
+    "episode_number": {
+      "type": "string",
+      "required": true,
+      "description": "Episode identifier (e.g., '2', 'B1' for bonus episodes). Just the N in `E{N}` for standard episodes; `B{N}` for bonus / SEO episodes. Matches `{{EPISODE_NUMBER}}` placeholder."
+    },
+    "duration_min": {
+      "type": "integer",
+      "required": true,
+      "description": "Estimated total duration in minutes (e.g., 55 for full episode, 30 for extension, 16 for bonus). Sum of segment durations + intro + outro."
+    },
+    "recording_date": {
+      "type": "string",
+      "required": true,
+      "description": "Recording date in `MM-DD-YYYY` format (e.g., '04-14-2026'). Matches `{{RECORDING_DATE}}` placeholder. May be 'TBD' for bonus / SEO episodes that haven't been scheduled."
+    },
+    "phone_number": {
+      "type": "string",
+      "required": true,
+      "description": "Firm phone in `(XXX) XXX-XXXX` format. Matches `{{PHONE_NUMBER}}` placeholder. Surfaces in the closing CTA, bolded."
+    },
+    "website": {
+      "type": "string",
+      "required": true,
+      "description": "Firm website with `https://` prefix (e.g., 'https://mayfirm.com/'). Matches `{{WEBSITE}}` placeholder. Surfaces in Producer Notes + closing CTA, bolded."
+    },
+    "template_version": {
+      "type": "string",
+      "required": true,
+      "description": "Upstream ROS Template version this Client ROS was populated from (e.g., '2.0', '1.0'). Carried in the metadata header for audit."
+    },
+    "episode_goal": {
+      "type": "string",
+      "required": true,
+      "enum": ["authority", "lead-generation", "differentiation", "narrative", "conversion"],
+      "default": "authority",
+      "description": "What this specific episode is trying to accomplish for this firm. Drives populate-time selection rules per Best Practices > Research is the palette."
+    },
+    "producer_notes": {
+      "type": "object",
+      "required": true,
+      "description": "Producer-facing context block at the top of the Client ROS body (after the metadata header, before the Introduction).",
+      "shape": {
+        "jurisdiction": { "type": "string", "required": true, "description": "Rich jurisdictional paragraph - statutes, comparative negligence framework, statute of limitations, courts, key agencies. Carries pandoc `[entity]{.underline}` markers around named entities." },
+        "about_attorney": { "type": "string", "required": true, "description": "One-sentence about-the-attorney line (attorney name + firm name underlined). Pattern: `[Attorney]{.underline} is a personal injury attorney at [Firm]{.underline} in {City}, {State}.`" },
+        "production_flags": { "type": "array", "items_type": "string", "required": false, "default": [], "description": "Optional production / compliance flags (e.g., phone number conflicts, brand exclusions, do-not-cite language). Empty array if none." }
+      }
+    },
+    "introduction": {
+      "type": "object",
+      "required": true,
+      "description": "Three-paragraph host introduction with transition line. No attorney response in the intro.",
+      "shape": {
+        "duration_min": { "type": "number", "required": true, "description": "Intro duration in minutes (typically 1.5-2)." },
+        "paragraphs": { "type": "array", "items_type": "string", "required": true, "min_items": 3, "max_items": 3, "description": "Exactly three `*[Co-Host]*` paragraphs: welcome-back -> greet attorney -> topic frame. Carries pandoc `[entity]{.underline}` markers." },
+        "transition_line": { "type": "string", "required": true, "default": "*Transition directly into Q1.*", "description": "The transition cue line that closes the intro." },
+        "co_host_notes": { "type": "string", "required": false, "description": "Optional italic producer note for the host on intro tone / framing." }
+      }
+    },
+    "pre_show_checks": {
+      "type": "array",
+      "required": false,
+      "default": [],
+      "description": "Optional pre-show production checks (mic levels, recording device, attorney readiness). Most Client ROS files don't include this inline - it's typically a separate producer checklist. If included, render as a bulleted list above the Introduction.",
+      "items_type": "string"
+    },
+    "segments": {
+      "type": "array",
+      "required": true,
+      "min_items": 1,
+      "max_items": 5,
+      "description": "Episode segments. Full episodes: 4-5 segments. Extension episodes: 1-2 segments. Bonus / SEO episodes: 1 segment.",
+      "item_shape": {
+        "segment_id": { "type": "string", "required": true, "description": "Stable segment identifier (e.g., 'S1', 'S2', 'S3', 'S4')." },
+        "name": { "type": "string", "required": true, "description": "Segment title (e.g., 'At the Scene - What to Do Right Now', 'The Atlanta Truck Accident Liability Chain'). Renders as `## S{N}: {name} (~{duration} minutes)` H2." },
+        "duration_min": { "type": "number", "required": true, "description": "Segment duration in minutes (e.g., 10, 13, 14)." },
+        "intro_prompt": { "type": "string", "required": false, "description": "Optional opening line / hook for the segment - only used in some templates. Most segments dive straight into Q1." },
+        "questions": {
+          "type": "array",
+          "required": true,
+          "min_items": 1,
+          "description": "Questions in this segment. Each populated with firm / attorney / city / state / statutes specifics.",
+          "item_shape": {
+            "q_id": { "type": "string", "required": true, "description": "Continuous question identifier across the whole episode (e.g., 'Q1', 'Q2', 'Q15'). Numbering does not reset per segment." },
+            "q_text": { "type": "string", "required": true, "description": "The bold framing question verbatim (e.g., 'What should someone do immediately after a car accident in California to protect their claim?'). Renders bold, with city / state populated inline." },
+            "duration_min": { "type": "number", "required": true, "description": "Question duration in minutes (typically 2-3)." },
+            "co_host_setup": { "type": "string", "required": true, "description": "ONE sentence the co-host says before the bold framing question. Describes the listener's situation. Never explains how things work." },
+            "attorney_bullets": { "type": "array", "items_type": "string", "required": true, "min_items": 3, "max_items": 8, "description": "Attorney response bullets in `**Label:** detail` format. Carry pandoc `[entity]{.underline}` markers around named entities (statutes, agencies, courts, highways, hospitals). 3-6 bullets per question is typical." }
+          }
+        },
+        "segment_wrap": { "type": "string", "required": false, "description": "Optional single `*[Co-Host]*` paragraph at end of segment that bridges to the next segment. The ONLY co-host text between questions inside a segment - all other co-host appearances are at the start of a Q block." }
+      }
+    },
+    "closing": {
+      "type": "object",
+      "required": true,
+      "description": "Closing and Call to Action block. Hard-gated placeholder surface.",
+      "shape": {
+        "duration_min": { "type": "number", "required": true, "description": "Closing duration in minutes (typically 2)." },
+        "final_takeaway_question": { "type": "string", "required": true, "description": "The bold framing question that launches the attorney's final takeaway moment (e.g., 'For someone listening right now who has just been in a car accident in California - what is the one thing you want them to remember?')." },
+        "attorney_takeaway_bullets": { "type": "array", "items_type": "string", "required": true, "min_items": 2, "max_items": 6, "description": "Final attorney bullets - one strong piece of advice apiece in `**Label:** detail` format." },
+        "cta_line": { "type": "string", "required": true, "description": "The closing CTA paragraph that surfaces populated phone, website, firm name, and podcast name (all bold). Hard-gated quality check: phone + website both bold." }
+      }
+    },
+    "post_show_wrapup": {
+      "type": "array",
+      "required": false,
+      "default": [],
+      "description": "Optional post-show producer wrap-up checklist (next steps, what attorney can expect, follow-up timeline). Most Client ROS files don't include this inline - it lives in the upstream ROS Template Appendix / Client Guide instead.",
+      "items_type": "string"
+    },
+    "entity_checklist": {
+      "type": "array",
+      "required": true,
+      "description": "Recording-time tally sheet. Sits AFTER `*End of Run of Show*` as the canonical 4-column table. Row count target: 10-15 entities for Location/City scope; 6-10 for Topic Only; 12-18 for state-level anchor episodes.",
+      "min_items": 6,
+      "max_items": 18,
+      "item_shape": {
+        "entity": { "type": "string", "required": true, "description": "Named entity wrapped in pandoc `[entity]{.underline}` (e.g., '[Houston Police Department (HPD)]{.underline}'). Drawn from the matching-scope entity map. Tier 1 + Tier 2 always; Tier 3 only when entity appears in 2+ questions." },
+        "questions": { "type": "array", "items_type": "string", "required": true, "description": "Comma-separated Q numbers where the attorney bullets reference this entity (e.g., ['Q1', 'Q2', 'Q4', 'Q5'])." },
+        "target_mentions": { "type": "string", "required": true, "description": "Range string per the heuristic (1-2 questions -> '2-3'; 3-4 questions -> '3-5'; 5-6 questions -> '5-7'; 7-9 questions -> '7-10'; 10+ questions -> '12-15')." },
+        "actual_mentions": { "type": "string", "required": false, "default": "", "description": "Blank at populate time. Producer fills in during recording review (post-record, pre-publish) to verify the attorney hit the targets." }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": true,
+      "description": "Provenance and run-level metadata. Internal-only; useful for audit.",
+      "shape": {
+        "version": { "type": "string", "required": true, "description": "Schema version used to produce this file (mirrors version field at top of this schema doc)." },
+        "produced_at": { "type": "string", "required": true, "description": "ISO 8601 timestamp of populate completion." },
+        "produced_by_skill": { "type": "string", "required": true, "description": "/client-ros" },
+        "upstream_template_path": { "type": "string", "required": true, "description": "Drive path of the ROS Template that was populated - lives in the firm's episode `01 Strategy/` folder (e.g., '{Firm} Podcast/Episodes/E2 - How to File a Car Accident Claim - CA Long Beach/01 Strategy/ROS Template - E2 - How to File a Car Accident Claim - CA Long Beach.md')." },
+        "placeholders_populated": { "type": "integer", "required": true, "min": 12, "max": 12, "description": "Always 12. Hard quality gate - if less than 12 populated with real values, the run did not pass." },
+        "placeholders_remaining": { "type": "integer", "required": true, "max": 0, "description": "Count of `{{...}}` tokens left in the body. Hard quality gate: must be 0." },
+        "legacy_u_tag_count": { "type": "integer", "required": true, "max": 0, "description": "Count of legacy HTML `<u>...</u>` tags in the body. Hard quality gate: must be 0 (all converted to pandoc `[...]{.underline}` at populate time)." },
+        "references_status": { "type": "string", "required": true, "enum": ["used", "empty"], "description": "Whether `references/examples/` had calibration anchors at run time." }
+      }
+    }
+  }
+}

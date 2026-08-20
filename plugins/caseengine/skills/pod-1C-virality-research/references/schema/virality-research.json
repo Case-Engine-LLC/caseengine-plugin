@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caseengine.ai/schemas/pod-1C-virality-research.json",
+  "title": "Virality Research output",
+  "description": "Canonical shape for virality-research.json produced by pod-1C-virality-research (skill v3.0.1). Consumed by the Topic Planner. Carries the three-field geo model: optional targeting_strategy + optimization_scope (show anchor) and the per-episode Episode geo target in 'location'. Bump skill version on any structural change.",
+  "type": "object",
+  "required": ["topic", "scope", "candidates", "provenance"],
+  "properties": {
+    "topic": {
+      "type": "string",
+      "description": "Practice area name (e.g., 'Car Accidents')"
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["Topic Only", "Location", "Extension"]
+    },
+    "location": {
+      "type": ["string", "null"],
+      "description": "Episode geo target - the specific city/jurisdiction this episode is built to rank for (state-prefixed folder name) when scope is Location or Extension. Distinct from the show-wide optimization_scope (show anchor) breadth. Null otherwise."
+    },
+    "targeting_strategy": {
+      "type": "string",
+      "enum": ["single-location", "multi-location"],
+      "description": "Targeting strategy: does the firm serve/rank one city (single-location) or several (multi-location). Optional; omitted when not resolved."
+    },
+    "optimization_scope": {
+      "type": "string",
+      "enum": ["City", "State", "County", "Regional"],
+      "description": "Optimization scope (show anchor): what the podcast as a whole is optimized to rank for. Distinct from the per-episode Episode geo target carried in 'location'. Optional; omitted when not resolved."
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "question",
+          "source_origin",
+          "signals",
+          "virality_score",
+          "tier",
+          "emotional_hook",
+          "prominence_filter"
+        ],
+        "properties": {
+          "id": {"type": "string"},
+          "question": {"type": "string"},
+          "source_origin": {
+            "type": "string",
+            "enum": [
+              "keyword_research",
+              "entity_research",
+              "llm_seed",
+              "n_gram_table"
+            ]
+          },
+          "signals": {
+            "type": "object",
+            "required": [
+              "social_trend",
+              "community_density",
+              "youtube_engagement",
+              "paa_depth",
+              "emotional_hook"
+            ],
+            "properties": {
+              "social_trend": {"type": "number", "minimum": 0, "maximum": 1},
+              "community_density": {"type": "number", "minimum": 0, "maximum": 1},
+              "youtube_engagement": {"type": "number", "minimum": 0, "maximum": 1},
+              "paa_depth": {"type": "number", "minimum": 0, "maximum": 1},
+              "emotional_hook": {"type": "number", "minimum": 0, "maximum": 1}
+            }
+          },
+          "virality_score": {"type": "number", "minimum": 0, "maximum": 1},
+          "tier": {"type": "string", "enum": ["High", "Medium", "Low"]},
+          "emotional_hook": {
+            "type": "string",
+            "enum": [
+              "Outrage",
+              "Surprise",
+              "Transformation",
+              "Fear",
+              "Hope",
+              "None"
+            ]
+          },
+          "prominence_filter": {
+            "type": "string",
+            "enum": ["pass", "low"],
+            "description": "'low' flags off-topic high-virality items per Koray prominence discipline. Never silently dropped; flagged so downstream can see the landscape."
+          },
+          "localization": {
+            "type": ["object", "null"],
+            "description": "Present when scope is Location or Extension. Captures generic vs Episode-geo-target-modified scores and the higher of the two. The location modifier keys off the Episode geo target (the specific city this episode ranks for), not the show anchor breadth; city emphasis is a ceiling, never a floor.",
+            "properties": {
+              "generic_score": {"type": "number", "minimum": 0, "maximum": 1},
+              "localized_score": {"type": "number", "minimum": 0, "maximum": 1},
+              "lift": {"type": "number"},
+              "chosen": {"type": "string", "enum": ["generic", "localized"]}
+            }
+          },
+          "short_form_hook": {
+            "type": ["string", "null"],
+            "description": "Optional under-60-char Shorts/Reels/TikTok hook. Drawn from best-performing patterns. Null if not generated."
+          },
+          "rationale": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "tier_distribution": {
+      "type": "object",
+      "properties": {
+        "high": {"type": "integer", "minimum": 0},
+        "medium": {"type": "integer", "minimum": 0},
+        "low": {"type": "integer", "minimum": 0}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["mode", "run_date", "source_priority"],
+      "properties": {
+        "mode": {"type": "string", "enum": ["A", "B"]},
+        "run_date": {"type": "string", "format": "date"},
+        "source_priority": {
+          "type": "string",
+          "enum": [
+            "keyword_research+entity_research",
+            "keyword_research_only",
+            "entity_research_only",
+            "n_gram_table_only",
+            "llm_seed_only"
+          ]
+        },
+        "youtube_api": {"type": "string", "enum": ["used", "skipped", "unreachable"]},
+        "reddit_api": {"type": "string", "enum": ["used", "skipped", "unreachable"]},
+        "content_gap_mcp": {"type": "string", "enum": ["used", "skipped", "unreachable"]},
+        "n_gram_table": {"type": "string", "enum": ["found", "not_found"]},
+        "references_status": {"type": "string", "enum": ["used", "empty"]},
+        "localization_pass": {"type": ["boolean", "null"]}
+      }
+    }
+  }
+}

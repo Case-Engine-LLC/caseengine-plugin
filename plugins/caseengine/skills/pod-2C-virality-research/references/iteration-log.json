@@ -1,0 +1,9 @@
+{
+  "_meta": {
+    "skill_name": "pod-2C-virality-research",
+    "schema_version": "1.0",
+    "created": "2026-05-14",
+    "notes": "Append-only iteration log. Read at run start; never written at runtime. New entries appended manually or proposed by scripts/diff_against_template.py with status='proposed' awaiting human sign-off. ID format YYYY-MM-DD-NNN (zero-padded daily counter). Categories: rendering / content / branding / logic / data / ux / schema / infra. Severities: low / medium / high / critical. Statuses: open / in-progress / resolved / wontfix / proposed."
+  },
+  "entries": []
+}

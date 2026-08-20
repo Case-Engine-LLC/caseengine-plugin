@@ -1,0 +1,20 @@
+{
+  "_meta": {
+    "skill_name": "pod-2B-keyword-research",
+    "schema_version": "1.0",
+    "created": "2026-05-14",
+    "notes": "Append-only iteration log. Read at run start; never written at runtime. New entries appended manually or proposed by scripts/diff_against_template.py with status='proposed' awaiting human sign-off. ID format YYYY-MM-DD-NNN (zero-padded daily counter). Categories: rendering / content / branding / logic / data / ux / schema / infra. Severities: low / medium / high / critical. Statuses: open / in-progress / resolved / wontfix / proposed."
+  },
+  "entries": [
+    {
+      "id": "2026-07-13-001",
+      "date": "2026-07-13",
+      "category": "schema",
+      "severity": "medium",
+      "status": "resolved",
+      "title": "provenance.data_source enum did not include keywords_everywhere_gkp",
+      "detail": "Whalen wrongful-death run resolved 100% of volume via Keywords Everywhere (GKP). The per-row keywords[].data_source enum includes 'keywords_everywhere_gkp' (aligned 2026-06-08) but the provenance.data_source summary enum only had ahrefs/content_gap/llm_estimate/mixed, so a fully-KE run could not validate without mislabeling its source. Fixed by adding 'keywords_everywhere_gkp' to the provenance enum (schema v1.0.2). Any run whose volume is entirely KE now validates truthfully.",
+      "fix": "schema/keyword-research.json provenance.data_source enum + version_history v1.0.2"
+    }
+  ]
+}

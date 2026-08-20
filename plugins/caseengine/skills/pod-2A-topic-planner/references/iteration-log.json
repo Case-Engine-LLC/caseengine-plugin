@@ -1,0 +1,148 @@
+{
+  "_meta": {
+    "schema_version": "1.0",
+    "purpose": "Append-only log of runs that surfaced issues. Captures input context + failure mode + resolution so we can spot patterns and iterate the skill / build scripts.",
+    "append_only": true,
+    "entry_categories": [
+      "rendering",
+      "content",
+      "branding",
+      "logic",
+      "data",
+      "ux",
+      "schema",
+      "infra"
+    ],
+    "severities": [
+      "low",
+      "medium",
+      "high",
+      "critical"
+    ],
+    "statuses": [
+      "open",
+      "in-progress",
+      "resolved",
+      "wontfix"
+    ],
+    "id_format": "YYYY-MM-DD-NNN (date + zero-padded counter for the day)",
+    "skill_name": "pod-2A-topic-planner",
+    "created": "2026-05-20"
+  },
+  "entries": [
+    {
+      "id": "2026-05-20-001",
+      "date": "2026-05-20",
+      "category": "rendering",
+      "severity": "high",
+      "status": "resolved",
+      "summary": "Show Identity field labels rendered non-bold in the client Doc.",
+      "context": "Sutliff & Stout v2 topic plan Doc. The five Show Identity labels (Podcast Name:, Tagline:, Podcast Description:, Audience:, Topic Mix:) are specified as bold inline labels followed by normal-weight values.",
+      "failure_mode": "topic-plan-formatting.sh never had a pass to bold the Show Identity labels. The 2026-05-20 v4.0.0 change log claims format-feedback item #5 'Show Identity labels render bold in the Doc' but the item was logged and never actually built. Google Drive's markdown-to-Doc import parses **Label:** into its own text run but drops bold:true when a bold span leads a paragraph immediately followed by non-bold text; with no formatter pass to re-assert bold, all five labels rendered normal weight. The 'Audience' label additionally regressed because it was authored as '### Audience' (an H3 heading) in the source md.",
+      "resolution": "Added Phase C.5 to topic-plan-formatting.sh: locates the ## Show Identity section, finds the five label paragraphs, applies updateTextStyle bold:true to the label token + colon only; self-heals the H3-Audience case by demoting it to NORMAL_TEXT and appending the colon. Fixed '### Audience' -> '**Audience:**' in both md mirrors. Live Doc patched surgically.",
+      "prevention": "A change-log entry is not proof of implementation. Format-feedback items must be verified as actually built into the render scripts, not just logged.",
+      "affected_files": [
+        "scripts/topic-plan-formatting.sh",
+        "skill-format-samples/pod-2A-topic-planner/topic-plan-v2.md",
+        "skill-format-samples/pod-2A-topic-planner/topic-plan-v4-format-sample.md"
+      ]
+    },
+    {
+      "id": "2026-05-20-002",
+      "date": "2026-05-20",
+      "category": "data",
+      "severity": "critical",
+      "status": "open",
+      "summary": "Topic Ideas table in the live Doc overwritten - 94 real scored rows replaced with a 24-row sample.",
+      "context": "While restructuring the INTERNAL ## Topic Ideas table columns (drop authority_score / Corroboration / Families Fired, add a Rationale column), a sub-agent was dispatched with a hard-coded 24-row dataset taken from the v4 format sample. The live Doc's table actually held 94 rows - the real V2 scoring output produced by a separate scoring session. The agent flagged the row-count mismatch but proceeded per its explicit spec and replaced the table wholesale.",
+      "failure_mode": "The agent spec hard-coded the replacement table content (24 sample rows) instead of instructing a column-only transform of whatever rows already existed. The dispatcher assumed the Doc matched the format sample; it did not. 70 rows of real client scoring data were wiped from the Doc.",
+      "resolution": "Real data confirmed intact and safe at deliverables/podcast-topics/sutliff-stout/topic-plan/v2-scoring/ (table-topics-by-score.json, topics-ranked.md - 94 scored topics). Doc-table reconciliation deferred by Gabe. The live Doc still shows the wrong 24-row table - OPEN until the real 94-row data is rendered back into it in the new four-column format.",
+      "prevention": "Agent specs for edits to existing Docs must NEVER hard-code content to replace data with. Column/format changes must be specified as transforms applied to whatever rows already exist. Agents must preserve found data and make surgical/additive edits only; replacing content wholesale is forbidden unless explicitly instructed. When an agent flags a mismatch between its spec and the live target, halt and reconcile before proceeding rather than executing the spec.",
+      "affected_files": [
+        "Drive Doc 1DXv0msqUswR4weN0H3tCNYre4ORPZotQ0vILbu1RI6k"
+      ]
+    },
+    {
+      "id": "2026-05-20-003",
+      "date": "2026-05-20",
+      "category": "rendering",
+      "severity": "medium",
+      "status": "resolved",
+      "summary": "Research Sources URL column shipped literal placeholder text 'Drive link' instead of real hyperlinks.",
+      "context": "The INTERNAL ## Research Sources table URL column showed the literal text 'Drive link' in every cell - no URL, no clickable hyperlink.",
+      "failure_mode": "The v4 format sample used 'Drive link' as placeholder text and it propagated into the promoted client Doc. The SKILL.md render spec does require resolving real Drive links and caching them in metadata.research_sources, but the sample never did, and the formatter did not convert markdown links inside table cells into real Docs hyperlinks (Drive's md import is unreliable for in-cell links).",
+      "resolution": "Resolved all 12 research-artifact Drive URLs (4 entity maps + 4 keyword research + 4 virality research); applied real clickable hyperlinks in the Doc and both md mirrors. Added Phase G to topic-plan-formatting.sh: scans the Research Sources URL column and converts literal markdown links into real Docs hyperlinks, idempotent on re-run.",
+      "prevention": "Sample/template files must not carry placeholder text that can render as final output. Skill QA should flag any literal 'link' / 'TBD' / 'placeholder' text in a shipped table.",
+      "affected_files": [
+        "scripts/topic-plan-formatting.sh",
+        "skill-format-samples/pod-2A-topic-planner/topic-plan-v2.md",
+        "skill-format-samples/pod-2A-topic-planner/topic-plan-v4-format-sample.md"
+      ]
+    },
+    {
+      "id": "2026-05-20-004",
+      "date": "2026-05-20",
+      "category": "infra",
+      "severity": "medium",
+      "status": "open",
+      "summary": "No automated post-render Doc QA - formatting regressions ship undetected.",
+      "context": "Three rendering/data defects (2026-05-20-001, -002, -003) shipped into a client Doc in a single session. The skill has a manual ## Quality Assurance checklist and validate-scoring-model.py, but no script that inspects the rendered Google Doc against the spec.",
+      "failure_mode": "QA is a manual checklist; nothing programmatically verifies the rendered Doc. Bold labels, real hyperlinks, table column signatures, row counts, and section order are only checked when a human eyeballs the Doc - here, Gabe caught all three.",
+      "resolution": "Logged as an open gap. Proposed: a render-QA script that fetches the Doc JSON and asserts - Show Identity labels bold, Research Sources URL cells carry real links, main / additional / Topics-by-Score table column signatures and row counts, canonical section order, '# INTERNAL' marker present - run as the final step of Ship.",
+      "prevention": "Build the render-QA script and wire it into ## Quality Assurance tier three so render regressions are caught before delivery, not by the client-facing reviewer.",
+      "affected_files": []
+    },
+    {
+      "id": "2026-05-21-001",
+      "date": "2026-05-21",
+      "category": "rendering",
+      "severity": "high",
+      "status": "resolved",
+      "summary": "Batch of 12 v2 topic-plan Docs shipped with no cover page, no Roboto, unstyled tables, unstyled INTERNAL marker, no page header - the branding formatter was bypassed.",
+      "context": "Session S392 batch run, 2026-05-21: 12 clients pushed through 3A in one wave. Compared three of them (May Firm 1ktmjxUJ_deTtby0cCh4te2fIcNguK5PyNUX7am2av1I, Conn 11B5tz9nCFHXW_gPrGXQYy4Tn-cL8S7_wezbAX8-G8bA, Empire 1MPerQ_9pzCRoUdyjS48RsIRzArbAM7_Rp0z1AeIVfuo) against the reference standard Sutliff & Stout v2 Doc 1DXv0msqUswR4weN0H3tCNYre4ORPZotQ0vILbu1RI6k.",
+      "failure_mode": "Agents reported direct markdown->Google Doc conversion returned 500 errors and worked around it with pandoc md->docx->Google Doc. The pandoc path never runs scripts/topic-plan-formatting.sh, so every formatter phase was skipped: Phase A/B (cover page + CE logo), Phase C (Roboto body pass), Phase E/E.5 (table CE Blue header + zebra + fixed widths), Phase F (28pt CE Blue INTERNAL marker + 1.5pt border), Phase H (running page header). Result: plain '# Podcast Topic Plan' H1 with no cover, default Arial/Calibri font, unstyled pandoc tables, plain INTERNAL H1, no page header, ISO date instead of long-form. Deeper structural cause: render-episode-question-tables.py - the only script that renders branded per-episode question tables - is hard-coded to Sutliff & Stout (EPISODE_HEADINGS list, KW_BASE path, E1_TOKENS, SLUG_PA map are all Stout literals). It physically cannot render any other client, so the batch had no working branded render path and pandoc was the only option available.",
+      "resolution": "Formatter fixed + all 12 Docs re-formatted in place (2026-05-21). Diagnosis: the formatter (scripts/topic-plan-formatting.sh) itself was sound for cover/Roboto/table-styling/header-footer AND the direct markdown->Google Doc conversion path works (no 500s reproduced - a fresh md->Doc test converted correctly, <br> -> newline). The agents skipped the formatter entirely (pandoc md->docx->Doc workaround). Separately, the formatter ALSO had a latent bug that would have failed on these large 12-episode Docs: every batchUpdate passed its body as an inline --json shell arg; a 20+-table plan's ~1.8MB table-style body overflows ARG_MAX -> 'argument list too long' before the API call. Fixed: new batch_update helper writes the body to a temp file, python reads it from disk and chunks the requests array at 150/batch; Phase G heredoc quoted to stop [label](url) shell expansion. All 12 v2 Docs re-formatted in place via the fixed formatter (fileIds preserved): cover page + CE logo, Roboto everywhere, CE Blue header / zebra tables, INTERNAL marker, running header/footer all restored; 12-Episode-Plan + Additional-Topics keyword cells now show search volume (the pandoc path had stripped the <br> so total demand and the keyword list ran together - the direct path restores the line break). Cover frontmatter was stripped from the 12 local source markdowns (v4 spec: body carries no frontmatter; cover is built from CLI args) - originals backed up. qa-doc-format.sh built by the audit run is retained. NOTE: the per-episode question-table volume (entry -002) is NOT fixed by this pass - that needs the Stout-hard-coded render-episode-question-tables.py generalized; see -002.",
+      "prevention": "Generalize render-episode-question-tables.py off the Stout hard-coding (drive headings/paths from the topic-plan JSON + a client arg) so a branded render path exists for every client and pandoc is never needed. Root-cause the md->Google Doc 500 errors so the formatter path is reliable. A topic-plan Doc that was not formatted by topic-plan-formatting.sh is NOT shippable - qa-doc-format.sh now enforces this mechanically.",
+      "affected_files": [
+        "scripts/topic-plan-formatting.sh",
+        "scripts/qa-doc-format.sh",
+        "scripts/render-episode-question-tables.py",
+        "SKILL.md"
+      ]
+    },
+    {
+      "id": "2026-05-21-002",
+      "date": "2026-05-21",
+      "category": "data",
+      "severity": "high",
+      "status": "resolved",
+      "summary": "Per-episode question tables in the 12 v2 batch Docs show no search volume - raw n-gram phrases shipped instead of MSV-joined Keywords cells.",
+      "context": "Same S392 batch. The reference Stout v2 Doc shows 509 '/mo' volume markers and 167 'Total Search Demand' markers Doc-wide - volume is present in nearly every per-episode question-table keyword cell. The defective Docs show only 78-81 '/mo' markers, all confined to the ~14-row 12-Episode Plan + Additional Topics tables; every per-episode question table has zero volume.",
+      "failure_mode": "The MSV join is a 3A render responsibility. 3B n-gram tables store content.rows[].ngrams as plain phrase strings with no MSV - by design. render-episode-question-tables.py -> question_keywords_cell() is supposed to resolve each n-gram phrase to an MSV from the practice area's keyword research (load_keyword_msv()) and format the cell via keywords_cell(). The batch agents instead populated the question tables straight from the raw 3B ngrams field - the topic-plan-v2.json carries episode_questions.episodes[].questions[] of shape {question, search_phrases, rationale} where search_phrases is a verbatim comma-joined n-gram string. question_keywords_cell() was never called (it couldn't be - it is Stout-hard-coded). The column was also mislabelled 'Search Phrases' instead of the canonical 'Keywords'. Verified the volume data IS available and resolvable: car-accidents/keyword-volume-map.json has 579 non-zero-MSV entries; 10 of 84 e02 n-gram phrases exact-match a non-zero MSV (e.g. 'do i need a lawyer for a car accident' -> 390/mo).",
+      "resolution": "Fixed across all 12 v2 batch Docs (2026-05-21). The per-episode question tables now carry MSV-joined volume and the column is renamed Search Phrases -> Keywords. Approach: the question-table cells already held the n-gram phrases (in the Search Phrases column); a backfill pass resolved each phrase to a real MSV and rewrote the cell in the canonical keywords_cell() two-line format ({summed MSV}/mo Total Search Demand, then the phrase - X/mo list). Volume source = a merged master map built from every keyword-volume-map.json + keyword-research.json under deliverables/podcast-research (2,453 phrases) PLUS each plan's own 12-Episode-Plan / Additional-Topics keyword cells harvested in (the most authoritative per-client source - same firm's keyword research). Matching is honest-tiered: exact, then substring, then shared-TRIGRAM (3 consecutive content words - a genuine shared concept; generic 1-2 word head terms never match alone, so volume is never fabricated). Phrases with no measured volume are left plain in the cell - not forced. All 14-15 question tables per Doc now carry volume. SKILL.md prose fixed: the 4 stale 'Search Phrases' references (Outputs structure, Create roll-up step, Render step 7, QA gate) now say 'Keywords' with the MSV-join requirement stated explicitly. The permanent render-path fix (generalize the Stout-hard-coded render-episode-question-tables.py so every client gets the MSV join at render time, not via a backfill) is STILL PENDING - see the prevention note; this entry's fix corrected the 12 shipped Docs + the spec, not the render script.",
+      "prevention": "SKILL.md spec gap: ### Build the Episode Question Tables and ### Render the topic plan step 7 say the question-table middle column is 'Search Phrases' pulled from 3B output, with no instruction to join MSV. The MSV join exists only inside the Stout-hard-coded render script. Spec should state the column is 'Keywords' and must carry MSV resolved from keyword research via question_keywords_cell(), and the render script must be generalized so every client gets the join.",
+      "affected_files": [
+        "scripts/qa-doc-format.sh",
+        "scripts/render-episode-question-tables.py",
+        "scripts/lib_doc_table.py",
+        "SKILL.md"
+      ]
+    },
+    {
+      "id": "2026-06-02-001",
+      "date": "2026-06-02",
+      "category": "behavior",
+      "severity": "medium",
+      "status": "resolved",
+      "summary": "Added a CE house-standard Default practice-area mix for PI firms with no client breakdown. Replaces the old 'no breakdown -> pure scoring, no quota' behavior for Personal Injury clients only.",
+      "context": "Gabe set a fixed default 12-episode PI distribution (v4.5.0). Previously the only practice-area default in the skill was the Additional Topics 'one per category: car / truck / other' set; the main 12 had no default quota when no breakdown was given.",
+      "failure_mode": "No default mix meant every no-breakdown PI plan was pure-scoring-shaped and inconsistent firm to firm; med mal and slip & fall were never guaranteed slots.",
+      "resolution": "Default PI mix: Car Accidents 4 eps (slots 2,3,4,6 / 33%), Medical Malpractice 2 (5,9 / 17%), Truck Accidents 2 (7,12 / 17%), Wrongful Death 1 (8 / 8%), Founder Story 1 (1 / 8%), Slip & Fall 1 (11 / 8%), Bicycle/Pedestrian 1 (10 / 8%). Slot 1 stays Founder Interview, slot 2 stays the ebook anchor (top Car Accidents ep). Scoring fills each quota; areas the firm doesn't practice are dropped and their slots reallocated to the next-ranked Car Accidents ep then highest-scoring confirmed-area ep. Scoped to PI: non-PI firms (Family Law, Criminal Defense) with no breakdown still use pure scoring. Client-stated breakdown still overrides everything. Updated: SKILL.md Form-the-episode-plan, Show Identity Topic Mix branch, Greeting copy; references/prompts/select-episodes-prompt.md inputs + step 3.",
+      "prevention": "Default mix is PI-only by design. If a non-PI default is ever wanted, add a domain-keyed default table rather than overloading this one.",
+      "affected_files": [
+        "SKILL.md",
+        "references/prompts/select-episodes-prompt.md"
+      ]
+    }
+  ]
+}

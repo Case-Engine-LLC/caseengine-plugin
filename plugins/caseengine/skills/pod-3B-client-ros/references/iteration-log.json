@@ -1,0 +1,137 @@
+{
+  "_meta": {
+    "schema_version": "1.0",
+    "purpose": "Append-only log of runs that surfaced issues. Captures input context + failure mode + resolution so we can spot patterns and iterate the skill / build script.",
+    "append_only": true,
+    "entry_categories": [
+      "rendering",
+      "content",
+      "branding",
+      "logic",
+      "data",
+      "ux",
+      "schema",
+      "infra"
+    ],
+    "severities": [
+      "low",
+      "medium",
+      "high",
+      "critical"
+    ],
+    "statuses": [
+      "open",
+      "in-progress",
+      "resolved",
+      "wontfix"
+    ],
+    "id_format": "YYYY-MM-DD-NNN (date + zero-padded counter for the day)",
+    "skill_name": "pod-3B-client-ros",
+    "created": "2026-05-20"
+  },
+  "entries": [
+    {
+      "id": "2026-04-28-001",
+      "ts": "2026-04-28T13:59:04Z",
+      "skill_version_at_run": "1.0.0",
+      "context": {
+        "firm": "Spaulding Injury Law",
+        "scope": "GA - Atlanta",
+        "topic": "Trucking Company Liability",
+        "episode_id": "B1",
+        "trigger": "Manual rebrand of legacy Spaulding docs"
+      },
+      "category": "branding",
+      "severity": "medium",
+      "description": "Cover page subtitle rendered episode topic at 22pt while firm name was demoted to the 14pt scope line. Hierarchy inverted - for client-specific deliverables, firm name should be the primary identity (subtitle), not the topic.",
+      "resolution": "Codified canonical Cover Page Spec at https://docs.google.com/document/d/1oydpI055jbj1FYDGeZfHQeMNjaWKUCFVGCRveeuJJCk/edit. Spec rule: subtitle = firm name (client-specific) or practice area (foundation). Re-rebranded all 5 Spaulding docs with corrected hierarchy. Added cover-page block to all 5 SKILL.md files under Outputs.",
+      "fix_in_version": "1.0.1",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-04-28-002",
+      "ts": "2026-04-28T20:00:00Z",
+      "skill_version_at_run": "1.0.1",
+      "context": {
+        "trigger": "Spec review alongside Client Guide brand-agnostic clarification"
+      },
+      "category": "branding",
+      "severity": "low",
+      "description": "Client ROS SKILL.md cover-page table updated to make the firm-leads-cover intent explicit (host literally says the firm name on air; the doc IS the firm's branded show).",
+      "resolution": "Updated Cover Page Spec at https://docs.google.com/document/d/1oydpI055jbj1FYDGeZfHQeMNjaWKUCFVGCRveeuJJCk/edit with per-skill subtitle table differentiating brand-agnostic (Client Guide / ROS Template / foundation research) from firm-specific (Client ROS / Show Bible / Topic Planner) deliverables. Updated each SKILL.md cover-page subtitle row. Re-rebranded 2 Spaulding Client Guides to swap subtitle back to topic.",
+      "fix_in_version": "1.0.2",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-04-30-001",
+      "ts": "2026-04-30T22:25:31Z",
+      "skill_version_at_run": "1.0.x",
+      "context": {
+        "firm": "(13-cell batch: MVP, Conn, Lem Garcia x2, 1800 Wolf, Eberst x8)",
+        "scope": "all client-ros runs in 2026-04-30 batch",
+        "topic": "multiple",
+        "trigger": "Sub-agents defaulted to local pod-8-client-ros skill instead of cowork client-ros"
+      },
+      "category": "logic",
+      "severity": "high",
+      "description": "Same as client-guide entry 2026-04-30-001: agents ran from local ~/.claude/skills/pod-8-client-ros instead of cowork plugins-skills/podcast/run of show/skills/client-ros. Local skill produces wrong filename (\"How to File... - E2 - Irvine - mvp-v1.md\") instead of cowork three-part (\"Client ROS // MVP Accident Attorneys // How to File a Car Accident Claim.md\"). Wrong Drive folder. No JSON schema input. No bundled build script.",
+      "resolution": "Re-dispatched cowork-skills-only agent. Pending: deprecate or sync local pod-8 skill with cowork client-ros.",
+      "fix_in_version": "pending",
+      "status": "open"
+    },
+    {
+      "id": "2026-04-30-002",
+      "ts": "2026-04-30T23:00:00Z",
+      "skill_version_at_run": "1.0.x",
+      "context": {
+        "firm": "(15-cell batch: MVP Irvine/Riverside/Sacramento, Lem Garcia E2/E3, 1800 The Wolf, Conn Law, Eberst E3/E4 FL/Stuart/Gainesville/Daytona)",
+        "scope": "all client-ros runs in 2026-04-30 batch",
+        "topic": "multiple",
+        "trigger": "Same firm + same episode produced multiple cells across anchor + extensions (e.g., MVP E2 has Irvine anchor + Riverside ext + Sacramento ext) — all 3 cells collapsed to identical filename `Client ROS // MVP Accident Attorneys // How to File a Car Accident Claim and Common Mistakes to Avoid.md`. Drive search, recent files, and aggregated views could not disambiguate them."
+      },
+      "category": "schema",
+      "severity": "high",
+      "description": "Three-part filename convention `Client ROS // {Firm} // {Episode}` was insufficient when a firm has anchor + multiple extensions for the same episode. Without a location suffix, every cell shipped with the same filename and silently overwrote each other in any aggregated view. The folder path carried the location, but Drive's search and 'recent files' surfaces flatten across folders and only show filename — losing the disambiguation entirely.",
+      "resolution": "Renamed all 30 client deliverables (15 GDocs + 15 .md siblings) in Drive to append ` - {Location}` for anchor cells and ` - {Location} (Extension)` for extension cells. Updated SKILL.md filename naming spec to require the location suffix on every Location/Extension scope cell. Future runs will produce correctly-disambiguated filenames automatically. Topic Only scope cells continue to drop the location suffix.",
+      "fix_in_version": "1.0.3",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-05-12-001",
+      "ts": "2026-05-12T20:00:00Z",
+      "skill_version_at_run": "1.0.x",
+      "context": {
+        "trigger": "Cowork ROS skill rework - Part B"
+      },
+      "category": "logic",
+      "severity": "high",
+      "description": "Pre-existing bug: the skill treated the Client Guide as an upstream precondition (state check #2, Step 0.5 handoff check, Inputs, upstream pulls all required `07 Client Guide/Client Guide.md`), but the Client Guide is produced DOWNSTREAM by /client-guide (RoS Step 4). Also: skill read the ROS Template via a Locations->Extensions->Topic Only Drive-tree traversal under `templates [master]/...` and instructed uploading the raw .md as a gdoc mimeType (leaks `[entity]{.underline}` markup, no cover page). Body also still claimed the skill produces both the Client ROS AND the Client Guide.",
+      "resolution": "Fixed the dependency direction - the Client Guide is no longer a precondition anywhere; this skill produces ONLY the Client ROS. ROS Template is now read from the firm's episode `01 Strategy/` folder (the same one this skill writes to); no Drive-tree traversal. Branded DOCX->Doc (build-client-ros-docx.py, real underline runs, Roboto, CE cover page) made the mandatory output path; removed the 'renders cleanly via MD upload convert=true' claim. Added a mandatory QA gate to the SOP (Step 7) modeled on ops-skill-creator (markup cleanliness, 12-placeholder discipline + zero leftover {{...}}, document-structure conformance, question-count <=20 in main body with overflow to `## Additional Questions (Optional Pull)`, Entity Checklist present at bottom, jurisdiction consistency, branded-DOCX rendering).",
+      "fix_in_version": "1.1.0",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-05-12-002",
+      "ts": "2026-05-12T22:30:00Z",
+      "skill_version_at_run": "1.1.x",
+      "context": {
+        "trigger": "Backfill pass: rebuild the 12 in-flight Drive Docs (Spaulding E4 / Stout E5 / Empire E4 IE anchor / Empire E4 Norco) to the branded cowork spec, in place. Surfaced 2 build-script bugs."
+      },
+      "category": "bug",
+      "severity": "high",
+      "description": "build-client-ros-docx.py rendered `**[entity]{.underline}**` (bold-wrapped pandoc span - the populated firm/attorney/podcast name in intro lines + bullets) by leaking the literal `**` and the `[...]{.underline}` text; `INLINE_TOKEN_RE` greedily matched `**...**` then never re-tokenized the inner pandoc span. Also: em-dash in the .docx cover subtitle (`{firm} — {location}`) and the .md `Prepared by Case Engine — {date}` line; cover title said 'Run of Show' not 'Client Run of Show' per the QA gate.",
+      "resolution": "Replaced `tokenize_inline` with a recursive version that descends into **bold**/*italic* spans (and pandoc spans) so a nested `[entity]{.underline}` renders as ONE run with every applicable style - zero literal markers leak. Both em-dashes -> hyphens. Cover title -> 'Client Run of Show'; header -> 'Case Engine | Client Run of Show | {firm}, {location}'. Verified across all 4 backfilled Client ROS Drive Docs: entities underlined, zero visible markup/em-dash/leftover tokens, Roboto, branded cover.",
+      "fix_in_version": "1.1.2",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-05-14-001",
+      "category": "schema",
+      "severity": "medium",
+      "description": "Extension folder placement and filename canonical were ambiguous; producers were creating extensions as siblings of EP{N} and using Type-first filenames.",
+      "resolution": "SKILL.md updated to lock extensions inside the parent episode folder and to require E{N}: {Episode Title} // {Firm} // {Type} - {Location} naming.",
+      "fix_in_version": "vNEXT",
+      "status": "resolved"
+    }
+  ]
+}

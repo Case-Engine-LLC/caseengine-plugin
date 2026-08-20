@@ -79,6 +79,19 @@ gets the house rules without hunting for a repo:
 | `seo-trending-pages` | Time-sensitive stats pages without URL bloat |
 | `client-config` | Client configuration JSON for the content generator |
 
+And the podcast pipeline, in the order it runs:
+
+| Phase | Skills |
+|---|---|
+| 1 · Research | `pod-1A-entity-research`, `pod-1B-keyword-research`, `pod-1C-virality-research` |
+| 2 · Planning | `pod-2A-topic-planner`, `pod-2A-entity-research`, `pod-2B-keyword-research`, `pod-2B-n-gram-table`, `pod-2C-virality-research` |
+| 3 · Run of show | `pod-3A-ros-template`, `pod-3B-client-ros`, `pod-3C-client-guide` |
+
+Each carries its own references and scripts, and declares its inputs and
+downstream dependencies — `pod-3A` needs a matching-scope n-gram table and entity
+map, and feeds `pod-3B` and `pod-3C`. This is the pipeline behind the
+`podcast_ros` generation runs.
+
 These are the source of truth for how content gets written and reviewed. Where a
 rule is a matter of judgment, the skill holds it; the scripts in `hooks/` only do
 things a model cannot do by reading, like scoring uniqueness against a corpus.
