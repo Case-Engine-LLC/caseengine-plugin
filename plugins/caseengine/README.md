@@ -43,11 +43,12 @@ plate in CE?" or "pull Wolf's open tasks" routes correctly on its own.
 ## What it can do
 
 **`caseengine-tasks`** — `work_list_items`, `work_get_task`, `work_list_tasks`,
-`work_list_people`, `work_team_workload`, `work_list_approvals`,
+`work_list_people`, `work_team_workload`, `work_list_approvals`, `client_list`,
 `client_get_profile`, plus (capability-gated) `work_create_task`,
 `work_assign_task`, `work_transition_task`, `work_approve_step`. Creating or
 assigning a task to someone else needs no special role beyond the standard
-OAuth grant below — resolve their id with `work_list_people` first.
+OAuth grant below — resolve their id with `work_list_people` first, and a
+client's with `client_list`.
 
 **`caseengine-content`** — list/get content pieces, poll and start generation
 jobs, cancel a job, transition a piece.

@@ -10,9 +10,12 @@ Argument: `$ARGUMENTS` — the client. Ask for it if missing; do not pick one.
 
 ## Steps
 
-1. **Resolve the client.** `client_get_profile` with the name or slug. Keep
-   the returned `client.id` for every subsequent call. If it 404s, stop and
-   ask — a meeting doc for the wrong firm is worse than a late one.
+1. **Resolve the client.** `client_list` with `query` set to the name, then
+   `client_get_profile` with the `id` you picked. Keep that `client.id` for
+   every subsequent call. If `client_list` returns nothing, or more than one
+   plausible firm, stop and ask — a meeting doc for the wrong firm is worse
+   than a late one, and a guessed slug fails silently as an empty result
+   rather than a 404.
 
 2. **Pull the work.**
    - `work_list_items` with `client_id` → open work.
