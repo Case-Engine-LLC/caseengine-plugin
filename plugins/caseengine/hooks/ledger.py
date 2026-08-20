@@ -103,10 +103,24 @@ def read_recent(ttl_hours: int = DEFAULT_TTL_HOURS) -> list[dict]:
     return entries
 
 
+# Two things count as evidence, and they are not the same thing.
+#
+#   verify       something was observed on a public surface — a URL returned
+#                200, an API confirmed the post, the PDF downloaded
+#   attestation  a person said yes, and we captured who, when and where
+#
+# Attestations exist because a large share of Case Engine approvals arrive in
+# Slack or come relayed by an account manager. There is no public surface to
+# fetch for "the client is happy with the draft" — the evidence is the message.
+# Refusing to record those would not make them more rigorous, it would just
+# keep the strongest signal we have out of the system.
+EVIDENCE_KINDS = ("verify", "attestation")
+
+
 def evidence_for_task(task_id: str, ttl_hours: int = DEFAULT_TTL_HOURS) -> list[dict]:
-    """Observations bound to this task and still in date. Matching is exact on
-    the task id — a screenshot of a different page is not evidence for this
-    ticket, which is the whole point."""
+    """Evidence bound to this task and still in date. Matching is exact on the
+    task id — a screenshot of a different page is not evidence for this ticket,
+    which is the whole point."""
     if not task_id:
         return []
     needle = task_id.strip().lower()
@@ -114,7 +128,7 @@ def evidence_for_task(task_id: str, ttl_hours: int = DEFAULT_TTL_HOURS) -> list[
         e
         for e in read_recent(ttl_hours)
         if str(e.get("task_id", "")).strip().lower() == needle
-        and e.get("kind") == "verify"
+        and e.get("kind") in EVIDENCE_KINDS
         and passing(e.get("status"))
     ]
 

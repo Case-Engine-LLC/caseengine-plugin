@@ -63,6 +63,21 @@ CDN.
   source; presence of *a* tag is not proof, the right one is
 - **Anything with a form** — submit it and confirm the submission arrives
 
+## Approvals are evidence too
+
+A large share of Case Engine approvals never touch the dashboard — they arrive
+in Slack, by email, or relayed by an account manager. There is no public surface
+to fetch for "the client is happy with the draft"; the evidence *is* the message.
+
+Record those as an **attestation** rather than pretending they are observations:
+who approved it, where it arrived, a permalink if one exists, and whether you
+heard it first-hand or somebody passed it on. `/caseengine:approved` walks it.
+
+Keep two things straight. An approval is not a verification — a client approving
+a draft says nothing about whether it is live. And "the client approved it"
+survives three retellings without anyone able to point at the original, which is
+why the relayer gets named.
+
 ## Recording it
 
 ```bash
@@ -73,6 +88,9 @@ python3 "${CLAUDE_PLUGIN_ROOT}/hooks/record.py" \
   --note "<what it showed>" \
   --method "<how>"
 ```
+
+For an approval, add `--kind attestation --approver "<name>" --channel slack
+--link "<permalink>"`, plus `--relayed-by "<name>"` when it was second-hand.
 
 Record failures too, with `--status failed`. A failed observation is knowledge,
 and it stops a task being closed on a misunderstanding.

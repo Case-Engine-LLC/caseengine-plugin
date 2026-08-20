@@ -40,6 +40,8 @@ Run `/caseengine:connect` and follow it. In short:
 | `/caseengine:client` | Everything on file for a client — websites, hosting, tracking, team, brand |
 | `/caseengine:blogs` | A client's blog inventory: published, scheduled, still an idea |
 | `/caseengine:podcast` | Episodes and the run of show for each, and what the slate is waiting on |
+| `/caseengine:ebook` | eBook and run-of-show generation runs, and where each one is |
+| `/caseengine:approved` | Record a client approval that came in via Slack or an account manager |
 
 You do not have to use the commands. With the plugin installed, "what's on my
 plate in CE?" or "pull Wolf's open tasks" routes correctly on its own.
@@ -61,7 +63,13 @@ Three pieces:
   `approved` and looks for a passing observation recorded against it in the last
   12 hours.
 
-Observations live in an append-only ledger at
+Two kinds of evidence count. A **verify** is something observed on a public
+surface — a URL returned 200, an API confirmed the post. An **attestation** is a
+person approving something, captured with who said it, where, and a link. Most
+client approvals here are the second kind, and recording whether you heard it
+first-hand or it was relayed keeps the chain visible.
+
+Evidence lives in an append-only ledger at
 `~/.claude/caseengine/evidence/<date>.jsonl`. Record one directly with:
 
 ```bash
@@ -105,8 +113,10 @@ OAuth grant below — resolve their id with `work_list_people` first.
 **`caseengine-tasks`, deliverable inventories** — `client_list_blogs`
 (`client_content_inventory`), `client_list_podcast_episodes`
 (`client_podcast_inventory`, with a derived run of show), `client_list_websites`.
-These are the deliverables themselves rather than the tasks about them, and they
-share the tasks OAuth grant.
+`client_list_generation_runs` (`content_generation_jobs` — eBooks and podcast
+run-of-shows; there is no separate eBook table). These are the deliverables
+themselves rather than the tasks about them, and they share the tasks OAuth
+grant.
 
 **`caseengine-content`** — list/get content pieces, poll and start generation
 jobs, cancel a job, transition a piece.
@@ -122,11 +132,11 @@ jobs, cancel a job, transition a piece.
   for `content_generation` stays read-only.
 - **Touch site changes.** Separate superadmin domain, not bundled here.
 - **Touch ClickUp.** Retired.
-- **Pull eBooks or a standalone run-of-show.** Neither exists as data. eBook
-  work lives only as `campaign_task` rows under the eBook template plus files in
-  Drive and the `ebook-*` repos, and "run of show" is the stage ladder on
-  `client_podcast_inventory`, not its own table. Nothing here can surface an
-  eBook inventory until one exists.
+- **See client approvals that happened in Slack.** `approved_at` reflects only
+  dashboard sign-off, and across 928 generation runs just 27 carry one — because
+  approvals arrive in Slack or through an account manager and never come back.
+  `/caseengine:approved` exists to close that loop, but it only captures what
+  somebody bothers to record.
 - **Vouch for work it did not check.** The gate reads the evidence ledger; it
   cannot tell whether an observation was honest. That part is on us, and it is
   why the skill leads on not recording something you did not see.

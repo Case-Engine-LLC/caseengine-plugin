@@ -42,7 +42,7 @@ def run_gate(payload, env_extra=None, raw=None):
     return proc.returncode, (proc.stdout or "") + (proc.stderr or "")
 
 
-def record(task, status="pass", observed="https://example.com/", env_extra=None):
+def record(task, status="pass", observed="https://example.com/", env_extra=None, extra=None):
     env = dict(os.environ)
     env.update(env_extra or {})
     subprocess.run(
@@ -52,7 +52,7 @@ def record(task, status="pass", observed="https://example.com/", env_extra=None)
             "--status", status,
             "--observed", observed,
             "--note", "test observation",
-        ],
+        ] + (extra or []),
         capture_output=True, text=True, env=env, check=True,
     )
 
@@ -118,6 +118,29 @@ def main() -> int:
         record(OTHER_TASK, status="failed", observed="https://example.com/broken", env_extra=env)
         rc, _ = run_gate(close_call(task=OTHER_TASK), env)
         check("failed observation does not satisfy", rc == 2, f"rc={rc}")
+
+        print("\nattestations — approvals that arrive in Slack or via an AM")
+        with tempfile.TemporaryDirectory() as tmpA:
+            a = {"CASEENGINE_EVIDENCE_DIR": tmpA, "CASEENGINE_PROOF_MODE": "enforce"}
+            rc, _ = run_gate(close_call(status="approved"), a)
+            check("approve denied with nothing recorded", rc == 2, f"rc={rc}")
+            record(TASK, observed="client said yes in #panter-law", env_extra=a,
+                   extra=["--kind", "attestation", "--approver", "Client",
+                          "--channel", "slack", "--link", "https://slack.com/archives/x/p123"])
+            rc, _ = run_gate(close_call(status="approved"), a)
+            check("attestation satisfies the gate", rc == 0, f"rc={rc}")
+            led = "".join(p.read_text() for p in Path(tmpA).glob("*.jsonl"))
+            check("attestation keeps the approver", '"approver": "Client"' in led)
+            check("attestation keeps the permalink", "slack.com/archives" in led)
+            check("first-hand recorded when nobody relayed it", '"first_hand": true' in led)
+        with tempfile.TemporaryDirectory() as tmpB:
+            b = {"CASEENGINE_EVIDENCE_DIR": tmpB, "CASEENGINE_PROOF_MODE": "enforce"}
+            record(TASK, observed="AM says client approved", env_extra=b,
+                   extra=["--kind", "attestation", "--approver", "Client",
+                          "--channel", "account-manager", "--relayed-by", "Kammie"])
+            led = "".join(p.read_text() for p in Path(tmpB).glob("*.jsonl"))
+            check("relayed approval marked second-hand", '"first_hand": false' in led)
+            check("relayer is named", '"relayed_by": "Kammie"' in led)
 
         print("\nmodes")
         with tempfile.TemporaryDirectory() as tmp2:

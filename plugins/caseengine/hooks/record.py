@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
-"""Write one observation into the evidence ledger.
+"""Write one piece of evidence into the ledger.
 
 This is the whole habit, reduced to a command: when you finish something, say
 what you looked at to confirm it worked.
+
+Two kinds. A `verify` is something you observed on a public surface. An
+`attestation` is a person approving something, captured with who said it, where,
+and a link — which is what most Case Engine client approvals actually are, since
+they arrive in Slack or come relayed by an account manager.
 
     record.py --task <uuid> --status pass \
               --observed "https://client.com/new-page/" \
@@ -46,11 +51,26 @@ def main() -> int:
     )
     parser.add_argument("--method", default="", help="how you checked, e.g. 'curl -sI', 'browser'")
     parser.add_argument("--client", default="", help="client slug, if known")
+    parser.add_argument(
+        "--kind",
+        default="verify",
+        choices=["verify", "attestation"],
+        help="verify = you observed it; attestation = a person approved it and you are recording that",
+    )
+    parser.add_argument("--approver", default="", help="attestation: who gave the approval")
+    parser.add_argument(
+        "--channel",
+        default="",
+        help="attestation: where it arrived — slack, email, call, meeting, account-manager",
+    )
+    parser.add_argument("--link", default="", help="attestation: permalink to the message or thread")
+    parser.add_argument("--relayed-by", default="", dest="relayed_by",
+                        help="attestation: who passed it on, if you did not hear it first-hand")
     parser.add_argument("--json", action="store_true", help="emit the entry as JSON")
     args = parser.parse_args()
 
     entry = {
-        "kind": "verify",
+        "kind": args.kind,
         "task_id": args.task.strip(),
         "status": args.status.strip().lower(),
         "observed": args.observed.strip(),
@@ -58,6 +78,20 @@ def main() -> int:
         "method": args.method.strip(),
         "client": args.client.strip(),
     }
+    if args.kind == "attestation":
+        entry.update(
+            {
+                "approver": args.approver.strip(),
+                "channel": args.channel.strip(),
+                "link": args.link.strip(),
+                "relayed_by": args.relayed_by.strip(),
+                # First-hand means we can see the approval ourselves. Relayed
+                # means somebody told us. Both are worth having; conflating
+                # them is how "the client approved it" survives three retellings
+                # without anyone able to point at the original.
+                "first_hand": not args.relayed_by.strip(),
+            }
+        )
     append(entry)
 
     if args.json:
@@ -65,8 +99,19 @@ def main() -> int:
         return 0
 
     verdict = "PASS" if passing(entry["status"]) else entry["status"].upper()
-    print(f"[{verdict}] task {entry['task_id']}")
-    print(f"  observed: {entry['observed']}")
+    label = "attested" if entry["kind"] == "attestation" else "observed"
+    print(f"[{verdict}] {entry['kind']} — task {entry['task_id']}")
+    print(f"  {label}: {entry['observed']}")
+    if entry["kind"] == "attestation":
+        who = entry.get("approver") or "unnamed approver"
+        where = entry.get("channel") or "unrecorded channel"
+        print(f"  approver: {who} via {where}")
+        if entry.get("relayed_by"):
+            print(f"  relayed by: {entry['relayed_by']} (second-hand)")
+        if entry.get("link"):
+            print(f"  link:     {entry['link']}")
+        elif entry.get("channel") in ("slack", "email"):
+            print("  no link recorded — a permalink is what makes this checkable later")
     if entry["note"]:
         print(f"  showed:   {entry['note']}")
     print(f"  ledger:   {ledger_path()}")
