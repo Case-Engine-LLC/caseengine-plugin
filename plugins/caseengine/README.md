@@ -43,6 +43,7 @@ Run `/caseengine:connect` and follow it. In short:
 | `/caseengine:ebook` | eBook and run-of-show generation runs, and where each one is |
 | `/caseengine:approved` | Record a client approval that came in via Slack or an account manager |
 | `/caseengine:check` | Run the automated QA checks against a live URL and record the results |
+| `/caseengine:queue` | Your queue grouped by what it actually is, not 200 identical rows |
 
 You do not have to use the commands. With the plugin installed, "what's on my
 plate in CE?" or "pull Wolf's open tasks" routes correctly on its own.
@@ -85,6 +86,22 @@ python3 "$CLAUDE_PLUGIN_ROOT/hooks/record.py" \
   --observed "https://client.com/the-page/" \
   --note "HTTP 200, headline matches the brief"
 ```
+
+### A note on how the queue actually looks
+
+Worth knowing before relying on any of this. For production staff the queue is
+not a list of different jobs — it is a few jobs repeated many times, with
+identical names. In current production: Clarence has **207 open tasks with 9
+distinct names**, Jennifer **94 with 8**, Melanie **65 with 13**. One cluster is
+59 tasks all called `IR: Full Episode Video Approval v1.0`, sharing a milestone
+name, with nothing on the task identifying which episode it is.
+
+Management queues look nothing like this — Gabe's 60 open tasks are 60 distinct
+names. Tooling built for one of those two shapes does not serve the other.
+
+`/caseengine:queue` groups rather than lists, and says out loud when a cluster is
+indistinguishable instead of formatting it prettily. The real fix is upstream:
+episode and instance identity belongs on the task.
 
 ### Known limits, in plain terms
 
