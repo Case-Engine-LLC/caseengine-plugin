@@ -1,0 +1,195 @@
+{
+  "version": "1.1.1",
+  "doc": "client-guide-data.json",
+  "description": "Canonical structure for the machine-readable Client Guide input/output produced by the Client Guide skill (Run of Show Step 4). The build script consumes this JSON and emits paired Client Guide.md + Client Guide.docx deliverables. Downstream skills (clip-table) read the same shape. If a field is added/renamed/reordered, edit this schema first, then update the skill prose. Bump `version` and append to `version_history` on every change.",
+  "consumed_by": [
+    "/clip-table",
+    "scripts/build-client-guide-docx.py"
+  ],
+  "produced_by": "/client-guide",
+  "version_history": [
+    { "version": "1.0", "date": "2026-04-27", "change": "Initial schema. Captures: episode_topic, practice_area, firm, attorney, scope, location, episode_overview (intro paragraph + metadata + episode_plan outline), pre_interview_prep (things_to_think_about + things_to_do), segments (intro + ordered segment list with name + description + questions + duration + outro), faq (Q/A list)." },
+    { "version": "1.1", "date": "2026-05-26", "change": "Attorney response bullets now ship in the Client Guide. Replaced the simple `questions: array<string>` per segment with `questions: array<{q_text, attorney_response_bullets: array<{label, detail}>}>`. The bullets are pulled verbatim from the source Client ROS so the attorney has the full mandatory infill in their prep doc. Backward-compatible read path: build script falls back to legacy string-only questions when the new shape is absent." },
+    { "version": "1.1.1", "date": "2026-07-10", "change": "Three-field geo model terminology alignment (Gabe directive, Whalen scoping). Docs-only PATCH - no structural field change. Clarified the `scope` and `location` field descriptions against the canonical three-field geo model: Targeting strategy (single-location vs multi-location), Optimization scope (show anchor) = City/State/County/Regional, Episode geo target = the specific city each episode is built to rank for. `scope` remains the internal ROS-derivation scope label (Topic Only/Location/Extension), a different axis from the show anchor; `location` carries the inherited Episode geo target. Anchor scope != per-episode target - the show anchors broad while each episode targets its own city; city emphasis is a ceiling, never a floor." }
+  ],
+  "shape": {
+    "episode_topic": {
+      "type": "string",
+      "required": true,
+      "description": "Plain-language episode topic (e.g., 'How to File a Car Accident Claim in California'). Sourced from the Client ROS metadata block."
+    },
+    "practice_area": {
+      "type": "string",
+      "required": true,
+      "description": "Title-cased practice area name (e.g., 'Car Accidents'). Matches the {Practice Area} folder under templates [master]/AEO/Podcast/Entity Research/."
+    },
+    "firm": {
+      "type": "string",
+      "required": true,
+      "description": "Law firm name as it should appear on the cover and header (e.g., 'The May Firm', 'Sutliff & Stout')."
+    },
+    "attorney": {
+      "type": "string",
+      "required": true,
+      "description": "Attorney name being prepped (e.g., 'Robert May'). Used in narrative voice and FAQ references."
+    },
+    "scope": {
+      "type": "string",
+      "required": true,
+      "enum": ["Topic Only", "Location", "Extension"],
+      "description": "Internal ROS-derivation scope label of the parent Client ROS this guide derives from. Drives cover-page subtitle formatting. This is a different axis from the show-level Optimization scope (show anchor) = City/State/County/Regional and from the client's Targeting strategy (single-location vs multi-location); it is not the show anchor breadth."
+    },
+    "location": {
+      "type": "string",
+      "required": "conditional - required when scope is Location or Extension",
+      "description": "The episode's Episode geo target - the specific city/jurisdiction this episode is built to rank for (e.g., 'California', 'CA - Long Beach'), inherited verbatim from the Client ROS, not re-derived here. Anchor scope != per-episode target: the show can anchor broad (e.g. the state) while this episode targets its own city. City emphasis in the copy is a ceiling, never a floor. Format defined in the canonical Podcast Drive doc."
+    },
+    "host": {
+      "type": "string",
+      "required": true,
+      "description": "CE host name on the recording (e.g., 'Kara'). Populates FAQ references like 'Kara will lead the conversation'."
+    },
+    "episode_overview": {
+      "type": "object",
+      "required": true,
+      "description": "Top section of the deliverable. Leads with the value proposition to the attorney's business, then declares metadata, then renders the Episode Plan outline.",
+      "shape": {
+        "value_prop": {
+          "type": "string",
+          "required": true,
+          "description": "2-3 sentence paragraph answering 'what does this recording do for my practice?' SEO visibility, trust building, authority, command of jurisdiction. Drives the lead paragraph of the Episode Overview section."
+        },
+        "metadata": {
+          "type": "object",
+          "required": true,
+          "description": "Metadata sub-block rendered as bold key/value lines under '### Metadata'.",
+          "shape": {
+            "episode_topic": { "type": "string", "required": true, "description": "Episode title in plain language. Mirrors top-level episode_topic." },
+            "estimated_duration": { "type": "string", "required": true, "description": "Range string (e.g., '~50-60 minutes'). Always a range, never a single number." },
+            "question_count": { "type": "integer", "required": true, "description": "Total number of host questions across all segments. Used in the duration line." },
+            "segment_count": { "type": "integer", "required": true, "description": "Number of content segments (excluding intro and outro). Used in the duration line." }
+          }
+        },
+        "episode_plan": {
+          "type": "array",
+          "required": true,
+          "items_type": "string",
+          "min_items": 3,
+          "description": "Nested-bullet outline of the recording structure. Conventional shape: Pre-Show Checks, Episode (Intro + S1..SN + Outro), Post-Show Wrap-up. Each item is a single string; nested children are encoded by leading whitespace or rendered inline by the build script."
+        }
+      }
+    },
+    "pre_interview_prep": {
+      "type": "object",
+      "required": true,
+      "description": "Two-section prep block. Always rendered with the bold-lead-sentence + regular-detail bullet format ('**Bold lead.** Detail').",
+      "shape": {
+        "things_to_think_about": {
+          "type": "array",
+          "required": true,
+          "min_items": 4,
+          "max_items": 6,
+          "description": "Reflective mindset prompts. Frame as 'How would you explain X?', 'What do you wish every client knew about Y?'. Derived from Client ROS content; not actionable tasks.",
+          "item_shape": {
+            "lead": { "type": "string", "required": true, "description": "Bold lead sentence, ends with a period (e.g., 'California's pure comparative negligence system.')." },
+            "detail": { "type": "string", "required": true, "description": "Regular-weight detail that elaborates on the lead." }
+          }
+        },
+        "things_to_do": {
+          "type": "array",
+          "required": true,
+          "min_items": 4,
+          "max_items": 6,
+          "description": "Actionable prep items. Specific research to pull, materials to gather, data to confirm. Always include 'Have your contact information ready' as one item.",
+          "item_shape": {
+            "lead": { "type": "string", "required": true, "description": "Bold lead sentence, ends with a period." },
+            "detail": { "type": "string", "required": true, "description": "Regular-weight detail." }
+          }
+        }
+      }
+    },
+    "segments": {
+      "type": "object",
+      "required": true,
+      "description": "Segment Breakdown content. Intro and outro are structural (no questions); content segments carry per-segment description + questions list + duration.",
+      "shape": {
+        "intro_description": {
+          "type": "string",
+          "required": true,
+          "description": "Italic paragraph explaining what happens in the intro and the attorney's role. No questions listed; intro is structural."
+        },
+        "intro_duration": {
+          "type": "string",
+          "required": false,
+          "default": "~2 minutes",
+          "description": "Display duration string for the intro section."
+        },
+        "list": {
+          "type": "array",
+          "required": true,
+          "min_items": 1,
+          "description": "Ordered list of content segments (S1, S2, ...). Render in array order.",
+          "item_shape": {
+            "name": { "type": "string", "required": true, "description": "Segment title (e.g., 'At the Scene - What to Do Right Now'). Will be prefixed with 'S{N}: ' on render." },
+            "description": { "type": "string", "required": true, "description": "Italic segment-goal paragraph: WHY this segment exists, what it accomplishes for the listener. Derived from Client ROS producer notes (translated into client language)." },
+            "duration": { "type": "string", "required": true, "description": "Display duration string for this segment (e.g., '~10 minutes')." },
+            "questions": {
+              "type": "array",
+              "required": true,
+              "min_items": 1,
+              "description": "Exact host questions from the Client ROS, each with the attorney-response bullets attached as sub-items. Numbered Q1..Q{N} on render in segment order, continuing across segments. ACCEPTS TWO SHAPES for backward compatibility: (a) v1.1 canonical shape - an array of objects {q_text, attorney_response_bullets}; (b) v1.0 legacy shape - an array of plain strings (no bullets rendered, question line only). The build script auto-detects and renders accordingly.",
+              "item_shape": {
+                "q_text": { "type": "string", "required": true, "description": "Exact question text from the Client ROS, cleaned of producer notes / entity bracketing / inline annotations. Rendered as the parent bullet `- Q{N}: {q_text}`." },
+                "attorney_response_bullets": {
+                  "type": "array",
+                  "required": true,
+                  "min_items": 0,
+                  "max_items": 10,
+                  "description": "Attorney coverage checklist for this question, pulled verbatim from the source Client ROS's `attorney_bullets` array under the matching question. Rendered as indented sub-bullets under the parent Q bullet: `  - **{label}** {detail}` in markdown, indented List Bullet 2 with bold lead + regular detail in DOCX. Pandoc `[entity]{.underline}` runs inside label or detail are preserved (rendered as DOCX underline runs, stripped to plain text in .md per existing convention). 3-6 sub-bullets per Q is typical.",
+                  "item_shape": {
+                    "label": { "type": "string", "required": true, "description": "Bold lead phrase ending with a colon (e.g., 'Inventory every category of loss:'). Pulled verbatim from the source Client ROS bullet's `**Label:**` prefix. May contain pandoc `[entity]{.underline}` runs." },
+                    "detail": { "type": "string", "required": true, "description": "Regular-weight detail following the label. Pulled verbatim from the source Client ROS bullet's detail clause. May contain pandoc `[entity]{.underline}` runs." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "outro_description": {
+          "type": "string",
+          "required": true,
+          "description": "Italic paragraph for the outro: host wraps, directs listeners to the firm. Mentions website, phone, free consultation."
+        },
+        "outro_duration": {
+          "type": "string",
+          "required": false,
+          "default": "~2 minutes",
+          "description": "Display duration string for the outro section."
+        }
+      }
+    },
+    "faq": {
+      "type": "array",
+      "required": true,
+      "min_items": 5,
+      "max_items": 10,
+      "description": "5 seed FAQs (always included) + 2-3 episode-specific FAQs. Format: bold question, plain-text answer.",
+      "item_shape": {
+        "question": { "type": "string", "required": true, "description": "FAQ question, ends with question mark. Will render bolded with leading bullet." },
+        "answer": { "type": "string", "required": true, "description": "Plain-text answer, 1-3 sentences." }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": false,
+      "description": "Optional provenance block. Internal-only; not rendered into the deliverable but useful for audit when present.",
+      "shape": {
+        "version": { "type": "string", "required": false, "description": "Schema version used to produce this guide." },
+        "produced_at": { "type": "string", "required": false, "description": "ISO 8601 timestamp of run completion." },
+        "produced_by_skill": { "type": "string", "required": false, "description": "/client-guide" },
+        "source_client_ros_path": { "type": "string", "required": false, "description": "Drive path of the Client ROS this guide was translated from." },
+        "scrub_result": { "type": "string", "required": false, "enum": ["clean", "flagged"], "description": "Result of the sensitive-data scrub (internal tool names, ROS phrase, entity architecture). 'flagged' means at least one hit was caught and corrected." }
+      }
+    }
+  }
+}

@@ -1,0 +1,303 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "{{website_url}}/#website",
+      "url": "{{website_url}}/",
+      "name": "{{firm_name}}",
+      "inLanguage": "en",
+      "publisher": { "@id": "{{website_url}}/#org" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{website_url}}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "{{website_url}}/#webpage",
+      "url": "{{website_url}}/",
+      "name": "{{firm_name}} – {{primary_location}} {{primary_practice_area}} Lawyers",
+      "inLanguage": "en",
+      "isPartOf": { "@id": "{{website_url}}/#website" },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "@id": "{{website_url}}/#homepageimage",
+        "url": "{{hero_image_url}}",
+        "contentUrl": "{{hero_image_url}}",
+        "width": {{hero_image_width}},
+        "height": {{hero_image_height}}
+      },
+      "datePublished": "{{date_published}}",
+      "dateModified": "{{date_modified}}",
+      "abstract": "{{tldr_summary}}",
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": ["header h1", ".homepage-summary"]
+      },
+      "about": { "@id": "{{website_url}}/#org" },
+      "breadcrumb": { "@id": "{{website_url}}/#breadcrumbs" },
+      "hasPart": [
+        { "@id": "{{website_url}}/#faq" },
+        { "@id": "{{website_url}}/#how-to-claim" },
+        { "@id": "{{website_url}}/#case-result-1" }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "{{website_url}}/#breadcrumbs",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{website_url}}/" }
+      ]
+    },
+    {
+      "@type": "PostalAddress",
+      "@id": "{{website_url}}/#hq-address",
+      "streetAddress": "{{street_address}}",
+      "addressLocality": "{{city}}",
+      "addressRegion": "{{state_abbr}}",
+      "postalCode": "{{postal_code}}",
+      "addressCountry": "US"
+    },
+    {
+      "@type": ["LegalService", "Organization"],
+      "@id": "{{website_url}}/#org",
+      "name": "{{firm_name}}",
+      "legalName": "{{legal_name}}",
+      "url": "{{website_url}}/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{logo_url}}",
+        "width": {{logo_width}},
+        "height": {{logo_height}}
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url": "{{office_image_url}}"
+      },
+      "description": "{{firm_description}}",
+      "foundingDate": "{{founding_date}}",
+      "address": { "@id": "{{website_url}}/#hq-address" },
+      "telephone": "{{telephone}}",
+      "email": "{{email}}",
+      "knowsAbout": {{knows_about_array}},
+      "ethicsPolicy": "{{website_url}}/ethics",
+      "publishingPrinciples": "{{website_url}}/editorial-guidelines",
+      "areaServed": [
+        { "@type": "AdministrativeArea", "name": "{{state_name}}" },
+        { "@type": "Country", "name": "United States" }
+      ],
+      "priceRange": "$$",
+      "currenciesAccepted": "USD",
+      "paymentAccepted": "Credit Card, Wire, Check",
+      "sameAs": {{same_as_array}},
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": {{latitude}},
+        "longitude": {{longitude}}
+      },
+      "hasMap": "{{google_maps_url}}",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "{{opens_time}}",
+          "closes": "{{closes_time}}"
+        }
+      ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "New Client Consultations",
+          "telephone": "{{telephone}}",
+          "email": "{{consult_email}}",
+          "areaServed": "US",
+          "availableLanguage": {{available_languages_array}}
+        },
+        {
+          "@type": "ContactPoint",
+          "contactType": "Media Inquiries",
+          "email": "{{press_email}}"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{{rating_value}}",
+        "ratingCount": "{{rating_count}}",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "reviewBody": "{{review1_body}}",
+          "reviewRating": { "@type": "Rating", "ratingValue": "{{review1_rating}}" },
+          "author": { "@type": "Person", "name": "{{review1_author}}" }
+        }
+      ],
+      "founder": {
+        "@type": "Person",
+        "@id": "{{website_url}}/#founder",
+        "name": "{{founder_name}}",
+        "jobTitle": "{{founder_title}}",
+        "sameAs": {{founder_same_as_array}},
+        "hasCredential": {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "Professional license",
+          "name": "{{bar_association_name}}",
+          "url": "{{bar_association_url}}",
+          "identifier": "{{bar_number}}"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "{{law_school_name}}"
+        }
+      },
+      "awards": {{awards_array}},
+      "memberOf": {{member_of_array}},
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": {{latitude}},
+          "longitude": {{longitude}}
+        },
+        "geoRadius": {{service_radius_meters}}
+      },
+      "potentialAction": [
+        {
+          "@type": "ContactAction",
+          "target": "{{website_url}}/free-consultation",
+          "name": "Request a Free Consultation",
+          "result": { "@type": "Thing", "name": "Consultation scheduled" }
+        },
+        {
+          "@type": "SubscribeAction",
+          "target": "{{website_url}}/newsletter",
+          "name": "Subscribe to case updates"
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "{{website_url}}/#service",
+      "name": "{{service_name}}",
+      "serviceType": "{{service_type}}",
+      "provider": { "@id": "{{website_url}}/#org" },
+      "areaServed": { "@type": "City", "name": "{{city}}" },
+      "audience": { "@type": "Audience", "audienceType": "{{audience_description}}" },
+      "termsOfService": "{{website_url}}/terms",
+      "offers": {
+        "@type": "Offer",
+        "url": "{{website_url}}/free-consultation",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "priceCurrency": "USD",
+          "price": "0",
+          "description": "Free consultation. No fee unless we win."
+        },
+        "eligibleRegion": "US-{{state_abbr}}",
+        "availability": "https://schema.org/InStock",
+        "businessFunction": "http://purl.org/goodrelations/v1#ProvideService",
+        "category": "Contingency fee representation"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "{{website_url}}/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "{{faq1_question}}",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "{{faq1_answer}}"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "{{faq2_question}}",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "{{faq2_answer}}"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "{{website_url}}/#how-to-claim",
+      "name": "How to file a personal injury claim in {{state_name}}",
+      "description": "Step-by-step guide explaining what injured people in {{state_name}} should do after a serious accident.",
+      "inLanguage": "en",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Get medical care and document your injuries",
+          "text": "Call 911 if needed and see a doctor as soon as possible. Tell your providers how the accident happened and keep all records and bills."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Report the accident",
+          "text": "For crashes, contact law enforcement and obtain an accident report. For falls or other incidents, notify the property owner or manager in writing."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Preserve evidence",
+          "text": "Take photos and videos of the scene, vehicles, hazards, and injuries. Save witness information, insurance letters, and any correspondence from adjusters."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Speak with a {{state_name}} personal injury lawyer before giving a recorded statement",
+          "text": "Insurance companies often try to limit payouts. Contact {{firm_name}} for a free consultation so we can explain your rights and handle communications."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Allow your attorney to handle the claim and deadlines",
+          "text": "We investigate liability, calculate damages, negotiate settlement, and if necessary file a lawsuit within {{state_name}}'s statute of limitations."
+        }
+      ]
+    },
+    {
+      "@type": "LegalCase",
+      "@id": "{{website_url}}/#case-result-1",
+      "name": "{{case_name}}",
+      "description": "{{case_description}}",
+      "jurisdiction": "{{state_name}}",
+      "locationCreated": {
+        "@type": "Place",
+        "name": "{{city}}, {{state_abbr}}"
+      },
+      "party": [
+        { "@type": "Person", "name": "Plaintiff (confidential)" },
+        { "@type": "Organization", "name": "Defendant insurance company (confidential)" }
+      ],
+      "legalOutcome": "Settled",
+      "result": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": "{{settlement_amount}}"
+      },
+      "legislationApplied": [
+        { "@id": "{{website_url}}/#statute-limitations" }
+      ],
+      "provider": { "@id": "{{website_url}}/#org" }
+    },
+    {
+      "@type": "Legislation",
+      "@id": "{{website_url}}/#statute-limitations",
+      "name": "{{statute_name}}",
+      "description": "{{statute_description}}",
+      "jurisdiction": "{{state_name}}",
+      "legislationIdentifier": "{{statute_identifier}}",
+      "url": "{{statute_url}}"
+    }
+  ]
+}

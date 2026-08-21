@@ -1,0 +1,533 @@
+{
+  "metadata": {
+    "firm": "{FIRM_NAME}",
+    "practice_mix": {
+      "primary": "Family Law",
+      "high_value_niche": "CPS / Child Abuse Civil (CINA)",
+      "selective": "Criminal Defense (Drug Crimes, Violent Crimes)"
+    },
+    "locations": [
+      "{PRIMARY_CITY}",
+      "{SECONDARY_CITY}"
+    ],
+    "counties_served": [
+      "{PRIMARY_COUNTY}",
+      "{SECONDARY_COUNTY}"
+    ],
+    "counties_excluded": [
+      "Baltimore"
+    ],
+    "episode_count": {
+      "main": 12,
+      "biographic_anchor": 1,
+      "bonus": 5
+    },
+    "mode": "production",
+    "prepared_by": "Case Engine",
+    "date": "{DATE}",
+    "data_sources": [
+      "firm_website",
+      "attorney_bio",
+      "google_business_profile",
+      "linkedin",
+      "contract",
+      "fathom_sales_close",
+      "fathom_strategy_meeting",
+      "fathom_onboarding_meeting",
+      "brand_guide",
+      "entity_research",
+      "keyword_research",
+      "virality_research"
+    ],
+    "branding": {
+      "font": "Roboto",
+      "cover_subtitle": "Podcast Topic Plan",
+      "cover_logo_id": "{LOGO_ID}",
+      "primary_color": "#3573FF",
+      "alt_row_color": "#F5F7FA"
+    }
+  },
+  "show_identity": {
+    "podcast_name": "Maryland Law Podcast with {ATTORNEY_NAME}",
+    "podcast_description": "{ATTORNEY_NAME} has spent 30 years in Maryland courtrooms. Each week he sits down to explain what Maryland law really says, and what it really does, when a marriage falls apart, a parent wants to move with the kids, CPS shows up at the door, or a custody fight turns criminal. The show is for {PRIMARY_COUNTY} and {SECONDARY_COUNTY} County families who want straight talk from a trial lawyer instead of another generic legal blog. Maryland statutes, Maryland case law (including {FIRST_NAME}'s own Braun v. Headley), and the practical decisions families face once the paperwork starts.",
+    "tagline": "Plain Maryland law from the attorney who took a custody case to the doorstep of the U.S. Supreme Court.",
+    "target_audience": [
+      "Spouses considering or going through a divorce in {PRIMARY_COUNTY} and {SECONDARY_COUNTY} counties.",
+      "Maryland parents facing a CPS investigation, a CINA petition, or a false-allegation custody fight.",
+      "Military and first-responder families at Fort Meade, NSA, U.S. Coast Guard, and Maryland State Police dealing with deployment custody and federal-benefit divisions in a divorce."
+    ]
+  },
+  "tables": {
+    "main": {
+      "columns": [
+        {
+          "name": "#",
+          "width_pref": "min",
+          "width_pt": 32
+        },
+        {
+          "name": "Topic",
+          "width_pref": "wide",
+          "width_pt": 130
+        },
+        {
+          "name": "Theme",
+          "width_pref": "narrow",
+          "width_pt": 70
+        },
+        {
+          "name": "Keywords",
+          "width_pref": "medium",
+          "width_pt": 80
+        },
+        {
+          "name": "Search Volume",
+          "width_pref": "narrow",
+          "width_pt": 44
+        },
+        {
+          "name": "Rationale",
+          "width_pref": "medium",
+          "width_pt": 112
+        }
+      ],
+      "width_total_pt": 468,
+      "rows": [
+        {
+          "episode_number": 1,
+          "title": "From Capitol Hill to Custody Court: How {ATTORNEY_NAME} Became Maryland's Relocation Lawyer",
+          "is_biographic_anchor": true,
+          "practice_area": "Brand / Founder Story",
+          "keywords": [],
+          "search_volume_total": 0,
+          "wave": 1,
+          "rationale": "Founder story — Mikulski office to Braun v. Headley to 30 years of family + CPS work. Every show launches with this."
+        },
+        {
+          "episode_number": 2,
+          "title": "The Case That Set the Rule: How Braun v. Headley Changed Maryland Custody Forever",
+          "practice_area": "Family Law: Custody (Relocation)",
+          "keywords": [
+            {
+              "phrase": "braun v headley maryland custody relocation",
+              "msv": 30
+            },
+            {
+              "phrase": "maryland custody relocation rules",
+              "msv": 90
+            },
+            {
+              "phrase": "moving with kids divorce maryland",
+              "msv": 110
+            },
+            {
+              "phrase": "child relocation maryland law",
+              "msv": 70
+            }
+          ],
+          "search_volume_total": 300,
+          "wave": 1,
+          "rationale": "{FIRST_NAME}'s own published MD case {ATTORNEY_PUBLISHED_CASE — Mohink's was Braun v. Headley; swap for the published case the attorney is known for}, mandatory authority on relocation. No other MD attorney can claim it."
+        },
+        {
+          "episode_number": 3,
+          "title": "Equitable Distribution in Maryland: How the Marital House Actually Gets Divided",
+          "practice_area": "Family Law: Property Division",
+          "keywords": [
+            {
+              "phrase": "how is property divided in divorce maryland",
+              "msv": 880
+            },
+            {
+              "phrase": "marital property maryland",
+              "msv": 480
+            },
+            {
+              "phrase": "marital home divorce maryland",
+              "msv": 210
+            },
+            {
+              "phrase": "use and possession maryland",
+              "msv": 90
+            }
+          ],
+          "search_volume_total": 1660,
+          "wave": 1,
+          "rationale": "The marital house is the highest-stakes financial call in most MD divorces. Volume audience."
+        },
+        {
+          "episode_number": 4,
+          "title": "Calculating Child Support in Maryland: The Guidelines, the Deviations, the Real Outcomes",
+          "practice_area": "Family Law: Child Support",
+          "keywords": [
+            {
+              "phrase": "how is child support calculated in maryland",
+              "msv": 2400
+            },
+            {
+              "phrase": "maryland child support calculator",
+              "msv": 1900
+            },
+            {
+              "phrase": "child support guidelines maryland",
+              "msv": 590
+            },
+            {
+              "phrase": "maryland child support deviations",
+              "msv": 110
+            }
+          ],
+          "search_volume_total": 5000,
+          "wave": 1,
+          "rationale": "5,000/mo demand but Maryland DHS owns position 1 — pivot to \"how it's actually calculated\" + an interactive tool on {FIRST_NAME}'s site."
+        },
+        {
+          "episode_number": 5,
+          "title": "The Maryland Divorce Timeline: From Filing to Final Decree",
+          "practice_area": "Family Law: Procedure",
+          "keywords": [
+            {
+              "phrase": "how long does a divorce take in maryland",
+              "msv": 1900
+            },
+            {
+              "phrase": "maryland divorce process",
+              "msv": 1300
+            },
+            {
+              "phrase": "maryland mutual consent divorce",
+              "msv": 480
+            },
+            {
+              "phrase": "uncontested divorce maryland timeline",
+              "msv": 320
+            }
+          ],
+          "search_volume_total": 4000,
+          "wave": 1,
+          "rationale": "Highest-volume awareness query (4,000/mo). The canonical \"where do I start\" piece that funnels every other episode."
+        },
+        {
+          "episode_number": 6,
+          "title": "Protective Orders in Maryland: How They Work, What They Don't Do, When You Actually Need One",
+          "practice_area": "Family Law: Domestic Violence",
+          "keywords": [
+            {
+              "phrase": "protective order maryland",
+              "msv": 2400
+            },
+            {
+              "phrase": "how to get a protective order in maryland",
+              "msv": 880
+            },
+            {
+              "phrase": "peace order vs protective order maryland",
+              "msv": 320
+            },
+            {
+              "phrase": "violation of protective order maryland",
+              "msv": 210
+            }
+          ],
+          "search_volume_total": 3810,
+          "wave": 2,
+          "rationale": "Urgent-search audience, 3,810/mo. Sits at the family-law / DV intersection that feeds civil and criminal work."
+        },
+        {
+          "episode_number": 7,
+          "title": "Modifying a Maryland Custody or Support Order: What Counts as a \"Material Change\"",
+          "practice_area": "Family Law: Post-Decree",
+          "keywords": [
+            {
+              "phrase": "modify custody order maryland",
+              "msv": 590
+            },
+            {
+              "phrase": "how to change child support in maryland",
+              "msv": 320
+            },
+            {
+              "phrase": "material change in circumstances maryland",
+              "msv": 170
+            },
+            {
+              "phrase": "modify visitation maryland",
+              "msv": 140
+            }
+          ],
+          "search_volume_total": 1220,
+          "wave": 2,
+          "rationale": "Post-decree, repeat-client territory. Pulls clients back 1-5 years after the original order."
+        },
+        {
+          "episode_number": 8,
+          "title": "Military Divorce in Maryland: USERRA, the 10-Year Rule, and Why Fort Meade Families Need Their Own Playbook",
+          "practice_area": "Family Law: Special Audience (Military / Fort Meade)",
+          "keywords": [
+            {
+              "phrase": "10/10 rule military divorce",
+              "msv": 1300
+            },
+            {
+              "phrase": "uniformed services former spouse protection act",
+              "msv": 480
+            },
+            {
+              "phrase": "military divorce maryland",
+              "msv": 210
+            },
+            {
+              "phrase": "deployment custody maryland",
+              "msv": 90
+            }
+          ],
+          "search_volume_total": 2080,
+          "wave": 2,
+          "rationale": "Captive audience. Fort Meade is 15 min from {PRIMARY_CITY}. Most MD firms refer this out."
+        },
+        {
+          "episode_number": 9,
+          "title": "When CPS Comes Knocking: The Maryland Parent's Playbook for an Investigation",
+          "practice_area": "CPS / Child Abuse Civil (CINA)",
+          "keywords": [
+            {
+              "phrase": "cina maryland",
+              "msv": 720
+            },
+            {
+              "phrase": "cps process maryland",
+              "msv": 320
+            },
+            {
+              "phrase": "what happens when cps investigates in maryland",
+              "msv": 170
+            },
+            {
+              "phrase": "parental rights cps maryland",
+              "msv": 90
+            }
+          ],
+          "search_volume_total": 1300,
+          "wave": 3,
+          "rationale": "{FIRST_NAME}'s stated #1 priority: \"the crimes and the child abuse.\" The work peers at Zide won't touch."
+        },
+        {
+          "episode_number": 10,
+          "title": "Defending Against False Child Abuse Allegations in a Maryland Custody Fight",
+          "practice_area": "CPS / Child Abuse Civil + Family Law: Custody (Cross-Practice)",
+          "keywords": [
+            {
+              "phrase": "custody false abuse allegations",
+              "msv": 320
+            },
+            {
+              "phrase": "fight false child abuse charges",
+              "msv": 140
+            },
+            {
+              "phrase": "false cps report maryland",
+              "msv": 110
+            },
+            {
+              "phrase": "false child abuse allegations custody maryland",
+              "msv": 70
+            }
+          ],
+          "search_volume_total": 640,
+          "wave": 3,
+          "rationale": "Custody crossover when a CPS report gets weaponized. Differentiator versus every other MD family firm."
+        },
+        {
+          "episode_number": 11,
+          "title": "Defending Against Maryland Sex Abuse Charges: The First 30 Days, the Registry, and Why Early Counsel Decides the Case",
+          "practice_area": "Criminal Defense: Sex Offenses",
+          "keywords": [
+            {
+              "phrase": "maryland sex offender registry tiers",
+              "msv": 600
+            },
+            {
+              "phrase": "maryland sex crimes lawyer",
+              "msv": 500
+            },
+            {
+              "phrase": "sex offense charges maryland penalties",
+              "msv": 200
+            },
+            {
+              "phrase": "accused of child sexual abuse maryland",
+              "msv": 100
+            }
+          ],
+          "search_volume_total": 1400,
+          "rationale": "{FIRST_NAME}'s stated #2 priority. MD Crim Law §§ 3-303–3-308 + § 3-602, registry tiers, why the first 24 hours decide the case.",
+          "wave": 3
+        },
+        {
+          "episode_number": 12,
+          "title": "The Maryland Child Victims Act: Civil Sex Abuse Claims, Who Can Be Sued, and Why the Clock Just Restarted",
+          "practice_area": "Civil Sex Abuse (Plaintiff) + Cross-Practice (Institutional Liability)",
+          "keywords": [
+            {
+              "phrase": "maryland child victims act",
+              "msv": 600
+            },
+            {
+              "phrase": "child sexual abuse lawsuit maryland",
+              "msv": 200
+            },
+            {
+              "phrase": "maryland statute of limitations child abuse",
+              "msv": 150
+            },
+            {
+              "phrase": "sue for childhood abuse maryland",
+              "msv": 100
+            }
+          ],
+          "search_volume_total": 1050,
+          "rationale": "2023 MD law repealed the civil SOL on childhood sex abuse. Adult survivors can now sue institutions. High-margin.",
+          "wave": 3
+        }
+      ]
+    },
+    "bonus": {
+      "columns": [
+        {
+          "name": "Topic",
+          "width_pref": "wide",
+          "width_pt": 130
+        },
+        {
+          "name": "Theme",
+          "width_pref": "narrow",
+          "width_pt": 70
+        },
+        {
+          "name": "Keywords",
+          "width_pref": "medium",
+          "width_pt": 80
+        },
+        {
+          "name": "Search Volume",
+          "width_pref": "narrow",
+          "width_pt": 44
+        },
+        {
+          "name": "Rationale",
+          "width_pref": "medium",
+          "width_pt": 100
+        },
+        {
+          "name": "Swaps for",
+          "width_pref": "narrow",
+          "width_pt": 44
+        }
+      ],
+      "width_total_pt": 468,
+      "rows": [
+        {
+          "title": "AI Evidence in Your Maryland Custody Case: Deepfakes, Text Screenshots, and What the Court Will Actually Believe",
+          "practice_area": "Family Law: Evidence + 2026 Trend",
+          "keywords": [
+            {
+              "phrase": "social media evidence divorce",
+              "msv": 320
+            },
+            {
+              "phrase": "deepfake evidence court",
+              "msv": 90
+            },
+            {
+              "phrase": "ai evidence in custody case",
+              "msv": 50
+            }
+          ],
+          "search_volume_total": 460,
+          "swaps_for": "#5",
+          "rationale": "2026 trend, near-zero MD coverage. Strong YouTube + TikTok clip play."
+        },
+        {
+          "title": "Same-Sex Divorce, Co-Parenting, and Second-Parent Adoption in Maryland",
+          "practice_area": "Family Law: Special Audience (LGBTQ+)",
+          "keywords": [
+            {
+              "phrase": "same-sex divorce maryland",
+              "msv": 170
+            },
+            {
+              "phrase": "second parent adoption maryland",
+              "msv": 110
+            },
+            {
+              "phrase": "lgbtq divorce maryland",
+              "msv": 70
+            }
+          ],
+          "search_volume_total": 350,
+          "swaps_for": "#8",
+          "rationale": "MD LGBTQ+ audience most firms refer out. {LAST_NAME} can own it."
+        },
+        {
+          "title": "What Happens to a Family Business in a Maryland Divorce",
+          "practice_area": "Family Law: Property Division (Business Owners)",
+          "keywords": [
+            {
+              "phrase": "business valuation divorce maryland",
+              "msv": 90
+            },
+            {
+              "phrase": "family business divorce maryland",
+              "msv": 60
+            }
+          ],
+          "search_volume_total": 150,
+          "swaps_for": "#3",
+          "rationale": "High-LTV business owners. QDRO + valuation + buyout structure overlap."
+        },
+        {
+          "title": "Alimony in Maryland: Rehabilitative, Indefinite, and What Judges Actually Award",
+          "practice_area": "Family Law: Spousal Support",
+          "keywords": [
+            {
+              "phrase": "alimony maryland",
+              "msv": 2400
+            },
+            {
+              "phrase": "rehabilitative alimony",
+              "msv": 480
+            },
+            {
+              "phrase": "indefinite alimony maryland",
+              "msv": 320
+            }
+          ],
+          "search_volume_total": 3200,
+          "swaps_for": "#7",
+          "rationale": "Highest MSV head term in family law (3,200/mo). High-net-worth lead-gen."
+        },
+        {
+          "title": "Prenups in Maryland: What Holds Up in Court and What Gets Thrown Out",
+          "practice_area": "Family Law: Procedure (Pre-Marriage)",
+          "keywords": [
+            {
+              "phrase": "prenuptial agreement maryland",
+              "msv": 390
+            },
+            {
+              "phrase": "prenup vs postnup maryland",
+              "msv": 90
+            },
+            {
+              "phrase": "prenup enforceability maryland",
+              "msv": 70
+            }
+          ],
+          "search_volume_total": 550,
+          "swaps_for": "#5",
+          "rationale": "Pre-marriage decision-makers. Catches clients before they need urgent help."
+        }
+      ]
+    }
+  }
+}

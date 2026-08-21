@@ -1,0 +1,160 @@
+{
+  "_meta": {
+    "schema_version": "1.0",
+    "purpose": "Append-only log of runs that surfaced issues. Captures input context + failure mode + resolution so we can spot patterns and iterate the skill / build script.",
+    "append_only": true,
+    "entry_categories": [
+      "rendering",
+      "content",
+      "branding",
+      "logic",
+      "data",
+      "ux",
+      "schema",
+      "infra"
+    ],
+    "severities": [
+      "low",
+      "medium",
+      "high",
+      "critical"
+    ],
+    "statuses": [
+      "open",
+      "in-progress",
+      "resolved",
+      "wontfix"
+    ],
+    "id_format": "YYYY-MM-DD-NNN (date + zero-padded counter for the day)",
+    "skill_name": "pod-3C-client-guide",
+    "created": "2026-05-20"
+  },
+  "entries": [
+    {
+      "id": "2026-04-28-001",
+      "ts": "2026-04-28T13:59:04Z",
+      "skill_version_at_run": "1.0.0",
+      "context": {
+        "firm": "Spaulding Injury Law",
+        "scope": "GA - Atlanta",
+        "topic": "Trucking Company Liability",
+        "episode_id": "B1",
+        "trigger": "Manual rebrand of legacy Spaulding docs"
+      },
+      "category": "branding",
+      "severity": "medium",
+      "description": "Cover page subtitle rendered episode topic at 22pt while firm name was demoted to the 14pt scope line. Hierarchy inverted - for client-specific deliverables, firm name should be the primary identity (subtitle), not the topic.",
+      "resolution": "Codified canonical Cover Page Spec at https://docs.google.com/document/d/1oydpI055jbj1FYDGeZfHQeMNjaWKUCFVGCRveeuJJCk/edit. Spec rule: subtitle = firm name (client-specific) or practice area (foundation). Re-rebranded all 5 Spaulding docs with corrected hierarchy. Added cover-page block to all 5 SKILL.md files under Outputs.",
+      "fix_in_version": "1.0.1",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-04-28-002",
+      "ts": "2026-04-28T14:00:14Z",
+      "skill_version_at_run": "1.0.0",
+      "context": {
+        "firm": "(observed in The May Firm production runs)",
+        "scope": "all client-guide runs",
+        "topic": "any",
+        "trigger": "Visual review of rendered Google Doc"
+      },
+      "category": "rendering",
+      "severity": "low",
+      "description": "Episode Topic and Estimated Duration metadata lines collapsed onto a single paragraph in the rendered Google Doc. Root cause: the build script emitted the two bold-label lines back-to-back in markdown without a blank line between, so Drive's MD→Google-Doc converter merged them into one paragraph (soft-wrap behavior).",
+      "resolution": "build-client-guide-docx.py: inserted `lines.append('')` between Episode Topic and Estimated Duration in the markdown emitter. Updated both example MDs (good--client-guide-ca-car-accidents.md, good--client-guide-ca-car-accidents-state-anchor.md) to match. SKILL.md scaffold already correct. The .docx path was already correct (each metadata line was its own python-docx paragraph).",
+      "fix_in_version": "1.0.2",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-04-28-003",
+      "ts": "2026-04-28T20:00:00Z",
+      "skill_version_at_run": "1.0.1",
+      "context": {
+        "firm": "Spaulding Injury Law",
+        "scope": "GA - Atlanta",
+        "trigger": "Visual review of Client Guide cover page"
+      },
+      "category": "branding",
+      "severity": "low",
+      "description": "Cover page subtitle was set to firm name (`Spaulding Injury Law`) following the initial cover-page hierarchy fix. But Client Guide is brand-agnostic by design — the prep-doc structure is reusable across firms; firm context lives in the body, not the cover. Subtitle should be the episode topic, not the firm name.",
+      "resolution": "Updated Cover Page Spec at https://docs.google.com/document/d/1oydpI055jbj1FYDGeZfHQeMNjaWKUCFVGCRveeuJJCk/edit with per-skill subtitle table differentiating brand-agnostic (Client Guide / ROS Template / foundation research) from firm-specific (Client ROS / Show Bible / Topic Planner) deliverables. Updated each SKILL.md cover-page subtitle row. Re-rebranded 2 Spaulding Client Guides to swap subtitle back to topic.",
+      "fix_in_version": "1.0.2",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-04-30-001",
+      "ts": "2026-04-30T22:25:21Z",
+      "skill_version_at_run": "1.0.x",
+      "context": {
+        "firm": "(observed across MVP, Conn, Lem Garcia x2, 1800 Wolf, Eberst x8 — 13-cell batch run)",
+        "scope": "all client-ros + client-guide runs in 2026-04-30 batch",
+        "topic": "multiple",
+        "trigger": "Producer Agent dispatched 5+ parallel orchestrators using LOCAL pod-7/pod-8/pod-9 skills at ~/.claude/skills/ instead of cowork plugins-skills/podcast/run of show/skills/"
+      },
+      "category": "logic",
+      "severity": "high",
+      "description": "Producer Agent and dispatched sub-agents defaulted to LOCAL skills (pod-7-ros-template, pod-8-client-ros, pod-9-client-guide) instead of the cowork plugins-skills equivalents. Local skills produce divergent output from cowork: wrong filename convention (e.g. \"How to File... - E2 - Irvine - mvp-v1.md\" instead of cowork \"Client ROS // {Firm} // {Episode}.md\"), wrong Drive folder tree (\"templates [master]/AEO/Podcast/Episode Templates/Car Accidents/...\" instead of \"{Firm} Podcast/Episodes/E{N}.../01 Strategy/\"), wrong DOCX renderer (generic cowork-podcast-branded-docx.py instead of bundled cowork build-client-{ros,guide}-docx.py), no JSON schema validation step, Internal Setup section emitted in client guides (legacy spec, removed by design in cowork). Result: 26 deliverables shipped that look wrong vs cowork canonical examples.",
+      "resolution": "Killed in-flight agents, scrubbed local MDs (removed Internal Setup, fixed #### Questions H4 to ###, renamed Client Guide to Episode Prep Guide), then re-dispatched single agent that explicitly references cowork SKILL.md + bundled build scripts + canonical schemas. Need: (1) local pod-7/pod-8/pod-9 skills should either be deleted or rewrite their content blocks to defer to cowork plugins-skills as source of truth; (2) Producer Agent description should explicitly route to cowork plugins-skills first; (3) any agent prompt that says \"run pod-7/pod-8/pod-9\" should map to the cowork equivalents not the local pod-* prefix folders.",
+      "fix_in_version": "pending",
+      "status": "open"
+    },
+    {
+      "id": "2026-04-30-002",
+      "ts": "2026-04-30T23:00:00Z",
+      "skill_version_at_run": "1.0.x",
+      "context": {
+        "firm": "(15-cell batch: MVP Irvine/Riverside/Sacramento, Lem Garcia E2/E3, 1800 The Wolf, Conn Law, Eberst E3/E4 FL/Stuart/Gainesville/Daytona)",
+        "scope": "all client-guide runs in 2026-04-30 batch",
+        "topic": "multiple",
+        "trigger": "Same firm + same episode produced multiple cells across anchor + extensions (e.g., MVP E2 has Irvine anchor + Riverside ext + Sacramento ext) — all 3 cells collapsed to identical filename `Client Guide // MVP Accident Attorneys // How to File a Car Accident Claim and Common Mistakes to Avoid.md`. Drive search, recent files, and aggregated views could not disambiguate them."
+      },
+      "category": "schema",
+      "severity": "high",
+      "description": "Three-part filename convention `Client Guide // {Firm} // {Episode}` was insufficient when a firm has anchor + multiple extensions for the same episode. Without a location suffix, every cell shipped with the same filename and silently overwrote each other in any aggregated view. The folder path carried the location, but Drive's search and 'recent files' surfaces flatten across folders and only show filename — losing the disambiguation entirely.",
+      "resolution": "Renamed all 30 client deliverables (15 GDocs + 15 .md siblings) in Drive to append ` - {Location}` for anchor cells and ` - {Location} (Extension)` for extension cells. Updated SKILL.md filename naming spec to require the location suffix on every Location/Extension scope cell. Future runs will produce correctly-disambiguated filenames automatically. Topic Only scope cells continue to drop the location suffix.",
+      "fix_in_version": "1.0.3",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-05-12-002",
+      "ts": "2026-05-12T22:30:00Z",
+      "skill_version_at_run": "1.1.x",
+      "context": {
+        "trigger": "Backfill pass: rebuild the 12 in-flight Drive Docs (Spaulding E4 / Stout E5 / Empire E4 IE anchor / Empire E4 Norco) to the branded cowork spec, in place. Surfaced 2 build-script bugs."
+      },
+      "category": "infra",
+      "severity": "high",
+      "description": "Backfill pass touched the build-client-guide-docx.py only via the shared zip re-pack. The Client Guide build script itself had no leak (it strips pandoc and uses cleaned text), so no code change; the sibling ros-template + client-ros scripts got the nested-marker fix. Logging here for traceability: the Stout E5 Client Guide was re-rendered after its parent ROS Template + Client ROS were trimmed 27->20 questions (S5 collapsed into S4, Q1-Q20 renumbered, an 'Optional / if time' bench note added).",
+      "resolution": "No code change to build-client-guide-docx.py. Re-ran the build against the trimmed Stout client-guide-data.json; re-uploaded all 4 Client Guide Drive Docs (Spaulding/Stout/Empire-IE/Empire-Norco) in place via files.update (fileIds preserved). QA: branded cover, Roboto, zero leaks, zero internal jargon, questions verbatim from the Client ROS.",
+      "fix_in_version": "1.1.2",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-05-14-001",
+      "category": "schema",
+      "severity": "medium",
+      "description": "Extension folder placement and filename canonical were ambiguous; producers were creating extensions as siblings of EP{N} and using Type-first filenames.",
+      "resolution": "SKILL.md updated to lock extensions inside the parent episode folder and to require E{N}: {Episode Title} // {Firm} // {Type} - {Location} naming.",
+      "fix_in_version": "vNEXT",
+      "status": "resolved"
+    },
+    {
+      "id": "2026-05-26-001",
+      "ts": "2026-05-26T17:30:00-05:00",
+      "skill_version_at_run": "3.0.0",
+      "context": {
+        "firm": "Sutliff & Stout",
+        "scope": "TX - Houston",
+        "topic": "Motorcycle Accidents",
+        "episode_id": "E6",
+        "trigger": "Gabe reviewed the first production Client Guide (Stout E6) and called out that the Segment Breakdown was too thin - the attorney needs the actual coverage checklist in front of them at the table, not just the question list."
+      },
+      "category": "content",
+      "severity": "high",
+      "description": "Attorney response bullets from the Client ROS now appear as sub-bullets under each question in the Segment Breakdown section, giving the attorney the full mandatory infill as part of their prep. Previously the Client Guide only listed questions - the attorney had to mentally walk the answer scaffolding, or pull the Client ROS separately. The Client ROS is the host's on-air script (with speaker tags, producer notes, Entity Checklist - production scaffolding the attorney does not need); the Client Guide is the attorney's prep doc. Pulling the attorney-response bullets verbatim into the Client Guide gives the attorney exactly the content checklist they need without exposing the production scaffolding.",
+      "resolution": "v3.1.0 changes: (1) SKILL.md updated - frontmatter version bumped, Sections INCLUDED list, Quality bar, Editorial Guideline 1 structure + Segment Breakdown line, Editorial Guideline 2 translation table (reversed 'attorney response bullets -> never copied' to 'pulled verbatim') + new Attorney-bullet pull rule with rare-exception INFERRED-flag path, Quality gates structure_conformance + content_gates + new Attorney-bullet verbatim gate, SOP Draft step Segment Breakdown bullet, final QA mechanical checks, Gotchas 'do not copy' line reversed to 'DO copy', Change Log entry added; (2) schema bumped to 1.1 with new per-question {q_text, attorney_response_bullets: [{label, detail}]} item_shape replacing the plain string array - backward-compatible read path retained for legacy callers; (3) build-client-guide-docx.py - DOCX side renders each Q as List Bullet parent followed by 3-6 List Bullet 2 indented children with bold label + regular detail + pandoc underline runs preserved; .md side renders '  - **{label}** {detail}' indented sub-bullets per Q, pandoc artifacts stripped; (4) calibration example refactored - Segment Breakdown now shows S1 + S2 with full sub-bullet format and S3/S4 truncated with note; (5) Stout E6 Client Guide artifacts archived to _archive-2026-05-26 in Drive and locally; re-run produced fresh artifacts with sub-bullet format.",
+      "fix_in_version": "3.1.0",
+      "status": "resolved"
+    }
+  ]
+}

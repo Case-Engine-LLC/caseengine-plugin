@@ -1,0 +1,17 @@
+{
+  "description": "Case Engine proof harness — refuses to let a task reach a completion status with no observation on record. Defaults to warn; set CASEENGINE_PROOF_MODE=enforce to block.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__caseengine-tasks__work_transition_task|mcp__caseengine-tasks__work_approve_step",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/proof_gate.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

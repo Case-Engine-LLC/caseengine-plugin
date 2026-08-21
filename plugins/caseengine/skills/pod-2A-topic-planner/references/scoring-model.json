@@ -1,0 +1,214 @@
+{
+  "_meta": {
+    "skill": "pod-2A-topic-planner",
+    "artifact": "scoring-model",
+    "version": "1.1.0",
+    "last_updated": "2026-05-20",
+    "owner": "Gabe Jordan",
+    "purpose": "Canonical scoring model for podcast topic selection. This file is the single source of truth for every scoring signal, its definition, its source, and its weight. The scoring script loads this at runtime - tune weights HERE, never in code. SKILL.md explains the model in prose and points at this file as canonical; it does not restate the numbers.",
+    "status": "WIRED. scripts/score-topics.py loads this file at runtime - it is the active scoring engine. Add, remove, or reweight signals HERE; the script is fully model-driven and adapts with no code edit.",
+    "invariants": {
+      "weights_sum_to": 1.0,
+      "tolerance": 0.001,
+      "optional_signal_handling": "When an optional signal is absent at runtime (e.g. virality, because pod-1C-virality-research did not run), its weight is redistributed proportionally across all present signals so the active weights still sum to 1.00. Ranking is never deflated by a missing optional signal."
+    }
+  },
+
+  "buckets": {
+    "authority": {
+      "label": "Authority",
+      "intent": "Does this episode build the practice area's topical map?",
+      "weight": 0.30
+    },
+    "demand": {
+      "label": "Demand & Trend",
+      "intent": "Are people searching for - or trending toward - this topic, and does Google treat the query as content-worthy?",
+      "weight": 0.57
+    },
+    "competitive": {
+      "label": "Competitive",
+      "intent": "Is the lane winnable?",
+      "weight": 0.13
+    }
+  },
+
+  "signals": [
+    {
+      "name": "entity_density",
+      "bucket": "authority",
+      "evidence_family": "entity",
+      "definition": "Share of the practice area's entity map this episode covers - episode entity count divided by total entities.",
+      "source": "entity-map.json",
+      "normalization": "0-1, normalized within the episode set",
+      "weight": 0.10,
+      "optional": false,
+      "absent_when": "keyword-research fallback path (no entity map) - defaults to 0.0"
+    },
+    {
+      "name": "prominence",
+      "bucket": "authority",
+      "evidence_family": "entity",
+      "definition": "Mean centrality of the episode's entities to the practice area. Koray's discriminator - rewards covering the core entities, not just many entities.",
+      "source": "entity-map.json (per-entity prominence)",
+      "normalization": "0-1, mean of the episode's entity prominence scores",
+      "weight": 0.11,
+      "optional": false,
+      "absent_when": "keyword-research fallback path - defaults to 0.0"
+    },
+    {
+      "name": "relatedness",
+      "bucket": "authority",
+      "evidence_family": "entity",
+      "definition": "Mean connection strength of the episode's entities to the core topic and to each other.",
+      "source": "entity-map.json (per-entity relatedness)",
+      "normalization": "0-1, mean of the episode's entity relatedness scores",
+      "weight": 0.05,
+      "optional": false,
+      "absent_when": "keyword-research fallback path - defaults to 0.0"
+    },
+    {
+      "name": "bridge_value",
+      "bucket": "authority",
+      "evidence_family": "entity",
+      "definition": "How many clusters the episode connects - (1 + bridge cluster count) divided by total clusters. Connective episodes that tie the topic graph together score high.",
+      "source": "entity-map.json (cluster + bridge structure)",
+      "normalization": "0-1, normalized within the episode set",
+      "weight": 0.04,
+      "optional": false,
+      "absent_when": "keyword-research fallback path - defaults to 0.0"
+    },
+    {
+      "name": "search_volume",
+      "bucket": "demand",
+      "evidence_family": "search-demand",
+      "definition": "Monthly search volume for the episode's core query. Higher real-world search demand pulls the topic up.",
+      "source": "keyword-research.json (MSV)",
+      "normalization": "0-1, normalized within the episode set (not against absolute MSV benchmarks - long-tail podcast topics run low in absolute terms)",
+      "weight": 0.17,
+      "optional": false,
+      "absent_when": "always present on both the entity and keyword paths"
+    },
+    {
+      "name": "paa_depth",
+      "bucket": "demand",
+      "evidence_family": "search-demand",
+      "definition": "How strongly the episode's topic is represented in People Also Ask - both the depth of the PAA stack AND whether the episode's core queries themselves surface as PAA questions. A topic that IS a PAA question scores for that on its own, because Google has already validated it as a real question people ask.",
+      "source": "keyword-research.json (PAA stacks)",
+      "normalization": "0-1, normalized within the episode set",
+      "weight": 0.16,
+      "optional": false,
+      "absent_when": "always present on both the entity and keyword paths"
+    },
+    {
+      "name": "related_search_density",
+      "bucket": "demand",
+      "evidence_family": "search-demand",
+      "definition": "Breadth of related searches surfacing for the episode's queries - how large and rich the related-search cluster around the topic is.",
+      "source": "keyword-research.json (related searches)",
+      "normalization": "0-1, normalized within the episode set",
+      "weight": 0.11,
+      "optional": false,
+      "absent_when": "always present on both the entity and keyword paths"
+    },
+    {
+      "name": "serp_features",
+      "bucket": "demand",
+      "evidence_family": "search-demand",
+      "definition": "Whether the topic's core query triggers rich SERP features - an AI Overview (weighted heaviest; the direct answer-engine-optimization signal that a query is being synthesized into an AI answer), plus video pack, featured snippet, and image pack. A query Google enriches with these features is a proven, content-worthy query with a live AEO surface to win.",
+      "source": "content-gap report / SERP analysis (SERP feature flags per query)",
+      "normalization": "0-1 composite of which features fire on the query, AI Overview weighted heaviest, then video pack, then featured snippet, then image pack; normalized within the episode set",
+      "weight": 0.06,
+      "optional": false,
+      "absent_when": "SERP feature data unavailable - defaults to 0.0 for all episodes, logged in metadata"
+    },
+    {
+      "name": "virality",
+      "bucket": "demand",
+      "evidence_family": "trend",
+      "definition": "Trend / momentum signal - how much the topic is spiking across social trend data, community discussion, and short-form video performance. Captures topics that are gaining attention now, distinct from steady-state search volume.",
+      "source": "virality-research.json (pod-1C-virality-research virality scoring)",
+      "normalization": "0-1, normalized within the episode set",
+      "weight": 0.07,
+      "optional": true,
+      "absent_when": "pod-1C-virality-research virality research did not run. When absent, this weight redistributes proportionally across all present signals."
+    },
+    {
+      "name": "gap_opportunity",
+      "bucket": "competitive",
+      "evidence_family": "competitive",
+      "definition": "How under-served the topic is by competitors - an open lane to claim authority.",
+      "source": "content-gap report / SERP analysis",
+      "normalization": "0-1 (Very high 0.90, High 0.75-0.85, Medium 0.50-0.65, Low 0.35-0.45)",
+      "weight": 0.10,
+      "optional": false,
+      "absent_when": "content-gap data unavailable - defaults to 0.5 (neutral) for all episodes, logged in metadata"
+    },
+    {
+      "name": "popularity",
+      "bucket": "competitive",
+      "evidence_family": "competitive",
+      "definition": "How heavily competitors DO cover the topic's entities - read as topic validation (a heavily-covered topic is a proven, wanted topic). Held to a small weight because it partially contradicts gap_opportunity, which rewards the opposite.",
+      "source": "entity-map.json (per-entity popularity = competitor-corpus frequency)",
+      "normalization": "0-1, mean of the episode's entity popularity scores",
+      "weight": 0.03,
+      "optional": false,
+      "absent_when": "keyword-research fallback path - defaults to 0.0"
+    }
+  ],
+
+  "corroboration": {
+    "description": "When a topic clears the evidence bar on multiple INDEPENDENT signal families at once, that convergence is a stronger signal than any single high score. A topic confirmed by the entity map AND search demand is a high-confidence pick - a topic to look at hard. This does NOT alter the numeric score; it sets a flag that drives the Rationale text and, optionally, a ranking floor. The point: a weighted sum can be carried by one big signal; corroboration rewards breadth of evidence.",
+    "evidence_families": {
+      "entity": {
+        "fires_when": "the topic maps to at least one Tier 1 or Tier 2 entity AND entity_density is in the top 60% of the episode set"
+      },
+      "search-demand": {
+        "fires_when": "the topic's core query surfaces as a People Also Ask question AND related_search_density is in the top 60% of the episode set. SERP features (AI Overview, video pack) are additional corroborating evidence within this family - when serp_features is also strong, the family fires harder and the rationale names the features explicitly."
+      },
+      "trend": {
+        "fires_when": "virality research is present AND the topic's virality signal is in the top 40% of the episode set",
+        "optional": true
+      }
+    },
+    "levels": [
+      {
+        "flag": "corroborated+trending",
+        "when": "entity, search-demand, AND trend families all fire",
+        "meaning": "Highest-confidence topic. Real, wanted, and gaining momentum. Look at hard."
+      },
+      {
+        "flag": "corroborated",
+        "when": "entity family AND search-demand family both fire",
+        "meaning": "High-confidence topic. Independent sources agree it is real and wanted. Look at hard."
+      },
+      {
+        "flag": "single-family",
+        "when": "exactly one family fires",
+        "meaning": "Driven by one signal type. Verify it is not a one-signal spike before locking."
+      },
+      {
+        "flag": "uncorroborated",
+        "when": "no family clears its bar",
+        "meaning": "Weak across the board. Reserve or cut candidate."
+      }
+    ],
+    "ranking_floor": {
+      "enabled": true,
+      "score_margin": 0.05,
+      "rule": "A 'corroborated' or 'corroborated+trending' topic may rise above a non-corroborated topic ranked directly above it ONLY when the score gap is within score_margin. Corroboration protects a topic across a near-tie - it never lets a clearly lower-scoring topic leapfrog a clearly higher one. The numeric score is unchanged; only rank order shifts, and only within the margin.",
+      "note": "Bounded local promotion, NOT a global re-sort. Tune score_margin here. Toggle enabled to disable the floor entirely."
+    }
+  },
+
+  "rationale": {
+    "description": "The Rationale column in the topic-plan table is generated from the signal scores plus the corroboration flag. It must state, in plain client-readable language, WHY the topic earned its rank - and explicitly call out corroboration when present.",
+    "rules": [
+      "If the topic is 'corroborated' or 'corroborated+trending', the rationale LEADS with that. Example: 'High-confidence - surfaces as a PAA question, carries a strong related-search cluster, triggers an AI Overview, and maps to core entity {X}.' Append 'and is trending now' for the trending level.",
+      "When the topic's query triggers rich SERP features, name them explicitly - 'also triggers an AI Overview', 'shows a video pack', 'owns the featured snippet'. Stacked evidence IS the story: a question that is a PAA, has related searches, AND triggers an AI Overview and video pack is a strong pick, and the rationale should say so plainly.",
+      "If 'single-family', name the one driver and flag it. Example: 'Strong search volume but thin entity grounding - verify before locking.'",
+      "If 'uncorroborated', state what little it has and why it is reserve-tier.",
+      "Always name the actual top-contributing signals. No generic filler like 'high authority score'.",
+      "Cap at 200 characters. Plain language, no jargon, no em dashes."
+    ]
+  }
+}

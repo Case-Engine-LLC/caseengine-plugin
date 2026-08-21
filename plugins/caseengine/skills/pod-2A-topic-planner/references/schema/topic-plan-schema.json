@@ -1,0 +1,526 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "topic-plan-schema.json",
+  "title": "Podcast Topic Plan (pod-2A-topic-planner)",
+  "description": "Canonical schema for pod-2A-topic-planner output. Defines the heading hierarchy and table column structure that every Drive Doc + markdown + JSON sidecar MUST match. v4.0.0 (2026-05-20) — conformed to the v4 SKILL.md flagship redesign: Ingest -> Score -> Compile -> Episodes. The episode boundary is an OUTPUT of compilation. Per-episode `authority_score` + `corroboration_flag` and a top-level `topics_by_score` array replace the legacy `authority_score_linear` 5-dimension shape. Adds the client-facing `## Episode Breakdown` roll-up (one entry per episode, columns Question / Search Phrases / Rationale) and the INTERNAL `## Topic Ideas` table (every candidate in raw `authority_score` order with corroboration flags). client-facing structure adds `## Episode Breakdown` between `## Additional Topics` and the `# INTERNAL` cut. v4.0.0 format-feedback pass (2026-05-20, same major version): `show_identity` is now 5 fields (target_audience renamed to audience; new topic_mix field with conditional scoring-derived footnote). The standalone `Search Volume` column was DROPPED from both episode tables — the summed MSV renders inside the `Keywords` cell as a bold `**Total Search Demand:**` line; main + bonus tables went 6 cols -> 5 cols with recomputed 468pt widths. The production-wave narrative is INTERNAL-only (renders under `## Selection Methodology Detail`, never client-facing). The rendered deliverable carries NO pipeline-position / upstream-downstream metadata. Episode 1 ('The Founder Interview') Theme is fixed to 'Founder Story' and its Episode Breakdown entry uses a `question_source` of 'founder_canonical' (the fixed founder-interview set, never an n-gram table); E1 renders as ONE two-column Question / Rationale table, the 21 founder-interview questions top to bottom and unnumbered, with no Search Phrases or Segment column - E1's Rationale is a few hard-coded words on what the question accomplishes in the interview, not a research signal. v4.0.0 consolidation pass (2026-05-20, same major version): the `## Internal Rationale - Show Name + Audience + Voice` INTERNAL section (including its Show Name Decision Log and the `show_name_decision_log` field) was removed entirely, and `## Research Sources` is now the FIRST H2 under `# INTERNAL` (ahead of `## Topic Ideas`). v4.0.0 format pass (2026-05-20, same major version): the `## Episode Questions` H2 was renamed to `## Episode Breakdown` (rendered-heading change only - the JSON key stays `episode_questions`); the section intro paragraph was removed; Episode 1 collapsed from six per-segment tables to ONE two-column Segment / Question table; and `## Research Sources` was restructured from a multi-column per-(topic,scope) link table to a simple 3-column Name / URL / Notes table, one row per research artifact actually used. v4.1.0 format pass (2026-05-20, same major version): Episode 1's Episode Breakdown table changed from Segment / Question to Question / Rationale - the Segment column was removed and a Rationale column added to the right of Question; for E1 the Rationale carries a few hard-coded words on what the question accomplishes in the founder interview (establish credibility, position as expert, emotional close, etc.), not a research signal. The `segment` field was removed from `episode_questions[].items`. v4.1.0 format pass (2026-05-20, same major version): the INTERNAL `## Topic Ideas` table dropped the Authority Score, Corroboration, and Signal Families columns and added a Rationale column - it now renders as four columns Rank | Topic | Theme | Rationale, where Rationale is an AI-written plain-language explanation of why the topic earned its score and rank, citing the actual signals. The `topics_by_score` per-topic data fields `authority_score`, `corroboration_flag`, and `signal_families_fired` are retained for the `pod-2B-n-gram-table` handoff contract but are no longer rendered. v4.2.0 format pass (2026-05-20): the INTERNAL `## Topic Ideas` table gained a fifth column, `Notes` - it now renders as five columns Rank | Topic | Theme | Rationale | Notes, where `Notes` is a freeform INTERNAL column recording the topic's disposition after episode selection (MAIN-#, BONUS, RESERVE, CUT (reason)) plus operator/review comments; it is empty on a fresh scoring run and populated at episode selection. The redundant `## Topics by Theme` INTERNAL H2 was removed entirely (its grouping is covered by the `Theme` column of `## Topic Ideas` and its disposition by the new `Notes` column); the `topics_by_theme` schema property and its `catalog_by_practice_area` machine-readable mirror were deleted. The INTERNAL H2 order is now Research Sources -> Topic Ideas -> Selection Methodology Detail -> Episode 1 Branded Search Benchmark -> Provenance. v4.2.0 format pass (2026-05-20, same major version): the INTERNAL `## Topic Ideas` table re-added the `Score` column - it now renders as six columns Rank | Topic | Theme | Score | Rationale | Notes, where `Score` renders the topic's `authority_score` to three decimals and sits between `Theme` and `Rationale`; `authority_score` is therefore now a rendered column again while `corroboration_flag` and `signal_families_fired` remain data-only handoff fields. Episode 1 was renamed from 'The YOU Interview' to 'The Founder Interview' everywhere the title appears (descriptions, the main-table `title` field, and the Episode Breakdown notes); its Theme stays fixed to 'Founder Story'. v4.2.1 (2026-07-10, PATCH): canonical three-field geo model (Gabe directive 2026-07-10, Whalen scoping). Added optional `metadata.targeting_strategy` (single-location vs multi-location) and `metadata.optimization_scope` (the show anchor: City / State / County / Regional), and an optional per-episode `geo_target` on both main and bonus table rows - the specific city THIS episode is built to rank for, assigned by pod-2A-topic-planner. Anchor scope != per-episode target: the show anchors broad while each episode (multi-location) targets its own city, city emphasis a ceiling never a forced quota. All three fields are additive/optional so prior outputs still validate.",
+  "version": "4.2.1",
+  "type": "object",
+  "required": [
+    "metadata",
+    "show_identity",
+    "headings",
+    "tables",
+    "episode_questions",
+    "topics_by_score",
+    "internal_section"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["firm", "practice_mix", "locations", "counties_served", "episode_count", "mode", "prepared_by", "date"],
+      "properties": {
+        "firm": { "type": "string" },
+        "practice_mix": {
+          "type": "object",
+          "description": "Real practice weighting per Fathom onboarding + strategy meetings",
+          "required": ["primary", "high_value_niche", "selective"],
+          "properties": {
+            "primary": { "type": "string", "description": "Practice area that 'pays the lights' (volume revenue)" },
+            "high_value_niche": { "type": "string", "description": "High-margin differentiator (Todd's CPS / Child Abuse Civil)" },
+            "selective": { "type": "string", "description": "Selective high-end practice / Year 2 growth" }
+          }
+        },
+        "practice_area_breakdown": {
+          "type": "string",
+          "description": "The user's verbatim practice-area breakdown sentence from the Greeting governing how many of the 12 main slots each practice area gets. Empty string or 'no breakdown - pure scoring' when none was given."
+        },
+        "input_source": {
+          "enum": ["entity_research", "keyword_research", "manual"],
+          "description": "Which research path this run took. entity_research = entity map present (preferred). keyword_research = keyword-research fallback path (no entity map; the four Authority signals defaulted to 0.0). manual = neither entity map nor keyword research present (qualitative ranking, research queue instead of a full ranked table)."
+        },
+        "targeting_strategy": {
+          "enum": ["single-location", "multi-location"],
+          "description": "Geo model field 1 (v4.2.1). Whether the firm serves/ranks one city (single-location) or several (multi-location). Drives episode format: single-location -> Full episodes (~20 questions) all sharing the one anchor city; multi-location -> one Mini episode (10-12 questions) per target city, no single primary episode. Optional/additive - prior outputs without it still validate."
+        },
+        "optimization_scope": {
+          "enum": ["City", "State", "County", "Regional"],
+          "description": "Geo model field 2 - the show anchor (v4.2.1). What the podcast as a whole is optimized to rank for; governs research breadth and the overall show. Distinct from each episode's `geo_target` (main/bonus row field): the anchor scope can be broad (e.g. State) while each episode targets a specific city. Anchor scope != per-episode target. Optional/additive."
+        },
+        "locations": { "type": "array", "items": { "type": "string" } },
+        "counties_served": { "type": "array", "items": { "type": "string" } },
+        "counties_excluded": { "type": "array", "items": { "type": "string" }, "description": "Counties explicitly NOT targeted (e.g., Baltimore for Mohink)" },
+        "episode_count": {
+          "type": "object",
+          "properties": {
+            "main": { "type": "integer" },
+            "biographic_anchor": { "type": "integer", "default": 1 },
+            "bonus": { "type": "integer" }
+          }
+        },
+        "mode": { "enum": ["production"], "default": "production" },
+        "prepared_by": { "type": "string", "default": "Case Engine" },
+        "date": { "type": "string", "format": "date" },
+        "sources_used": {
+          "type": "array",
+          "description": "Every research / client-intel source that actually fired into the scoring corpus this run.",
+          "items": { "type": "string" }
+        },
+        "sources_unavailable": {
+          "type": "array",
+          "description": "Sources that errored or were missing - skipped silently and logged here.",
+          "items": { "type": "string" }
+        },
+        "research_gaps": {
+          "type": "array",
+          "description": "Open data gaps flagged for the next refresh - e.g., research artifacts that ran only locally and never reached Drive.",
+          "items": { "type": "string" }
+        },
+        "scoring_provenance": {
+          "type": "object",
+          "description": "How the ranking was produced. The scoring model itself is canonical in references/scoring-model.json - this records only which model version ran and whether the optional Mahalanobis diagnostic was used.",
+          "properties": {
+            "scoring_model_version": { "type": "string", "description": "Version of references/scoring-model.json loaded by score-topics.py at runtime." },
+            "mahalanobis_run": { "type": "boolean", "default": false, "description": "True when score-topics.py was invoked with --mahalanobis as a covariance-corrected cross-check. The weighted authority_score is always the primary ranking regardless." }
+          }
+        },
+        "data_sources": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "firm_website",
+              "attorney_bio",
+              "google_business_profile",
+              "linkedin",
+              "contract",
+              "fathom_sales_close",
+              "fathom_strategy_meeting",
+              "fathom_onboarding_meeting",
+              "brand_guide",
+              "entity_research",
+              "keyword_research",
+              "virality_research",
+              "content_gap_report",
+              "koray_rag"
+            ]
+          }
+        },
+        "branding": {
+          "type": "object",
+          "properties": {
+            "font": { "type": "string", "default": "Roboto" },
+            "cover_subtitle": { "type": "string", "default": "Podcast Topic Plan" },
+            "cover_logo_id": { "type": "string", "description": "Google Drive file ID of the cover-page logo (CE logo = 1pAZESV-Roq_fh0-1n8xMcMCJvtOiWAN2)" },
+            "primary_color": { "type": "string", "default": "#3573FF", "description": "CE Blue — header rows, # INTERNAL marker, subtitle" },
+            "alt_row_color": { "type": "string", "default": "#F5F7FA", "description": "Zebra-stripe odd rows in tables" },
+            "font_fallback": { "type": "string", "enum": ["font-fallback-arial"], "description": "Set only when the Docs API was unavailable and the Roboto font lock fell back to Arial." }
+          }
+        }
+      }
+    },
+    "show_identity": {
+      "type": "object",
+      "description": "Client-facing approval block. Once approved by the client, this content is the locked foundation for every downstream deliverable (ROS, client guide, clip captions, show notes, podcast site). The fields here MUST match the markdown rendered under `## Show Identity` in the topic plan doc. v4.0.0 format-feedback: FIVE fields (was four) - 'target_audience' renamed to 'audience' and a new 'topic_mix' field added. Render rule: all five fields render as bold inline labels on consecutive paragraphs (`**Podcast Name:**`, `**Tagline:**`, `**Podcast Description:**`, `**Audience:**`, `**Topic Mix:**`), NOT as H3 sub-headings. Audience renders as a 1-5 bullet list directly under its bold label. Topic Mix renders as a single comma-separated line where each entry is `{Practice Area} {percentage}% ({N} episodes)` (e.g. 'Car Accidents 25% (3 episodes)'; pluralize '(1 episode)' / '(2 episodes)'); when the percentages were scoring-derived (no client breakdown given) an italic footnote follows it, when the client supplied an exact breakdown the footnote is omitted. Show-name shortlist is NOT generated by this skill — the user / AM supplies the working name(s).",
+      "required": ["podcast_name", "tagline", "podcast_description", "audience", "topic_mix"],
+      "properties": {
+        "podcast_name": {
+          "type": "string",
+          "description": "Final working title. Surfaced verbatim on the cover page."
+        },
+        "tagline": {
+          "type": "string",
+          "description": "One-line hook that anchors the show. Plain words, anti-AI pass applied, no em-dashes. Feeds the podcast cover-art subtitle, the hosting platform tagline field, and every downstream brand asset that needs a short positioning line."
+        },
+        "podcast_description": {
+          "type": "string",
+          "description": "2-4 sentence client-facing description. Plain words, anti-AI pass applied, no internal commentary. Feeds the podcast hosting platform description field."
+        },
+        "audience": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "description": "Clean bullet list of audience segments the client approves. Renders under the bold `**Audience:**` label. Each item is a single sentence, no CE-internal commentary (no 'volume audience - matches firm's primary revenue stream' parentheticals). Internal weighting rationale stays in INTERNAL. v4.0.0: renamed from 'target_audience' and the label is rendered bold inline (not an H3 heading).",
+          "items": { "type": "string" }
+        },
+        "topic_mix": {
+          "type": "object",
+          "description": "v4.0.0 format-feedback addition. The practice-area episode split as percentages with each area's episode count in parentheses, rendered under the bold `**Topic Mix:**` label as one comma-separated line ('Car Accidents 25% (3 episodes), Medical Malpractice 17% (2 episodes), Cross-Service Roundup 8% (1 episode), ...'). Each entry is `{Practice Area} {percentage}% ({N} episodes)`; pluralize the count. Source depends on whether the client supplied a practice-area breakdown at intake (captured in metadata.practice_area_breakdown).",
+          "required": ["percentages", "source"],
+          "properties": {
+            "percentages": {
+              "type": "string",
+              "description": "The comma-separated line rendered after the bold label, each entry formatted `{Practice Area} {percentage}% ({N} episodes)`, e.g. 'Car Accidents 25% (3 episodes), Medical Malpractice 17% (2 episodes), Truck Accidents 17% (2 episodes), Cross-Service Roundup 8% (1 episode), Wrongful Death 8% (1 episode), Founder Story 8% (1 episode), Slip & Fall 8% (1 episode), Bicycle / Pedestrian 8% (1 episode)'. Pluralize the count ('(1 episode)' vs '(2 episodes)'). The episode counts must sum to 12 (the main plan); percentages should sum to ~100."
+            },
+            "source": {
+              "enum": ["client_breakdown", "scoring_derived"],
+              "description": "'client_breakdown' = the client gave an exact practice-area breakdown at intake; the percentages are rendered verbatim and NO footnote is shown. 'scoring_derived' = no breakdown given; the percentages were derived from the scoring output's episode distribution and the footnote below IS rendered."
+            },
+            "footnote": {
+              "type": "string",
+              "description": "CONDITIONAL. Rendered as an italic paragraph immediately under the Topic Mix line ONLY when source == 'scoring_derived'. Fixed text: 'The percentages reflect where search demand, entity coverage, and competitive opportunity actually concentrated across the practice areas. It is what is showing up as important in the wild.' Omitted entirely when source == 'client_breakdown'. Never contains the phrase 'no client topic breakdown was specified' or any variant."
+            }
+          }
+        }
+      }
+    },
+    "headings": {
+      "type": "object",
+      "description": "Canonical Doc heading order. Every section is required; renderer MUST emit them in this order. v4.0.0 adds `episode_questions_h2` (rendered heading 'Episode Breakdown') between the additional table and the `# INTERNAL` cut.",
+      "required": [
+        "title_h1",
+        "show_identity_h2",
+        "methodology_h2",
+        "main_table_h2",
+        "bonus_table_h2",
+        "episode_questions_h2",
+        "internal_h1"
+      ],
+      "properties": {
+        "title_h1":             { "const": "Podcast Topic Plan" },
+        "show_identity_h2":     { "const": "Show Identity" },
+        "methodology_h2":       { "const": "Methodology: How topics are selected" },
+        "main_table_h2":        { "const": "The 12-Episode Plan" },
+        "bonus_table_h2":       { "const": "Additional Topics" },
+        "episode_questions_h2": { "const": "Episode Breakdown" },
+        "internal_h1":          { "const": "INTERNAL" }
+      }
+    },
+    "tables": {
+      "type": "object",
+      "required": ["main", "bonus"],
+      "properties": {
+        "main": {
+          "type": "object",
+          "description": "The 12-Episode Plan table. Columns are fixed. Episode 1 is always the biographic anchor.",
+          "required": ["columns", "rows"],
+          "properties": {
+            "columns": {
+              "type": "array",
+              "minItems": 5,
+              "maxItems": 5,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "width_pref": { "enum": ["min", "narrow", "medium", "wide"] }
+                }
+              },
+              "default": [
+                { "name": "#",         "width_pref": "min",    "width_pt": 32 },
+                { "name": "Topic",     "width_pref": "wide",   "width_pt": 134 },
+                { "name": "Theme",     "width_pref": "narrow", "width_pt": 70 },
+                { "name": "Keywords",  "width_pref": "wide",   "width_pt": 116 },
+                { "name": "Rationale", "width_pref": "wide",   "width_pt": 116 }
+              ],
+              "width_total_pt": 468,
+              "page_size_assumption": "US Letter, 1in margins (6.5in usable = 468pt)",
+              "column_names_invariant": ["#", "Topic", "Theme", "Keywords", "Rationale"],
+              "v4_format_note": "v4.0.0 format-feedback (2026-05-20): the standalone 'Search Volume' column was DROPPED. The summed MSV now renders inside the 'Keywords' cell as a bold '**Total Search Demand:** {sum}/mo' first line followed by a <br> and the keyword list. Columns went 6 -> 5; the freed 44pt was absorbed mostly by Keywords (80 -> 116) plus +4pt each to Topic and Rationale, still summing to 468pt."
+            },
+            "rows": {
+              "type": "array",
+              "minItems": 12,
+              "maxItems": 12,
+              "items": {
+                "type": "object",
+                "required": ["episode_number", "title", "practice_area", "keywords", "search_volume_total", "rationale"],
+                "properties": {
+                  "episode_number": { "type": "integer", "minimum": 1, "maximum": 12 },
+                  "title": { "type": "string", "description": "Renders in the 'Topic' column. Bold title + optional italic inline-tag explaining angle / Fathom rationale. Episode 1's title is always 'The Founder Interview'." },
+                  "is_biographic_anchor": { "type": "boolean", "default": false, "description": "True only for episode #1. When true, keywords MUST be populated with the branded-search benchmark queries (same set as in the INTERNAL `## Episode 1 Branded Search Benchmark` section) and search_volume_total MUST equal the sum of those branded MSVs. Renders in the 'Keywords' cell exactly like every other row: a bold '**Total Search Demand:** {sum}/mo' line, then a <br>, then the comma-separated branded query list (no '—' dash fallback)." },
+                  "practice_area": {
+                    "type": "string",
+                    "description": "Renders in the 'Theme' column. What this episode supports. Format: '{Practice Family}: {Sub-domain}' — e.g., 'Family Law: Property Division', 'CPS / Child Abuse Civil (CINA)', 'Criminal Defense: Drug Crimes'. Episode 1's Theme is always exactly 'Founder Story' (v4.0.0 format-feedback: fixed, no 'Brand / ' prefix, no client variation). Cross-practice rows can name two with a '+' separator."
+                  },
+                  "keywords": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 5,
+                    "items": {
+                      "type": "object",
+                      "required": ["phrase", "msv"],
+                      "properties": {
+                        "phrase": { "type": "string" },
+                        "msv": { "type": "integer", "description": "Monthly Search Volume" },
+                        "ai_overview": { "type": "boolean", "default": false, "description": "Whether the SERP shows an AI Overview — flag for separate AEO play" }
+                      }
+                    },
+                    "description": "2-5 keywords per row. v4.0.0 format-feedback: the 'Keywords' cell is now TWO-PART. First line: a bold '**Total Search Demand:** {search_volume_total}/mo' (the summed MSV that the dropped standalone 'Search Volume' column used to carry). Then a single <br> line break. Then the comma-separated keyword list, highest MSV first: 'phrase - {msv}/mo, phrase - {msv}/mo, ...'. The <br> between the bold total and the keyword list is the ONLY line break in the cell; the keyword list itself stays single-line comma-separated and wraps naturally."
+                  },
+                  "search_volume_total": {
+                    "type": "integer",
+                    "description": "Sum of all keyword msv values for this row. Renders as '{total}/mo'."
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "maxLength": 200,
+                    "description": "ONE tight sentence, target ~80-130 chars, hard cap 200. Why this episode earns its slot. Names the actual top-contributing signals and leads with the corroboration flag when present. Examples (Mohink): 'Todd\\'s own published MD case, mandatory authority on relocation. No other MD attorney can claim it.' Validator warns above 130, fails above 200."
+                  },
+                  "authority_score": {
+                    "type": "number",
+                    "description": "The 11-signal weighted score from score-topics.py for this episode (the aggregate of its compiled topics' scores). Drives rank order. The numeric model lives only in references/scoring-model.json."
+                  },
+                  "corroboration_flag": {
+                    "enum": ["none", "corroborated", "corroborated+trending"],
+                    "default": "none",
+                    "description": "High-confidence flag set when the episode clears the evidence bar on multiple INDEPENDENT signal families. 'corroborated' = entity + search-demand families fired; 'corroborated+trending' = the trend family fired too. A corroborated episode carries a ranking floor into the main 12. The flag drives Rationale text and the floor, not the numeric score."
+                  },
+                  "entities_covered": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Entity IDs from pod-1A-entity-research entity-map.json this episode covers"
+                  },
+                  "intent_stage": { "enum": ["awareness", "consideration", "decision"] },
+                  "wave": { "type": "integer", "minimum": 1, "maximum": 3, "description": "Production wave — narrative reference only, NOT a column in the rendered table" },
+                  "geo_target": { "type": "string", "description": "Geo model field 3 (v4.2.1) - the specific city THIS episode is built to rank for, assigned by pod-2A-topic-planner at `### Form the episode plan`. For a single-location firm every episode's geo_target is the one anchor city; for a multi-location firm the show anchors broad (see metadata.optimization_scope) while each episode targets a different city in the footprint (Mini episode per target city). The episode's questions/titles emphasize this city naturally - a ceiling, never a forced quota (no-city-quota / natural-tonality principle). NOT a rendered column; drives per-episode scope for pod-2B-n-gram-table and the Run of Show pipeline. EP1 (Founder Story) and EP2 (flagship ebook anchor) carry the show's home / anchor city. Optional/additive." }
+                }
+              }
+            }
+          }
+        },
+        "bonus": {
+          "type": "object",
+          "description": "Additional Topics table (swap-in candidates / season-extension). Same data shape as main. v4.4.0 (2026-05-28): the 'Swaps for' column was REMOVED - the table is now 4 columns (Topic, Theme, Keywords, Rationale); swap relationships, when an operator wants to record them, live in the INTERNAL '## Topic Ideas' Notes column. JSON key remains 'bonus' to preserve downstream-consumer compatibility; the rendered H2 is 'Additional Topics'.",
+          "required": ["columns", "rows"],
+          "properties": {
+            "columns": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "default": [
+                { "name": "Topic",     "width_pref": "wide",   "width_pt": 150 },
+                { "name": "Theme",     "width_pref": "narrow", "width_pt": 80 },
+                { "name": "Keywords",  "width_pref": "wide",   "width_pt": 128 },
+                { "name": "Rationale", "width_pref": "medium", "width_pt": 110 }
+              ],
+              "width_total_pt": 468,
+              "page_size_assumption": "US Letter, 1in margins (6.5in usable = 468pt)",
+              "column_names_invariant": ["Topic", "Theme", "Keywords", "Rationale"],
+              "v4_format_note": "v4.4.0 format pass (2026-05-28): the 'Swaps for' column was DROPPED. The table went 5 cols -> 4 cols; the freed 48pt was redistributed to Topic (134 -> 150), Theme (70 -> 80), Keywords (116 -> 128), and Rationale (100 -> 110), still summing to 468pt. The earlier v4.0.0 pass had already dropped the standalone 'Search Volume' column; the summed MSV renders inside the 'Keywords' cell as a bold first line followed by a <br> and the keyword list."
+            },
+            "rows": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 5,
+              "items": {
+                "type": "object",
+                "required": ["title", "practice_area", "keywords", "search_volume_total", "rationale"],
+                "properties": {
+                  "title": { "type": "string", "description": "Renders in the 'Topic' column." },
+                  "practice_area": { "type": "string", "description": "Renders in the 'Theme' column." },
+                  "keywords": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 5,
+                    "items": {
+                      "type": "object",
+                      "required": ["phrase", "msv"],
+                      "properties": {
+                        "phrase": { "type": "string" },
+                        "msv": { "type": "integer" }
+                      }
+                    },
+                    "description": "Render as a SINGLE comma-separated line in the cell, same format as main table."
+                  },
+                  "search_volume_total": { "type": "integer" },
+                  "rationale": {
+                    "type": "string",
+                    "maxLength": 200,
+                    "description": "ONE tight sentence, target ~80-130 chars, hard cap 200. Validator warns above 130, fails above 200."
+                  },
+                  "authority_score": {
+                    "type": "number",
+                    "description": "The 11-signal weighted score from score-topics.py for this additional-topic episode."
+                  },
+                  "corroboration_flag": {
+                    "enum": ["none", "corroborated", "corroborated+trending"],
+                    "default": "none"
+                  },
+                  "intent_stage": { "enum": ["awareness", "consideration", "decision"] },
+                  "geo_target": { "type": "string", "description": "Geo model field 3 (v4.2.1) - the specific city this additional-topic episode is built to rank for, assigned by pod-2A-topic-planner. Same rule as the main-row `geo_target`: single-location shares the one anchor city, multi-location targets a city in the footprint. Optional/additive." }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "episode_questions": {
+      "type": "object",
+      "description": "The client-facing `## Episode Breakdown` roll-up - renders between `## Additional Topics` and the `# INTERNAL` cut. No section intro paragraph; the H2 is followed directly by the first episode heading. One compact table PER episode (the main 12 AND every additional topic), each table headed `Episode N: {episode title}`, columns Question / Search Phrases / Rationale for episodes 2-12 and additional topics. Questions and search phrases are pulled from that episode's `pod-2B-n-gram-table` output (the `### Build the n-gram tables` step in `## Create`). Purpose: the client QAs the topic list AND the actual questions in one deliverable, before recording. Client-facing - stays above the `# INTERNAL` cut. JSON key remains `episode_questions` for downstream-consumer compatibility; the rendered H2 is `Episode Breakdown`.",
+      "required": ["render_format", "column_names_invariant", "episodes"],
+      "properties": {
+        "render_format": {
+          "type": "string",
+          "const": "one-markdown-table-per-episode",
+          "description": "Always renders as one compact Markdown table per episode under the `## Episode Breakdown` H2. Each table is preceded by a bold line `Episode N: {episode title}` (the episode heading)."
+        },
+        "column_names_invariant": {
+          "type": "array",
+          "const": ["Question", "Search Phrases", "Rationale"],
+          "description": "The three columns of every per-episode question table for episodes 2-12 and additional topics, in exact order. Episode 1 is the standing exception - its founder-interview table is rendered with two columns, 'Question' / 'Rationale' (no Search Phrases, no Segment). E1's Rationale is a hard-coded interview-purpose note, not a research signal."
+        },
+        "pagination_target": {
+          "type": "string",
+          "const": "two-episodes-per-page",
+          "description": "Density GUIDELINE, not a hard rule. The compact table settings (body 9pt, header 10pt, cell padding 2pt vertical / 6pt horizontal - the locked density values used across the skill's tables) are what make two episodes fit on a US Letter page. Final pagination varies with each episode's question count - an episode with many questions can run a page on its own."
+        },
+        "episodes": {
+          "type": "array",
+          "minItems": 15,
+          "maxItems": 17,
+          "description": "One entry per episode in the plan - the main 12 AND every additional topic (3-5). So 15-17 entries total. Order matches the plan: main episodes 1-12 by `#`, then the additional topics. Episode 1 ('The Founder Interview') is the standing exception: it is never n-gram-built, so its `question_source` is 'founder_canonical' and its questions come from the fixed Founder Story interview set, not from a pod-2B-n-gram-table.",
+          "items": {
+            "type": "object",
+            "required": ["episode_label", "episode_title", "question_source", "questions"],
+            "properties": {
+              "episode_label": {
+                "type": "string",
+                "description": "The table/section heading. Format: 'Episode N: {episode title}' for main episodes 2-12. Episode 1 is the standing exception - its label is 'Episode 1: Founder Story' (the theme, not the EP1 title 'The Founder Interview'). Additional topics use 'Additional Topic: {topic title}'."
+              },
+              "episode_title": { "type": "string", "description": "The episode title - matches the `title` in the main or bonus table row." },
+              "is_additional_topic": { "type": "boolean", "default": false, "description": "True when this entry is one of the 3-5 additional topics rather than a main-12 episode." },
+              "question_source": {
+                "enum": ["n_gram_table", "founder_canonical"],
+                "default": "n_gram_table",
+                "description": "v4.0.0 format-feedback. Where this episode's questions came from. 'n_gram_table' = rolled up from that episode's pod-2B-n-gram-table output (every episode 2-12 and every additional topic). 'founder_canonical' = the canonical Founder Story interview question set at references/e1-founder-interview-questions.md (21 questions, S1-S5 + Outro, {{LOCATION}}/{{BUSINESS}}/{{NICHE}} tokens filled per client) - used ONLY for Episode 1, which is never n-gram-built. When 'founder_canonical', Episode 1's `## Episode Breakdown` entry renders those 21 questions as ONE table with two columns, 'Question' / 'Rationale' - the founder-interview questions top to bottom and UNNUMBERED. E1's 'Rationale' is a few hard-coded words naming what the question accomplishes in the interview (e.g., 'establishes credentials and authority', 'positions founder as educator', 'emotional close on passion') - it is NOT a research signal, since E1 is never n-gram-built. E1's table has NO Search Phrases column and NO Segment column."
+              },
+              "n_gram_table_failed": { "type": "boolean", "default": false, "description": "True when the `pod-2B-n-gram-table` run for this episode failed. When true, `questions` may be empty and the renderer emits a `> NEEDS VERIFICATION:` note in place of the table rather than blocking the whole plan. Never applies to Episode 1 (question_source 'founder_canonical' - no n-gram run is made)." },
+              "questions": {
+                "type": "array",
+                "description": "The per-episode question set. For episodes 2-12 and additional topics, rolled up from that episode's `pod-2B-n-gram-table` output, one row per question, each row carrying `question` + `search_phrases` + `rationale`. For Episode 1 (question_source 'founder_canonical'), the fixed Founder Story interview question set, one row per question, each row carrying `question` + `rationale` (a few hard-coded words on what the question accomplishes in the interview); `search_phrases` does not apply and is omitted for E1 rows.",
+                "items": {
+                  "type": "object",
+                  "required": ["question"],
+                  "properties": {
+                    "question": { "type": "string", "description": "Renders in the 'Question' column. A recording-ready question for the host." },
+                    "search_phrases": {
+                      "type": "string",
+                      "description": "Episodes 2-12 and additional topics. Renders in the 'Search Phrases' column. The search phrases / n-grams behind the question, as a single comma-separated line. Not present for Episode 1 - the founder interview is never n-gram-sourced and E1's table has no Search Phrases column."
+                    },
+                    "rationale": {
+                      "type": "string",
+                      "description": "Renders in the 'Rationale' column. For episodes 2-12 and additional topics, a SHORT plain-language summary of the research signal behind the question - e.g., 'comes up heavily in People Also Ask', 'triggers an AI Overview', 'strong related-search cluster'. For Episode 1 (question_source 'founder_canonical'), a few hard-coded words naming what the question accomplishes in the founder interview - e.g., 'establishes credentials and authority', 'positions founder as educator', 'emotional close on passion'. A summary, NOT a direct citation."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "topics_by_score": {
+      "type": "array",
+      "description": "Top-level array consumed by `pod-2B-n-gram-table` and rendered as the INTERNAL `## Topic Ideas` table. Every candidate topic the research surfaced, in original UNMODIFIED `authority_score` ranking order as emitted by `score-topics.py`. ALWAYS present every run. This array exists so that after a manual reweight of the plan ('add more truck accident'), the original research ranking stays recoverable. INTERNAL-only - stripped before any client share. As of v4.2.0 the rendered table is SIX columns - Rank | Topic | Theme | Score | Rationale | Notes - where `Score` renders the topic's `authority_score` to three decimals (placed between `Theme` and `Rationale`), `Rationale` is an AI-written plain-language explanation of why the topic earned its score and rank, citing the actual signals, and `Notes` is a freeform INTERNAL column recording the topic's disposition after episode selection (MAIN-#, BONUS, RESERVE, CUT (reason)) plus operator/review comments. The `Notes` column is empty on a fresh scoring run and is populated at episode selection - it absorbs the disposition tagging that the removed `## Topics by Theme` reserve catalog used to carry. The per-topic `authority_score`, `corroboration_flag`, and `signal_families_fired` data fields are retained for the `pod-2B-n-gram-table` handoff; `authority_score` is now also rendered as the `Score` column, while `corroboration_flag` and `signal_families_fired` remain data-only and feed the `Rationale` text.",
+      "minItems": 1,
+      "column_names_invariant": ["Rank", "Topic", "Theme", "Score", "Rationale", "Notes"],
+      "items": {
+        "type": "object",
+        "required": ["rank", "topic", "authority_score", "corroboration_flag", "signal_families_fired"],
+        "properties": {
+          "rank": { "type": "integer", "minimum": 1, "description": "1-based position in the original unmodified `authority_score` ranking. Renders as the `Rank` column." },
+          "topic": { "type": "string", "description": "Candidate topic name. Renders as the `Topic` column." },
+          "theme": { "type": "string", "description": "Practice-area theme the candidate belongs to. Renders as the `Theme` column." },
+          "rationale": { "type": "string", "description": "AI-written plain-language justification for the score and rank, rendered as the `Rationale` column. Names the actual signals behind the score - format is comma-listed signals, then ` -- `, then a verdict (e.g., '5 PAA, related searches, has AI overview -- great demand for topic'; 'high search volume, right intent'). Tightened from `draft_rationale` for the rendered table." },
+          "authority_score": { "type": "number", "description": "The 11-signal weighted score from score-topics.py. The numeric model lives only in references/scoring-model.json. Data field consumed by `pod-2B-n-gram-table` for ordering - NOT a rendered column as of v4.1.0." },
+          "corroboration_flag": {
+            "enum": ["none", "corroborated", "corroborated+trending"],
+            "default": "none",
+            "description": "Whether the candidate cleared the evidence bar on multiple independent signal families. Data field consumed by `pod-2B-n-gram-table` - NOT a rendered column as of v4.1.0; it feeds the AI-written `rationale` text instead."
+          },
+          "signal_families_fired": {
+            "type": "array",
+            "description": "Which independent signal families fired for this candidate - 'entity', 'search-demand', 'trend'. Drives the Rationale text and the corroboration flag. Data field consumed by `pod-2B-n-gram-table` - NOT a rendered column as of v4.1.0.",
+            "items": { "enum": ["entity", "search-demand", "trend"] }
+          },
+          "placement": {
+            "enum": ["MAIN", "BONUS", "RESERVE", "CUT"],
+            "description": "Where the candidate landed in the formed plan. The disposition tag is recorded in the `Notes` column of the `## Topic Ideas` table (MAIN-#, BONUS, RESERVE, CUT (reason))."
+          },
+          "draft_rationale": { "type": "string", "description": "The draft rationale emitted by score-topics.py from the signal scores + corroboration flag, before the skill tightens it for the table." }
+        }
+      },
+      "render_format": {
+        "type": "string",
+        "const": "markdown-table",
+        "description": "Renders as a single Markdown table under `## Topic Ideas` H2 - the SECOND H2 under `# INTERNAL` (after `## Research Sources`). Columns (v4.2.0): Rank | Topic | Theme | Score | Rationale | Notes. The `Score` column renders the topic's `authority_score` to three decimals and sits between `Theme` and `Rationale`. The `Rationale` column is AI-written plain-language score/rank justification citing the actual signals (comma-listed signals, then ` -- `, then a verdict). The `Notes` column is freeform and INTERNAL: it records the topic's disposition after episode selection (MAIN-#, BONUS, RESERVE, CUT (reason)) plus any operator/review comments; it renders empty on a fresh scoring run and is filled in at episode selection. `authority_score` is rendered as the `Score` column; the remaining non-rendered fields - Corroboration and Signal Families - survive as JSON data fields (`corroboration_flag`, `signal_families_fired`) for the `pod-2B-n-gram-table` handoff and are not rendered as their own columns."
+      }
+    },
+    "internal_section": {
+      "type": "object",
+      "description": "Bottom of every topic plan Doc. Client-share renders MUST truncate at the `# INTERNAL` H1. The H1 itself renders at 28pt CE Blue bold with a 1.5pt CE Blue top border (more prominent than any H2 below it) so AMs spot the truncation boundary at a glance.",
+      "required": ["research_sources", "structure_invariant"],
+      "properties": {
+        "internal_h1_styling": {
+          "type": "object",
+          "description": "Visual contract for the `# INTERNAL` H1 marker. Locked in `topic-plan-formatting.sh` Phase F.",
+          "default": {
+            "font_size_pt": 28,
+            "bold": true,
+            "color_hex": "#3573FF",
+            "border_top_width_pt": 1.5,
+            "border_top_color_hex": "#3573FF",
+            "border_top_dash_style": "SOLID"
+          }
+        },
+        "tag_legend": {
+          "type": "object",
+          "description": "Renders as a paragraph IMMEDIATELY after the `# INTERNAL` H1, before any H2.",
+          "default": {
+            "MAIN-#": "In the curated main 12 above (with episode number)",
+            "BONUS": "In the bonus swap-in pool above",
+            "RESERVE": "Available for substitution / future season / standalone short content",
+            "CUT": "Explicitly cut after research with the reason"
+          }
+        },
+        "structure_invariant": {
+          "type": "object",
+          "description": "Required sub-section order under `# INTERNAL`. Renderer MUST emit in this order. v4.0.0 format-feedback (2026-05-20): `## Research Sources` is now the FIRST H2 under `# INTERNAL`. The `## Internal Rationale - Show Name + Audience + Voice` section (and its Show Name Decision Log content) was removed entirely. `## Topic Ideas` follows `## Research Sources`. v4.2.0 (2026-05-20): `## Topics by Theme` was removed entirely - it was redundant with `## Topic Ideas`, which groups by its `Theme` column and now carries each topic's disposition in the new `Notes` column.",
+          "default": {
+            "h2_order": [
+              "Research Sources",
+              "Topic Ideas",
+              "Selection Methodology Detail",
+              "Episode 1 Branded Search Benchmark",
+              "Provenance"
+            ],
+            "research_sources_is_first_h2": true
+          }
+        },
+        "research_sources": {
+          "type": "object",
+          "description": "Operator quick-nav table with a clickable Drive hyperlink to every research artifact that fed this plan. One row per research artifact actually used. Refresh on every revision. Distinct from `provenance` (append-only historical record across versions); `research_sources` is the current-version live nav. v4.0.0 format pass (2026-05-20): restructured from a multi-column per-(topic,scope) link table to a simple 3-column Name / URL / Notes table - one row per artifact (each entity map, keyword-research artifact, virality-research artifact, and n-gram tables folder), not one row per topic.",
+          "required": ["rows"],
+          "properties": {
+            "rows": {
+              "type": "array",
+              "minItems": 1,
+              "description": "One row per research artifact that contributed to this plan - each entity map, keyword-research artifact, virality-research artifact, and per-episode n-gram tables folder, named with its practice area and scope.",
+              "items": {
+                "type": "object",
+                "required": ["name", "url", "notes"],
+                "properties": {
+                  "name": { "type": "string", "description": "Renders in the 'Name' column. The name of the research artifact / source, including its practice area and scope - e.g., 'Entity Map - Truck Accidents (Houston, TX)', 'Keyword Research - Car Accidents (Houston, TX)', 'Virality Research - Motorcycle Accidents (Houston, TX)', 'N-Gram Tables - Houston, TX'." },
+                  "url": { "type": "string", "description": "Renders in the 'URL' column as a clickable Drive hyperlink to that artifact. Empty string if not on Drive; renderer outputs '—' and the row's drive_published flag goes false." },
+                  "notes": { "type": "string", "description": "Renders in the 'Notes' column. Any pertinent note about the source - entity / cluster counts, coverage caveats, what the artifact contributed, partial-data flags." },
+                  "drive_published": { "type": "boolean", "default": true, "description": "False if `url` is empty (artifact only exists locally; Drive push hasn't happened). Triggers a `research_gaps` flag in metadata." }
+                }
+              }
+            },
+            "render_format": {
+              "type": "string",
+              "const": "markdown-table",
+              "description": "Always renders as a single Markdown table under `## Research Sources` H2. Three columns in exact order: Name | URL | Notes."
+            },
+            "missing_research_handling": {
+              "type": "string",
+              "enum": ["push-first", "placeholder", "drop-row"],
+              "default": "push-first",
+              "description": "What to do when an artifact isn't on Drive at the canonical path. push-first = run helper to upload the local artifact to Drive then build with the real URL (preferred). placeholder = render '—' in the URL cell and flag drive_published=false. drop-row = omit the row entirely and log under metadata.research_gaps."
+            }
+          }
+        }
+      }
+    }
+  }
+}
