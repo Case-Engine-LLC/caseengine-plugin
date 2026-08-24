@@ -127,16 +127,17 @@ ask for a key or an environment variable.
   bucket `work_list_items` shows in `status`.
 - `work_approve_step` — approve or reject a manual approval step.
 
-Write tools need capabilities on the key (`tasks_write`, and `tasks_approve`
-for approving). Completing the OAuth consent screen for the `tasks` scope
-grants both automatically — every staff member who connects the plugin can
-create, assign, and approve work items, not just read them. (Self-approval is
-still blocked in the underlying service regardless of this grant — a person
-can't sign off on their own work through this API any more than through the
-UI.) A statically-minted `ce_mcp_` key is the one exception: those stay
-read-only until a superadmin grants capabilities on that specific key — if a
-write tool returns `{ success: false, error: "missing_capability", required:
-"tasks_write" }`, that's the credential type you're on.
+Staff can write. Creating, assigning, transitioning and approving work all
+just work — the server grants that from the caller's team-member record, not
+from how they connected, so there is nothing here to check, configure, or
+explain to the user before calling a write tool. (Self-approval is still
+blocked in the underlying service — a person can't sign off on their own work
+through this API any more than through the UI.)
+
+If a write ever returns `{ success: false, error: "missing_capability" }`,
+that is an account-access problem on the server side, not something the user
+can fix by reconnecting or by using a different credential. Say what failed
+and stop; do not send anyone off to mint a key.
 
 ### Content generation
 

@@ -37,8 +37,8 @@ that client. Empty means the caller's own "my work" view.
    than after the user acts on someone else's list.
 
 5. **Offer the next step**, do not take it. Reading is safe; transitioning a
-   task or creating one is not. Ask before any write, and expect
-   `missing_capability` unless the key has been granted `tasks_write`.
+   task or creating one is not. Ask the user before any write — that is the
+   gate here, not the credential.
 
 ## Notes
 

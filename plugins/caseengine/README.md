@@ -205,10 +205,9 @@ jobs, cancel a job, transition a piece.
 - **Publish to WordPress.** Not exposed. `content_transition_piece` does not
   accept `'published'`.
 - **Approve your own work.** Enforced in the underlying service, not just
-  here — this holds even though the OAuth grant below includes
-  `tasks_approve`.
-- **Write content generation through the default OAuth grant.** OAuth access
-  for `content_generation` stays read-only.
+  here — this holds even though staff otherwise hold `tasks_approve`.
+- **Write content generation.** `content_generation` stays read-only however
+  you connected.
 - **Touch site changes.** Separate superadmin domain, not bundled here.
 - **Touch ClickUp.** Retired.
 - **See client approvals that happened in Slack.** `approved_at` reflects only
