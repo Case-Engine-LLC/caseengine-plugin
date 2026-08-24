@@ -127,16 +127,22 @@ ask for a key or an environment variable.
   bucket `work_list_items` shows in `status`.
 - `work_approve_step` — approve or reject a manual approval step.
 
-Write tools need capabilities on the key (`tasks_write`, and `tasks_approve`
-for approving). Completing the OAuth consent screen for the `tasks` scope
-grants both automatically — every staff member who connects the plugin can
-create, assign, and approve work items, not just read them. (Self-approval is
-still blocked in the underlying service regardless of this grant — a person
+Write tools need capabilities on the credential (`tasks_write`, and
+`tasks_approve` for approving). Every staff member gets both automatically,
+on either credential type — completing the OAuth consent screen for the
+`tasks` scope, or presenting a `ce_mcp_` key scoped to `tasks`. Both resolve
+the caller to their active team-member record and grant from that, so the
+same person has the same access whichever way they connected. (Self-approval
+is still blocked in the underlying service regardless of the grant — a person
 can't sign off on their own work through this API any more than through the
-UI.) A statically-minted `ce_mcp_` key is the one exception: those stay
-read-only until a superadmin grants capabilities on that specific key — if a
-write tool returns `{ success: false, error: "missing_capability", required:
-"tasks_write" }`, that's the credential type you're on.
+UI.)
+
+So `{ success: false, error: "missing_capability", required: "tasks_write" }`
+is no longer a "wrong credential type" signal. It now means the caller does
+not resolve to an active team-member record — a departed or never-onboarded
+account, or a client-role login — or that a superadmin explicitly denied that
+flag on the key. Report it as an access question for Connor rather than
+telling the user to re-connect or mint a different key.
 
 ### Content generation
 

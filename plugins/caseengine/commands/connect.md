@@ -69,8 +69,10 @@ same Case Engine account completed consent, then retry in a fresh conversation.
 
 An OAuth grant is scoped to the `tasks` and `content_generation` domains.
 Within `tasks`, consent grants full read/write/approve access — creating,
-assigning, transitioning, and approving work items. `content_generation`
-stays read-only; its write tools return
+assigning, transitioning, and approving work items. A `ce_mcp_` key scoped to
+`tasks` now carries the same access for the same person, so which credential
+someone connected with no longer changes what they can do.
+`content_generation` stays read-only on both; its write tools return
 `{ success: false, error: "missing_capability" }` until that changes.
 Site-change tools are a separate superadmin grant and are not part of this
 plugin. Do not look for another route around those controls.
