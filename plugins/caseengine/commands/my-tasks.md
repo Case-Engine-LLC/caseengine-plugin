@@ -37,10 +37,8 @@ that client. Empty means the caller's own "my work" view.
    than after the user acts on someone else's list.
 
 5. **Offer the next step**, do not take it. Reading is safe; transitioning a
-   task or creating one is not. Ask before any write. Staff hold `tasks_write`
-   automatically, so a `missing_capability` here means the caller does not
-   resolve to an active team-member record — surface that rather than
-   retrying.
+   task or creating one is not. Ask the user before any write — that is the
+   gate here, not the credential.
 
 ## Notes
 
