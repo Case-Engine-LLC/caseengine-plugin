@@ -54,6 +54,10 @@ Frozen strings guaranteed the points and guaranteed twelve identical episodes. A
 
 **The banks are starting points, not menus.** Each line's bank shows the range that clears the bar. A generated line that satisfies the beats, the invariants and the rules is valid even if it appears nowhere in the JSON. A run that only ever picks bank entries verbatim is doing selection, which will visibly cycle across twelve episodes and defeats the point.
 
+## Angle variants (Gabe, 2026-08-26)
+
+Generation SHOULD produce one primary plus 3-4 alternate angles for each of the three lines, following this file's variation model: different credit clauses for line 1, different close beats around the podcast name for line 2 (all under fifteen words), different hinge phrasings for line 3 (all carrying the state, phone then website). Every alternate clears the same beats, invariants and gates as the primary, because the producer may swap any of them in verbatim from the tool. The alternates ride beside the payload (outro_alternates) and surface in the tool's caret menu; the producer picks the angle there, and a pick keeps the displaced line in the list, so no angle is ever lost.
+
 ## Line 1 - the thanks and the credit
 
 **Required beats:** address them with `{{ATTORNEY}}`, thank them explicitly, and one credit clause that alludes to competence rather than announcing it.

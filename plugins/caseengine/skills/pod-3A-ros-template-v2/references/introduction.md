@@ -39,6 +39,16 @@ The introduction is not a script to read. It is a shape. The host says these thi
    - **Stacked "and"s.** "I'm Kara, and today we're talking about X, and what they're really after" - break it: "I'm Kara. Today we're talking about X, and what they're really after."
    - **Restating what an earlier line established.** If line 2 has already put the listener in the situation, line 4's setup can be two words.
 
+## Angle variants (Gabe, 2026-08-26)
+
+Generation SHOULD produce one primary plus 3-4 alternate angles for each spoken line (lines 2, 3 and 4). The alternates are not paraphrases. Each one is a different angle on the same job, and every alternate clears the same guardrails and gates as the primary, because the producer may swap any of them in verbatim from the tool.
+
+- Line 2: alternates use different openers from the opener bank ("today we're going to discuss X" / "today the topic is X" / "the theme today is X" / "we're going to dive into X" / "today we're talking about X"), one opener per alternate, never repeating the primary's.
+- Line 3: alternates use different EEAT axes - Experience (tenure or volume), Expertise (depth in this case type), Authoritativeness (the topic sits at the practice core), Trust (battle-tested against the adjusters on the other side). One axis per alternate, never the primary's axis twice.
+- Line 4: alternates use different verb frames (walk us through / break down / explain / lay out / tell us / set us straight on) around the same topic phrase anchor.
+
+The primary ships in the payload's main field; the alternates ride beside it (segment_1.alternates) and surface in the tool's caret menu, where the producer picks the angle. A pick promotes the alternate to primary and keeps the displaced line in the list, so no angle is ever lost.
+
 ## THE SPEC — detail behind the guardrails
 
 Four sentences. About 40 seconds. If it can be done in three, do it in three.
