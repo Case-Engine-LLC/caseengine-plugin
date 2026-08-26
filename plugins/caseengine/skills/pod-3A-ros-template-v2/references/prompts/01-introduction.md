@@ -1,7 +1,7 @@
 # 01 - Introduction
 
 > **References:** `references/introduction.md` is the format of record for this section - the four
-> lines, the ten line-2 patterns, the eight line-3 credential frames, the six line-4 ask frames, the
+> lines, the line-2 opener bank, the eight line-3 EEAT frames, the line-4 beats spec, the
 > number rules, the credential verification order, and gates IN-1 through IN-8. `references/statics.json`
 > carries the one constant. `references/document-structure.md` fixes where this section sits and what
 > renders around it. Read all three before touching anything here. This file carries only what a
@@ -27,10 +27,12 @@ standing in front of you, it fails, regardless of how well it reads.
   It is **line 1 only** as of 2026-08-18: the show name and whose show it is, and nothing else.
 - `welcome_first` - the episode 1 variant. Which one fires is decided by the episode number, not by
   taste. "Welcome back" on a first episode is the tell that a show was assembled rather than started.
-- `welcome_embedded` / `welcome_embedded_first` - the embedded-name variants (Gabe, 2026-08-26). When
-  the podcast name embeds the attorney's name (e.g. "Car Accident Attorney w. Robert May"), line 1 is
-  "Welcome back to the **{{PODCAST_NAME}}** Podcast." - never "with **{{ATTORNEY_NAME}}**", which
-  doubles the name. A "w." in the podcast name is spoken, and rendered in the welcome, as "with".
+- Embedded-name shows (Gabe, 2026-08-26, locked): a podcast name of the shape "{Prefix} w./with
+  {Attorney}" SPLITS at the "w./with" - "Welcome back to the Car Accident Attorney podcast with
+  Robert May." Plain spoken text, NO bolds; computed at populate by `pod-3B-client-ros-v2`. The
+  `welcome_embedded` / `welcome_embedded_first` constants ("the {{PODCAST_NAME}} Podcast.") are the
+  fallback when the name embeds the attorney with no "w./with" to split at. A "w." is always spoken
+  as "with".
 - The `ATTORNEY RESPONSE` speaker tag, gray italic, from `statics.json -> speaker_tags`. It is the only tag left in the document; the `INTERVIEWER` tag was cut 2026-08-18 because the welcome already makes the speaker obvious.
 
 Nothing else. **`after_prompt` and `handoff` were retired 2026-08-17** and now sit in
@@ -63,24 +65,27 @@ Line 2 is its own paragraph. Merging it into line 1 is the specific regression t
 would say it, not the practice area as a category and not the episode title verbatim. It feeds line 2's
 subject slot and the outro's topical credit approach in `05-outro-close.md`.
 
-**Generate line 2 - the setup.** Four slots in order: host ID (`I'm {{INTERVIEWER}}`, three words,
-never a title, never "your host", and NEVER "here with {{ATTORNEY}}" - line 1 already welcomed them
-and re-naming them makes the intro say the name three times; Gabe, 2026-08-26), the turn (vary the verb; never "in this episode we'll cover"),
-the subject (plain language, this is where the pattern lives), the stakes (one clause, second person,
-about the listener). 25 to 30 words. Pick **one** of the ten patterns in
-`references/introduction.md` -> "The ten patterns" and do not run the same pattern on consecutive
-episodes of the same show. The geo rides inside the subject slot, once, and in S1 it is `{{STATE}}` -
-the long-form answer is state-governed so one recording serves every city the firm covers. Prefer
-two sentences over one run-on chain, and add a hook clause after the topic only when it carries the
-episode's genuine insight - skip it when the plain name lands (Gabe, 2026-08-26).
+**Generate line 2 - the setup.** Host ID FIRST and ALONE (`I'm {{INTERVIEWER}}.` - never a title,
+never "your host", and NEVER "here with {{ATTORNEY}}"; line 1 already welcomed them; Gabe,
+2026-08-26). Then the topic named plainly and naturally - vary the opener across episodes: "and
+today we're going to discuss X" / "today the topic is X" / "the theme today is X" / "we're going to
+dive into X" / "today we're talking about X" (Gabe, 2026-08-26). Whatever the opener, it stays a
+spoken sentence - a bare headline fails. NO hook clause that gives away the episode's insight -
+naming the topic is the job; spending the episode's best point in the intro is a spoiler, not a hook
+(Gabe, 2026-08-26). NO geo in line 2 - the state lives in line 3, the EEAT line. Never the episode
+title verbatim. Prefer two sentences over one run-on chain. 25 to 30 words. An optional stakes
+clause (one clause, second person, about the listener) is the first thing to cut.
 
 It ends at the stakes clause. No qualifier, no bridge into line 3. The full stop is what makes line 3
 land as a turn toward the attorney.
 
-**Generate line 3 - the credential.** One credential, stated as a fact, spoken directly to the
-attorney with `{{ATTORNEY}}`. Pick **one** frame from `references/introduction.md` -> "The eight
-frames" (L3-A through L3-H). Never stack two; two credentials in one sentence is a bio. Rotate the
-frame across the library. Under 25 words, one sentence.
+**Generate line 3 - the EEAT line (Gabe, 2026-08-26).** Spoken to the attorney by first name with
+`{{ATTORNEY}}`. Its job is establishing experience, expertise, authority, or trust - a credential is
+one form, not the definition. One or two sentences; the second may bridge into the topic. This is
+where the STATE slides in naturally: "Robert, you've spent fourteen years handling injury claims in
+California. And the damage isn't always visible right away." Pick **one** frame from
+`references/introduction.md` -> "The eight frames" (L3-A through L3-H) - never stack two; two
+credentials in one sentence is a bio. Vary the EEAT signal every episode. Under 25 words.
 
 Resolve the fact before you write it: CE database first, the firm's own website second, ask the
 producer third - never from memory and never carried forward from a previous episode's ROS. Every
@@ -90,22 +95,25 @@ in which case tenure is BANNED (Gabe, 2026-08-26): go loose instead, a vaguer no
 experience that sets up the topic, with no years figure. Record claim, source and date checked in
 `metadata.json`.
 
-Line 3 is where the city is allowed, because that sentence is about where the FIRM practices:
-"you've been serving **{{CITY}}** and across **{{STATE}}** for **{{YEARS_PRACTICING}}** years."
-One city maximum. Do not repeat `{{STATE}}` if line 2 already said it - say "here."
+Line 3 is where the STATE lands - line 2 carries no geo (Gabe, 2026-08-26). No city anywhere in
+S1; `{{CITY}}` lives only in the S2 blocks. If geo wants saying beyond the state, say "here."
 
-**Generate line 4 - the ask.** Three parts: a situation naming who is listening, a first ask that
-varies by episode, and a second ask that is **always the real case**. Pick one of the six frames in
-`references/introduction.md` -> "The six frames" (L4-A through L4-F). THREE short sentences in order:
-a situation, the ask as an imperative, then a conditional story invitation opening "And if you have...".
-Two asks, never three. 25 to 35 words. It does not have to end in a question mark; the invitation is an
-invitation. A single compound question FAILS. Then stop talking.
+**Generate line 4 - the ask (Gabe, 2026-08-26).** "Walk us through" plus 2-3 QUESTION-SHAPED
+beats, each a restartable 5 to 10 minute prompt. Default triad: DEFINITION first - plain "what X
+is", optionally framed for the audience ("For people who are unfamiliar, let's start with what a
+traumatic brain injury is.") - never padded with "even is"; then DIFFERENCE ("How are these cases
+different from a normal claim?"); then CHALLENGES ("And what are some of the challenges that come
+with them?"). A narrow topic takes two beats, and the middle beat can be mechanics instead of
+difference. Each beat under roughly twelve words, the whole ask under roughly thirty-five, no
+subordinate clauses - by the end of a long question the attorney has forgotten the start. Ground the
+beats in the episode's body questions where they cluster. The topic phrase survives into the ask
+(retrieval anchor / clip title). Then stop talking.
 
-Do not pair a line 4 frame with a line 2 pattern that already said the same thing.
+Do not let a beat repeat what line 2 already said.
 
 **Rotate.** Read the prior two episodes' `metadata.json` for this client. Do not reuse the line 2
-pattern or the line 3 frame from either. Record the line 2 pattern, the line 3 frame, the line 4
-frame, and any number's source in `metadata.json`.
+opener or the line 3 EEAT frame from either. Record the line 2 opener, the line 3 frame, the beat
+set, and any number's source in `metadata.json`.
 
 ## Rules
 Full rule set in `references/introduction.md` -> the per-line "Rules" sections and "Do not". The ones
@@ -134,22 +142,23 @@ that bite most often:
 ### GOOD
 > Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.
 >
-> I'm **{{INTERVIEWER}}**, and today we're getting into something a lot of people in **{{STATE}}**
-> end up dealing with, usually with no warning, and what you actually need to know if it happens to you.
+> I'm **{{INTERVIEWER}}**. Today we're going to discuss traumatic brain injuries.
 >
-> **{{ATTORNEY}}**, you've been serving **{{CITY}}** and across **{{STATE}}** for
-> **{{YEARS_PRACTICING}}** years.
+> **{{ATTORNEY}}**, you've spent years handling injury claims in **{{STATE}}**. And the damage
+> isn't always visible right away.
 >
 > *The attorney says hello. A sentence or two, unscripted.*
 >
-> **For someone listening right now who was just in a wreck, what do they need to know next, and can
-> you walk us through a real case that shows what the road ahead actually looks like?**
+> **Walk us through it. For people who are unfamiliar, let's start with what a traumatic brain
+> injury is. How are these cases different from a normal claim? And what are some of the challenges
+> that come with them?**
 >
 > *ATTORNEY RESPONSE*
 
-Four lines plus the beat. Line 1 verbatim from `statics.json`. Line 2 is pattern A carrying
-`{{STATE}}` and ending at the stakes clause. Line 3 is one frame, L3-A tenure, spoken to the
-attorney. Line 4 is L4-A with two asks and the real case last. 96 words.
+Four lines plus the beat (Gabe, 2026-08-26 shape). Line 1 verbatim from `statics.json`. Line 2 is
+host ID alone, then the topic named plainly - no geo, no hook. Line 3 is the EEAT line carrying the
+state, two sentences with the second bridging into the topic. Line 4 is "Walk us through" plus the
+definition / difference / challenges triad, each beat short and restartable.
 
 ### BAD
 > Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**. I'm **{{INTERVIEWER}}**, and today
@@ -164,8 +173,8 @@ attorney. Line 4 is L4-A with two asks and the real case last. 96 words.
 Fails: line 2 merged into line 1 so there is no separate setup paragraph and no stakes clause; the
 S1 geo is `{{CITY}}` instead of `{{STATE}}`; line 3 stacks three credentials and uses adjectives
 ("top-rated") and an unverifiable filler quantity ("countless"); "thanks for coming on" is guest
-framing on the attorney's own show; line 4 carries three asks, no real-case ask, and re-asks for
-credentials line 3 already gave.
+framing on the attorney's own show; line 4's beats are unshaped (no definition beat, no order) and
+re-ask for credentials line 3 already gave.
 
 ## Gates
 Gates for this section are **IN-1 through IN-8** in `references/introduction.md` -> "Gates". They
@@ -178,15 +187,17 @@ were all constants.
   reads it positionally.
 - **IN-2 fails:** a run regenerated line 1. Restore it byte-identical from `references/statics.json`,
   and check that the regenerated text did not swallow line 2 back into it.
-- **IN-3 fails:** line 2 matches no approved pattern, or carries `{{CITY}}` instead of `{{STATE}}`.
-  Rebuild from one of the ten patterns rather than patching the existing sentence.
+- **IN-3 fails:** line 2 carries geo, an insight-spoiling hook, or re-names the attorney. Rebuild
+  it as host ID alone plus the topic named plainly (Gabe, 2026-08-26) rather than patching the
+  existing sentence.
 - **IN-4 fails:** a number has no source in metadata. Get the source or switch to pattern A. Never
   hedge an unsourced figure into "roughly" and ship it.
 - **IN-5 fails:** line 3 stacks two credentials, or its fact is unverified. Cut to one frame; if the
   number could not be resolved, switch to L3-A tenure - unless a recent episode's credential already
   used years, in which case a loose expertise nod with no years figure (Gabe, 2026-08-26).
-- **IN-6 fails:** a third ask appeared, or the real-case ask was trimmed. Restore two asks with the
-  real case last - the sentence "works" without it, it just stops earning a 15 to 30 minute answer.
+- **IN-6 fails:** the beats ran long, a fourth beat appeared, or a subordinate clause crept in.
+  Rebuild as "Walk us through" plus 2-3 short question-shaped beats (Gabe, 2026-08-26) - each under
+  roughly twelve words, grounded in the body questions.
 - **IN-7 fails:** guest framing, jargon or an em dash. Regenerate the line.
 - **IN-8 fails:** read it aloud. Over 110 words means a slot ran long, almost always the stakes
   clause or line 4's setup sentence. Cut there, not from line 3.

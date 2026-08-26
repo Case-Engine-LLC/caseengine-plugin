@@ -20,20 +20,24 @@
     "welcome_embedded": {
       "substitution": null,
       "value": "Welcome back to the **{{PODCAST_NAME}}** Podcast.",
-      "when": "Every episode after the first, when the podcast name EMBEDS the attorney's name (e.g. 'Car Accident Attorney w. Robert May'). Never 'with **{{ATTORNEY_NAME}}**' on these shows - it doubles the name.",
-      "changed": "2026-08-26 - added per Gabe. The standard `welcome` closes with 'with **{{ATTORNEY_NAME}}**', which on an embedded-name show reads 'Car Accident Attorney with Robert May with Robert May'. This variant closes with 'Podcast.' instead.",
+      "when": "FALLBACK ONLY (Gabe, 2026-08-26, locked later the same day): fires when the podcast name embeds the attorney's name with NO 'w./with' to split at (e.g. 'The Robert May Show'). A name of the shape '{Prefix} w./with {Attorney}' takes the SPLIT SPOKEN form instead - see `welcome_split_rule`.",
+      "changed": "2026-08-26 - added per Gabe as the primary embedded form ('the {{PODCAST_NAME}} Podcast.' instead of 'with **{{ATTORNEY_NAME}}**', which doubles the name). Superseded LATER THE SAME DAY as primary: 'the Car Accident Attorney w. Robert May Podcast' jams three names into one breath, so w./with names now SPLIT (see `welcome_split_rule`, mirrored from ce-ros-v2 assemble.ts). This constant survives as the no-splice fallback.",
       "note": "Line 1 only, same shrink as `welcome`. A 'w.' in the podcast name is spoken, and rendered in the welcome, as 'with' - see `spoken_forms`."
     },
     "welcome_embedded_first": {
       "substitution": null,
       "value": "Welcome to the **{{PODCAST_NAME}}** Podcast.",
-      "when": "Episode 1 only, when the podcast name embeds the attorney's name. Same rule as `welcome_first`: there is no 'back' on a launch episode.",
-      "note": "Line 1 only. Same embedded-name rule as `welcome_embedded` (Gabe, 2026-08-26)."
+      "when": "Episode 1 only, same FALLBACK-ONLY status as `welcome_embedded`. Same rule as `welcome_first`: there is no 'back' on a launch episode.",
+      "note": "Line 1 only. Same embedded-name precedence as `welcome_embedded` (Gabe, 2026-08-26)."
     }
   },
   "spoken_forms": {
     "$comment": "Gabe, 2026-08-26. Abbreviations inside a podcast name resolve to their spoken form wherever the name is spoken, and in the rendered welcome line.",
     "w.": "with"
+  },
+  "welcome_split_rule": {
+    "$comment": "Gabe, 2026-08-26, LOCKED. Line 1 precedence, mirrored from ce-ros-v2 src/lib/run-of-show-v2/generation/assemble.ts (spokenShowParts + pickWelcome): (1) podcast name matches '{Prefix} w./with {Attorney}' -> the SPLIT SPOKEN form, computed at populate, PLAIN TEXT with NO bolds: 'Welcome back to the {Prefix} podcast with {Attorney}.' (Episode 1 opens 'Welcome to'). The attorney is said once and 'podcast' sits in the middle. (2) name otherwise embeds the attorney's full or last name -> the `welcome_embedded` / `welcome_embedded_first` constants. (3) otherwise -> `welcome` / `welcome_first`. Display contexts keep the stored name untouched; the split is spoken-form only.",
+    "example": "Car Accident Attorney w. Robert May -> Welcome back to the Car Accident Attorney podcast with Robert May."
   },
   "speaker_tags": {
     "$comment": "One tag left. The `interviewer` tag was cut 2026-08-18 - from the Introduction, where the welcome already makes the speaker obvious, and from the outro, where outro_note already says who is speaking. It is preserved under `retired` so a future edit does not reintroduce it believing it was lost by accident.",
@@ -63,5 +67,5 @@
   },
   "_moved_2026-08-18": "outro_thanks, outro_signoff, outro_reach and outro_praise are no longer constants. See references/outro-banks.json and references/outro.md. The STATIC set is now THREE strings: welcome, welcome_first, outro_note.",
   "_removed_2026-08-21": "outro_note removed per Gabe. The STATIC set is now TWO strings: welcome / welcome_first. The outro renders as the three generated spoken lines only, with no host direction above them.",
-  "_added_2026-08-26": "welcome_embedded and welcome_embedded_first added per Gabe, for podcast names that embed the attorney's name. The STATIC set is now FOUR strings: welcome / welcome_first / welcome_embedded / welcome_embedded_first. Exactly one fires per episode, decided by episode number and whether the podcast name embeds the attorney's name."
+  "_added_2026-08-26": "welcome_embedded and welcome_embedded_first added per Gabe, for podcast names that embed the attorney's name. The STATIC set is now FOUR strings: welcome / welcome_first / welcome_embedded / welcome_embedded_first. Exactly one welcome fires per episode, decided by episode number and the `welcome_split_rule` precedence - and for '{Prefix} w./with {Attorney}' names the fired line is the computed SPLIT form, not any constant (Gabe, 2026-08-26, locked)."
 }

@@ -86,9 +86,10 @@ V2_TOKENS = (
 TEMPLATE_STATICS = {
     "welcome": "Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
     "welcome_first": "Welcome to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
-    # Embedded-name variants (Gabe 2026-08-26): when the podcast name embeds the attorney's name
-    # (e.g. "Car Accident Attorney w. Robert May"), "with **{{ATTORNEY_NAME}}**" would double the
-    # name. A "w." in the podcast name is spoken, and rendered in the welcome, as "with".
+    # Embedded-name FALLBACK constants (Gabe 2026-08-26, locked): fire only when the podcast name
+    # embeds the attorney's name with NO "w./with" to split at. A "{Prefix} w./with {Attorney}"
+    # name takes the SPLIT SPOKEN form instead - see the welcome gate below and
+    # pod-3A-ros-template-v2 references/statics.json -> welcome_split_rule.
     "welcome_embedded": "Welcome back to the **{{PODCAST_NAME}}** Podcast.",
     "welcome_embedded_first": "Welcome to the **{{PODCAST_NAME}}** Podcast.",
 }
@@ -434,18 +435,23 @@ def validate_populated(data):
     first = bool(data.get("is_first_episode"))
     welcome_key = "welcome_first" if first else "welcome"
     embedded_key = "welcome_embedded_first" if first else "welcome_embedded"
-    # Either constant is acceptable (Gabe 2026-08-26): the standard welcome, or the embedded-name
-    # variant when the podcast name embeds the attorney's name. A "w." in the podcast name is
-    # spoken, and rendered in the welcome, as "with", so the embedded variant is also accepted
-    # with that spoken form applied.
+    # Acceptable welcomes (Gabe 2026-08-26, locked; mirrors ce-ros-v2 assemble.ts): the standard
+    # constant; the embedded-name fallback constant (with the "w." -> "with" spoken form applied
+    # too); and, for a "{Prefix} w./with {Attorney}" podcast name, the SPLIT SPOKEN form - plain
+    # text, NO bolds, the attorney said once with "podcast" in the middle:
+    #   "Welcome back to the Car Accident Attorney podcast with Robert May."
     spoken = dict(values)
     if spoken.get("PODCAST_NAME"):
-        spoken["PODCAST_NAME"] = re.sub(r"\bw\.(?=\s)", "with", spoken["PODCAST_NAME"])
+        spoken["PODCAST_NAME"] = re.sub(r"\bw\.\s*", "with ", spoken["PODCAST_NAME"], flags=re.I)
     acceptable = {
         resolve(TEMPLATE_STATICS[welcome_key], values).strip(),
         resolve(TEMPLATE_STATICS[embedded_key], values).strip(),
         resolve(TEMPLATE_STATICS[embedded_key], spoken).strip(),
     }
+    m = re.match(r"^(.*?)\s+(?:w\.|with)\s+(.+)$", (values.get("PODCAST_NAME") or ""), re.I)
+    if m and m.group(1).strip() and m.group(2).strip():
+        open_ = "Welcome to" if first else "Welcome back to"
+        acceptable.add(f"{open_} the {m.group(1).strip()} podcast with {m.group(2).strip()}.")
     got = (S.get("welcome") or "").strip()
     if got not in acceptable:
         raise SystemExit(

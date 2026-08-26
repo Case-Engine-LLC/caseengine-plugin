@@ -4,6 +4,8 @@ The first 45 to 60 seconds of the episode. Read by `steps/04-segment-1.md`. Ever
 
 The introduction is not a script to read. It is a shape. The host says these things, in this order, in their own words. The one exception is line 1, which is verbatim every time.
 
+**The philosophy (Gabe, 2026-08-26):** "get through the intro to the setup, be clear and concise with the setup, and then just let them talk."
+
 ## GUARDRAILS — read this, then the examples, then write
 
 **Calibrate on `examples/intro-outro-examples.md` before writing.** Every pair in it is real. The examples carry more than these rules do; these exist so you know what is non-negotiable.
@@ -12,9 +14,9 @@ The introduction is not a script to read. It is a shape. The host says these thi
 - The topic is NAMED in line 2. Never teased.
 - Line 2 never re-names the attorney. No "here with **{{ATTORNEY}}**" - line 1 already welcomed them, and a third name in forty seconds is the tell of a template (Gabe, 2026-08-26).
 - The verb stays. "today we're talking about X", never "Today, X".
-- Line 4 is one sentence and carries the episode topic. No invented beats.
+- Line 4 carries the episode topic and hands over 2-3 question-shaped beats - definition, difference, challenges by default (Gabe, 2026-08-26). No invented facts, no beats from outside the topic.
 - Line 2 and line 4 do not say the same thing twice.
-- No dramatized scene. No `{{CITY}}` in S1. No CTA, ever.
+- No dramatized scene. No city name anywhere in S1 - the STATE belongs in line 3, the EEAT line (Gabe, 2026-08-26). No CTA, ever.
 - Contractions. Numbers spelled. Nothing claimed that the firm has not told us.
 - Read it aloud. If a person wouldn't say it, it fails no matter how well it reads.
 - No word repeats across adjacent lines. No stacked "and"s. Never restate what an earlier line already established.
@@ -29,9 +31,9 @@ The introduction is not a script to read. It is a shape. The host says these thi
 1. Read `examples/intro-outro-examples.md`.
 2. Read the previous 2-3 episodes' intro and outro for this client. You are avoiding their wording and their shapes.
 3. Line 1: paste the static open. Episode 1 takes "Welcome to".
-4. Line 2: host ID first and alone - never "here with **{{ATTORNEY}}**" (Gabe, 2026-08-26) - then verb, then topic named plainly. Two sentences beat one run-on chain. Hook when it carries the episode's genuine insight; skip it when the plain name lands. Stakes clause only if it earns its place.
-5. Line 3: pick the credential frame that is germane to this episode AND sourceable. If only tenure is available, use it and say the years loosely if unknown.
-6. Line 4: pick the situation, then the ask verb from the topic shape, then the topic phrase. Check it against line 2 for echo.
+4. Line 2: host ID first and alone - never "here with **{{ATTORNEY}}**" (Gabe, 2026-08-26) - then the topic named plainly. Vary the opener: "today we're going to discuss X" / "today the topic is X" / "the theme today is X" / "we're going to dive into X" / "today we're talking about X". NO hook that gives away the episode's insight, NO geo (the state lives in line 3). Two sentences beat one run-on chain. Stakes clause only if it earns its place.
+5. Line 3, the EEAT line: pick the experience / expertise / authority / trust signal that is germane to this episode AND sourceable. One or two sentences; the second may bridge into the topic. The state slides in here. Tenure only as fallback, banned if a recent episode used years.
+6. Line 4: "Walk us through" plus 2-3 question-shaped beats (definition, difference, challenges by default), each under roughly twelve words, the whole ask under roughly thirty-five. Ground the beats in the body questions. Check it against line 2 for echo.
 7. Outro: `outro.md`, three lines, no CTA.
 8. **Read all seven lines aloud, in order.** This is the gate. Anything you would not say to a person gets rewritten now, not at populate.
 9. **The natural pass.** Read once more and fix the three things that survive every other rule:
@@ -58,27 +60,26 @@ Four sentences. About 40 seconds. If it can be done in three, do it in three.
 
 Episode 1 only: "Welcome to" instead of "Welcome back to."
 
-**Embedded-name shows (Gabe, 2026-08-26):** when the podcast name embeds the attorney's name (e.g. "Car Accident Attorney w. Robert May"), line 1 is "Welcome back to the **{{PODCAST_NAME}}** Podcast." (Episode 1: "Welcome to the **{{PODCAST_NAME}}** Podcast.") - never "with **{{ATTORNEY_NAME}}**", which doubles the name. A "w." in the podcast name is spoken, and rendered in the welcome, as "with". All four constants live in `references/statics.json`.
+**Embedded-name shows (Gabe, 2026-08-26, locked):** when the podcast name embeds the attorney's name via "w." or "with" - "Car Accident Attorney w. Robert May" - line 1 SPLITS at the "w./with" so the attorney is said once and "podcast" sits in the middle: "Welcome back to the Car Accident Attorney podcast with Robert May." (Episode 1 opens "Welcome to".) Plain spoken text, NO bolds. This supersedes the earlier same-day "the {{PODCAST_NAME}} Podcast." form, which survives only as the fallback when the name embeds the attorney with no "w./with" to split at (e.g. "The Robert May Show"). A "w." is always spoken as "with". Precedence and the fallback constants live in `references/statics.json`; the split is computed at populate by `pod-3B-client-ros-v2`.
 
-**2. Who's asking, and what today is.** Host ID first and alone: "I'm **{{INTERVIEWER}}**." NEVER "here with **{{ATTORNEY}}**" - line 1 already welcomed them, and re-naming them here makes the intro say the name three times (Gabe, 2026-08-26). Then a **verb**, then the topic named plainly. Prefer two sentences over one run-on chain. A hook clause after the topic is encouraged when it carries the episode's genuine insight - "...and why the most serious injury from a California crash is often the one nobody can see" - and skipped when the plain name lands. A stakes clause is optional and is the first thing to cut.
+**2. Who's asking, and what today is.** Host ID FIRST and ALONE: "I'm **{{INTERVIEWER}}**." NEVER re-name the attorney here - line 1 already welcomed them (Gabe, 2026-08-26). Then the topic named plainly and naturally - vary the opener across episodes: "and today we're going to discuss X" / "today the topic is X" / "the theme today is X" / "we're going to dive into X" / "today we're talking about X" (Gabe, 2026-08-26). Whatever the opener, it stays a spoken sentence - a bare headline fails. NO hook clause that gives away the episode's insight - naming the topic is the job; spending the episode's best point in the intro is a spoiler, not a hook (Gabe, 2026-08-26). NO geo in line 2 - the state lives in line 3, the EEAT line. Prefer two sentences over one run-on chain. A stakes clause is optional and is the first thing to cut.
 
 **KEEP THE VERB.** "today we're talking about" / "today we're getting into" / "today we're looking at". Dropping it to save words produces a headline, not a sentence — "Today, the insurance adjuster" is a newspaper subhead and no person says it out loud. Short is good; verbless is not short, it's broken.
 > I'm Kara, and today we're talking about the insurance adjuster, and what they're really doing when they call you a day after a crash.
 > I'm Kara, and today we're getting into what an injury is actually worth.
 
-Never the episode title verbatim. Geo here is **{{STATE}}**, never **{{CITY}}**. This line does not carry the SEO weight — line 4 does.
+Never the episode title verbatim. NO geo in line 2 - the state lives in line 3 (Gabe, 2026-08-26). This line does not carry the SEO weight — line 4 does.
 
-**3. Why listen to him.** One sentence, spoken to him, one credential, germane to THIS episode. Vary it across episodes; tenure every time is the weakest option, and tenure is BANNED when any recent episode's credential already used years - reach for a vaguer nod to expertise and experience that sets up the topic instead (Gabe, 2026-08-26). If the exact years aren't known, say it loosely — "for a number of years," "for more than a decade." Never invent a fact about the practice.
+**3. The EEAT line (Gabe, 2026-08-26).** Spoken to the attorney by first name. Its job is establishing experience, expertise, authority, or trust - a credential is one form, not the definition. One or two sentences; the second may bridge into the topic. This is where the STATE slides in naturally: "Robert, you've spent fourteen years handling injury claims in California. And the damage isn't always visible right away." Vary the EEAT signal every episode - tenure is the weakest option and is BANNED when any recent episode's credential already used years; reach for a vaguer nod to expertise and experience that sets up the topic instead. If the exact years aren't known, say it loosely. Never invent a fact about the practice.
 > Brett, you've sat across from these adjusters for twelve years.
 > Brett, uninsured claims are a core part of your practice.
 
 **The beat.** The attorney says hello. Unscripted, a sentence or two, marked as a direction. Cuttable in post.
 
-**4. The ask.** One sentence: a situation, then an imperative ask **carrying the episode topic**. This is the retrieval anchor and the clip title, so the topic phrase survives into it. No invented beats. No question mark needed — an instruction asks for narration, and narration is what fills the segment.
-> If someone just got a call from the other side's adjuster, walk us through dealing with the insurance adjuster.
-> If someone gets an offer and has no idea if it's fair, break down what a car accident case is worth and what goes into that number.
+**4. The ask - "Walk us through" plus QUESTION-SHAPED beats (Gabe, 2026-08-26).** The attorney answers for 15 to 30 minutes, so the ask hands them 2-3 short, restartable questions - each beat is 5 to 10 minutes of talk. The default triad works on any topic: DEFINITION first - plain "what X is", optionally framed for the audience ("For people who are unfamiliar, let's start with what a traumatic brain injury is.") - never padded with "even is"; then DIFFERENCE ("How are these cases different from a normal claim?"); then CHALLENGES ("And what are some of the challenges that come with them?"). A narrow topic takes two beats, and the middle beat can be mechanics instead of difference - but keep them POINTED: each beat under roughly twelve words, the whole ask under roughly thirty-five, no subordinate clauses. By the end of a long question the attorney has forgotten the start. Ground the beats in the episode's body questions where they cluster. The topic phrase survives into the ask (retrieval anchor / clip title).
+> Walk us through it. For people who are unfamiliar, let's start with what a traumatic brain injury is. How are these cases different from a normal claim? And what are some of the challenges that come with them?
 
-Match the verb to the topic: process → *walk us through*; number → *break down*; rule → *explain*; comparison → *lay out*; judgment → *tell us*; misconception → *set us straight on*.
+The verb-rotation menu and the conditional "If someone..." setups are SUPERSEDED (Gabe, 2026-08-26): "Walk us through" opens the ask, and the beats do the varying.
 
 **Line 2 and line 4 must not say the same thing twice.** They are forty seconds apart and both name the topic, so they collide easily — line 2 "what happens when the driver who hit you has no insurance" against line 4 "explain what happens when the other driver has no insurance" is one sentence said twice. Line 4 owns the full topic phrase; line 2 gets the short human version. If they overlap, cut line 2 down.
 
@@ -105,10 +106,10 @@ The three parts are **branding**, **topic setup**, and **the prompt**. The promp
 | Line | Job | Contains | Target |
 |---|---|---|---|
 | 1 | Name the show and whose show it is | `{{PODCAST_NAME}}`, `{{ATTORNEY_NAME}}` | Under 12 words. STATIC |
-| 2 | Who is asking, what the subject is, where | `{{INTERVIEWER}}`, the topic, `{{STATE}}` | 25-30 words. Generated |
-| 3 | Establish the attorney, pivot to addressing them | `{{ATTORNEY}}`, one credential, `{{YEARS_PRACTICING}}` | One sentence, under 25 words. Generated |
+| 2 | Who is asking, what the subject is | `{{INTERVIEWER}}`, the topic. NO geo (Gabe, 2026-08-26) | 25-30 words. Generated |
+| 3 | The EEAT line - experience, expertise, authority, or trust | `{{ATTORNEY}}`, one EEAT signal, `{{STATE}}` | One or two sentences, under 25 words. Generated |
 | - | **The beat** - attorney says hello | - | A sentence or two. Not scripted |
-| 4 | Hand over the floor | situation, ask, story invitation | Three short sentences, 25-35 words. Generated |
+| 4 | Hand over the floor | "Walk us through" plus 2-3 question-shaped beats | Under roughly 35 words. Generated |
 
 Four sentences, roughly 95 words, about 40 seconds of host. The beat puts a second voice in at around 25 seconds, which is the point of it.
 
@@ -130,7 +131,7 @@ Welcome to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.
 
 "Welcome back" on a first episode is the tell that a show was assembled rather than started - there is no back to welcome anyone to yet. Episode 1 is also the only episode that gets to introduce the show itself, so line 2 carries a launch setup: what this show is going to do all season, for whom, in **{{STATE}}**. It says that once, in the first episode, and never again.
 
-**The embedded-name variant (Gabe, 2026-08-26).** When the podcast name embeds the attorney's name - "Car Accident Attorney w. Robert May" - the standard close would double it: "...with Robert May with Robert May." Those shows take "Welcome back to the **{{PODCAST_NAME}}** Podcast." (Episode 1: "Welcome to the **{{PODCAST_NAME}}** Podcast."). A "w." in the podcast name is spoken, and rendered in the welcome, as "with". All four constants live in `references/statics.json`.
+**The embedded-name variant (Gabe, 2026-08-26, locked).** When the podcast name embeds the attorney via "w." or "with" - "Car Accident Attorney w. Robert May" - saying the whole name plus "Podcast" jams three names into one breath. Line 1 SPLITS at the "w./with": the generic half, then "podcast with {attorney}" - "Welcome back to the Car Accident Attorney podcast with Robert May." Plain spoken text, NO bolds. Episode 1 opens "Welcome to". The earlier same-day "the {{PODCAST_NAME}} Podcast." constants survive only as the fallback for a name that embeds the attorney with no "w./with" to split at (e.g. "The Robert May Show"). A "w." is always spoken as "with". Precedence lives in `references/statics.json`; the split is computed at populate by `pod-3B-client-ros-v2`.
 
 Both forms are verbatim otherwise. The line is a sonic marker, not information. Adding a tagline, an episode number, or a welcome-to-the-show breaks it.
 
@@ -145,17 +146,17 @@ Four slots, in this order. The whole line is 25-30 words.
 | Slot | What it does | Rules |
 |---|---|---|
 | **Host ID** | "I'm **{{INTERVIEWER}}**" | Three words. Never a title, never a role description, never "your host." Never the attorney's name - line 1 already said it (Gabe, 2026-08-26). |
-| **The turn** | The pivot into the subject | Vary the verb - "today we're getting into," "today is about," "today we're taking." Never "in this episode we'll cover," which turns the line into a table of contents. |
+| **The turn** | The pivot into the subject | Vary the opener - "today we're going to discuss," "today the topic is," "the theme today is," "we're going to dive into," "today we're talking about" (Gabe, 2026-08-26). Never "in this episode we'll cover," which turns the line into a table of contents. |
 | **The subject** | Names the thing in plain language | This is where the ten patterns live. Never the practice area as a category, never the episode title verbatim. If the only name is a legal one, say it once and alias it immediately: "premises liability, or so-called slip and fall." |
-| **The stakes** | Why a stranger should keep listening | OPTIONAL. One clause, second person, practice-area neutral, different every episode. **Drop it when the subject already carries the hook** - a short line 2 beats a padded one. |
+| **The stakes** | Why a stranger should keep listening | OPTIONAL. One clause, second person, practice-area neutral, different every episode - and never one that gives away the episode's insight (Gabe, 2026-08-26). **Drop it when the subject already carries the weight** - a short line 2 beats a padded one. |
 
-**The geo rides inside the subject slot**, once, and in S1 it is **{{STATE}}** - never `{{CITY}}`. "Something a lot of people in **{{STATE}}** end up dealing with." The long-form answer is state-governed, so one recording serves every city the firm covers; the city blocks in S2 are where `{{CITY}}` lives. Nearly every firm is one state; a multi-state firm is flagged at generation time and `{{STATE}}` resolves to the spoken phrase instead.
+**NO geo in line 2 (Gabe, 2026-08-26).** The state moved to line 3, the EEAT line, where it slides in naturally against the firm's practice. Line 2 names the topic and stops. The long-form answer is still state-governed - one recording serves every city the firm covers - and the city blocks in S2 are where `{{CITY}}` lives. A multi-state firm is flagged at generation time and the state resolves to the spoken phrase instead.
 
 ### Line 2 is short. Line 4 carries the topic.
 
 **Line 2 does not have to carry the SEO weight** - line 4's ask carries the topic phrase intact, and that is enforced. So line 2 can be short and human. Trying to make one sentence both name the topic for retrieval AND land a hook is what bloated this section to ten patterns; it is the wrong sentence for the job.
 
-Name the thing, plainly and briefly. Add a hook in apposition when it carries the episode's genuine insight; skip it when the plain name lands (Gabe, 2026-08-26). Then stop. **The stakes clause is optional and usually the first thing to cut.**
+Name the thing, plainly and briefly. NO hook clause that gives away the episode's insight - naming the topic is the job; spending the episode's best point in the intro is a spoiler, not a hook (Gabe, 2026-08-26, reversing the earlier same-day hook guidance). Then stop. **The stakes clause is optional and usually the first thing to cut.**
 
 ### Vary the SHAPE, not just the words
 
@@ -178,13 +179,9 @@ Pick one and let it sit. **Variation comes from the turn, the subject and the st
 - Stakes folded into the subject: "...today we're taking on the {subject} nobody explains until it is too late."
 - Two beats: "...today, {subject}. {stakes}."
 
-**Line 4 shapes** - do not open every episode with "If someone":
-- Conditional: "If someone was just in a wreck, walk us through {topic}."
-- Declarative setup: "Somebody's three weeks out and still hurting. Walk us through {topic}."
-- Hypothetical: "Say the other driver has no insurance. Explain {topic}."
-- Straight ask, no setup: "Walk us through {topic}." Use when the topic is self-evident and the setup would pad it.
+**Line 4 shapes - SUPERSEDED (Gabe, 2026-08-26).** The situation-setup rotation described the retired one-sentence conditional ask. Line 4 is now "Walk us through" plus 2-3 question-shaped beats; variation lives in the beats, which follow the topic's shape rather than a frame rotation. See "Line 4 - the ask".
 
-Rotate the shape across consecutive episodes the same way the verb rotates. Neither has a counter and neither has a quota - the check is reading the last three episodes and not matching them.
+Rotate line 2's shape across consecutive episodes. No counter and no quota - the check is reading the last three episodes and not matching them.
 
 ### The stakes clause: neutral, and never the same twice
 
@@ -211,8 +208,8 @@ Neutral constructions that survive any topic: "and what that actually means for 
 Four moves. Combine at most two. Anything longer than one sentence, or two short ones, is too long to say.
 
 - **Name it plainly.** The default and usually the best. "today we're talking about the insurance adjuster" / "today we're getting into what an injury is actually worth"
-- **Name it, then the hook.** Encouraged when the hook carries the episode's genuine insight - "...and why the most serious injury from a California crash is often the one nobody can see" - and skipped when the plain name lands (Gabe, 2026-08-26). "today we're talking about the insurance adjuster, and what they're really doing when they call you a day after a crash"
-- **Prevalence.** "Something a lot of people in **{{STATE}}** end up dealing with." Use a number ONLY when research supplies a real one - say the source briefly, round it, never guess. `{{N}}` never ships unresolved.
+- **Name it, then the hook - RETIRED (Gabe, 2026-08-26).** A hook clause that gives away the episode's insight is a spoiler, not a hook: it spends the episode's best point in the intro. Name the topic plainly and let the episode deliver the insight.
+- **Prevalence.** "Something a lot of people end up dealing with." (No geo in line 2 per Gabe, 2026-08-26 - the state lives in line 3.) Use a number ONLY when research supplies a real one - say the source briefly, round it, never guess. `{{N}}` never ships unresolved.
 - **Nobody plans for this.** For topics with a decision window. "Today's topic is one nobody plans for."
 
 **The local moment (a named road, a named place) is OFF in S1.** The long form speaks at state level so one recording serves every city; `{{CITY}}` lives in the S2 blocks. Never stack local detail here.
@@ -220,11 +217,11 @@ Four moves. Combine at most two. Anything longer than one sentence, or two short
 **Do not write it as a search.** "The thing people search for at two in the morning" is internal framing, not a spoken line.
 
 
-## Line 3 - the credential
+## Line 3 - the EEAT line
 
 > **{{ATTORNEY}}**, you've been representing car accident victims in **{{STATE}}** for **{{YEARS_PRACTICING}}** years.
 
-One credential, stated as a fact, spoken directly to them. This is the line that answers "why should we listen to you" so line 4 never has to ask.
+**The EEAT line (Gabe, 2026-08-26).** Its job is establishing experience, expertise, authority, or trust - a credential is one form, not the definition. Spoken to the attorney by first name, one or two sentences; the second may bridge into the topic: "Robert, you've spent fourteen years handling injury claims in California. And the damage isn't always visible right away." This is where the STATE slides in - line 2 carries no geo. It answers "why should we listen to you" so line 4 never has to ask.
 
 ### The eight frames
 
@@ -347,12 +344,12 @@ Cyle's improvised version put the name at the END of the clause: "...as an attor
 - **Match the frame to the episode goal.** Differentiation takes C or D. Authority takes A or B. Conversion takes E or F. Narrative takes G.
 - **Every credential is a claim about a real firm.** Years, case counts, trial record, and network all come from the client profile or intake, never from inference. "Hundreds of these" is a factual assertion; if nobody has confirmed it, use tenure.
 - **Facts, not adjectives.** No "renowned," "top-rated," "award-winning," "premier." Reviews and awards rank BELOW verifiable bar standing in every attribute pull, so the adjectives are both weaker and less true.
-- **Under 25 words, one sentence.**
-- **Line 3 is where the city is allowed.** Line 2 speaks at the state level because the listener could be anywhere in it. Line 3 is about where the firm practices, so naming the base city is accurate rather than promotional: "you've been serving **{{CITY}}** and across **{{STATE}}** for **{{YEARS_PRACTICING}}** years." That is Cyle's original construction, and it is how the cities we already know still land in the long form.
+- **Under 25 words. One or two sentences; the second may bridge into the topic (Gabe, 2026-08-26).**
+- **Line 3 is where the STATE lands - and no city anywhere in S1 (Gabe, 2026-08-26).** Line 2 carries no geo, so the state slides in here against the firm's practice: "you've been handling injury claims in **{{STATE}}** for years." The earlier rule allowing the base city in line 3 is RETIRED - `{{CITY}}` lives only in the S2 blocks.
 
-**One city, maximum.** A firm with six offices names its base and lets `{{STATE}}` cover the rest. Two or more cities in a spoken sentence is a keyword list, and it is the exact impression the geo rule exists to prevent. If the firm has no single base, drop the city and say "here."
+**No city at all (Gabe, 2026-08-26).** The earlier one-city allowance is retired with the rule above. If geo wants saying beyond the state, say "here."
 
-**Do not repeat the state.** It was in line 2. Say "here," or name the city, not `{{STATE}}` twice in three sentences.
+**Line 3 is the state's only appearance in the intro.** Line 2 carries no geo (Gabe, 2026-08-26), so there is nothing to repeat - and it still appears here only ONCE.
 - **It seeds the attribute block.** Whatever frame line 3 uses is the attribute the attorney will hit hardest in the answer, so pick the one this episode most needs established.
 
 ## The beat
@@ -363,13 +360,15 @@ It is also the one part of S1 that is fair game to cut in post. S1 is otherwise 
 
 ## Line 4 - the ask
 
-> If someone was just in a wreck, walk us through the first steps after a crash, and the mistakes that sink a claim.
+> Walk us through it. For people who are unfamiliar, let's start with what the first steps after a crash actually look like. How are these cases different from a normal claim? And what are some of the challenges that come with them?
 
-**One sentence. A conditional situation, then an imperative ask that carries the episode topic.** Then the host stops talking.
+**"Walk us through" plus 2-3 QUESTION-SHAPED beats, each a restartable 5 to 10 minute prompt (Gabe, 2026-08-26).** Default triad: DEFINITION (plain "what X is" - never padded with "even is"; "For people who are unfamiliar, let's start with..." is the sanctioned framing), then DIFFERENCE, then CHALLENGES. A narrow topic takes two beats, and the middle beat can be mechanics instead of difference. Each beat under roughly twelve words, the whole ask under roughly thirty-five, no subordinate clauses - by the end of a long question the attorney has forgotten the start. Ground the beats in the episode's body questions where they cluster. Then the host stops talking.
 
-**This shape replaced the three-sentence form on 2026-08-21** (Gabe). The line has moved three times: a single compound question, then three sentences (situation / ask / story invitation), now one conditional sentence. Recording it once rather than as three change-log entries because it is one decision - the ask should sound like a person handing over the floor, carry the topic phrase, and stop.
+**This shape replaced the one-conditional-sentence form on 2026-08-26** (Gabe). The line has moved four times: a single compound question, then three sentences (situation / ask / story invitation), then one conditional sentence (2026-08-21), now "Walk us through" plus question-shaped beats. Recording it once rather than as four change-log entries because it is one decision - the ask should sound like a person handing over the floor, carry the topic phrase, and give the attorney restartable prompts.
 
 ### The two halves
+
+**SUPERSEDED (Gabe, 2026-08-26)** - kept as history of the one-sentence form. The current shape is the beats spec above.
 
 | Half | Job | Shape |
 |---|---|---|
@@ -382,9 +381,9 @@ It is also the one part of S1 that is fair game to cut in post. S1 is otherwise 
 - **Never read the episode title verbatim either.** Line 2 already bans that and the same reason applies here: it has to sound spoken. Render the topic, do not recite it.
 - **Natural first, then optimized, and short.** If the optimized phrasing will not come out of a mouth, the phrasing loses. If it comes out fine but runs long, cut it. One sentence is the ceiling.
 
-**The ask is an instruction, not a question.** "Walk us through what they need to do" outperforms "what do they need to do" because it asks for a narration rather than an answer, and narration is what fills 15 to 30 minutes.
+**The opener is an instruction, the beats are questions (Gabe, 2026-08-26).** "Walk us through it" hands over the floor; the question-shaped beats then give the attorney restartable prompts without turning the intro into an interrogation - each is a 5 to 10 minute door, not a quiz item.
 
-**But the verb is a judgment call, not a formula.** Match the verb to the shape of the topic:
+**The verb menu below is SUPERSEDED (Gabe, 2026-08-26)** - "Walk us through" opens the ask; the beats do the varying. Kept as history:
 
 | Topic shape | Verb that fits | Example |
 |---|---|---|
@@ -395,11 +394,13 @@ It is also the one part of S1 that is fair game to cut in post. S1 is otherwise 
 | A judgment call | Tell us | "tell us how you decide which way to go." |
 | A misconception | Set us straight on | "set us straight on what people get wrong." |
 
-A library where every episode's ask opens identically is the same drift the outro banks exist to prevent. Rotate the verb.
+Under the beats shape the identical "Walk us through" opener is deliberate (Gabe, 2026-08-26) - it is the handover marker, and variation lives in the beats.
 
 **No story invitation.** The line previously closed with "And if you have a real world example, please walk us through it." **Cut 2026-08-21 (Gabe).** If an episode needs a case example, the interviewer asks for one live as a follow-up beat; it does not live in the opening ask. Watch for answers running short as a result - if that shows up in recordings, the fix is interviewer coaching, not restoring the sentence.
 
 ### The six frames
+
+**SUPERSEDED (Gabe, 2026-08-26)** - the conditional setup rotation belonged to the one-sentence form. Kept as history.
 
 The setup half rotates. Pick one frame per episode; the ask half is always the topic.
 
@@ -496,16 +497,16 @@ Two of those are asked in line 4. The third - why we should listen to you - is w
 - **Do not name the practice area as a category.** "Premises liability" is what a lawyer calls it. "Getting hurt somewhere that should have been safe" is what happened.
 - **Do not stack credentials.** One fact beats three. No awards, no "renowned," no "top-rated."
 - **Do not frame the attorney as a guest.** It is their show. See `references/editorial-rules.md`.
-- **Do not enumerate in line 4.** Three questions is an interrogation, which is the format v2 exists to replace.
+- **Do not stack more than three beats in line 4.** Two or three question-shaped beats are the format (Gabe, 2026-08-26); a longer list is an interrogation, which is what v2 exists to replace.
 - **Do not inflate stakes.** "Before you lose everything" is a fear pitch. "If it happens to you" is a fact.
 
 ## Gates
 
 - **IN-1** Exactly four lines plus the beat direction, in order.
 - **IN-2** Line 1 renders byte-identical to the constant in `references/statics.json`.
-- **IN-3** Line 2 matches one of the approved patterns and carries `{{STATE}}`.
+- **IN-3** Line 2 names the topic plainly, carries NO geo and NO insight-spoiling hook (Gabe, 2026-08-26).
 - **IN-4** Any number in line 2 traces to a source recorded in metadata. No source means pattern A.
-- **IN-5** Line 3 carries exactly one credential frame.
-- **IN-6** Line 4 is THREE short sentences in order: situation, ask, conditional story invitation. At most two asks. It does NOT have to end in a question mark - the story invitation is an invitation, not a question, and ending on one is correct. A single compound question FAILS.
+- **IN-5** Line 3 carries exactly one EEAT signal and the state, in one or two sentences.
+- **IN-6** Line 4 opens "Walk us through" and carries 2-3 question-shaped beats - each under roughly twelve words, the whole ask under roughly thirty-five, no subordinate clauses (Gabe, 2026-08-26). Zero beats, or more than three, FAILS.
 - **IN-7** Zero guest framing, zero legal jargon, zero em dashes.
 - **IN-8** Word count 80-110. Read it aloud before accepting it.

@@ -3,7 +3,7 @@
   "$id": "https://caseengine.ai/schemas/ros-template-v2.json",
   "title": "ROS Template v2 Data",
   "description": "Machine-readable payload for a v2-format (single prompt + short-form blocks) tokenized Run of Show template. Produced by pod-3A-ros-template-v2, consumed by pod-3B-client-ros at populate time. Distinct from the legacy ros-template.json shape - the two coexist and neither validates against the other. Freestanding by design: this file resolves no $ref outside its own directory and shares nothing with pod-3A-ros-template.",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "version_history": [
     "1.0.0 - initial v2 schema (2026-08-14). Segment 1 as a block set with exactly one prompt; Segment 2 as per-city question blocks with a required per-question geo tag; 13-token placeholder inventory including YEARS_PRACTICING; region as plain text, never a token.",
     "2.0.0 - format locked 2026-08-14. Added the `static` block carrying the 15 frozen boilerplate strings as schema-level constants; added `cover_page`; replaced segment_1's block set with the locked Introduction / attributes / internal_notes shape; removed `producer_notes` entirely (the section is gone from the format); Short-Form locations renamed from `cities` and pinned to exactly 10 questions; `geo_tag` retained as a generation record that is never rendered; `answer_note` removed.",
@@ -16,7 +16,8 @@
     "2.2.0 (2026-08-18) - {{RECORDING_DATE}} retired from the taxonomy. Enum drops to eleven tokens and cover_page.recording_date_token is removed. A ROS Template is generic and reusable across every firm that records the episode, so a recording date was never a template-level fact.",
     "2.3.0 (2026-08-18) - added segment_1.credential as Introduction line 3. It was previously folded into `prompt`, which rendered the credential and the ask as one run-on paragraph. references/introduction.md always specified them as separate lines.",
     "2.4.0 (2026-08-18) - drift sweep. segment_1.description rewritten to the four-line Introduction (welcome / setup / credential / prompt); topic_phrase no longer described as a substitution into welcome; the static block, welcome and welcome_first descriptions corrected to say NOTHING substitutes into a constant; outro_close.description drops the INTERVIEWER speaker tag, cut 2026-08-18 per gate OC-1. Descriptions only - no shape, enum, const or required change, so every payload that validated against 2.3.0 still validates.",
-    "2.5.0 (2026-08-26) - welcome and welcome_first change from const to a two-value enum: the standard string, or the embedded-name variant for podcast names that embed the attorney's name (e.g. 'Car Accident Attorney w. Robert May'), where 'with **{{ATTORNEY_NAME}}**' would double the name (Gabe, 2026-08-26). A 'w.' in the podcast name is spoken, and rendered in the welcome, as 'with'. Every payload valid against 2.4.0 stays valid."
+    "2.5.0 (2026-08-26) - welcome and welcome_first change from const to a two-value enum: the standard string, or the embedded-name variant for podcast names that embed the attorney's name (e.g. 'Car Accident Attorney w. Robert May'), where 'with **{{ATTORNEY_NAME}}**' would double the name (Gabe, 2026-08-26). A 'w.' in the podcast name is spoken, and rendered in the welcome, as 'with'. Every payload valid against 2.4.0 stays valid.",
+    "2.5.1 (2026-08-26, locked) - descriptions only. Line 1 precedence locked per Gabe: a podcast name of the shape '{Prefix} w./with {Attorney}' renders the SPLIT SPOKEN form at populate ('Welcome back to the {Prefix} podcast with {Attorney}.', plain text, no bolds) - computed by pod-3B-client-ros-v2, so it never appears in this TEMPLATE payload; the enum's embedded value is the fallback for names with no 'w./with' splice point. See references/statics.json -> welcome_split_rule."
   ],
   "type": "object",
   "required": [
@@ -430,7 +431,7 @@
             "Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
             "Welcome back to the **{{PODCAST_NAME}}** Podcast."
           ],
-          "description": "Introduction line 1, every episode after the first. The sonic marker, and nothing else - the setup that used to ride along in this string is now the generated `segment_1.setup`. No substitution. The second value is the embedded-name variant (Gabe, 2026-08-26): podcast names that embed the attorney's name never append 'with **{{ATTORNEY_NAME}}**', which would double the name."
+          "description": "Introduction line 1, every episode after the first. The sonic marker, and nothing else - the setup that used to ride along in this string is now the generated `segment_1.setup`. No substitution. The second value is the embedded-name FALLBACK (Gabe, 2026-08-26, locked): podcast names that embed the attorney's name never append 'with **{{ATTORNEY_NAME}}**', which would double the name - and a name of the shape '{Prefix} w./with {Attorney}' takes the computed SPLIT SPOKEN form at populate instead (statics.json -> welcome_split_rule), which never appears in this template payload."
         },
         "welcome_first": {
           "type": "string",

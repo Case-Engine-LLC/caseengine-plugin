@@ -7,8 +7,8 @@
 - Three lines: thanks-and-credit, sign-off, reach-out. In that order.
 - Line 1 is TWO sentences: address and thank, then ONE credit clause. The credit is a required beat, not optional.
 - **No CTA. Ever.** No subscribe, like, follow, review, bell. The show is a search asset, not a channel play.
-- Line 2 names `{{PODCAST_NAME}}`. It is the sonic bookend - repetition here is the feature, and it is exempt from the uniqueness rule.
-- Line 3 opens with a hinge that acknowledges the goodbye it follows, carries `{{STATE}}` (never `{{CITY}}`), and gives phone before website. One reach-out, never two.
+- Line 2 names `{{PODCAST_NAME}}` AND carries the close beat - "That's it for this one. **{{PODCAST_NAME}}**. We'll see you next episode." A bare "This is {{PODCAST_NAME}}." is not a close (Gabe, 2026-08-26). It is the sonic bookend - repetition here is the feature, and it is exempt from the uniqueness rule. Under fifteen words.
+- Line 3 opens with a hinge that acknowledges the goodbye it follows, carries `{{STATE}}` (never `{{CITY}}`), and gives phone before website. One reach-out, never two. Under thirty words. Use the SPOKEN firm name - drop legal suffixes ("Injury Lawyers, Inc." becomes "The May Firm"); nobody says "Inc." on air (Gabe, 2026-08-26). Phone in the stored format, e.g. (805) 242-4593. Website spoken bare - "mayfirm.com", never "https://".
 - Contractions. No em dashes. No CE credit, no episode number, no next-episode tease, no thanking the audience.
 - Lines 1 and 3 must not repeat the wording or the shape of recent episodes.
 - Read all three aloud before accepting them.
