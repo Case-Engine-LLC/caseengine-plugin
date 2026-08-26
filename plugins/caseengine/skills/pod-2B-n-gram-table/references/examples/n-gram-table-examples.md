@@ -1,4 +1,139 @@
-# Reference Examples - N-Gram Table
+# N-Gram Table Examples
+
+> **QUESTION TEXT CALIBRATION - READ THIS SECTION FIRST.**
+> The worked tables further down this file remain valid for the **N-grams / Entities / Predicates** columns. Their **Question Text** column is SUPERSEDED by the pairs below - several of those questions are the exact failure mode this section exists to kill. Calibrate question voice here; calibrate column density there.
+
+## BAD -> GOOD: the 2026-08-21 editorial pass
+
+Source: Eberst Advantage E2, E3, E4 (Stuart + Gainesville, v2 open-interview). Thirty generated questions went to editorial; **twenty-two were rewritten before air, eight shipped clean.** Every pair below is real. `BAD` is what the pipeline generated. `GOOD` is what a human put in the host's mouth.
+
+The governing difference in every single pair: **BAD is written from OUTSIDE the situation, describing a topic. GOOD is written from INSIDE it.**
+
+### Person - kill abstract placeholders
+
+| BAD | GOOD | Rule |
+|---|---|---|
+| What should you do at the scene of a car accident in Stuart? | I was just in a car accident in Stuart, what do I do? | First-person crisis voice |
+| Where does **someone** badly hurt in a Stuart crash actually get treated? | If you're badly hurt in a Stuart crash, where do they take you? | `someone` banned; scenario-first |
+| How does **anyone** actually put a number on pain and suffering? | How do **you** actually put a number on pain and suffering? | `you` = the attorney's experience. Note `actually` SURVIVES here - genuine curiosity aimed at the attorney is the one exemption |
+| What kinds of crashes actually happen most around Stuart? | What kinds of crashes do **you** see most in Stuart? | Address the attorney's experience |
+
+### Scenario first, question second
+
+| BAD | GOOD |
+|---|---|
+| How long do you have to see a doctor after a crash in Florida? | If I don't see a doctor right after an accident in Florida will that affect my PIP benefits? |
+| Does Florida still pay you if the crash was partly your fault? | If you're partly at fault for a car accident in Florida, will your insurance still cover it? |
+| Why does an injury that shows up two days later still count? | What if you felt fine at the scene and woke up hurting two days later? |
+| Who writes the crash report in Stuart and across the Treasure Coast? | If you crash in Stuart, who writes the report, Stuart PD or the Martin County Sheriff's Office? |
+
+### Concrete instance beats category
+
+| BAD | GOOD | Rule |
+|---|---|---|
+| Does **Florida** still pay you...? | ...will **your insurance** still cover it? | A state does not pay you. Name the real actor |
+| What changes when a **commercial vehicle** causes the crash in Stuart? | What changes when a **box truck or delivery van** causes your crash in Stuart? | Concrete instance. Note: these are NOT entity-map entities - vividness is allowed in question text |
+| **What happens** if the other driver has no insurance? | **Who pays** if the other driver doesn't have insurance? | Vague interrogative -> the real question |
+
+### Named-entity forks (max ONE per episode table)
+
+| BAD | GOOD |
+|---|---|
+| Who responds to a car accident in Stuart and across the Treasure Coast? | Who responds to a car accident in Stuart, the Martin County Sheriff's Office or the Stuart PD? |
+| Who responds to a car accident in Gainesville and across North Central Florida? | Who responds to a car accident in Gainesville, the Alachua County Sheriff's Office or University of Florida Police? |
+
+### Region pairing - deleted 6 of 6 times, no survivors
+
+`and across the Treasure Coast` x2 - `and across North Central Florida` x2 - `or across the Treasure Coast` x1 - `or across North Central Florida` x1. **Never in spoken question text.** Regional retrieval intent lives in the N-grams column and the answer bullets.
+
+### Covert listicles - reframe enumeration into stake or motive
+
+| BAD | GOOD |
+|---|---|
+| **Which witnesses matter most**, and how fast do they disappear? | **Why do you have to** get a witness's name and number right at the scene? |
+| **What medical records** actually prove an injury after a crash in Stuart? | **How much of your case comes down to** your medical records? |
+| What evidence disappears first after a crash? | What evidence should be gathered at the scene of a car accident? |
+
+### Writerly hooks and loaded premises
+
+| BAD | GOOD | Rule |
+|---|---|---|
+| **Why does** settling early **cost the most**? | **What do you give up by** settling early? | The BAD version pre-answers itself |
+| What evidence **disappears first** after a crash? | What evidence **do you lose by waiting**? | Evidence does not vanish on its own. Frame it as the listener's own delay. (The GOOD line here shipped unedited) |
+
+### Plain searchable interrogative, and the `actually` ban
+
+| BAD | GOOD | Rule |
+|---|---|---|
+| What is a car accident claim **actually worth** in Stuart? | **How much is** a car accident claim worth in Stuart? | |
+| How do you **actually** get a copy of your Florida crash report? | How do you get a copy of your Florida crash report? | `actually` was the ONLY delta in this pair |
+| What kinds of crashes **actually** happen most around Stuart? | What kinds of crashes do you see most in Stuart? | |
+
+### Trailing purpose clauses - fold the purpose in
+
+| BAD | GOOD |
+|---|---|
+| What should you do at the scene of a crash in Stuart **to protect the report**? | How do you make sure the crash report gets your side right? |
+
+### Ambiguity repair, and hedge-trimming
+
+| BAD | GOOD | Rule |
+|---|---|---|
+| How does **where you got hit** in Stuart change the fight over fault? | How does **where the crash happened** in Stuart change the fight over fault? | Body part or location? |
+| What happens to your case if your back **or your knee** was already bad? | What happens to your case if your back was already bad **before the crash**? | Cut the hedge, add the temporal anchor |
+| How does anyone put a number...? | (see Person section) | |
+
+**But KEEP a real second beat:**
+
+| KEPT AS-IS | Why |
+|---|---|
+| How do I get video of my crash in Stuart, and how long before it's gone? | Two genuine beats, not a hedge. Compound is fine here |
+
+### Grammatical number - match reality
+
+| BAD | GOOD | Rule |
+|---|---|---|
+| What is the most common **mistake** people make after a crash? | What are the most common **mistakes** people make after a crash? | Several exist; forcing one is artificial |
+| What **single piece** of evidence wins the most car accident cases in Florida? | *(shipped unedited)* | Singular is CORRECT when forcing the attorney to commit to one pick is the point |
+
+### The city must earn its place - two lanes only
+
+**Substance lane** (the answer differs by city) and **ranking lane** (deliberate money-phrase target, cap 2-3 per location set). Neither lane = **cut the city.**
+
+| BAD - city serves neither lane | GOOD - city removed |
+|---|---|
+| What should you do at the scene of a crash **in Stuart** to protect the report? | How do you make sure the crash report gets your side right? |
+| What medical records actually prove an injury after a crash **in Stuart**? | How much of your case comes down to your medical records? |
+
+| KEPT - substance lane | KEPT - ranking lane |
+|---|---|
+| Who writes the report, Stuart PD or the Martin County Sheriff's Office? | How much is a car accident claim worth in Stuart? |
+| How do I get video of my crash in Stuart, and how long before it's gone? | How long do you have to file a car accident lawsuit in Stuart? |
+| If you're badly hurt in a Stuart crash, where do they take you? | I was just in a car accident in Stuart, what do I do? |
+
+Measured city share across the three revised episodes: **40% / 40% / 20%**, averaging ~33% - produced by the two-lane test, NOT by a quota.
+
+### Carryover - city-free questions are byte-identical across locations
+
+In E4, the revised Q1, Q3, Q7 and Q8 are character-for-character identical between Stuart and Gainesville. That is correct and intended. Only lane-justified city questions vary per location.
+
+## GOOD - shipped unedited (the pass set)
+
+These eight cleared editorial with zero changes. This is the target.
+
+- Why does the insurance company want a recorded statement?  *(the single best model in the set: concrete actor, concrete artifact, reveals motive, no geo, no cleverness)*
+- How long do you have to file a car accident lawsuit in Stuart?
+- Does the kind of crash you were in change what the case is worth in Florida?
+- What deadlines end a Florida injury case before it ever starts?
+- Does the police report decide who was at fault in Florida?
+- What do you do when the crash report gets the facts wrong?
+- What evidence do you lose by waiting?
+- What single piece of evidence wins the most car accident cases in Florida?
+
+Note what these share: state law is named as **state** law with no city bolted on; every one names a concrete artifact or actor; none contain `actually`; none are clever.
+
+---
+
 
 Read before generating. These calibrate what GOOD / BAD / EDGE CASE look like for this skill.
 
