@@ -1,0 +1,45 @@
+{
+ "_meta": {
+  "skill": "pod-3B-client-ros-v2",
+  "purpose": "Append-only institutional memory. Read at run start (open/in-progress surfaced as known issues); written manually post-run. Never edited or deleted, only appended and status-updated.",
+  "id_format": "YYYY-MM-DD-NNN"
+ },
+ "entries": [
+  {
+   "id": "2026-08-18-001",
+   "category": "process",
+   "severity": "medium",
+   "description": "The episode_format flag has no database home yet - it resolves from the upstream template artifact (a ROS Template v2 at the matching scope is the sign-off trail) or a runtime ask. When the flag gets wired into a DB (per 3A-v2's same open item), this skill's Resolve-the-format-flag step should read it from there.",
+   "resolution": "Pending the format flag DB wiring.",
+   "fix_in_version": "pending",
+   "status": "open"
+  },
+  {
+   "id": "2026-08-18-002",
+   "category": "content",
+   "severity": "low",
+   "description": "No real-firm run yet - the skill was smoke-tested against the Eberst E2 example payload with synthetic firm values. First production populate should be watched end-to-end and its output captured into references/examples/client-ros-v2-examples.md as the first GOOD anchor.",
+   "resolution": "Capture the first production run.",
+   "fix_in_version": "pending",
+   "status": "open"
+  },
+  {
+   "id": "2026-08-18-003",
+   "category": "schema",
+   "severity": "medium",
+   "description": "Supabase has no field for the podcast name or the CE host/interviewer. aeo_* section carries attorney name, episode lengths, cadence, platforms - but {{PODCAST_NAME}} and {{INTERVIEWER}} had to come from the shipped E7 Client ROS during the E3 test run. Until aeo_podcast_name and aeo_ce_host (or equivalent) exist in client_field_definitions, those two values fall back to podcast-overview / prior Client ROS / user ask.",
+   "resolution": "Add the two field definitions to the CE client profile (AEO > Podcast section) and backfill per client.",
+   "fix_in_version": "pending",
+   "status": "open"
+  },
+  {
+   "id": "2026-08-18-004",
+   "category": "content",
+   "severity": "low",
+   "description": "E3 Eberst test run (2026-08-18): the live prototype Doc used only 7 of the 11 tokens (no CITY/STATE/TOPIC/YEARS_PRACTICING - geo and topic were plain text baked in at generation). Populate handled it fine (absent tokens are no-ops), but a template that hard-codes geo instead of using {{CITY}}/{{STATE}} narrows its reusability to one market. Watch whether 3A-v2 generation should tokenize geo in multi-market templates.",
+   "resolution": "Surface to 3A-v2 if it recurs.",
+   "fix_in_version": "n/a",
+   "status": "open"
+  }
+ ]
+}

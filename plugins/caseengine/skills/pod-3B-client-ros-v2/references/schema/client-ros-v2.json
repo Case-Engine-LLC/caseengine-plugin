@@ -1,0 +1,378 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "client-ros-v2.json",
+  "title": "Client ROS v2 payload",
+  "description": "The populated v2 payload: the ROS Template v2 shape (pod-3A-ros-template-v2 references/schema/ros-template-v2.json) with every token resolved, a firm block added, and appendix_question_bank + placeholders_used removed. Rendered by scripts/build-client-ros-v2-docx.py. No downstream skill consumes it - Client ROS v2 is the terminal step of the v2 branch.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "episode_format",
+    "topic",
+    "episode_title",
+    "scope",
+    "duration",
+    "firm",
+    "segment_1",
+    "segment_2",
+    "static",
+    "outro",
+    "metadata"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "episode_format": {
+      "const": "v2-open-interview",
+      "description": "Hard gate. A legacy payload never reaches this skill."
+    },
+    "topic": {
+      "type": "string"
+    },
+    "episode_title": {
+      "type": "string"
+    },
+    "scope": {
+      "enum": [
+        "Topic Only",
+        "Location",
+        "Extension"
+      ]
+    },
+    "location": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "city": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The Episode geo target city - what {{CITY}} resolved to. Never the show anchor."
+    },
+    "region": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Plain text, fixed by the template's location scope. Never was a token."
+    },
+    "state": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Full name or the multi-state spoken phrase - what {{STATE}} resolved to."
+    },
+    "episode_goal": {
+      "type": "string"
+    },
+    "is_first_episode": {
+      "type": "boolean",
+      "description": "True on Episode 1 of a show: static.welcome carries the resolved welcome_first constant. (Episode 1 Founder Story itself never reaches this skill - this covers a v2 show whose launch episode is a standard topic episode.)"
+    },
+    "duration": {
+      "type": "object",
+      "description": "Inherited from the template unchanged.",
+      "properties": {
+        "segment_1_min_low": {
+          "type": "integer"
+        },
+        "segment_1_min_high": {
+          "type": "integer"
+        },
+        "segment_2_min_per_city": {
+          "type": "integer"
+        },
+        "segment_2_answer_target_sec": {
+          "type": "integer"
+        },
+        "segment_2_answer_max_sec": {
+          "type": "integer"
+        }
+      }
+    },
+    "firm": {
+      "type": "object",
+      "description": "The resolved populate values. The 11 token values plus the two per-firm metadata fields that are not body tokens in v2.",
+      "required": [
+        "firm_name",
+        "attorney_name",
+        "attorney",
+        "interviewer",
+        "podcast_name",
+        "phone_number",
+        "website",
+        "years_practicing",
+        "podcast_domain"
+      ],
+      "properties": {
+        "firm_name": {
+          "type": "string"
+        },
+        "attorney_name": {
+          "type": "string",
+          "description": "Full name - {{ATTORNEY_NAME}}, branded open only."
+        },
+        "attorney": {
+          "type": "string",
+          "description": "First name - {{ATTORNEY}}, direct address."
+        },
+        "interviewer": {
+          "type": "string",
+          "description": "CE host - {{INTERVIEWER}}."
+        },
+        "podcast_name": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "string",
+          "pattern": "^\\(\\d{3}\\) \\d{3}-\\d{4}$"
+        },
+        "website": {
+          "type": "string",
+          "pattern": "^https://"
+        },
+        "years_practicing": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "recording_date": {
+          "type": "string",
+          "description": "MM-DD-YYYY, or TBD (non-blocking). Cover line + metadata only - never a body token in v2."
+        },
+        "episode_number": {
+          "type": "integer",
+          "description": "Filenames only - never a body token in v2."
+        },
+        "podcast_domain": {
+          "type": "string",
+          "description": "Where episodes live (subscribe line). NOT the business site - that is `website`."
+        }
+      }
+    },
+    "segment_1": {
+      "type": "object",
+      "required": [
+        "topic_phrase",
+        "prompt",
+        "attributes",
+        "follow_ups"
+      ],
+      "properties": {
+        "topic_phrase": {
+          "type": "string"
+        },
+        "setup": {
+          "type": "string",
+          "description": "Introduction line 2, resolved. cold_open is the deprecated alias."
+        },
+        "cold_open": {
+          "type": "string"
+        },
+        "credential": {
+          "type": "string",
+          "description": "Introduction line 3, resolved. The only S1 slot where the city appears."
+        },
+        "prompt": {
+          "type": "string",
+          "description": "Introduction line 4, resolved, renders in full bold - the single prompt."
+        },
+        "attributes": {
+          "type": "array",
+          "minItems": 10,
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "detail"
+            ],
+            "properties": {
+              "rank": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "detail": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "follow_ups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "description": "Interviewer notes rendered under the S1 attribute block. The first bullet is hard-coded by the renderer; these are the topic-specific ones, and at least one must prompt the attorney for a case study. Never read on air, never a question."
+        }
+      }
+    },
+    "segment_2": {
+      "type": "object",
+      "required": [
+        "locations"
+      ],
+      "properties": {
+        "locations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "location",
+              "questions"
+            ],
+            "properties": {
+              "location": {
+                "type": "string",
+                "description": "Resolved city name (the first block's {{CITY}} resolved; additional blocks were already plain text)."
+              },
+              "questions": {
+                "type": "array",
+                "minItems": 10,
+                "maxItems": 10,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "q",
+                    "bullets",
+                    "geo_tag"
+                  ],
+                  "properties": {
+                    "q": {
+                      "type": "string"
+                    },
+                    "bullets": {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 4,
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "label",
+                              "detail"
+                            ],
+                            "properties": {
+                              "label": {
+                                "type": "string"
+                              },
+                              "detail": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "geo_tag": {
+                      "enum": [
+                        "CITY",
+                        "CITY + REGION",
+                        "REGION",
+                        "NEUTRAL",
+                        "STATE"
+                      ],
+                      "description": "MUST survive populate. Never rendered; read by QA and downstream audits. Enum mirrors 3A-v2 ros-template-v2.json."
+                    },
+                    "kind": {
+                      "type": "string"
+                    },
+                    "topic_plan_ref": {
+                      "type": "string"
+                    },
+                    "attribute_ref": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "source_ngram_ref": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "description": "MUST survive populate wherever the template carried one."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "static": {
+      "type": "object",
+      "required": [
+        "welcome"
+      ],
+      "description": "The template constants with tokens RESOLVED - never regenerated. welcome carries the resolved welcome_first value when is_first_episode is true. The renderer compares against the template constants and hard-fails on any other delta.",
+      "properties": {
+        "welcome": {
+          "type": "string"
+        }
+      }
+    },
+    "cover_page": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "prepared_by": {
+          "type": "string"
+        }
+      }
+    },
+    "outro": {
+      "type": "object",
+      "required": [
+        "thanks",
+        "signoff",
+        "reach"
+      ],
+      "description": "The three generated outro lines from the template, resolved. Order on the page: thanks, signoff, reach - the sign-off deliberately not last.",
+      "properties": {
+        "thanks": {
+          "type": "string"
+        },
+        "signoff": {
+          "type": "string"
+        },
+        "reach": {
+          "type": "string"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Provenance: template source path + fileId + run date, episode_format_source, resolved-values audit, run timestamp. Not rendered."
+    }
+  },
+  "not": {
+    "anyOf": [
+      {
+        "required": [
+          "appendix_question_bank"
+        ]
+      },
+      {
+        "required": [
+          "placeholders_used"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,678 @@
+{
+  "schema_version": "2.0.0",
+  "episode_format": "v2-open-interview",
+  "topic": "pedestrian accidents",
+  "episode_title": "Fault When a Pedestrian Is Hit",
+  "episode_number_token": "E9",
+  "scope": "Location",
+  "location": "Stuart and Gainesville, Florida",
+  "city": "Stuart",
+  "region": "the Treasure Coast",
+  "state": "Florida",
+  "episode_goal": "Differentiation",
+  "duration": {
+    "segment_1_min_low": 15,
+    "segment_1_min_high": 30
+  },
+  "segment_1": {
+    "topic_phrase": "how the blame actually gets divided when somebody on foot is hit",
+    "setup": "I'm **{{INTERVIEWER}}**, and today's subject catches people completely off guard. In Florida, being hit while you were on foot doesn't automatically mean the driver was at fault, and how much of the blame lands on you changes everything.",
+    "credential": "**{{ATTORNEY}}**, your firm has accident reconstruction experts lined up before most clients even realize fault is being disputed.",
+    "prompt": "Somebody is in a hospital bed and the insurer has already decided how much of this was their fault. Tell us how they come up with that percentage. And if you've torn one of those numbers apart, take us through it.",
+    "attributes": [
+      {
+        "name": "Tried a contested split",
+        "detail": "Cases you took to a jury, and what they did with a fault split the insurer thought was settled."
+      },
+      {
+        "name": "Blamed-pedestrian cases",
+        "detail": "Not injury cases generally. Cases where the insurer put it on the person walking, how many, and how recently."
+      },
+      {
+        "name": "Verifiable record",
+        "detail": "Your license and disciplinary history, verifiable in a way a testimonial never is."
+      },
+      {
+        "name": "What a jury here forgives",
+        "detail": "The county court, the judges, and how a local jury reacts to somebody who was partly in the wrong."
+      },
+      {
+        "name": "Rebuilding the percentage",
+        "detail": "How you take an insurer's number apart and put a defensible one in its place."
+      },
+      {
+        "name": "Sightlines and reconstruction",
+        "detail": "Crash reconstruction experts, the people who figure out what a driver could actually see, and the treating doctors."
+      },
+      {
+        "name": "Witnesses fade",
+        "detail": "What you secure in the first days, because memory of where somebody stood is gone inside a week."
+      },
+      {
+        "name": "Coverage with no car",
+        "detail": "How a person with no vehicle of their own still reaches coverage, and whose policy it comes out of."
+      },
+      {
+        "name": "Both clocks",
+        "detail": "The two-week medical window and the filing deadline, and the separate, much shorter deadline when a city, county or state agency is involved."
+      },
+      {
+        "name": "Fees and case costs",
+        "detail": "What the percentage is, whether that percentage goes up if you file suit, who pays for the reconstruction, and what happens if you lose."
+      },
+      {
+        "name": "Who argues with the adjuster",
+        "detail": "Whether the client is hiring you or an intake operation, and who actually fights the percentage."
+      },
+      {
+        "name": "When the client's share is high",
+        "detail": "If a big share of the blame is genuinely going to land on the client, tell them the honest number instead of making a promise."
+      }
+    ]
+  },
+  "segment_2": {
+    "locations": [
+      {
+        "location": "Stuart",
+        "questions": [
+          {
+            "q": "How does anyone decide who was at fault when somebody is hit in Stuart?",
+            "bullets": [
+              {
+                "label": "Start with where they were",
+                "detail": "the point of impact relative to the crossing does more work than any statement."
+              },
+              {
+                "label": "Then what each side could see",
+                "detail": "sightlines, parked cars, lighting and the angle the driver was coming from."
+              },
+              {
+                "label": "Then who's investigating",
+                "detail": "Stuart Police, the Martin County Sheriff's Office or the Highway Patrol, depending on the road, and if somebody was killed it goes to the Highway Patrol's traffic homicide investigators."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "Is the driver always at fault when somebody on foot gets hit?",
+            "bullets": [
+              {
+                "label": "No, and that surprises people",
+                "detail": "being hit'sn't the same as being in the right, and the insurer knows it."
+              },
+              {
+                "label": "Fault comes down to a choice",
+                "detail": "maybe the driver was speeding, looking at a phone, or turning without checking, or maybe the person on foot crossed where the driver couldn't see them."
+              },
+              {
+                "label": "Usually it's split",
+                "detail": "most of these cases end up with some blame on each side, and the whole fight is over how big each side's share is."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "Can somebody on foot be found partly at fault for their own injuries in Florida?",
+            "bullets": [
+              {
+                "label": "Yes, and it's the usual outcome",
+                "detail": "a share gets assigned to each side and yours comes straight off what you recover."
+              },
+              {
+                "label": "There's a hard cutoff",
+                "detail": "past a certain share of the blame in Florida you recover nothing at all."
+              },
+              {
+                "label": "That's why the fight is over a few points",
+                "detail": "insurers push you toward that line on purpose, and around here their favorite argument is that you crossed away from a marked crosswalk on a road where the crosswalks are a long way apart."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "What happens to your claim if you crossed against the signal?",
+            "bullets": [
+              {
+                "label": "It hurts your case, it doesn't end it",
+                "detail": "your share of the blame goes up, and what you recover comes down by the same amount."
+              },
+              {
+                "label": "The driver still had duties",
+                "detail": "a green light in their favor doesn't give them the right to hit somebody they could see."
+              },
+              {
+                "label": "The margin is what counts",
+                "detail": "the argument is over ten or fifteen points, and that's real money either way."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "What happens when somebody crossed mid-block in Stuart?",
+            "bullets": [
+              {
+                "label": "You gave up the right of way",
+                "detail": "away from a crosswalk the person on foot is the one required to yield, so some of the blame does get assigned to them."
+              },
+              {
+                "label": "The driver isn't excused",
+                "detail": "they still had to be looking, and a driver who never braked has a problem of their own."
+              },
+              {
+                "label": "Why people do it here",
+                "detail": "on US 1 the shops sit between the signals, so people cross where they need to be rather than walking a quarter mile to a light."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "What does the police report actually decide about fault?",
+            "bullets": [
+              {
+                "label": "Less than everybody assumes",
+                "detail": "the officer got there afterward and wrote down what they were told."
+              },
+              {
+                "label": "It rarely reaches a jury",
+                "detail": "the report itself usually never gets shown to the jury, so we rebuild the case from the evidence the officer was working from."
+              },
+              {
+                "label": "It still sets the opening number",
+                "detail": "the adjuster reads it before anyone files anything, and if the injured person is from out of town, they will lean on that report hard."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "How do witnesses and video settle a disputed fault case in Stuart?",
+            "bullets": [
+              {
+                "label": "Video ends the argument",
+                "detail": "the storefronts, restaurants and banks along US 1 and Kanner Highway hold most of it, and it's gone in about a month."
+              },
+              {
+                "label": "Witnesses fade fast",
+                "detail": "memory of where somebody was standing degrades within days, and people move away."
+              },
+              {
+                "label": "Get both immediately",
+                "detail": "send a written preservation letter on day one, because that's the difference between video that exists somewhere and video you actually get to use."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "How does a distracted driver shift the blame in Stuart and across the Treasure Coast?",
+            "bullets": [
+              {
+                "label": "It removes their best defense",
+                "detail": "a driver who never looked up can't argue you appeared out of nowhere."
+              },
+              {
+                "label": "We can check the phone",
+                "detail": "the carrier records show exactly what that phone was doing in the seconds before impact, and we can subpoena them."
+              },
+              {
+                "label": "Where it clusters here",
+                "detail": "US 1 and Kanner Highway, where drivers are moving fast past shops and restaurants that people walk back and forth between."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "How much does the driver's speed change the fault picture?",
+            "bullets": [
+              {
+                "label": "It decides whether stopping was possible",
+                "detail": "a few miles an hour is the difference between a driver stopping in time and never having a chance."
+              },
+              {
+                "label": "Speed is measurable",
+                "detail": "the car's own computer stores it, the skid marks show it, and a reconstruction puts an actual number on it."
+              },
+              {
+                "label": "It also changes the injuries",
+                "detail": "the same kind of collision at a higher speed produces a very different set of injuries, and that's something we can prove."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "How is fault worked out in a parking lot or a driveway?",
+            "bullets": [
+              {
+                "label": "The traffic laws don't apply the same way",
+                "detail": "a private lot has no marked lanes and no signals, so there's a lot more room to argue."
+              },
+              {
+                "label": "Reversing is the common one",
+                "detail": "a driver backing out has almost no view of what's directly behind them."
+              },
+              {
+                "label": "Cameras carry these",
+                "detail": "the shopping center and restaurant lots along US 1 keep cameras, and that footage is the whole case when there's no independent witness."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      },
+      {
+        "location": "Gainesville",
+        "questions": [
+          {
+            "q": "How does anyone decide who was at fault when somebody is hit in Gainesville?",
+            "bullets": [
+              {
+                "label": "Start with where they were",
+                "detail": "the point of impact relative to the crossing does more work than any statement."
+              },
+              {
+                "label": "Then what each side could see",
+                "detail": "sightlines, parked cars, lighting and the angle the driver was coming from."
+              },
+              {
+                "label": "Then who's investigating",
+                "detail": "Gainesville Police, the Alachua County Sheriff's Office, University of Florida Police or the Highway Patrol, and which agency it's comes down to jurisdiction lines that are invisible from the street."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "Is the driver always at fault when somebody on foot gets hit?",
+            "bullets": [
+              {
+                "label": "No, and that surprises people",
+                "detail": "being hit'sn't the same as being in the right, and the insurer knows it."
+              },
+              {
+                "label": "Fault comes down to a choice",
+                "detail": "maybe the driver was speeding, looking at a phone, or turning without checking, or maybe the person on foot crossed where the driver couldn't see them."
+              },
+              {
+                "label": "Usually it's split",
+                "detail": "most of these cases end up with some blame on each side, and the whole fight is over how big each side's share is."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "Can somebody on foot be found partly at fault for their own injuries in Florida?",
+            "bullets": [
+              {
+                "label": "Yes, and it's the usual outcome",
+                "detail": "a share gets assigned to each side and yours comes straight off what you recover."
+              },
+              {
+                "label": "There's a hard cutoff",
+                "detail": "past a certain share of the blame in Florida you recover nothing at all."
+              },
+              {
+                "label": "That's why the fight is over a few points",
+                "detail": "insurers push you toward that line on purpose, and around a campus their favorite argument is that you stepped into the road at night without looking."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "What happens to your claim if you crossed against the signal?",
+            "bullets": [
+              {
+                "label": "It hurts your case, it doesn't end it",
+                "detail": "your share of the blame goes up, and what you recover comes down by the same amount."
+              },
+              {
+                "label": "The driver still had duties",
+                "detail": "a green light in their favor doesn't give them the right to hit somebody they could see."
+              },
+              {
+                "label": "The margin is what counts",
+                "detail": "the argument is over ten or fifteen points, and that's real money either way."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "What happens when somebody crossed mid-block in Gainesville?",
+            "bullets": [
+              {
+                "label": "You gave up the right of way",
+                "detail": "away from a crosswalk the person on foot is the one required to yield, so some of the blame does get assigned to them."
+              },
+              {
+                "label": "The driver isn't excused",
+                "detail": "they still had to be looking, and a driver who never braked has a problem of their own."
+              },
+              {
+                "label": "Why people do it here",
+                "detail": "around campus people cross straight toward wherever they're headed, and if it happened at night in the bar district, expect the insurer to lead with that."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "What does the police report actually decide about fault?",
+            "bullets": [
+              {
+                "label": "Less than everybody assumes",
+                "detail": "the officer got there afterward and wrote down what they were told."
+              },
+              {
+                "label": "It rarely reaches a jury",
+                "detail": "the report itself usually never gets shown to the jury, so we rebuild the case from the evidence the officer was working from."
+              },
+              {
+                "label": "It still sets the opening number",
+                "detail": "the adjuster reads it before anyone files anything, and if the injured person is a student, they will lean on that report hard."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "How do witnesses and video settle a disputed fault case in Gainesville?",
+            "bullets": [
+              {
+                "label": "Video ends the argument",
+                "detail": "the university holds its own footage on its own request process, the city has cameras on the corridors it has been rebuilding, and the businesses have theirs."
+              },
+              {
+                "label": "Witnesses fade fast",
+                "detail": "memory of where somebody was standing degrades within days, and people move away."
+              },
+              {
+                "label": "Get both immediately",
+                "detail": "send a written preservation letter on day one, because that's the difference between video that exists somewhere and video you actually get to use."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "How does a distracted driver shift the blame in Gainesville and across North Central Florida?",
+            "bullets": [
+              {
+                "label": "It removes their best defense",
+                "detail": "a driver who never looked up can't argue you appeared out of nowhere."
+              },
+              {
+                "label": "We can check the phone",
+                "detail": "the carrier records show exactly what that phone was doing in the seconds before impact, and we can subpoena them."
+              },
+              {
+                "label": "Where it clusters here",
+                "detail": "University Avenue and 13th Street, where a bus stop puts a crowd at the curb and the driver is watching for a gap in traffic."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "How much does the driver's speed change the fault picture?",
+            "bullets": [
+              {
+                "label": "It decides whether stopping was possible",
+                "detail": "a few miles an hour is the difference between a driver stopping in time and never having a chance."
+              },
+              {
+                "label": "Speed is measurable",
+                "detail": "the car's own computer stores it, the skid marks show it, and a reconstruction puts an actual number on it."
+              },
+              {
+                "label": "It also changes the injuries",
+                "detail": "the same kind of collision at a higher speed produces a very different set of injuries, and that's something we can prove."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "How is fault worked out in a parking lot or a driveway?",
+            "bullets": [
+              {
+                "label": "The traffic laws don't apply the same way",
+                "detail": "a private lot has no marked lanes and no signals, so there's a lot more room to argue."
+              },
+              {
+                "label": "Reversing is the common one",
+                "detail": "a driver backing out has almost no view of what's directly behind them."
+              },
+              {
+                "label": "Cameras carry these",
+                "detail": "the apartment complexes and the campus garages record constantly, and getting to that footage means knowing who owns the camera."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E9-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      }
+    ]
+  },
+  "appendix_question_bank": [
+    {
+      "n": 1,
+      "question_text": "How is fault determined when a pedestrian is hit by a car?",
+      "ngram_ref": "bank-1"
+    },
+    {
+      "n": 2,
+      "question_text": "Is the driver always at fault when a pedestrian is struck?",
+      "ngram_ref": "bank-2"
+    },
+    {
+      "n": 3,
+      "question_text": "Can a pedestrian be found partly at fault for their own injuries?",
+      "ngram_ref": "bank-3"
+    },
+    {
+      "n": 4,
+      "question_text": "How does crossing against a signal affect a pedestrian's claim?",
+      "ngram_ref": "bank-4"
+    },
+    {
+      "n": 5,
+      "question_text": "How is fault handled when a pedestrian crosses mid-block?",
+      "ngram_ref": "bank-5"
+    },
+    {
+      "n": 6,
+      "question_text": "What role does the police report play in assigning pedestrian-accident fault?",
+      "ngram_ref": "bank-6"
+    },
+    {
+      "n": 7,
+      "question_text": "How do witnesses and video resolve a disputed pedestrian-accident fault?",
+      "ngram_ref": "bank-7"
+    },
+    {
+      "n": 8,
+      "question_text": "How does a distracted driver shift fault in a pedestrian case?",
+      "ngram_ref": "bank-8"
+    },
+    {
+      "n": 9,
+      "question_text": "How does speeding factor into pedestrian-accident fault?",
+      "ngram_ref": "bank-9"
+    },
+    {
+      "n": 10,
+      "question_text": "How is fault decided when a pedestrian is hit in a parking lot or driveway?",
+      "ngram_ref": "bank-10"
+    },
+    {
+      "n": 11,
+      "question_text": "How does fault work when multiple vehicles are involved in a pedestrian crash?",
+      "ngram_ref": "bank-11"
+    },
+    {
+      "n": 12,
+      "question_text": "What happens to fault when the driver flees the scene?",
+      "ngram_ref": "bank-12"
+    },
+    {
+      "n": 13,
+      "question_text": "How do darkness, weather, and visibility affect pedestrian-accident fault?",
+      "ngram_ref": "bank-13"
+    },
+    {
+      "n": 14,
+      "question_text": "How does a child pedestrian's age affect fault analysis?",
+      "ngram_ref": "bank-14"
+    },
+    {
+      "n": 15,
+      "question_text": "How do insurance companies argue pedestrian fault to cut a claim?",
+      "ngram_ref": "bank-15"
+    },
+    {
+      "n": 16,
+      "question_text": "What evidence best protects a pedestrian against unfair fault claims?",
+      "ngram_ref": "bank-16"
+    },
+    {
+      "n": 17,
+      "question_text": "How does an attorney rebuild the fault picture in a pedestrian case?",
+      "ngram_ref": "bank-17"
+    },
+    {
+      "n": 18,
+      "question_text": "How does the fault percentage change what a pedestrian can recover?",
+      "ngram_ref": "bank-18"
+    },
+    {
+      "n": 19,
+      "question_text": "What mistakes make a pedestrian look more at fault than they really were?",
+      "ngram_ref": "bank-19"
+    },
+    {
+      "n": 20,
+      "question_text": "When should a pedestrian-accident victim get a lawyer involved over fault?",
+      "ngram_ref": "bank-20"
+    },
+    {
+      "n": 21,
+      "question_text": "How does a pedestrian's clothing or conspicuity get raised as a fault issue?",
+      "ngram_ref": "bank-21"
+    },
+    {
+      "n": 22,
+      "question_text": "How is fault analyzed when a pedestrian was intoxicated?",
+      "ngram_ref": "bank-22"
+    },
+    {
+      "n": 23,
+      "question_text": "How does a driver's right-on-red or turning movement create pedestrian fault?",
+      "ngram_ref": "bank-23"
+    },
+    {
+      "n": 24,
+      "question_text": "How does an attorney counter an insurer that overstates pedestrian fault?",
+      "ngram_ref": "bank-24"
+    },
+    {
+      "n": 25,
+      "question_text": "What is the single most important point about fault in a pedestrian case?",
+      "ngram_ref": "bank-25"
+    }
+  ],
+  "placeholders_used": [
+    "{{PODCAST_NAME}}",
+    "{{ATTORNEY_NAME}}",
+    "{{ATTORNEY}}",
+    "{{INTERVIEWER}}",
+    "{{FIRM_NAME}}",
+    "{{PHONE_NUMBER}}",
+    "{{WEBSITE}}",
+    "{{YEARS_PRACTICING}}"
+  ],
+  "static": {
+    "welcome": "Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "welcome_first": "Welcome to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "outro_note": "Keep it short. Thank them and mean it, sign off, then the reach-out. Do not recap the episode."
+  },
+  "cover_page": {
+    "logo_drive_id": "1pAZESV-Roq_fh0-1n8xMcMCJvtOiWAN2",
+    "logo_width_pt": 180,
+    "title": "Run of Show",
+    "prepared_by": "Prepared by Case Engine"
+  },
+  "outro_close": {},
+  "outro": {
+    "thanks": "**{{ATTORNEY}}**, thanks for walking through all of that. Most people have to figure out on their own how the blame gets divided. That's going to save somebody a lot of trouble.",
+    "signoff": "That's where we will leave it. **{{PODCAST_NAME}}**. See you next episode.",
+    "reach": "One more thing, if you're anywhere in Florida and need help with this, get in touch with **{{FIRM_NAME}}**. The number is **{{PHONE_NUMBER}}**, and the site is **{{WEBSITE}}**."
+  },
+  "metadata": {
+    "topic_plan_reconciled": true,
+    "topic_plan_doc_id": "1P_1tAKXf6_I7EODRnkzDGVhUqPKBncdPKL127YlxgYs",
+    "topic_plan_revision_id": "AIroW34FYjoDNe-pyO0zmcS3bcMOn0H73Q9-m2OO7TkOMdkCNXN_YAGDkb1Jlr9B8vTPL2VOBuKMHeoY85-DOkgVPQZv0OMwEA53iwt4JmQ",
+    "topic_plan_fetched_at": "2026-08-18T20:40:06Z",
+    "attribute_source": "fallback",
+    "attribute_source_pulled": "2026-08-14",
+    "attribute_source_confidence": "Inferred",
+    "outro_line1_approach": "clarity",
+    "outro_line2_index": 1,
+    "outro_line3_slots": [
+      "One more thing,",
+      1,
+      "get in touch with",
+      1
+    ]
+  }
+}

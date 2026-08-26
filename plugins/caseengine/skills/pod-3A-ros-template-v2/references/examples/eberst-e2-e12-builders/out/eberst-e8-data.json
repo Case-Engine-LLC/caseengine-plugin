@@ -1,0 +1,678 @@
+{
+  "schema_version": "2.0.0",
+  "episode_format": "v2-open-interview",
+  "topic": "pedestrian accidents",
+  "episode_title": "Right-of-Way and Crosswalk Law",
+  "episode_number_token": "E8",
+  "scope": "Location",
+  "location": "Stuart and Gainesville, Florida",
+  "city": "Stuart",
+  "region": "the Treasure Coast",
+  "state": "Florida",
+  "episode_goal": "Authority",
+  "duration": {
+    "segment_1_min_low": 15,
+    "segment_1_min_high": 30
+  },
+  "segment_1": {
+    "topic_phrase": "who actually has the right of way when somebody is crossing the road",
+    "setup": "I'm **{{INTERVIEWER}}**, and today we're talking about crosswalks. There's one thing almost everybody in Florida gets wrong about them, and it matters a great deal if you ever get hit.",
+    "credential": "**{{ATTORNEY}}**, after **{{YEARS_PRACTICING}}** years in these courts you know how the local insurers are going to argue a case like this before they say a word.",
+    "prompt": "There's one thing people around here get wrong about crosswalks more than anything else. Set us straight. And if you've seen it cost somebody their case, tell us about that one.",
+    "attributes": [
+      {
+        "name": "Tried a failure to yield",
+        "detail": "Cases you took to a jury, and what they did with a driver who simply didn't give way."
+      },
+      {
+        "name": "People struck crossing",
+        "detail": "Not injury cases generally. People hit while on foot, how many, and how recently."
+      },
+      {
+        "name": "Your record beats a rating",
+        "detail": "Your license and your disciplinary history are public, and anyone can look them up. A review score isn't."
+      },
+      {
+        "name": "How a jury here hears it",
+        "detail": "The county court, the judges, and what a local jury assumes about somebody who was walking."
+      },
+      {
+        "name": "Knowing the crossings",
+        "detail": "The corridors and intersections where this keeps happening, and what's actually wrong with them."
+      },
+      {
+        "name": "Storefront footage",
+        "detail": "What you secure in the first days, because video from a shop facing the crossing is gone inside a month."
+      },
+      {
+        "name": "Reading the road",
+        "detail": "Crash reconstruction experts, the treating doctors, and engineers who can explain what was wrong with the crossing itself."
+      },
+      {
+        "name": "Coverage with no car",
+        "detail": "How somebody who doesn't own a vehicle may still have coverage, and which policy pays first."
+      },
+      {
+        "name": "The two deadlines",
+        "detail": "The two-week medical window and the filing deadline, said as numbers, and what each one costs if it passes."
+      },
+      {
+        "name": "Your fee and the costs",
+        "detail": "The percentage, whether it rises if you file suit, who pays to get the footage and the road data, and what happens if you lose."
+      },
+      {
+        "name": "Who they reach at night",
+        "detail": "Whether the client is hiring you or an intake operation, and who picks up at nine in the evening."
+      },
+      {
+        "name": "When the person was in the wrong",
+        "detail": "The cases where somebody genuinely wasn't crossing lawfully, and why you say that up front rather than at the end."
+      }
+    ]
+  },
+  "segment_2": {
+    "locations": [
+      {
+        "location": "Stuart",
+        "questions": [
+          {
+            "q": "Who actually has the right of way at a crosswalk in Stuart?",
+            "bullets": [
+              {
+                "label": "The person walking, once they're in it",
+                "detail": "traffic has to yield to you, and the one exception is stepping out in front of a car that's already too close to stop."
+              },
+              {
+                "label": "The paint isn't what makes it a crosswalk",
+                "detail": "the duty to yield applies at corners that were never painted, and that's where most of the fighting happens."
+              },
+              {
+                "label": "Where it matters most here",
+                "detail": "US 1 through downtown, where the shops and restaurants are on both sides and the marked crossings are a long way apart."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "What does the law actually require a driver to do at a marked crosswalk?",
+            "bullets": [
+              {
+                "label": "Yield, not creep",
+                "detail": "a driver has to give way to somebody already in a marked crossing, and on a multilane road the drivers in the other lanes have to stop too, rather than swinging around the car that stopped."
+              },
+              {
+                "label": "Speed is part of it",
+                "detail": "a driver who can't stop for somebody already crossing was going too fast for that crossing."
+              },
+              {
+                "label": "Stopping means stopping",
+                "detail": "if you roll through while somebody is still in the road you've already broken the rule, and it doesn't have to be a close call."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "Do you still have any rights crossing outside a crosswalk in Florida?",
+            "bullets": [
+              {
+                "label": "You do, but you've to yield",
+                "detail": "away from a crossing the traffic has the right of way, not you."
+              },
+              {
+                "label": "That doesn't make you fair game",
+                "detail": "a driver who sees you and doesn't slow down is still responsible for hitting you."
+              },
+              {
+                "label": "Florida never legalized jaywalking",
+                "detail": "if you're between two intersections that both have signals, you're supposed to use a marked crosswalk, whatever people assume."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "How is it decided who was right at an intersection in Stuart with no painted crossing?",
+            "bullets": [
+              {
+                "label": "An unpainted crossing is still a crossing",
+                "detail": "at a downtown corner on US 1 with no paint at all, the crossing is legally there and the duty to yield comes with it."
+              },
+              {
+                "label": "It's where the sidewalk would continue",
+                "detail": "the crossing legally exists along the line the sidewalk takes across the road."
+              },
+              {
+                "label": "Nobody knows this",
+                "detail": "which is why the driver, the insurer and sometimes the officer all get it wrong at the scene."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "How does a car that's turning or backing up end up hitting someone?",
+            "bullets": [
+              {
+                "label": "They're looking the other way",
+                "detail": "a driver turning right is watching for a gap in traffic, not for a person already in the crossing."
+              },
+              {
+                "label": "A driver backing up can barely see",
+                "detail": "in a lot of vehicles there's a stretch right behind the bumper you can't see at all without a camera."
+              },
+              {
+                "label": "The walk signal doesn't stop them",
+                "detail": "having the signal means you were lawfully there, not that the car saw you."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "What proves somebody was crossing lawfully in Stuart?",
+            "bullets": [
+              {
+                "label": "Where they were standing",
+                "detail": "the point of impact relative to the crossing settles most of the argument by itself."
+              },
+              {
+                "label": "What was recording",
+                "detail": "the shops, restaurants and banks along US 1 and Kanner Highway keep their own cameras, and a lot of that footage is gone inside a month."
+              },
+              {
+                "label": "Who saw it",
+                "detail": "whoever was waiting at the same corner, and anyone working at a business facing the crossing."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "How does failing to yield actually establish that a driver was at fault?",
+            "bullets": [
+              {
+                "label": "There's a rule they broke",
+                "detail": "the duty to yield to somebody in a crossing is written into the law, so we'ren't arguing about whether the driver was careful enough."
+              },
+              {
+                "label": "It changes what we argue about",
+                "detail": "we're no longer arguing whether the driver was careful, we're arguing what this cost you."
+              },
+              {
+                "label": "Nobody has to get a ticket",
+                "detail": "a driver who was never cited still broke the same rule."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "What happens if the person walking was partly in the wrong?",
+            "bullets": [
+              {
+                "label": "It reduces what you get, it doesn't wipe it out",
+                "detail": "your share of the fault comes off the recovery, and being partly wrong doesn't end the case."
+              },
+              {
+                "label": "But there's a hard line",
+                "detail": "in Florida, if you're found more than fifty percent at fault, you recover nothing at all."
+              },
+              {
+                "label": "It's the whole fight",
+                "detail": "the insurer will say you crossed somewhere other than a marked crosswalk, and on a road where the crossings are half a mile apart that's easy for them to say and very beatable."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "How do distracted and speeding drivers cause these crashes in Stuart and across the Treasure Coast?",
+            "bullets": [
+              {
+                "label": "They're looking down",
+                "detail": "a driver checking a phone at a green light has no idea anybody stepped off the curb."
+              },
+              {
+                "label": "Speed removes the option",
+                "detail": "a few miles an hour is the difference between a hard stop and no stop at all."
+              },
+              {
+                "label": "Where it concentrates here",
+                "detail": "US 1 and Kanner Highway, where the road is built for speed and people are still crossing it on foot to get between businesses."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "What injuries actually happen when a car hits a person?",
+            "bullets": [
+              {
+                "label": "There'sn'thing protecting you",
+                "detail": "the head, the pelvis and the legs take the force, and even a low-speed impact does serious damage."
+              },
+              {
+                "label": "Two impacts, not one",
+                "detail": "the vehicle, and then the road, and the second one is often the worse of the two."
+              },
+              {
+                "label": "Where people get treated here",
+                "detail": "Cleveland Clinic Martin North handles the emergency room side, and the most serious injuries get moved out of the county to the trauma center in Fort Pierce."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      },
+      {
+        "location": "Gainesville",
+        "questions": [
+          {
+            "q": "Who actually has the right of way at a crosswalk in Gainesville?",
+            "bullets": [
+              {
+                "label": "The person walking, once they're in it",
+                "detail": "traffic has to yield to you, and the one exception is stepping out in front of a car that's already too close to stop."
+              },
+              {
+                "label": "The paint isn't what makes it a crosswalk",
+                "detail": "the duty to yield applies at corners that were never painted, and that's where most of the fighting happens."
+              },
+              {
+                "label": "Where it matters most here",
+                "detail": "University Avenue and 13th Street, where the crossings are constant and the city has been rebuilding them for exactly that reason."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "What does the law actually require a driver to do at a marked crosswalk?",
+            "bullets": [
+              {
+                "label": "Yield, not creep",
+                "detail": "a driver has to give way to somebody already in a marked crossing, and on University Avenue the city built raised crossings and added time to the walk signal because drivers weren't yielding."
+              },
+              {
+                "label": "Speed is part of it",
+                "detail": "a driver who can't stop for somebody already crossing was going too fast for that crossing."
+              },
+              {
+                "label": "Stopping means stopping",
+                "detail": "if you roll through while somebody is still in the road you've already broken the rule, and it doesn't have to be a close call."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "Do you still have any rights crossing outside a crosswalk in Florida?",
+            "bullets": [
+              {
+                "label": "You do, but you've to yield",
+                "detail": "away from a crossing the traffic has the right of way, not you."
+              },
+              {
+                "label": "That doesn't make you fair game",
+                "detail": "a driver who sees you and doesn't slow down is still responsible for hitting you."
+              },
+              {
+                "label": "Florida never legalized jaywalking",
+                "detail": "if you're between two intersections that both have signals, you're supposed to use a marked crosswalk, whatever people assume."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "How is it decided who was right at an intersection in Gainesville with no painted crossing?",
+            "bullets": [
+              {
+                "label": "An unpainted crossing is still a crossing",
+                "detail": "on the side streets off campus with no paint at all, the crossing is legally there and the duty to yield comes with it."
+              },
+              {
+                "label": "It's where the sidewalk would continue",
+                "detail": "the crossing legally exists along the line the sidewalk takes across the road."
+              },
+              {
+                "label": "Nobody knows this",
+                "detail": "which is why the driver, the insurer and sometimes the officer all get it wrong at the scene."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "How does a car that's turning or backing up end up hitting someone?",
+            "bullets": [
+              {
+                "label": "They're looking the other way",
+                "detail": "a driver turning right is watching for a gap in traffic, not for a person already in the crossing."
+              },
+              {
+                "label": "A driver backing up can barely see",
+                "detail": "in a lot of vehicles there's a stretch right behind the bumper you can't see at all without a camera."
+              },
+              {
+                "label": "The walk signal doesn't stop them",
+                "detail": "having the signal means you were lawfully there, not that the car saw you."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "What proves somebody was crossing lawfully in Gainesville?",
+            "bullets": [
+              {
+                "label": "Where they were standing",
+                "detail": "the point of impact relative to the crossing settles most of the argument by itself."
+              },
+              {
+                "label": "What was recording",
+                "detail": "the university has its own cameras with its own request process, the city has cameras on the corridors it has been rebuilding, and the businesses have theirs."
+              },
+              {
+                "label": "Who saw it",
+                "detail": "whoever was waiting at the same corner, and anyone working at a business facing the crossing."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "How does failing to yield actually establish that a driver was at fault?",
+            "bullets": [
+              {
+                "label": "There's a rule they broke",
+                "detail": "the duty to yield to somebody in a crossing is written into the law, so we'ren't arguing about whether the driver was careful enough."
+              },
+              {
+                "label": "It changes what we argue about",
+                "detail": "we're no longer arguing whether the driver was careful, we're arguing what this cost you."
+              },
+              {
+                "label": "Nobody has to get a ticket",
+                "detail": "a driver who was never cited still broke the same rule."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "What happens if the person walking was partly in the wrong?",
+            "bullets": [
+              {
+                "label": "It reduces what you get, it doesn't wipe it out",
+                "detail": "your share of the fault comes off the recovery, and being partly wrong doesn't end the case."
+              },
+              {
+                "label": "But there's a hard line",
+                "detail": "in Florida, if you're found more than fifty percent at fault, you recover nothing at all."
+              },
+              {
+                "label": "It's the whole fight",
+                "detail": "the insurer will say you stepped out between parked cars, or that you were looking at your phone, and around a campus that's the first thing they reach for."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "How do distracted and speeding drivers cause these crashes in Gainesville and across North Central Florida?",
+            "bullets": [
+              {
+                "label": "They're looking down",
+                "detail": "a driver checking a phone at a green light has no idea anybody stepped off the curb."
+              },
+              {
+                "label": "Speed removes the option",
+                "detail": "a few miles an hour is the difference between a hard stop and no stop at all."
+              },
+              {
+                "label": "Where it concentrates here",
+                "detail": "University Avenue, 13th Street and Archer Road, where a bus stop puts a crowd at the curb and a driver is watching traffic instead."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "What injuries actually happen when a car hits a person?",
+            "bullets": [
+              {
+                "label": "There'sn'thing protecting you",
+                "detail": "the head, the pelvis and the legs take the force, and even a low-speed impact does serious damage."
+              },
+              {
+                "label": "Two impacts, not one",
+                "detail": "the vehicle, and then the road, and the second one is often the worse of the two."
+              },
+              {
+                "label": "Where people get treated here",
+                "detail": "UF Health Shands is the trauma center for this whole part of the state, so the most serious injuries stay in town and the whole medical record ends up in one place."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E8-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      }
+    ]
+  },
+  "appendix_question_bank": [
+    {
+      "n": 1,
+      "question_text": "Who has the right-of-way when a pedestrian and a car meet at a crosswalk?",
+      "ngram_ref": "bank-1"
+    },
+    {
+      "n": 2,
+      "question_text": "What does the law require of drivers when a pedestrian is in a marked crosswalk?",
+      "ngram_ref": "bank-2"
+    },
+    {
+      "n": 3,
+      "question_text": "Does a pedestrian have rights when crossing outside a crosswalk?",
+      "ngram_ref": "bank-3"
+    },
+    {
+      "n": 4,
+      "question_text": "How is fault decided when a pedestrian is hit at an unmarked intersection?",
+      "ngram_ref": "bank-4"
+    },
+    {
+      "n": 5,
+      "question_text": "How does a backing or turning vehicle create a pedestrian crash?",
+      "ngram_ref": "bank-5"
+    },
+    {
+      "n": 6,
+      "question_text": "What evidence proves a pedestrian was lawfully crossing?",
+      "ngram_ref": "bank-6"
+    },
+    {
+      "n": 7,
+      "question_text": "How does a driver's failure to yield establish negligence?",
+      "ngram_ref": "bank-7"
+    },
+    {
+      "n": 8,
+      "question_text": "How does comparative negligence apply when a pedestrian was partly at fault?",
+      "ngram_ref": "bank-8"
+    },
+    {
+      "n": 9,
+      "question_text": "How do distracted or speeding drivers cause crosswalk crashes?",
+      "ngram_ref": "bank-9"
+    },
+    {
+      "n": 10,
+      "question_text": "What injuries are most common when a pedestrian is struck by a vehicle?",
+      "ngram_ref": "bank-10"
+    },
+    {
+      "n": 11,
+      "question_text": "How does a pedestrian recover when the driver had little or no insurance?",
+      "ngram_ref": "bank-11"
+    },
+    {
+      "n": 12,
+      "question_text": "What insurance can an injured pedestrian who does not own a car still use?",
+      "ngram_ref": "bank-12"
+    },
+    {
+      "n": 13,
+      "question_text": "How is fault investigated when a pedestrian is hit in a parking lot?",
+      "ngram_ref": "bank-13"
+    },
+    {
+      "n": 14,
+      "question_text": "How does a hit-and-run change a pedestrian accident claim?",
+      "ngram_ref": "bank-14"
+    },
+    {
+      "n": 15,
+      "question_text": "What should a pedestrian do in the moments after being struck by a vehicle?",
+      "ngram_ref": "bank-15"
+    },
+    {
+      "n": 16,
+      "question_text": "How do traffic cameras and surveillance footage make or break these cases?",
+      "ngram_ref": "bank-16"
+    },
+    {
+      "n": 17,
+      "question_text": "How does an attorney prove the driver failed in a pedestrian case?",
+      "ngram_ref": "bank-17"
+    },
+    {
+      "n": 18,
+      "question_text": "How are damages valued in a serious pedestrian injury case?",
+      "ngram_ref": "bank-18"
+    },
+    {
+      "n": 19,
+      "question_text": "What common mistakes weaken a pedestrian accident claim?",
+      "ngram_ref": "bank-19"
+    },
+    {
+      "n": 20,
+      "question_text": "When should an injured pedestrian or their family contact an attorney?",
+      "ngram_ref": "bank-20"
+    },
+    {
+      "n": 21,
+      "question_text": "How does the time of day or lighting affect a crosswalk-collision claim?",
+      "ngram_ref": "bank-21"
+    },
+    {
+      "n": 22,
+      "question_text": "How are crosswalk laws enforced against drivers who routinely fail to yield?",
+      "ngram_ref": "bank-22"
+    },
+    {
+      "n": 23,
+      "question_text": "What happens when a pedestrian is struck in a marked school or work zone?",
+      "ngram_ref": "bank-23"
+    },
+    {
+      "n": 24,
+      "question_text": "How does an attorney handle a crosswalk case where fault is split?",
+      "ngram_ref": "bank-24"
+    },
+    {
+      "n": 25,
+      "question_text": "What is the single most important point about crosswalk right-of-way?",
+      "ngram_ref": "bank-25"
+    }
+  ],
+  "placeholders_used": [
+    "{{PODCAST_NAME}}",
+    "{{ATTORNEY_NAME}}",
+    "{{ATTORNEY}}",
+    "{{INTERVIEWER}}",
+    "{{FIRM_NAME}}",
+    "{{PHONE_NUMBER}}",
+    "{{WEBSITE}}",
+    "{{YEARS_PRACTICING}}"
+  ],
+  "static": {
+    "welcome": "Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "welcome_first": "Welcome to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "outro_note": "Keep it short. Thank them and mean it, sign off, then the reach-out. Do not recap the episode."
+  },
+  "cover_page": {
+    "logo_drive_id": "1pAZESV-Roq_fh0-1n8xMcMCJvtOiWAN2",
+    "logo_width_pt": 180,
+    "title": "Run of Show",
+    "prepared_by": "Prepared by Case Engine"
+  },
+  "outro_close": {},
+  "outro": {
+    "thanks": "**{{ATTORNEY}}**, thank you for your time. There's almost nothing useful out there on who actually has the right of way. Now there's.",
+    "signoff": "That's it for this one. **{{PODCAST_NAME}}**. We will see you next episode.",
+    "reach": "And before you go, if you or somebody in your family was hit crossing the street in Florida, reach out to **{{FIRM_NAME}}** at **{{PHONE_NUMBER}}**, or online at **{{WEBSITE}}**."
+  },
+  "metadata": {
+    "topic_plan_reconciled": true,
+    "topic_plan_doc_id": "1P_1tAKXf6_I7EODRnkzDGVhUqPKBncdPKL127YlxgYs",
+    "topic_plan_revision_id": "AIroW34FYjoDNe-pyO0zmcS3bcMOn0H73Q9-m2OO7TkOMdkCNXN_YAGDkb1Jlr9B8vTPL2VOBuKMHeoY85-DOkgVPQZv0OMwEA53iwt4JmQ",
+    "topic_plan_fetched_at": "2026-08-18T20:40:06Z",
+    "attribute_source": "fallback",
+    "attribute_source_pulled": "2026-08-14",
+    "attribute_source_confidence": "Inferred",
+    "outro_line1_approach": "topical",
+    "outro_line2_index": 0,
+    "outro_line3_slots": [
+      "And before you go,",
+      4,
+      "reach out to",
+      0
+    ]
+  }
+}

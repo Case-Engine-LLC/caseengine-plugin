@@ -1,0 +1,711 @@
+{
+  "schema_version": "2.0.0",
+  "episode_format": "v2-open-interview",
+  "topic": "car accidents",
+  "episode_title": "Car Accident Types, Injury Types, and Their Effect on Compensation",
+  "episode_number_token": "E3",
+  "scope": "Location",
+  "location": "Stuart and Gainesville, Florida",
+  "city": "Stuart",
+  "region": "the Treasure Coast",
+  "state": "Florida",
+  "episode_goal": "Authority",
+  "duration": {
+    "segment_1_min_low": 15,
+    "segment_1_min_high": 30
+  },
+  "segment_1": {
+    "topic_phrase": "why two crashes that look the same are worth completely different money",
+    "setup": "I'm **{{INTERVIEWER}}**, and today's topic is one nobody plans for. Two crashes in Florida can look exactly the same and end up worlds apart, and what makes the difference is almost never what people assume.",
+    "credential": "**{{ATTORNEY}}**, your firm handles all kinds of injury cases, but car crashes have always been the core of it.",
+    "prompt": "Two cases that look the same can land in completely different places. Break down what actually moves the number. And if you've two that went different ways, take us through both.",
+    "attributes": [
+      {
+        "name": "Cases you took to trial",
+        "detail": "A case like this one you actually put in front of a jury, and what that jury did with an injury the insurer had written off as minor."
+      },
+      {
+        "name": "This injury, not injuries",
+        "detail": "Not injury cases generally. This crash type and this injury, how many, and how recently."
+      },
+      {
+        "name": "Credentials anyone can check",
+        "detail": "Your license and your disciplinary history. Anyone can look both up, and they say more than any star rating does."
+      },
+      {
+        "name": "What juries here award",
+        "detail": "The county court, the judges, and what a local jury has actually done with an injury like this one."
+      },
+      {
+        "name": "Getting to a number",
+        "detail": "How you move from a stack of bills to a figure, and which injuries move that figure the most."
+      },
+      {
+        "name": "Waiting for the medical picture",
+        "detail": "Why you don't put a number on it until the treatment has shown what the person is left with."
+      },
+      {
+        "name": "Who you bring in",
+        "detail": "The treating doctors, the life-care planners, and the experts who put a dollar figure on the work somebody can no longer do."
+      },
+      {
+        "name": "The first week",
+        "detail": "What you lock down before the cars get repaired, because the vehicles and the road are what tell us how the crash happened."
+      },
+      {
+        "name": "The two clocks",
+        "detail": "The two-week medical window and the filing deadline, said as numbers, and which one people miss most."
+      },
+      {
+        "name": "What this costs you",
+        "detail": "The percentage, whether it rises if you file suit, who fronts the imaging and the experts, and what happens if you lose."
+      },
+      {
+        "name": "Who you actually talk to",
+        "detail": "Whether the client is hiring you or an intake operation, and who calls them when the offer arrives."
+      },
+      {
+        "name": "The hard part",
+        "detail": "Which of these injuries is genuinely difficult to prove, and say it out loud before the client has to ask."
+      }
+    ]
+  },
+  "segment_2": {
+    "locations": [
+      {
+        "location": "Stuart",
+        "questions": [
+          {
+            "q": "What kinds of crashes actually happen most around Stuart?",
+            "bullets": [
+              {
+                "label": "Where you drive changes what happens",
+                "detail": "the Roosevelt Bridge gets bad merges and head-on hits, I-95 and the Turnpike get chain reactions, and US 1 downtown is rear-end hits all day long."
+              },
+              {
+                "label": "Each one hurts differently",
+                "detail": "a rear-end hit's a neck case, a side impact is a head and hip case, a rollover is a spine case."
+              },
+              {
+                "label": "Say what you see",
+                "detail": "the crashes you actually handle off I-95, the Turnpike, US 1 and Kanner Highway, and what they do to people."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "Does the kind of crash you were in change what the case is worth in Florida?",
+            "bullets": [
+              {
+                "label": "Same crash, different case",
+                "detail": "two people in the same wreck can end up with very different claims, because it comes down to how badly each of them was hurt."
+              },
+              {
+                "label": "The injury sets the number",
+                "detail": "what you get paid comes down to how badly you were hurt and how long you need treatment, not how bent up the car was."
+              },
+              {
+                "label": "Low damage isn't low injury",
+                "detail": "an adjuster will hold up a photo of a scuffed bumper, and we answer that with the imaging and the doctor who treated you."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "Where does someone badly hurt in a Stuart crash actually get treated?",
+            "bullets": [
+              {
+                "label": "Name the hospital",
+                "detail": "Cleveland Clinic Martin North handles the emergency room here, and the worst injuries get moved out of the county to the trauma center in Fort Pierce."
+              },
+              {
+                "label": "Why that matters to the case",
+                "detail": "the records from the first hours are the backbone of proving how bad it was."
+              },
+              {
+                "label": "Follow through matters more",
+                "detail": "if you stop going to the doctor for a month, the insurance company will say you were fine that month."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "Why does an injury that shows up two days later still count?",
+            "bullets": [
+              {
+                "label": "Adrenaline hides it",
+                "detail": "people walk away from a crash feeling fine and wake up two mornings later unable to turn their head."
+              },
+              {
+                "label": "The clock doesn't wait",
+                "detail": "you've fourteen days to get seen, and if you miss it you lose the medical coverage on your own policy."
+              },
+              {
+                "label": "Where people get caught",
+                "detail": "seasonal residents who head north before they ever get looked at, and then have no record of the first two weeks."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "How does anyone actually put a number on pain and suffering?",
+            "bullets": [
+              {
+                "label": "There's a method to it",
+                "detail": "we start with the bills and the lost pay, and it goes up from there depending on how serious the injury is and whether you're stuck with it."
+              },
+              {
+                "label": "Permanence is what moves it",
+                "detail": "an injury you're stuck with for life is worth far more than one you get over in six weeks."
+              },
+              {
+                "label": "What moves it up",
+                "detail": "surgery, scarring, a documented head injury, and anything that changes what you can do for work."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "What changes when a commercial vehicle causes the crash in Stuart or across the Treasure Coast?",
+            "bullets": [
+              {
+                "label": "There's more coverage behind it",
+                "detail": "a truck on I-95 or the Turnpike is usually running interstate freight, which means a far larger policy than any car carries."
+              },
+              {
+                "label": "There's more evidence too",
+                "detail": "the truck records what it was doing, and that data gets overwritten unless somebody asks for it fast."
+              },
+              {
+                "label": "More people can be responsible",
+                "detail": "the driver, the company that hired them, and whoever owned the vehicle."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "What happens to your case if your back or your knee was already bad?",
+            "bullets": [
+              {
+                "label": "It doesn't disqualify you",
+                "detail": "if somebody made an existing problem worse, they're responsible for how much worse it got."
+              },
+              {
+                "label": "Your old records help you",
+                "detail": "the imaging from before the crash is how we show how much worse you're now."
+              },
+              {
+                "label": "What it costs you",
+                "detail": "the insurance company will argue you can still find work around here, so you've to spell out exactly what you used to do and can't do now."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "How does where you got hit in Stuart change the fight over fault?",
+            "bullets": [
+              {
+                "label": "Some places are genuinely ambiguous",
+                "detail": "the Roosevelt Bridge approaches and the left turns on US 1, where two drivers each believe they had the light."
+              },
+              {
+                "label": "The percentage is the whole case",
+                "detail": "past a certain share of the blame you recover nothing, so a few points is real money."
+              },
+              {
+                "label": "What settles it",
+                "detail": "the road itself, the sightlines, the signal timing, and anybody who saw it."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "Why does settling early cost the most?",
+            "bullets": [
+              {
+                "label": "Nobody knows the number yet",
+                "detail": "if they're offering money while you're still in treatment, they're guessing at how bad this gets."
+              },
+              {
+                "label": "You only get one shot",
+                "detail": "once you sign, it's over, and that closes out the surgery nobody has even recommended yet."
+              },
+              {
+                "label": "What that means here",
+                "detail": "the serious cases get moved out of the county, so your records sit in two different hospitals and it takes time to pull them together."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "What deadlines end a Florida injury case before it ever starts?",
+            "bullets": [
+              {
+                "label": "Two weeks to be seen",
+                "detail": "miss it and the medical coverage on your own policy is gone for good."
+              },
+              {
+                "label": "Two years to file",
+                "detail": "that deadline got cut back a few years ago, and plenty of people are still going off the old number."
+              },
+              {
+                "label": "A government vehicle is different",
+                "detail": "a crash with a city or county vehicle carries its own much earlier notice deadline, and it's measured in months."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      },
+      {
+        "location": "Gainesville",
+        "questions": [
+          {
+            "q": "What kinds of crashes actually happen most around Gainesville?",
+            "bullets": [
+              {
+                "label": "Where you drive changes what happens",
+                "detail": "I-75 gets high speed wrecks and fog pileups, Archer Road and 13th Street get intersection hits, and University Avenue is where cars hit pedestrians, cyclists and scooters."
+              },
+              {
+                "label": "Each one hurts differently",
+                "detail": "a rear-end hit's a neck case, a side impact is a head and hip case, a rollover is a spine case."
+              },
+              {
+                "label": "Say what you see",
+                "detail": "the crashes you actually handle off I-75, Archer Road, University Avenue and 13th Street, and what they do to people."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "Does the kind of crash you were in change what the case is worth in Florida?",
+            "bullets": [
+              {
+                "label": "Same crash, different case",
+                "detail": "two people in the same wreck can end up with very different claims, because it comes down to how badly each of them was hurt."
+              },
+              {
+                "label": "The injury sets the number",
+                "detail": "what you get paid comes down to how badly you were hurt and how long you need treatment, not how bent up the car was."
+              },
+              {
+                "label": "Low damage isn't low injury",
+                "detail": "an adjuster will hold up a photo of a scuffed bumper, and we answer that with the imaging and the doctor who treated you."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "Where does someone badly hurt in a Gainesville crash actually get treated?",
+            "bullets": [
+              {
+                "label": "Name the hospital",
+                "detail": "UF Health Shands is the trauma center for this whole part of the state, and North Florida Regional is on Archer Road."
+              },
+              {
+                "label": "Why that matters to the case",
+                "detail": "the records from the first hours are the backbone of proving how bad it was."
+              },
+              {
+                "label": "Follow through matters more",
+                "detail": "if you stop going to the doctor for a month, the insurance company will say you were fine that month."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "Why does an injury that shows up two days later still count?",
+            "bullets": [
+              {
+                "label": "Adrenaline hides it",
+                "detail": "people walk away from a crash feeling fine and wake up two mornings later unable to turn their head."
+              },
+              {
+                "label": "The clock doesn't wait",
+                "detail": "you've fourteen days to get seen, and if you miss it you lose the medical coverage on your own policy."
+              },
+              {
+                "label": "Where people get caught",
+                "detail": "students who go home between semesters and let the two weeks run out somewhere else entirely."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "How does anyone actually put a number on pain and suffering?",
+            "bullets": [
+              {
+                "label": "There's a method to it",
+                "detail": "we start with the bills and the lost pay, and it goes up from there depending on how serious the injury is and whether you're stuck with it."
+              },
+              {
+                "label": "Permanence is what moves it",
+                "detail": "an injury you're stuck with for life is worth far more than one you get over in six weeks."
+              },
+              {
+                "label": "What moves it up",
+                "detail": "surgery, scarring, a documented head injury, and anything that changes what you can do for work."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "What changes when a commercial vehicle causes the crash in Gainesville or across North Central Florida?",
+            "bullets": [
+              {
+                "label": "There's more coverage behind it",
+                "detail": "a truck on I-75 is usually running long haul freight, which means a far larger policy than any car carries."
+              },
+              {
+                "label": "There's more evidence too",
+                "detail": "the truck records what it was doing, and that data gets overwritten unless somebody asks for it fast."
+              },
+              {
+                "label": "More people can be responsible",
+                "detail": "the driver, the company that hired them, and whoever owned the vehicle."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "What happens to your case if your back or your knee was already bad?",
+            "bullets": [
+              {
+                "label": "It doesn't disqualify you",
+                "detail": "if somebody made an existing problem worse, they're responsible for how much worse it got."
+              },
+              {
+                "label": "Your old records help you",
+                "detail": "the imaging from before the crash is how we show how much worse you're now."
+              },
+              {
+                "label": "What it costs you",
+                "detail": "the jobs here are mostly the university and the hospitals, so you've to spell out exactly what you used to do and can't do now."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "How does where you got hit in Gainesville change the fight over fault?",
+            "bullets": [
+              {
+                "label": "Some places are genuinely ambiguous",
+                "detail": "the campus intersections on Archer Road and 13th Street, where a car, a bike and a scooter all read the same light differently."
+              },
+              {
+                "label": "The percentage is the whole case",
+                "detail": "past a certain share of the blame you recover nothing, so a few points is real money."
+              },
+              {
+                "label": "What settles it",
+                "detail": "the road itself, the sightlines, the signal timing, and anybody who saw it."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "Why does settling early cost the most?",
+            "bullets": [
+              {
+                "label": "Nobody knows the number yet",
+                "detail": "if they're offering money while you're still in treatment, they're guessing at how bad this gets."
+              },
+              {
+                "label": "You only get one shot",
+                "detail": "once you sign, it's over, and that closes out the surgery nobody has even recommended yet."
+              },
+              {
+                "label": "What that means here",
+                "detail": "the trauma center is here, so the whole record is in one place and it's worth waiting for all of it."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "What deadlines end a Florida injury case before it ever starts?",
+            "bullets": [
+              {
+                "label": "Two weeks to be seen",
+                "detail": "miss it and the medical coverage on your own policy is gone for good."
+              },
+              {
+                "label": "Two years to file",
+                "detail": "that deadline got cut back a few years ago, and plenty of people are still going off the old number."
+              },
+              {
+                "label": "A government vehicle is different",
+                "detail": "a crash with a university, city or county vehicle carries its own much earlier notice deadline, and it's measured in months."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E3-legacy-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      }
+    ]
+  },
+  "appendix_question_bank": [
+    {
+      "n": 1,
+      "question_text": "How does the type of car accident a Florida driver is in shape the type of injuries they suffer and the value of their claim?",
+      "ngram_ref": "bank-1"
+    },
+    {
+      "n": 2,
+      "question_text": "What are the most common types of car accidents that lead to Florida personal injury claims and how do they differ in how they hurt people?",
+      "ngram_ref": "bank-2"
+    },
+    {
+      "n": 3,
+      "question_text": "Why are rear-end collisions so often tied to whiplash and soft-tissue injuries, and how does the Clampitt rear-end presumption strengthen a Florida claim?",
+      "ngram_ref": "bank-3"
+    },
+    {
+      "n": 4,
+      "question_text": "What makes head-on collisions the most dangerous type of car accident and why do they produce catastrophic-injury claims under Florida law?",
+      "ngram_ref": "bank-4"
+    },
+    {
+      "n": 5,
+      "question_text": "How do T-bone and side-impact crashes happen at Florida intersections and what injuries do they typically cause?",
+      "ngram_ref": "bank-5"
+    },
+    {
+      "n": 6,
+      "question_text": "Why do rollover accidents produce some of the most severe spinal and crush injuries and who can be held liable in Florida?",
+      "ngram_ref": "bank-6"
+    },
+    {
+      "n": 7,
+      "question_text": "What legal options do Florida victims have after a multi-vehicle pileup on I-95 or the Florida Turnpike and how are injuries evaluated in chain-reaction crashes?",
+      "ngram_ref": "bank-7"
+    },
+    {
+      "n": 8,
+      "question_text": "How does a hit-and-run accident change both the claims process and a Florida victim's ability to recover for injuries?",
+      "ngram_ref": "bank-8"
+    },
+    {
+      "n": 9,
+      "question_text": "What is whiplash really, and why do Florida insurance companies treat it so differently than other car accident injuries under the MIST defense?",
+      "ngram_ref": "bank-9"
+    },
+    {
+      "n": 10,
+      "question_text": "What are the signs of a traumatic brain injury after a Florida car accident and how do they affect the value of a claim?",
+      "ngram_ref": "bank-10"
+    },
+    {
+      "n": 11,
+      "question_text": "What kinds of spinal cord injuries happen in Florida car accidents and how does paralysis change the compensation picture?",
+      "ngram_ref": "bank-11"
+    },
+    {
+      "n": 12,
+      "question_text": "How do broken bones and fractures factor into the value of a Florida personal injury case under the \u00a7627.737 tort threshold?",
+      "ngram_ref": "bank-12"
+    },
+    {
+      "n": 13,
+      "question_text": "How do internal organ injuries from a Florida car accident affect a compensation claim and why are they harder to prove?",
+      "ngram_ref": "bank-13"
+    },
+    {
+      "n": 14,
+      "question_text": "How do pre-existing conditions affect a Florida car accident injury claim and how does the eggshell plaintiff doctrine protect the claimant?",
+      "ngram_ref": "bank-14"
+    },
+    {
+      "n": 15,
+      "question_text": "When does a Florida car accident injury cross the \u00a7627.737 serious injury threshold to unlock pain and suffering damages?",
+      "ngram_ref": "bank-15"
+    },
+    {
+      "n": 16,
+      "question_text": "How are non-economic damages calculated for pain and suffering after a Florida car accident, and how do the multiplier and per diem methods compare?",
+      "ngram_ref": "bank-16"
+    },
+    {
+      "n": 17,
+      "question_text": "How does a permanent injury or disfigurement change the strategy for valuing a Florida settlement, and how do hedonic damages factor in?",
+      "ngram_ref": "bank-17"
+    },
+    {
+      "n": 18,
+      "question_text": "What types of damages can a Florida claimant recover after a serious car accident injury beyond just medical bills?",
+      "ngram_ref": "bank-18"
+    },
+    {
+      "n": 19,
+      "question_text": "How do medical records, continuity of treatment, and reaching Maximum Medical Improvement drive the value of a Florida car accident claim?",
+      "ngram_ref": "bank-19"
+    },
+    {
+      "n": 20,
+      "question_text": "How do Florida insurance companies actually evaluate and value different injury types when deciding what to offer?",
+      "ngram_ref": "bank-20"
+    },
+    {
+      "n": 21,
+      "question_text": "How are lost wages and lost earning capacity calculated when a Florida injury prevents someone from working?",
+      "ngram_ref": "bank-21"
+    },
+    {
+      "n": 22,
+      "question_text": "How do PTSD, mental anguish, and emotional distress from a Florida car accident affect what someone can recover under \u00a7627.737?",
+      "ngram_ref": "bank-22"
+    },
+    {
+      "n": 23,
+      "question_text": "How do burn injuries and permanent disfigurement from a Florida car accident change the value of a case under the tort threshold and \u00a7768.72?",
+      "ngram_ref": "bank-23"
+    },
+    {
+      "n": 24,
+      "question_text": "How does Florida's modified comparative negligence rule under \u00a7768.81 after HB 837 affect what an injured Florida driver can actually recover?",
+      "ngram_ref": "bank-24"
+    },
+    {
+      "n": 25,
+      "question_text": "What role do medical experts and a life care plan play in proving both the cause and the value of a serious Florida injury?",
+      "ngram_ref": "bank-25"
+    },
+    {
+      "n": 26,
+      "question_text": "How does Florida's PIP layer interact with serious injury claims that exceed the $10,000 cap, and what triggers the EMC designation?",
+      "ngram_ref": "bank-26"
+    },
+    {
+      "n": 27,
+      "question_text": "When does a Florida injury case move from negotiation through demand to litigation, and how do the multiplier and per diem methods anchor the demand value?",
+      "ngram_ref": "bank-27"
+    },
+    {
+      "n": 28,
+      "question_text": "What is the statute of limitations for a Florida car accident injury or wrongful death lawsuit today, and how did HB 837 change it?",
+      "ngram_ref": "bank-28"
+    },
+    {
+      "n": 29,
+      "question_text": "What special considerations apply when a commercial truck causes a Florida injury crash, and why do those cases produce larger compensation?",
+      "ngram_ref": "bank-29"
+    },
+    {
+      "n": 30,
+      "question_text": "What happens when the at-fault driver is uninsured, underinsured, or flees the scene and the injury is catastrophic?",
+      "ngram_ref": "bank-30"
+    },
+    {
+      "n": 31,
+      "question_text": "How do punitive damages, loss of consortium, and wrongful death change the compensation picture in catastrophic Florida injury cases?",
+      "ngram_ref": "bank-31"
+    },
+    {
+      "n": 32,
+      "question_text": "What final piece of advice would a Florida personal injury attorney give someone who was just in a serious crash today?",
+      "ngram_ref": "bank-32"
+    }
+  ],
+  "placeholders_used": [
+    "{{PODCAST_NAME}}",
+    "{{ATTORNEY_NAME}}",
+    "{{ATTORNEY}}",
+    "{{INTERVIEWER}}",
+    "{{FIRM_NAME}}",
+    "{{PHONE_NUMBER}}",
+    "{{WEBSITE}}",
+    "{{YEARS_PRACTICING}}"
+  ],
+  "static": {
+    "welcome": "Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "welcome_first": "Welcome to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "outro_note": "Keep it short. Thank them and mean it, sign off, then the reach-out. Do not recap the episode."
+  },
+  "cover_page": {
+    "logo_drive_id": "1pAZESV-Roq_fh0-1n8xMcMCJvtOiWAN2",
+    "logo_width_pt": 180,
+    "title": "Run of Show",
+    "prepared_by": "Prepared by Case Engine"
+  },
+  "outro_close": {},
+  "outro": {
+    "thanks": "**{{ATTORNEY}}**, thank you for your time. That's a hard thing to explain without a whiteboard, and you did it in twenty minutes.",
+    "signoff": "That's where we will leave it. **{{PODCAST_NAME}}**. See you next episode.",
+    "reach": "And remember, if you're in Florida and need a lawyer, call **{{FIRM_NAME}}**. The number is **{{PHONE_NUMBER}}**, and the site is **{{WEBSITE}}**."
+  },
+  "metadata": {
+    "topic_plan_reconciled": "legacy-exempt",
+    "topic_plan_doc_id": "1P_1tAKXf6_I7EODRnkzDGVhUqPKBncdPKL127YlxgYs",
+    "attribute_source": "fallback",
+    "attribute_source_pulled": "2026-08-14",
+    "attribute_source_confidence": "Inferred",
+    "outro_line1_approach": "clarity",
+    "outro_line2_index": 1,
+    "outro_line3_slots": [
+      "And remember,",
+      4,
+      "call",
+      1
+    ]
+  }
+}

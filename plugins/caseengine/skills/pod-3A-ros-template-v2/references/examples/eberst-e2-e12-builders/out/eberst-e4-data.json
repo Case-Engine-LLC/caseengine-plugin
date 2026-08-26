@@ -1,0 +1,667 @@
+{
+  "schema_version": "2.0.0",
+  "episode_format": "v2-open-interview",
+  "topic": "car accidents",
+  "episode_title": "Police Reports and the Evidence That Wins Car Accident Lawsuits",
+  "episode_number_token": "E4",
+  "scope": "Location",
+  "location": "Stuart and Gainesville, Florida",
+  "city": "Stuart",
+  "region": "the Treasure Coast",
+  "state": "Florida",
+  "episode_goal": "Authority",
+  "duration": {
+    "segment_1_min_low": 15,
+    "segment_1_min_high": 30
+  },
+  "segment_1": {
+    "topic_phrase": "what a crash report actually proves and what evidence wins the case",
+    "setup": "I'm **{{INTERVIEWER}}**. Today we're getting into what actually proves a car accident case in Florida. We will start with the police report, and what you need to know if you're ever in a crash.",
+    "credential": "**{{ATTORNEY}}**, you've been in front of these judges and across the table from these adjusters for **{{YEARS_PRACTICING}}** years.",
+    "prompt": "Someone just got a copy of their crash report. Walk us through what actually matters in it. And if you've had one where the report got it wrong, tell us how you turned that around.",
+    "attributes": [
+      {
+        "name": "Cases you've tried",
+        "detail": "The ones you took to a jury instead of settling, and what changes once an adjuster expects that of you."
+      },
+      {
+        "name": "Reports you've broken",
+        "detail": "Not injury cases generally. Crashes where the report was wrong or thin, how many, and how recently."
+      },
+      {
+        "name": "Bar standing",
+        "detail": "Your license and disciplinary history. Anyone can look it up with the Bar, which is more than you can say for a review site."
+      },
+      {
+        "name": "How a report plays here",
+        "detail": "The county court, the judges, and which local defense firms fight a report and which accept it."
+      },
+      {
+        "name": "Reading the report",
+        "detail": "What you look for in a crash report that the person it happened to would read straight past."
+      },
+      {
+        "name": "Prying records loose",
+        "detail": "How you actually obtain body camera footage and a supplement, and how long each one really takes."
+      },
+      {
+        "name": "The short loop",
+        "detail": "What goes out in the first days, because the systems record over the old footage and nobody is holding it for you."
+      },
+      {
+        "name": "Your bench",
+        "detail": "Reconstructionists, treating physicians, and the people who chase an agency until the file arrives."
+      },
+      {
+        "name": "Both deadlines",
+        "detail": "The two-week medical window and the filing deadline, and then the fact that the video is usually gone long before either one."
+      },
+      {
+        "name": "Your fee, in full",
+        "detail": "The percentage, whether it rises if you file suit, who pays for records and footage requests, and what happens if you lose."
+      },
+      {
+        "name": "Who answers the phone",
+        "detail": "Whether the client is hiring you or an intake operation, and who chases the agency for the records."
+      },
+      {
+        "name": "What makes it harder",
+        "detail": "What a bad report actually does to a case, and when you tell a client plainly that theirs is a harder one."
+      }
+    ]
+  },
+  "segment_2": {
+    "locations": [
+      {
+        "location": "Stuart",
+        "questions": [
+          {
+            "q": "What should you do at the scene of a crash in Stuart to protect the report?",
+            "bullets": [
+              {
+                "label": "Get the officer out there",
+                "detail": "on I-95, Florida's Turnpike, US 1, Kanner Highway or the Roosevelt Bridge, the agency that responds changes with the road, and that agency's report is the one that counts."
+              },
+              {
+                "label": "Say what you know and nothing else",
+                "detail": "if you guess at a speed or a distance at the scene, that's the line they read back to you a year later."
+              },
+              {
+                "label": "Photograph before anything moves",
+                "detail": "the cars, the signals, the lane lines, the debris field, and the injuries."
+              },
+              {
+                "label": "Leave with the report number",
+                "detail": "it's the difference between a phone call and a month of chasing paperwork."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "Who writes the crash report in Stuart and across the Treasure Coast?",
+            "bullets": [
+              {
+                "label": "It depends on the road",
+                "detail": "Stuart Police inside the city, the Martin County Sheriff's Office in the county, and the Highway Patrol on I-95 and the Turnpike."
+              },
+              {
+                "label": "Why that matters to you",
+                "detail": "each one keeps its own records, has its own request process, and hands them over on its own timeline."
+              },
+              {
+                "label": "Body cameras follow the agency",
+                "detail": "whoever responded is holding that footage, and you request it from them and nobody else."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "How do you actually get a copy of your Florida crash report?",
+            "bullets": [
+              {
+                "label": "Start with the number",
+                "detail": "get the crash report number from the officer at the scene and the rest is paperwork."
+              },
+              {
+                "label": "Then the state portal",
+                "detail": "the full long form with the diagram comes from the state crash records portal."
+              },
+              {
+                "label": "If nobody came out",
+                "detail": "when no officer investigates, you've ten days to file the report yourself, and if you miss that there's no record of the crash at all."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "Does the police report decide who was at fault in Florida?",
+            "bullets": [
+              {
+                "label": "It's an opinion, not a ruling",
+                "detail": "the officer arrived after it happened and wrote down what they were told."
+              },
+              {
+                "label": "It usually doesn't reach a jury",
+                "detail": "the report itself is generally kept out at trial, so the case gets rebuilt from the underlying proof."
+              },
+              {
+                "label": "It still sets the tone",
+                "detail": "the adjuster reads it first and puts a number on your claim long before anyone files a lawsuit."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "What video exists after a crash in Stuart, and how long do you've to get it?",
+            "bullets": [
+              {
+                "label": "The cameras are private",
+                "detail": "storefronts, gas stations and banks along US 1 and Kanner Highway, plus the cameras near the Roosevelt Bridge."
+              },
+              {
+                "label": "The clock is short",
+                "detail": "most of it runs on a thirty to sixty day loop and then it's simply gone."
+              },
+              {
+                "label": "Ask in writing, right away",
+                "detail": "a written request to preserve the video is the difference between maybe having it and actually having it."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "What do you do when the crash report gets the facts wrong?",
+            "bullets": [
+              {
+                "label": "You don't edit it",
+                "detail": "once the officer files that report it's a permanent record, and it stays exactly as written."
+              },
+              {
+                "label": "You go around it",
+                "detail": "you can ask the officer to add a supplement, and you make that request to the agency that wrote the report."
+              },
+              {
+                "label": "Then you bury it",
+                "detail": "photographs, video, and an independent witness carry a lot more weight than one line in an officer's narrative."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "Which witnesses matter most, and how fast do they disappear?",
+            "bullets": [
+              {
+                "label": "Get the name and the number",
+                "detail": "a phone number written down that day is worth more than any statement taken later."
+              },
+              {
+                "label": "Some of them are already leaving",
+                "detail": "the tourists are out of state by the next day, and the seasonal residents are gone the minute the season ends."
+              },
+              {
+                "label": "The findable ones",
+                "detail": "anyone on the clock nearby, because their employer knows exactly who was working."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "What medical records actually prove an injury after a crash in Stuart?",
+            "bullets": [
+              {
+                "label": "Where you were taken",
+                "detail": "Cleveland Clinic Martin North runs the emergency room here, and the most serious injuries get transferred out of the county, which means a second hospital and a second set of records."
+              },
+              {
+                "label": "The first visit sets the baseline",
+                "detail": "what you reported on day one is what everything afterward gets measured against."
+              },
+              {
+                "label": "Gaps get used against you",
+                "detail": "stop treating for a month and the insurance company will argue you had already healed up."
+              },
+              {
+                "label": "It ends up in front of that court",
+                "detail": "this is what a jury eventually sees, because the file that goes to the Martin County courthouse is built out of these records."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "What evidence do you lose by waiting?",
+            "bullets": [
+              {
+                "label": "Video first",
+                "detail": "most systems record over the old footage on a loop measured in weeks, not months."
+              },
+              {
+                "label": "The vehicles",
+                "detail": "both cars get repaired or scrapped, and the damage pattern is half the story."
+              },
+              {
+                "label": "The road itself",
+                "detail": "skid marks, debris, and the sign that got knocked down are all gone after the next rain or the next work crew."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "What single piece of evidence wins the most car accident cases in Florida?",
+            "bullets": [
+              {
+                "label": "Video, when it exists",
+                "detail": "it ends the argument about what happened faster than anything else in the file."
+              },
+              {
+                "label": "Treatment records, when there's no video",
+                "detail": "an unbroken run of care from the first visit forward is what proves the injury is real."
+              },
+              {
+                "label": "The local piece",
+                "detail": "on a road like I-95 or the Turnpike the highway patrol works the scene, and their file is the deepest one in the case."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      },
+      {
+        "location": "Gainesville",
+        "questions": [
+          {
+            "q": "What should you do at the scene of a crash in Gainesville to protect the report?",
+            "bullets": [
+              {
+                "label": "Get the officer out there",
+                "detail": "on I-75, Archer Road, University Avenue or 13th Street, the agency that responds changes with the road, and that agency's report is the one that counts."
+              },
+              {
+                "label": "Say what you know and nothing else",
+                "detail": "if you guess at a speed or a distance at the scene, that's the line they read back to you a year later."
+              },
+              {
+                "label": "Photograph before anything moves",
+                "detail": "the cars, the signals, the lane lines, the debris field, and the injuries."
+              },
+              {
+                "label": "Leave with the report number",
+                "detail": "it's the difference between a phone call and a month of chasing paperwork."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "Who writes the crash report in Gainesville and across North Central Florida?",
+            "bullets": [
+              {
+                "label": "It depends on the road",
+                "detail": "Gainesville Police in the city, the Alachua County Sheriff's Office in the county, University of Florida Police on campus, and the Highway Patrol on I-75."
+              },
+              {
+                "label": "Why that matters to you",
+                "detail": "each one keeps its own records, has its own request process, and hands them over on its own timeline."
+              },
+              {
+                "label": "Body cameras follow the agency",
+                "detail": "whoever responded is holding that footage, and you request it from them and nobody else."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "How do you actually get a copy of your Florida crash report?",
+            "bullets": [
+              {
+                "label": "Start with the number",
+                "detail": "get the crash report number from the officer at the scene and the rest is paperwork."
+              },
+              {
+                "label": "Then the state portal",
+                "detail": "the full long form with the diagram comes from the state crash records portal."
+              },
+              {
+                "label": "If nobody came out",
+                "detail": "when no officer investigates, you've ten days to file the report yourself, and on campus that goes to the university police."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "Does the police report decide who was at fault in Florida?",
+            "bullets": [
+              {
+                "label": "It's an opinion, not a ruling",
+                "detail": "the officer arrived after it happened and wrote down what they were told."
+              },
+              {
+                "label": "It usually doesn't reach a jury",
+                "detail": "the report itself is generally kept out at trial, so the case gets rebuilt from the underlying proof."
+              },
+              {
+                "label": "It still sets the tone",
+                "detail": "the adjuster reads it first and puts a number on your claim long before anyone files a lawsuit."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "What video exists after a crash in Gainesville, and how long do you've to get it?",
+            "bullets": [
+              {
+                "label": "The cameras are private",
+                "detail": "businesses along Archer Road and University Avenue, the student housing complexes, and the university's own cameras, which have their own request process."
+              },
+              {
+                "label": "The clock is short",
+                "detail": "most of it runs on a thirty to sixty day loop and then it's simply gone."
+              },
+              {
+                "label": "Ask in writing, right away",
+                "detail": "a written request to preserve the video is the difference between maybe having it and actually having it."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "What do you do when the crash report gets the facts wrong?",
+            "bullets": [
+              {
+                "label": "You don't edit it",
+                "detail": "once the officer files that report it's a permanent record, and it stays exactly as written."
+              },
+              {
+                "label": "You go around it",
+                "detail": "you can ask the officer to add a supplement, and with four agencies writing reports in this town, the first job is finding out which one wrote yours."
+              },
+              {
+                "label": "Then you bury it",
+                "detail": "photographs, video, and an independent witness carry a lot more weight than one line in an officer's narrative."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "Which witnesses matter most, and how fast do they disappear?",
+            "bullets": [
+              {
+                "label": "Get the name and the number",
+                "detail": "a phone number written down that day is worth more than any statement taken later."
+              },
+              {
+                "label": "Some of them are already leaving",
+                "detail": "the students are gone at the end of the semester, and a game day crowd is out of town by that night."
+              },
+              {
+                "label": "The findable ones",
+                "detail": "anyone on the clock nearby, because their employer knows exactly who was working."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "What medical records actually prove an injury after a crash in Gainesville?",
+            "bullets": [
+              {
+                "label": "Where you were taken",
+                "detail": "UF Health Shands is the trauma center here and North Florida Regional is on Archer Road, so the serious cases stay in town and the records stay in one place."
+              },
+              {
+                "label": "The first visit sets the baseline",
+                "detail": "what you reported on day one is what everything afterward gets measured against."
+              },
+              {
+                "label": "Gaps get used against you",
+                "detail": "stop treating for a month and the insurance company will argue you had already healed up."
+              },
+              {
+                "label": "It ends up in front of that court",
+                "detail": "this is what a jury eventually sees, because the file that goes to the Alachua County courthouse is built out of these records."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "What evidence do you lose by waiting?",
+            "bullets": [
+              {
+                "label": "Video first",
+                "detail": "most systems record over the old footage on a loop measured in weeks, not months."
+              },
+              {
+                "label": "The vehicles",
+                "detail": "both cars get repaired or scrapped, and the damage pattern is half the story."
+              },
+              {
+                "label": "The road itself",
+                "detail": "skid marks, debris, and the sign that got knocked down are all gone after the next rain or the next work crew."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "What single piece of evidence wins the most car accident cases in Florida?",
+            "bullets": [
+              {
+                "label": "Video, when it exists",
+                "detail": "it ends the argument about what happened faster than anything else in the file."
+              },
+              {
+                "label": "Treatment records, when there's no video",
+                "detail": "an unbroken run of care from the first visit forward is what proves the injury is real."
+              },
+              {
+                "label": "The local piece",
+                "detail": "a bus rider is one of the easiest witnesses to track down, because the route, the time and the bus number are all written down."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E4-legacy-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      }
+    ]
+  },
+  "appendix_question_bank": [
+    {
+      "n": 1,
+      "question_text": "To start, why is the Florida Traffic Crash Report often the most important document in a car accident case, and which agency you call depends on the road?",
+      "ngram_ref": "bank-1"
+    },
+    {
+      "n": 2,
+      "question_text": "What information is included in a Florida Traffic Crash Report and which fields actually move an injury claim?",
+      "ngram_ref": "bank-2"
+    },
+    {
+      "n": 3,
+      "question_text": "What is Florida's accident report privilege and why does the \u00a7316.066 inadmissibility of the Florida Traffic Crash Report itself surprise so many claimants?",
+      "ngram_ref": "bank-3"
+    },
+    {
+      "n": 4,
+      "question_text": "Can an officer's opinion about who was at fault influence a Florida car accident lawsuit, especially when modified comparative negligence under \u00a7768.81 and HB 837 hangs on a single percentage point?",
+      "ngram_ref": "bank-4"
+    },
+    {
+      "n": 5,
+      "question_text": "How important are scene photographs when building a compensation case, and how does Florida Evidence Code \u00a790.901 authentication apply on bridge or interstate crashes?",
+      "ngram_ref": "bank-5"
+    },
+    {
+      "n": 6,
+      "question_text": "How can dashcam, surveillance, and body camera footage impact an accident claim, and what authentication and preservation rules apply?",
+      "ngram_ref": "bank-6"
+    },
+    {
+      "n": 7,
+      "question_text": "How do attorneys use expert witnesses to strengthen accident compensation cases, and how does Florida Evidence Code \u00a790.702 govern admissibility under Daubert?",
+      "ngram_ref": "bank-7"
+    },
+    {
+      "n": 8,
+      "question_text": "Accident reconstruction is often mentioned in serious cases - how does it help prove what really happened in a bridge approach crash or an interstate multi-vehicle pileup?",
+      "ngram_ref": "bank-8"
+    },
+    {
+      "n": 9,
+      "question_text": "Why do witness statements often play a decisive role in proving liability, especially when the Florida crash report is privileged under \u00a7316.066 and the witness pool is transient?",
+      "ngram_ref": "bank-9"
+    },
+    {
+      "n": 10,
+      "question_text": "What role do medical bills and treatment records play in determining compensation amounts, and how does Letters of Protection admissibility post-HB 837 factor in?",
+      "ngram_ref": "bank-10"
+    },
+    {
+      "n": 11,
+      "question_text": "What role do medical records play in proving injuries after a crash, and how do PIP timing under \u00a7627.736 and the Florida bodily injury causation standard interact?",
+      "ngram_ref": "bank-11"
+    },
+    {
+      "n": 12,
+      "question_text": "Why do some injury cases settle quickly when strong evidence is available, and how does the \u00a7768.79 Proposal for Settlement accelerate resolution against Florida insurers?",
+      "ngram_ref": "bank-12"
+    },
+    {
+      "n": 13,
+      "question_text": "How does evidence drive comparative-fault allocation under \u00a7768.81 modified comparative negligence after HB 837, particularly on an ambiguous merge or a multi-vehicle pileup?",
+      "ngram_ref": "bank-13"
+    },
+    {
+      "n": 14,
+      "question_text": "Can a weak Florida Traffic Crash Report be overcome with stronger independent evidence in an injury case, especially when comparative fault is contested under \u00a7768.81?",
+      "ngram_ref": "bank-14"
+    },
+    {
+      "n": 15,
+      "question_text": "How does spoliation of evidence under Florida Rules of Civil Procedure 1.380 support sanctions and an adverse-inference instruction?",
+      "ngram_ref": "bank-15"
+    },
+    {
+      "n": 16,
+      "question_text": "How does the sovereign-immunity written presentment requirement under \u00a7768.28 apply when a government vehicle is involved?",
+      "ngram_ref": "bank-16"
+    },
+    {
+      "n": 17,
+      "question_text": "How does uninsured motorist coverage under \u00a7627.727 depend on the crash report in a hit-and-run claim?",
+      "ngram_ref": "bank-17"
+    },
+    {
+      "n": 18,
+      "question_text": "What is the Florida Department of Financial Services mediation program and when does it help resolve a claim?",
+      "ngram_ref": "bank-18"
+    },
+    {
+      "n": 19,
+      "question_text": "How does statutory bad faith under \u00a7624.155 change an insurer's posture once the evidence is assembled?",
+      "ngram_ref": "bank-19"
+    },
+    {
+      "n": 20,
+      "question_text": "Finally, what are the most powerful pieces of evidence that tend to win car accident lawsuits, and how does HB 837's two-year SOL under \u00a795.11 force fast collection?",
+      "ngram_ref": "bank-20"
+    }
+  ],
+  "placeholders_used": [
+    "{{PODCAST_NAME}}",
+    "{{ATTORNEY_NAME}}",
+    "{{ATTORNEY}}",
+    "{{INTERVIEWER}}",
+    "{{FIRM_NAME}}",
+    "{{PHONE_NUMBER}}",
+    "{{WEBSITE}}",
+    "{{YEARS_PRACTICING}}"
+  ],
+  "static": {
+    "welcome": "Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "welcome_first": "Welcome to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "outro_note": "Keep it short. Thank them and mean it, sign off, then the reach-out. Do not recap the episode."
+  },
+  "cover_page": {
+    "logo_drive_id": "1pAZESV-Roq_fh0-1n8xMcMCJvtOiWAN2",
+    "logo_width_pt": 180,
+    "title": "Run of Show",
+    "prepared_by": "Prepared by Case Engine"
+  },
+  "outro_close": {},
+  "outro": {
+    "thanks": "**{{ATTORNEY}}**, thanks for walking through all of that. You can tell you've read a lot of these.",
+    "signoff": "That's the episode. **{{PODCAST_NAME}}**. We will see you on the next one.",
+    "reach": "And before you go, if you're anywhere in Florida and need help with this, get in touch with **{{FIRM_NAME}}**. The number is **{{PHONE_NUMBER}}**, and the site is **{{WEBSITE}}**."
+  },
+  "metadata": {
+    "topic_plan_reconciled": "legacy-exempt",
+    "topic_plan_doc_id": "1P_1tAKXf6_I7EODRnkzDGVhUqPKBncdPKL127YlxgYs",
+    "attribute_source": "fallback",
+    "attribute_source_pulled": "2026-08-14",
+    "attribute_source_confidence": "Inferred",
+    "outro_line1_approach": "reps",
+    "outro_line2_index": 2,
+    "outro_line3_slots": [
+      "And before you go,",
+      1,
+      "get in touch with",
+      1
+    ]
+  }
+}

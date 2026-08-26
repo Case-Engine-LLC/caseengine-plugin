@@ -1,0 +1,686 @@
+{
+  "schema_version": "2.0.0",
+  "episode_format": "v2-open-interview",
+  "topic": "truck accidents",
+  "episode_title": "Wrongful Death from a Truck Crash",
+  "episode_number_token": "E5",
+  "scope": "Location",
+  "location": "Stuart and Gainesville, Florida",
+  "city": "Stuart",
+  "region": "the Treasure Coast",
+  "state": "Florida",
+  "episode_goal": "Authority",
+  "duration": {
+    "segment_1_min_low": 15,
+    "segment_1_min_high": 30
+  },
+  "segment_1": {
+    "topic_phrase": "what a family is actually facing after a fatal truck crash",
+    "setup": "I'm **{{INTERVIEWER}}**, and today we're talking about something no family in Florida ever plans for, losing someone in a crash with a truck, and how much of what happens next is settled in the first week.",
+    "credential": "**{{ATTORNEY}}**, your firm has the investigators and the specialists lined up before most families have even figured out who to call.",
+    "prompt": "A family is deciding whether to call anyone at all. Tell us what they should be asking. And if you've one where calling early changed how it ended, take us through it.",
+    "attributes": [
+      {
+        "name": "Death cases tried",
+        "detail": "Fatal cases you actually took to a jury, and what that changes when the trucking company's insurer decides how seriously to take you."
+      },
+      {
+        "name": "Fatal truck crashes",
+        "detail": "Not injury cases generally. Deaths caused by commercial vehicles, how many, and how recently."
+      },
+      {
+        "name": "License and record",
+        "detail": "Your license and disciplinary history, which a family can verify themselves in about a minute."
+      },
+      {
+        "name": "This court, this jury",
+        "detail": "The county court, the probate side of it, and how a local jury hears a death case."
+      },
+      {
+        "name": "Moving in the first week",
+        "detail": "What you get done in the days while the carrier's own people are still working the scene."
+      },
+      {
+        "name": "Reading truck data",
+        "detail": "The people who pull what the truck recorded and turn it into something a jury understands."
+      },
+      {
+        "name": "The preservation letter",
+        "detail": "What goes out immediately to stop the truck data and the driver file from cycling out."
+      },
+      {
+        "name": "Finding every policy",
+        "detail": "How you find every policy stacked behind a commercial truck, not just the one the company hands over first."
+      },
+      {
+        "name": "Carrying it for the family",
+        "detail": "What you take off the family's plate so nobody is making legal decisions in the worst week of their life."
+      },
+      {
+        "name": "The deadline that ends it",
+        "detail": "Say the filing deadline out loud as an actual number of years, and give the much shorter one if a government vehicle was involved."
+      },
+      {
+        "name": "How you get paid",
+        "detail": "The percentage, whether it rises if you file suit, who funds an investigation this size, and what happens if you lose."
+      },
+      {
+        "name": "What could go wrong",
+        "detail": "What would make this case difficult, including when the person who died was partly at fault."
+      }
+    ]
+  },
+  "segment_2": {
+    "locations": [
+      {
+        "location": "Stuart",
+        "questions": [
+          {
+            "q": "What makes a fatal truck crash different from any other fatal crash in Stuart?",
+            "bullets": [
+              {
+                "label": "The other side moves first",
+                "detail": "a carrier has people working the scene while the family is still being told what happened."
+              },
+              {
+                "label": "The roads it happens on",
+                "detail": "I-95 and the Turnpike both run straight through Martin County, so most of this freight is passing through and never stops here."
+              },
+              {
+                "label": "Where they're taken",
+                "detail": "there's no trauma center in Martin County, so anyone critically hurt goes to Fort Pierce, and the medical records end up split between two hospitals."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "Who's actually allowed to file a wrongful death claim in Florida?",
+            "bullets": [
+              {
+                "label": "One person files for everybody",
+                "detail": "the court appoints a representative for the estate, and that's the only person who can bring the case."
+              },
+              {
+                "label": "The family members are the ones who recover",
+                "detail": "a husband or wife, the children, and in some situations the parents, each with a claim of their own inside the one case."
+              },
+              {
+                "label": "It starts at the courthouse",
+                "detail": "the appointment is made through the Martin County clerk, and nothing else moves until it's done."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "What's the difference between a claim for the family and a claim for the estate?",
+            "bullets": [
+              {
+                "label": "They're two different losses",
+                "detail": "one is what the survivors lost going forward, the other is what the person themselves went through before they died."
+              },
+              {
+                "label": "They get proved differently",
+                "detail": "the family's loss is about support and companionship, the estate's is about the medical bills and the suffering in between."
+              },
+              {
+                "label": "They're filed together",
+                "detail": "the same case carries both, which is why nobody should sign anything before somebody has looked at the whole picture."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "Beyond the driver, who else can be held responsible for a fatal truck crash?",
+            "bullets": [
+              {
+                "label": "The company behind the driver",
+                "detail": "the carrier answers for the person it put on the road and for how it ran the route."
+              },
+              {
+                "label": "Whoever owned the truck",
+                "detail": "in Florida the owner of the vehicle is on the hook for what the driver did with it."
+              },
+              {
+                "label": "The rest of the chain",
+                "detail": "the broker who arranged the load and whoever strapped it down, because if the load shifted on the road that starts with them, not the driver."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "How do the federal rules for truck drivers strengthen a family's case?",
+            "bullets": [
+              {
+                "label": "There's a rulebook a car doesn't have",
+                "detail": "hours behind the wheel, rest, inspections, maintenance and who's allowed to drive at all."
+              },
+              {
+                "label": "There's less to argue about",
+                "detail": "when a written safety rule was broken, the fight is no longer about whether the driver was being careful that day."
+              },
+              {
+                "label": "It's all written down",
+                "detail": "logs, inspection records and hiring files exist for every one of those rules, and we can demand every one of them."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "Why does the evidence disappear so fast after a fatal truck crash near Stuart?",
+            "bullets": [
+              {
+                "label": "The truck is a witness",
+                "detail": "it records everything it was doing, and nobody is holding on to that record for you."
+              },
+              {
+                "label": "Everything else is on a clock",
+                "detail": "the truck gets repaired or sold, the load is delivered and gone, and the commercial vehicle inspection records at the I-95 weigh station only tell you so much later."
+              },
+              {
+                "label": "One letter changes that",
+                "detail": "a written demand to preserve the evidence, sent right away, is what keeps normal business from wiping it out."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "How does the trucking company end up responsible for what its driver did?",
+            "bullets": [
+              {
+                "label": "It'sn't a loophole",
+                "detail": "a company that puts a driver on the road answers for that driver on the job."
+              },
+              {
+                "label": "It also answers for itself",
+                "detail": "who it hired, what training it gave, and whether it pushed a schedule that couldn't be run legally."
+              },
+              {
+                "label": "Why it matters to the family",
+                "detail": "most of this freight is interstate and passing through, so the company behind it's rarely local and its coverage is far larger than the driver's."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "How do you prove a truck driver out on I-95 and the Turnpike was too tired to be driving?",
+            "bullets": [
+              {
+                "label": "The hours are logged",
+                "detail": "the truck keeps its own record of how long it had been running and when it last stopped."
+              },
+              {
+                "label": "The route itself tells you a lot",
+                "detail": "a long haul running the coast doesn't stop in Stuart, so the question is where it started and when."
+              },
+              {
+                "label": "The people who saw it",
+                "detail": "whoever was on the road and whoever responded, and memories fade fast, so you get to them early."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "What can a family actually recover after a fatal truck crash in Florida?",
+            "bullets": [
+              {
+                "label": "What they lost going forward",
+                "detail": "the income, the benefits and the day-to-day help that person provided."
+              },
+              {
+                "label": "What can't be replaced",
+                "detail": "the companionship a husband or wife loses, and for a child, a parent's guidance, and the law looks at that separately for every family member."
+              },
+              {
+                "label": "What the estate carries",
+                "detail": "the medical bills and the funeral, and because the critical cases leave the county, those bills arrive from more than one hospital."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "How is what the family lost actually calculated in Stuart?",
+            "bullets": [
+              {
+                "label": "Start with what they earned",
+                "detail": "what that job actually paid in the Treasure Coast market, not a national average."
+              },
+              {
+                "label": "Then what they did that nobody paid for",
+                "detail": "the driving, the childcare, the repairs around the house, and somebody has to be paid to do all of that now."
+              },
+              {
+                "label": "Then the years",
+                "detail": "how long they would have worked and how long the family would have had them."
+              },
+              {
+                "label": "It gets filed here",
+                "detail": "the case is heard at the Martin County courthouse, and a jury from this county is who all of this has to make sense to."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      },
+      {
+        "location": "Gainesville",
+        "questions": [
+          {
+            "q": "What makes a fatal truck crash different from any other fatal crash in Gainesville?",
+            "bullets": [
+              {
+                "label": "The other side moves first",
+                "detail": "a carrier has people working the scene while the family is still being told what happened."
+              },
+              {
+                "label": "The roads it happens on",
+                "detail": "I-75 carries the freight for this whole part of the state, and the fog out there has set off pileups involving a dozen vehicles at a time."
+              },
+              {
+                "label": "Where they're taken",
+                "detail": "UF Health Shands is the trauma center for the whole region, so the medical record stays in one place, and it's complete."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "Who's actually allowed to file a wrongful death claim in Florida?",
+            "bullets": [
+              {
+                "label": "One person files for everybody",
+                "detail": "the court appoints a representative for the estate, and that's the only person who can bring the case."
+              },
+              {
+                "label": "The family members are the ones who recover",
+                "detail": "a husband or wife, the children, and in some situations the parents, each with a claim of their own inside the one case."
+              },
+              {
+                "label": "It starts at the courthouse",
+                "detail": "the appointment is made through the Alachua County clerk, and nothing else moves until it's done."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "What's the difference between a claim for the family and a claim for the estate?",
+            "bullets": [
+              {
+                "label": "They're two different losses",
+                "detail": "one is what the survivors lost going forward, the other is what the person themselves went through before they died."
+              },
+              {
+                "label": "They get proved differently",
+                "detail": "the family's loss is about support and companionship, the estate's is about the medical bills and the suffering in between."
+              },
+              {
+                "label": "They're filed together",
+                "detail": "the same case carries both, which is why nobody should sign anything before somebody has looked at the whole picture."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "Beyond the driver, who else can be held responsible for a fatal truck crash?",
+            "bullets": [
+              {
+                "label": "The company behind the driver",
+                "detail": "the carrier answers for the person it put on the road and for how it ran the route."
+              },
+              {
+                "label": "Whoever owned the truck",
+                "detail": "in Florida the owner of the vehicle is on the hook for what the driver did with it."
+              },
+              {
+                "label": "The rest of the chain",
+                "detail": "the broker who arranged the load, whoever loaded it, and on a delivery van the contractor and the company whose name is on the side."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "How do the federal rules for truck drivers strengthen a family's case?",
+            "bullets": [
+              {
+                "label": "There's a rulebook a car doesn't have",
+                "detail": "hours behind the wheel, rest, inspections, maintenance and who's allowed to drive at all."
+              },
+              {
+                "label": "There's less to argue about",
+                "detail": "when a written safety rule was broken, the fight is no longer about whether the driver was being careful that day."
+              },
+              {
+                "label": "It's all written down",
+                "detail": "logs, inspection records and hiring files exist for every one of those rules, and we can demand every one of them."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "Why does the evidence disappear so fast after a fatal truck crash near Gainesville?",
+            "bullets": [
+              {
+                "label": "The truck is a witness",
+                "detail": "it records everything it was doing, and nobody is holding on to that record for you."
+              },
+              {
+                "label": "Everything else is on a clock",
+                "detail": "the truck is back in service within days, the delivery vans turn over constantly, and the inspection records on I-75 sit with the state rather than the carrier."
+              },
+              {
+                "label": "One letter changes that",
+                "detail": "a written demand to preserve the evidence, sent right away, is what keeps normal business from wiping it out."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "How does the trucking company end up responsible for what its driver did?",
+            "bullets": [
+              {
+                "label": "It'sn't a loophole",
+                "detail": "a company that puts a driver on the road answers for that driver on the job."
+              },
+              {
+                "label": "It also answers for itself",
+                "detail": "who it hired, what training it gave, and whether it pushed a schedule that couldn't be run legally."
+              },
+              {
+                "label": "Why it matters to the family",
+                "detail": "it may be a long haul carrier off I-75 or a delivery contractor working for a much bigger company, and finding the insurance looks completely different depending on which one it turns out to be."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "How do you prove a truck driver out on I-75 was too tired to be driving?",
+            "bullets": [
+              {
+                "label": "The hours are logged",
+                "detail": "the truck keeps its own record of how long it had been running and when it last stopped."
+              },
+              {
+                "label": "The route itself tells you a lot",
+                "detail": "I-75 is a through route, so a driver in Alachua County has usually been going for hours before they get here."
+              },
+              {
+                "label": "The people who saw it",
+                "detail": "whoever was on the road and whoever responded, and memories fade fast, so you get to them early."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "What can a family actually recover after a fatal truck crash in Florida?",
+            "bullets": [
+              {
+                "label": "What they lost going forward",
+                "detail": "the income, the benefits and the day-to-day help that person provided."
+              },
+              {
+                "label": "What can't be replaced",
+                "detail": "the companionship a husband or wife loses, and for a child, a parent's guidance, and the law looks at that separately for every family member."
+              },
+              {
+                "label": "What the estate carries",
+                "detail": "the medical bills and the funeral, and with the trauma center in town those bills come from one place and land quickly."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "How is what the family lost actually calculated in Gainesville?",
+            "bullets": [
+              {
+                "label": "Start with what they earned",
+                "detail": "what that job actually paid around here, where most of the work is the university and the hospitals."
+              },
+              {
+                "label": "Then what they did that nobody paid for",
+                "detail": "the driving, the childcare, the repairs around the house, and somebody has to be paid to do all of that now."
+              },
+              {
+                "label": "Then the years",
+                "detail": "how long they would have worked and how long the family would have had them."
+              },
+              {
+                "label": "It gets filed here",
+                "detail": "the case is heard at the Alachua County courthouse, and a jury from this county is who all of this has to make sense to."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-AT-WrongfulDeathTruck-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      }
+    ]
+  },
+  "appendix_question_bank": [
+    {
+      "n": 1,
+      "question_text": "What makes a wrongful death claim from a truck crash different from other fatal accidents?",
+      "ngram_ref": "bank-1"
+    },
+    {
+      "n": 2,
+      "question_text": "Who has the legal standing to file a wrongful death claim after a fatal truck crash?",
+      "ngram_ref": "bank-2"
+    },
+    {
+      "n": 3,
+      "question_text": "What is the difference between a wrongful death claim and a survival action?",
+      "ngram_ref": "bank-3"
+    },
+    {
+      "n": 4,
+      "question_text": "Who can be held liable for a fatal commercial truck crash?",
+      "ngram_ref": "bank-4"
+    },
+    {
+      "n": 5,
+      "question_text": "How do federal trucking regulations strengthen a wrongful death claim?",
+      "ngram_ref": "bank-5"
+    },
+    {
+      "n": 6,
+      "question_text": "Why must evidence in a fatal truck crash be preserved immediately?",
+      "ngram_ref": "bank-6"
+    },
+    {
+      "n": 7,
+      "question_text": "How does vicarious liability hold the trucking company responsible for a fatal crash?",
+      "ngram_ref": "bank-7"
+    },
+    {
+      "n": 8,
+      "question_text": "How is driver fatigue investigated in a fatal truck crash?",
+      "ngram_ref": "bank-8"
+    },
+    {
+      "n": 9,
+      "question_text": "What damages can a family recover in a truck accident wrongful death claim?",
+      "ngram_ref": "bank-9"
+    },
+    {
+      "n": 10,
+      "question_text": "How is loss of financial support calculated in a wrongful death case?",
+      "ngram_ref": "bank-10"
+    },
+    {
+      "n": 11,
+      "question_text": "How are non-economic losses like companionship and guidance valued?",
+      "ngram_ref": "bank-11"
+    },
+    {
+      "n": 12,
+      "question_text": "How does a trucking company's rapid-response team affect a fatal-crash investigation?",
+      "ngram_ref": "bank-12"
+    },
+    {
+      "n": 13,
+      "question_text": "How do the at-fault parties' commercial insurance policies affect a death claim?",
+      "ngram_ref": "bank-13"
+    },
+    {
+      "n": 14,
+      "question_text": "How does a freight broker or cargo loader share responsibility for a fatal crash?",
+      "ngram_ref": "bank-14"
+    },
+    {
+      "n": 15,
+      "question_text": "How is fault investigated and proven in a fatal truck crash?",
+      "ngram_ref": "bank-15"
+    },
+    {
+      "n": 16,
+      "question_text": "How does the timeline of a wrongful death truck case unfold?",
+      "ngram_ref": "bank-16"
+    },
+    {
+      "n": 17,
+      "question_text": "What role does the personal representative play in a wrongful death claim?",
+      "ngram_ref": "bank-17"
+    },
+    {
+      "n": 18,
+      "question_text": "How does the survival action recover the losses the victim suffered before death?",
+      "ngram_ref": "bank-18"
+    },
+    {
+      "n": 19,
+      "question_text": "How do criminal charges against a truck driver affect the civil death claim?",
+      "ngram_ref": "bank-19"
+    },
+    {
+      "n": 20,
+      "question_text": "How does an attorney coordinate a wrongful death truck case for the family?",
+      "ngram_ref": "bank-20"
+    },
+    {
+      "n": 21,
+      "question_text": "What common mistakes can weaken a truck accident wrongful death claim?",
+      "ngram_ref": "bank-21"
+    },
+    {
+      "n": 22,
+      "question_text": "When should a grieving family contact an attorney after a fatal truck crash?",
+      "ngram_ref": "bank-22"
+    },
+    {
+      "n": 23,
+      "question_text": "What is the single most important thing for a family to understand about a fatal truck claim?",
+      "ngram_ref": "bank-23"
+    },
+    {
+      "n": 24,
+      "question_text": "How does the deceased driver being partly at fault affect a wrongful death claim?",
+      "ngram_ref": "bank-24"
+    },
+    {
+      "n": 25,
+      "question_text": "How do hours-of-service and electronic logs prove fault in a fatal truck case?",
+      "ngram_ref": "bank-25"
+    }
+  ],
+  "placeholders_used": [
+    "{{PODCAST_NAME}}",
+    "{{ATTORNEY_NAME}}",
+    "{{ATTORNEY}}",
+    "{{INTERVIEWER}}",
+    "{{FIRM_NAME}}",
+    "{{PHONE_NUMBER}}",
+    "{{WEBSITE}}",
+    "{{YEARS_PRACTICING}}"
+  ],
+  "static": {
+    "welcome": "Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "welcome_first": "Welcome to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "outro_note": "Keep it short. Thank them and mean it, sign off, then the reach-out. Do not recap the episode."
+  },
+  "cover_page": {
+    "logo_drive_id": "1pAZESV-Roq_fh0-1n8xMcMCJvtOiWAN2",
+    "logo_width_pt": 180,
+    "title": "Run of Show",
+    "prepared_by": "Prepared by Case Engine"
+  },
+  "outro_close": {},
+  "outro": {
+    "thanks": "**{{ATTORNEY}}**, thank you for your time. Most families never hear any of this until they're living it. You just laid it out.",
+    "signoff": "We will leave it there. This is **{{PODCAST_NAME}}**, and we will see you next episode.",
+    "reach": "One more thing, if you're in Florida and need a lawyer, reach out to **{{FIRM_NAME}}** at **{{PHONE_NUMBER}}**, or find them at **{{WEBSITE}}**."
+  },
+  "metadata": {
+    "topic_plan_reconciled": true,
+    "topic_plan_doc_id": "1P_1tAKXf6_I7EODRnkzDGVhUqPKBncdPKL127YlxgYs",
+    "topic_plan_revision_id": "AIroW34FYjoDNe-pyO0zmcS3bcMOn0H73Q9-m2OO7TkOMdkCNXN_YAGDkb1Jlr9B8vTPL2VOBuKMHeoY85-DOkgVPQZv0OMwEA53iwt4JmQ",
+    "topic_plan_fetched_at": "2026-08-18T20:40:06Z",
+    "attribute_source": "fallback",
+    "attribute_source_pulled": "2026-08-14",
+    "attribute_source_confidence": "Inferred",
+    "outro_line1_approach": "topical",
+    "outro_line2_index": 3,
+    "outro_line3_slots": [
+      "One more thing,",
+      3,
+      "reach out to",
+      2
+    ]
+  }
+}

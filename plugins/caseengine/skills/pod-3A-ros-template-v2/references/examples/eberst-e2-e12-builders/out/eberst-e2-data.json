@@ -1,0 +1,684 @@
+{
+  "schema_version": "2.0.0",
+  "episode_format": "v2-open-interview",
+  "topic": "car accidents",
+  "episode_title": "How to File a Car Accident Claim and Common Mistakes to Avoid",
+  "episode_number_token": "E2",
+  "scope": "Location",
+  "location": "Stuart and Gainesville, Florida",
+  "city": "Stuart",
+  "region": "the Treasure Coast",
+  "state": "Florida",
+  "episode_goal": "Authority",
+  "duration": {
+    "segment_1_min_low": 15,
+    "segment_1_min_high": 30
+  },
+  "segment_1": {
+    "topic_phrase": "what to do after a car crash and the mistakes that sink a claim",
+    "setup": "I'm **{{INTERVIEWER}}**, and today we are talking about something a lot of people in Florida end up dealing with, usually with no warning, and what you actually need to know if it happens to you.",
+    "credential": "**{{ATTORNEY}}**, you have been handling these cases in Florida for **{{YEARS_PRACTICING}}** years.",
+    "prompt": "Someone was just in a wreck. Walk us through what they need to do. And if you have a real world example, please walk us through it.",
+    "attributes": [
+      {
+        "name": "Cases you actually tried",
+        "detail": "The ones you put in front of a jury instead of settling, and what an adjuster does differently once they know that about you."
+      },
+      {
+        "name": "Crashes like this one",
+        "detail": "Not injury cases generally. Wrecks like the one they just had, how many, and how recently."
+      },
+      {
+        "name": "Your record, and where to check it",
+        "detail": "Your license and your disciplinary history, which anybody can look up in about a minute and which say more than a star rating."
+      },
+      {
+        "name": "How the local courts run",
+        "detail": "The county court, the judges, and how the local defense firms actually handle a claim like this."
+      },
+      {
+        "name": "The first forty-eight hours",
+        "detail": "What you do immediately, before the car gets repaired and the video gets recorded over."
+      },
+      {
+        "name": "The mistakes that cost the most",
+        "detail": "The handful of things people do in the first week that quietly take money off the table."
+      },
+      {
+        "name": "The recorded statement",
+        "detail": "Why the other driver's insurer wants one so early, and what you tell people to do when that call comes."
+      },
+      {
+        "name": "Who else you bring in",
+        "detail": "The treating doctors, the reconstruction people, and the experts who put a figure on what somebody can no longer do."
+      },
+      {
+        "name": "Finding the coverage",
+        "detail": "How you track down every policy that could pay when the at-fault driver carries almost nothing."
+      },
+      {
+        "name": "Two clocks that matter",
+        "detail": "The fourteen-day medical window and the filing deadline, said as real numbers, and what each one costs if it passes."
+      },
+      {
+        "name": "What this costs the client",
+        "detail": "The percentage, whether it goes up if you file suit, who fronts the records and the experts, and what happens if you lose."
+      },
+      {
+        "name": "The part that's hard",
+        "detail": "What would make this particular case difficult, said out loud before anybody has to ask."
+      }
+    ]
+  },
+  "segment_2": {
+    "locations": [
+      {
+        "location": "Stuart",
+        "questions": [
+          {
+            "q": "What should you do at the scene of a car accident in Stuart?",
+            "bullets": [
+              {
+                "label": "Get out of the lanes",
+                "detail": "if the car moves, especially on I-95, Florida's Turnpike, US 1 or the Roosevelt Bridge, a second crash is the real danger."
+              },
+              {
+                "label": "Call it in",
+                "detail": "the Martin County Sheriff's Office, Stuart Police or the Highway Patrol needs to document it, and which one responds depends on the road."
+              },
+              {
+                "label": "Get the report started",
+                "detail": "ask the officer for the crash report before you leave."
+              },
+              {
+                "label": "Photograph everything",
+                "detail": "both cars, the road, the signage, the skid marks, and any injuries."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "How long do you have to see a doctor after a crash in Florida?",
+            "bullets": [
+              {
+                "label": "The window is short",
+                "detail": "two weeks from the crash, and it is the deadline that catches the most people out."
+              },
+              {
+                "label": "What happens if you miss it",
+                "detail": "the no-fault benefits on your own policy are gone, and they do not come back."
+              },
+              {
+                "label": "Where to go",
+                "detail": "the emergency room at Cleveland Clinic Martin North, or St. Lucie down in Port St. Lucie, both count."
+              },
+              {
+                "label": "Who gets caught",
+                "detail": "seasonal residents and tourists, who are out of state by the next day and gone for the season by the next month."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "Who responds to a car accident in Stuart and across the Treasure Coast?",
+            "bullets": [
+              {
+                "label": "It depends on the road",
+                "detail": "Stuart Police inside the city, the Martin County Sheriff's Office in the county, and the Highway Patrol on I-95 and the Turnpike."
+              },
+              {
+                "label": "Why it matters",
+                "detail": "the responding agency decides where the report lives and how fast you can get it."
+              },
+              {
+                "label": "Get the number",
+                "detail": "the report number at the scene saves weeks of chasing it later."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "Why does the insurance company want a recorded statement?",
+            "bullets": [
+              {
+                "label": "It is not for your benefit",
+                "detail": "the adjuster is building a record they can use to reduce or deny the claim."
+              },
+              {
+                "label": "What they are fishing for",
+                "detail": "an admission you were partly at fault, or that you felt fine at the scene."
+              },
+              {
+                "label": "You can say no",
+                "detail": "you are not required to give one to the other driver's insurer."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "What is a car accident claim actually worth in Stuart?",
+            "bullets": [
+              {
+                "label": "Give a real range",
+                "detail": "two or three you've handled out of Martin County and where they actually landed."
+              },
+              {
+                "label": "What sets it",
+                "detail": "how badly you were hurt, how long treatment runs, and what coverage exists to pay it."
+              },
+              {
+                "label": "Give a real range",
+                "detail": "two or three cases you have handled here and where they landed."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "attribute",
+            "topic_plan_ref": "E2-legacy-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "Does Florida still pay you if the crash was partly your fault?",
+            "bullets": [
+              {
+                "label": "Partly at fault is not disqualified",
+                "detail": "your share reduces what you recover, it does not erase it."
+              },
+              {
+                "label": "There is a cutoff",
+                "detail": "past a certain share of the blame you recover nothing, so the percentage is the whole fight."
+              },
+              {
+                "label": "Their first number is a position",
+                "detail": "the blame the adjuster assigns early is rarely where it ends up."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "What evidence disappears first after a crash?",
+            "bullets": [
+              {
+                "label": "Camera footage",
+                "detail": "traffic cameras on US 1 and Kanner Highway record over themselves, and the bridge cameras are on a short loop."
+              },
+              {
+                "label": "Witnesses",
+                "detail": "seasonal residents and tourists, who are out of state by the next day and gone for the season by the next month."
+              },
+              {
+                "label": "The vehicles",
+                "detail": "both cars get repaired or scrapped, and the damage is the story."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "What happens if the other driver has no insurance?",
+            "bullets": [
+              {
+                "label": "It is common here",
+                "detail": "this state does not require most drivers to carry injury coverage, and I-95 and the Turnpike bring in out-of-state drivers on top of that."
+              },
+              {
+                "label": "Check your own policy",
+                "detail": "uninsured motorist coverage on your own car is what pays in that situation."
+              },
+              {
+                "label": "Look for other policies",
+                "detail": "a household policy, a commercial policy, or an employer's can all come into play."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "How long do you have to file a car accident lawsuit in Stuart?",
+            "bullets": [
+              {
+                "label": "The clock is shorter than it used to be",
+                "detail": "the deadline was cut recently and a lot of people are working off the old number."
+              },
+              {
+                "label": "Suing a government vehicle is different",
+                "detail": "a crash with a city or county vehicle in Stuart carries its own much earlier notice deadline."
+              },
+              {
+                "label": "Miss it and it is over",
+                "detail": "the Martin County courthouse will not hear it, no matter how strong the case was."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "What is the most common mistake people make after a crash?",
+            "bullets": [
+              {
+                "label": "Waiting",
+                "detail": "the delay costs the medical deadline, the footage, and the witnesses all at once."
+              },
+              {
+                "label": "Talking too much",
+                "detail": "to the other insurer, and on social media, both of which get used later."
+              },
+              {
+                "label": "Taking the first offer",
+                "detail": "it lands before treatment is finished, which is before anyone knows the value."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      },
+      {
+        "location": "Gainesville",
+        "questions": [
+          {
+            "q": "What should you do at the scene of a car accident in Gainesville?",
+            "bullets": [
+              {
+                "label": "Get out of the lanes",
+                "detail": "if the car moves, especially on I-75, Archer Road, University Avenue or 13th Street, a second crash is the real danger."
+              },
+              {
+                "label": "Call it in",
+                "detail": "Gainesville Police, the Alachua County Sheriff's Office, University of Florida Police or the Highway Patrol needs to document it, and which one responds depends on the road."
+              },
+              {
+                "label": "Get the report started",
+                "detail": "ask the officer for the crash report before you leave."
+              },
+              {
+                "label": "Photograph everything",
+                "detail": "both cars, the road, the signage, the skid marks, and any injuries."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "How long do you have to see a doctor after a crash in Florida?",
+            "bullets": [
+              {
+                "label": "The window is short",
+                "detail": "two weeks from the crash, and it is the deadline that catches the most people out."
+              },
+              {
+                "label": "What happens if you miss it",
+                "detail": "the no-fault benefits on your own policy are gone, and they do not come back."
+              },
+              {
+                "label": "Where to go",
+                "detail": "UF Health Shands or North Florida Regional, and a campus clinic visit does not count on its own."
+              },
+              {
+                "label": "Who gets caught",
+                "detail": "students, who leave at the end of the semester and are frequently the witnesses on University Avenue and 13th Street."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "Who responds to a car accident in Gainesville and across North Central Florida?",
+            "bullets": [
+              {
+                "label": "It depends on the road",
+                "detail": "Gainesville Police in the city, the Alachua County Sheriff's Office in the county, University of Florida Police on campus, and the Highway Patrol on I-75."
+              },
+              {
+                "label": "Why it matters",
+                "detail": "the responding agency decides where the report lives and how fast you can get it."
+              },
+              {
+                "label": "Get the number",
+                "detail": "the report number at the scene saves weeks of chasing it later."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "Why does the insurance company want a recorded statement?",
+            "bullets": [
+              {
+                "label": "It is not for your benefit",
+                "detail": "the adjuster is building a record they can use to reduce or deny the claim."
+              },
+              {
+                "label": "What they are fishing for",
+                "detail": "an admission you were partly at fault, or that you felt fine at the scene."
+              },
+              {
+                "label": "You can say no",
+                "detail": "you are not required to give one to the other driver's insurer."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "What is a car accident claim actually worth in Gainesville?",
+            "bullets": [
+              {
+                "label": "Give a real range",
+                "detail": "two or three you've handled out of Alachua County and where they actually landed."
+              },
+              {
+                "label": "What sets it",
+                "detail": "how badly you were hurt, how long treatment runs, and what coverage exists to pay it."
+              },
+              {
+                "label": "Give a real range",
+                "detail": "two or three cases you have handled here and where they landed."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "attribute",
+            "topic_plan_ref": "E2-legacy-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "Does Florida still pay you if the crash was partly your fault?",
+            "bullets": [
+              {
+                "label": "Partly at fault is not disqualified",
+                "detail": "your share reduces what you recover, it does not erase it."
+              },
+              {
+                "label": "There is a cutoff",
+                "detail": "past a certain share of the blame you recover nothing, so the percentage is the whole fight."
+              },
+              {
+                "label": "Their first number is a position",
+                "detail": "the blame the adjuster assigns early is rarely where it ends up."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "What evidence disappears first after a crash?",
+            "bullets": [
+              {
+                "label": "Camera footage",
+                "detail": "campus and business cameras along Archer Road and University Avenue record over quickly, and UF has its own request process."
+              },
+              {
+                "label": "Witnesses",
+                "detail": "students, who leave at the end of the semester and are frequently the witnesses on University Avenue and 13th Street."
+              },
+              {
+                "label": "The vehicles",
+                "detail": "both cars get repaired or scrapped, and the damage is the story."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "What happens if the other driver has no insurance?",
+            "bullets": [
+              {
+                "label": "It is common here",
+                "detail": "this state does not require most drivers to carry injury coverage, and a student driver or a rideshare around campus often has the bare minimum."
+              },
+              {
+                "label": "Check your own policy",
+                "detail": "uninsured motorist coverage on your own car is what pays in that situation."
+              },
+              {
+                "label": "Look for other policies",
+                "detail": "a household policy, a commercial policy, or an employer's can all come into play."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "How long do you have to file a car accident lawsuit in Gainesville?",
+            "bullets": [
+              {
+                "label": "The clock is shorter than it used to be",
+                "detail": "the deadline was cut recently and a lot of people are working off the old number."
+              },
+              {
+                "label": "Suing a government vehicle is different",
+                "detail": "a crash with a city, county or University of Florida vehicle in Gainesville carries its own much earlier notice deadline."
+              },
+              {
+                "label": "Miss it and it is over",
+                "detail": "the Alachua County courthouse will not hear it, no matter how strong the case was."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "What is the most common mistake people make after a crash?",
+            "bullets": [
+              {
+                "label": "Waiting",
+                "detail": "the delay costs the medical deadline, the footage, and the witnesses all at once."
+              },
+              {
+                "label": "Talking too much",
+                "detail": "to the other insurer, and on social media, both of which get used later."
+              },
+              {
+                "label": "Taking the first offer",
+                "detail": "it lands before treatment is finished, which is before anyone knows the value."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "E2-legacy-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      }
+    ]
+  },
+  "appendix_question_bank": [
+    {
+      "n": 1,
+      "question_text": "What should someone do at the scene of a car accident to protect both their health and their claim?",
+      "ngram_ref": "bank-1"
+    },
+    {
+      "n": 2,
+      "question_text": "Why is the fourteen-day medical deadline the single most important deadline after a crash?",
+      "ngram_ref": "bank-2"
+    },
+    {
+      "n": 3,
+      "question_text": "What evidence beyond photos and medical records can make or break a car accident claim?",
+      "ngram_ref": "bank-3"
+    },
+    {
+      "n": 4,
+      "question_text": "How does the state's no-fault insurance system actually work for a driver here?",
+      "ngram_ref": "bank-4"
+    },
+    {
+      "n": 5,
+      "question_text": "How did the 2023 tort reform rewrite the rules for car accident claims?",
+      "ngram_ref": "bank-5"
+    },
+    {
+      "n": 6,
+      "question_text": "What types of damages can a claimant recover, and how did the reform affect them?",
+      "ngram_ref": "bank-6"
+    },
+    {
+      "n": 7,
+      "question_text": "Why is giving a recorded statement to the at-fault driver's insurer one of the most damaging mistakes?",
+      "ngram_ref": "bank-7"
+    },
+    {
+      "n": 8,
+      "question_text": "Why do many drivers assume partial fault disqualifies them from recovering, and why is that often wrong?",
+      "ngram_ref": "bank-8"
+    },
+    {
+      "n": 9,
+      "question_text": "What is the statute of limitations for a car accident lawsuit today, and what special deadlines apply to government vehicles?",
+      "ngram_ref": "bank-9"
+    },
+    {
+      "n": 10,
+      "question_text": "What special considerations apply when a commercial truck, rideshare, or uninsured driver caused a crash?",
+      "ngram_ref": "bank-10"
+    },
+    {
+      "n": 11,
+      "question_text": "How do insurance companies calculate what a claim is worth?",
+      "ngram_ref": "bank-11"
+    },
+    {
+      "n": 12,
+      "question_text": "What is the difference between economic and non-economic damages?",
+      "ngram_ref": "bank-12"
+    },
+    {
+      "n": 13,
+      "question_text": "How is pain and suffering valued in a car accident claim?",
+      "ngram_ref": "bank-13"
+    },
+    {
+      "n": 14,
+      "question_text": "Why does the first settlement offer almost always come in low?",
+      "ngram_ref": "bank-14"
+    },
+    {
+      "n": 15,
+      "question_text": "Can I recover lost wages and lost future earning capacity?",
+      "ngram_ref": "bank-15"
+    },
+    {
+      "n": 16,
+      "question_text": "How do pre-existing conditions affect settlement value?",
+      "ngram_ref": "bank-16"
+    },
+    {
+      "n": 17,
+      "question_text": "How long does it take to get a car accident settlement?",
+      "ngram_ref": "bank-17"
+    },
+    {
+      "n": 18,
+      "question_text": "Why does waiting until treatment is finished matter for the settlement?",
+      "ngram_ref": "bank-18"
+    },
+    {
+      "n": 19,
+      "question_text": "What happens to a settlement if a medical lien or health insurer paid the bills?",
+      "ngram_ref": "bank-19"
+    },
+    {
+      "n": 20,
+      "question_text": "How does a gap in treatment hurt the claim?",
+      "ngram_ref": "bank-20"
+    },
+    {
+      "n": 21,
+      "question_text": "What evidence raises the value of a car accident claim the most?",
+      "ngram_ref": "bank-21"
+    },
+    {
+      "n": 22,
+      "question_text": "What is the role of policy limits in capping a settlement?",
+      "ngram_ref": "bank-22"
+    },
+    {
+      "n": 23,
+      "question_text": "How can someone tell if a settlement offer is actually fair?",
+      "ngram_ref": "bank-23"
+    },
+    {
+      "n": 24,
+      "question_text": "What should someone do before accepting any settlement check?",
+      "ngram_ref": "bank-24"
+    },
+    {
+      "n": 25,
+      "question_text": "When should an injured driver contact an attorney?",
+      "ngram_ref": "bank-25"
+    }
+  ],
+  "placeholders_used": [
+    "{{PODCAST_NAME}}",
+    "{{ATTORNEY_NAME}}",
+    "{{ATTORNEY}}",
+    "{{INTERVIEWER}}",
+    "{{FIRM_NAME}}",
+    "{{PHONE_NUMBER}}",
+    "{{WEBSITE}}",
+    "{{YEARS_PRACTICING}}"
+  ],
+  "static": {
+    "welcome": "Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "welcome_first": "Welcome to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "outro_note": "Keep it short. Thank them and mean it, sign off, then the reach-out. Do not recap the episode."
+  },
+  "cover_page": {
+    "logo_drive_id": "1pAZESV-Roq_fh0-1n8xMcMCJvtOiWAN2",
+    "logo_width_pt": 180,
+    "title": "Run of Show",
+    "prepared_by": "Prepared by Case Engine"
+  },
+  "outro_close": {},
+  "outro": {
+    "thanks": "**{{ATTORNEY}}**, thank you for your time. Nobody actually explains what the first two weeks look like. You just did.",
+    "signoff": "That is it for this one. **{{PODCAST_NAME}}**. We will see you next episode.",
+    "reach": "And remember, if you are in Florida and need a lawyer, reach out to **{{FIRM_NAME}}** at **{{PHONE_NUMBER}}**, or online at **{{WEBSITE}}**."
+  },
+  "metadata": {
+    "topic_plan_reconciled": "legacy-exempt",
+    "topic_plan_doc_id": "1P_1tAKXf6_I7EODRnkzDGVhUqPKBncdPKL127YlxgYs",
+    "attribute_source": "fallback",
+    "outro_line1_approach": "topical",
+    "outro_line2_index": 0
+  }
+}

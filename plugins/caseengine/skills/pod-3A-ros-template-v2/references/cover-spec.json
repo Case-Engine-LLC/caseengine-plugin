@@ -1,0 +1,97 @@
+{
+  "$comment": "The CE deliverable cover page for a v2 ROS Template, as data. Read by steps/03-cover-page.md and by scripts/build-ros-template-v2-docx.py so the spec has exactly one home. Cross-check against the canonical Cover Page Spec in the Case Engine Branding folder; where they disagree on typeface, Roboto wins.",
+  "version": "2.1.0",
+  "canonical_spec": "https://docs.google.com/document/d/1oydpI055jbj1FYDGeZfHQeMNjaWKUCFVGCRveeuJJCk/edit",
+  "branding_folder": "1OulNcg6hZ6caFD0Xc-W50i7ougC_y0qo",
+  "colors": {
+    "CE_BLUE": {
+      "hex": "#3573FF",
+      "rgb": [
+        0.20784314,
+        0.4509804,
+        1.0
+      ]
+    },
+    "CE_DARK": {
+      "hex": "#0F172A",
+      "rgb": [
+        0.05882353,
+        0.09019608,
+        0.16470589
+      ]
+    },
+    "CE_GRAY": {
+      "hex": "#5B6676",
+      "rgb": [
+        0.39215687,
+        0.45490196,
+        0.54509807
+      ]
+    }
+  },
+  "font": "Roboto",
+  "alignment": "CENTER",
+  "blocks": [
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "logo",
+      "drive_id": "1pAZESV-Roq_fh0-1n8xMcMCJvtOiWAN2",
+      "width_pt": 180,
+      "note": "Inserted as a separate API call after the text batch. The most likely piece to silently not land - the QA gate checks for the inline object rather than assuming it."
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "text",
+      "content": "Run of Show",
+      "size_pt": 24,
+      "bold": true,
+      "color": "CE_BLUE"
+    },
+    {
+      "type": "text",
+      "content": "{episode_title}",
+      "size_pt": 18,
+      "bold": true,
+      "color": "CE_DARK"
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "text",
+      "content": "{{TOPIC}}  |  {{CITY}}",
+      "size_pt": 14,
+      "bold": false,
+      "color": "CE_DARK",
+      "bold_spans": [
+        "{{TOPIC}}",
+        "{{CITY}}"
+      ],
+      "note": "One line, two bold tokens, plain separator. Replaced the labelled `Topic:` / `Location:` pair on 2026-08-17."
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "type": "text",
+      "content": "Prepared by Case Engine",
+      "size_pt": 11,
+      "bold": false,
+      "color": "CE_DARK"
+    },
+    {
+      "type": "page_break"
+    }
+  ],
+  "gates": [
+    "The logo inline object is present at 180pt.",
+    "Title reads `Run of Show`, CE Blue, 24pt, bold.",
+    "Episode title, the topic/location line, and `Prepared by Case Engine` are all present and centered.",
+    "The cover is page 1 and S1 starts on page 2."
+  ],
+  "changed_2026-08-18": "Removed the {{RECORDING_DATE}} line from the cover. The token is retired from the taxonomy entirely; a ROS Template is generic and reusable, so a recording date never belonged on it."
+}

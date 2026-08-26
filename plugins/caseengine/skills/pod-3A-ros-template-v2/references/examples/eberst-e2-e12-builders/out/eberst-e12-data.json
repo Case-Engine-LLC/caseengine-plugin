@@ -1,0 +1,678 @@
+{
+  "schema_version": "2.0.0",
+  "episode_format": "v2-open-interview",
+  "topic": "motorcycle accidents",
+  "episode_title": "Lane-Splitting and Lane-Filtering Laws",
+  "episode_number_token": "E12",
+  "scope": "Location",
+  "location": "Stuart and Gainesville, Florida",
+  "city": "Stuart",
+  "region": "the Treasure Coast",
+  "state": "Florida",
+  "episode_goal": "Differentiation",
+  "duration": {
+    "segment_1_min_low": 15,
+    "segment_1_min_high": 30
+  },
+  "segment_1": {
+    "topic_phrase": "what riding between lanes actually does to a rider's claim",
+    "setup": "I'm **{{INTERVIEWER}}**, and today we're talking about something a lot of Florida riders never get told straight. What riding between lanes actually does to your claim, and what to do if you get hit doing it.",
+    "credential": "**{{ATTORNEY}}**, after **{{YEARS_PRACTICING}}** years you know these judges, and you know exactly how the other side plays a case with a motorcycle in it.",
+    "prompt": "There's one thing about this that almost nobody gets told straight. Set us straight on it. And if getting it wrong has cost somebody real money, tell us about that one.",
+    "attributes": [
+      {
+        "name": "Tried in front of a jury",
+        "detail": "Cases you took to a jury, and what changed once the jury had actually met your client."
+      },
+      {
+        "name": "Riders hit by cars",
+        "detail": "Not injury cases generally. Motorcycle riders struck by drivers, how many, and how recently."
+      },
+      {
+        "name": "Record you can check",
+        "detail": "Your license and your clean record with the Bar. That's checkable, and it's worth more than any badge on a website."
+      },
+      {
+        "name": "What a jury assumes here",
+        "detail": "The county court, the judges, and the view a local jury tends to walk in with about motorcycles."
+      },
+      {
+        "name": "Countering rider bias",
+        "detail": "How you take apart the assumption that the rider must have been doing something reckless."
+      },
+      {
+        "name": "Reading the damage",
+        "detail": "Reconstructionists and treating physicians, and what the damage on both vehicles says about who did what."
+      },
+      {
+        "name": "Before the bike is scrapped",
+        "detail": "What you go get in the first few days, because the bike gets scrapped and the security footage gets recorded over fast."
+      },
+      {
+        "name": "Every policy that could pay",
+        "detail": "How you find coverage that matters more to a rider than to anyone else on the road."
+      },
+      {
+        "name": "The helmet argument",
+        "detail": "How you handle it when there was no helmet, because the other side will lead with that."
+      },
+      {
+        "name": "The filing deadline",
+        "detail": "Say the actual number of years out loud, and say what happens the day after it runs out."
+      },
+      {
+        "name": "Fees and the examination",
+        "detail": "The percentage, whether it rises if you file suit, who pays to have the bike and the damage examined, and what happens if you lose."
+      },
+      {
+        "name": "When the rider's choice hurts",
+        "detail": "When something the rider did genuinely damages the case, give them the number rather than a promise."
+      }
+    ]
+  },
+  "segment_2": {
+    "locations": [
+      {
+        "location": "Stuart",
+        "questions": [
+          {
+            "q": "What's lane-splitting, and how is it different from filtering, on US 1 and Kanner Highway?",
+            "bullets": [
+              {
+                "label": "Splitting is through moving traffic",
+                "detail": "riding the line between two lanes of cars that are still going."
+              },
+              {
+                "label": "Filtering is at a standstill",
+                "detail": "moving up between stopped cars at a light, at walking pace."
+              },
+              {
+                "label": "Neither one is legal here",
+                "detail": "Florida bans both, and we get a lot of drivers and riders from out of state, so plenty of people are going off the rules from somewhere it's legal."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "If you were splitting lanes when you were hit in Stuart, is your case over?",
+            "bullets": [
+              {
+                "label": "No, and that's the important part",
+                "detail": "breaking a traffic rule puts a share of the blame on you. It doesn't end your claim."
+              },
+              {
+                "label": "There's a cutoff",
+                "detail": "past a certain share of the blame in Florida you recover nothing, so the size of that share is everything."
+              },
+              {
+                "label": "What it looks like locally",
+                "detail": "on I-95 and the Turnpike, where traffic backs up and the temptation to move between lanes is real, and where the speeds make the outcome severe."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "How do insurance companies use lane-splitting to blame the rider?",
+            "bullets": [
+              {
+                "label": "They lead with it",
+                "detail": "it's the first thing raised, often before anyone has established the rider was even doing it."
+              },
+              {
+                "label": "Assumption isn't evidence",
+                "detail": "an adjuster will assume a rider on US 1 was moving between lanes because it's a convenient story, not because anyone saw it."
+              },
+              {
+                "label": "Make them prove it",
+                "detail": "the position of the bike and the damage on both vehicles either support that story or they don't."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "What's rider bias, and how much does it actually cost people?",
+            "bullets": [
+              {
+                "label": "They decide before they read anything",
+                "detail": "the adjuster has already made up their mind about what kind of person rides a motorcycle before they open the file."
+              },
+              {
+                "label": "It shows up as a fault percentage",
+                "detail": "they assume the rider was speeding, they turn that assumption into a percentage, and they take it straight off what they pay."
+              },
+              {
+                "label": "You beat it with evidence, not argument",
+                "detail": "reconstruction, the road itself, and the driver's own record are what actually change their mind."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "How much does being seen matter to fault in Stuart and across the Treasure Coast?",
+            "bullets": [
+              {
+                "label": "It's the standard defense",
+                "detail": "the driver says they never saw the bike, like that settles it."
+              },
+              {
+                "label": "Not seeing isn't an excuse",
+                "detail": "you've a duty to look, so a driver who says they never saw the bike has just admitted they weren't looking."
+              },
+              {
+                "label": "Where it really is hard to see a bike",
+                "detail": "US 1 and Kanner Highway, where a rider sits low among larger vehicles and drivers are watching for gaps in traffic rather than for a bike."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "How does the left-turn crash happen to riders in Stuart?",
+            "bullets": [
+              {
+                "label": "It's the most common one",
+                "detail": "a car turns across the rider's path because the driver misjudged the speed or never registered the bike."
+              },
+              {
+                "label": "The rider has nowhere to go",
+                "detail": "there's no time to brake and no room to swerve once the car has committed."
+              },
+              {
+                "label": "Where it happens here",
+                "detail": "the left turns off US 1 into the businesses along it, where a driver is eyeballing a gap and just doesn't see the bike at all."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "How is fault decided when a car rear-ends a motorcycle?",
+            "bullets": [
+              {
+                "label": "The driver in back starts on defense",
+                "detail": "you're supposed to leave enough room to stop, so if you hit what's in front of you, you've some explaining to do."
+              },
+              {
+                "label": "They will still try",
+                "detail": "the usual line is that the rider stopped suddenly or was hard to see."
+              },
+              {
+                "label": "The damage tells the story",
+                "detail": "where the bike got hit and how far it went tell you most of what happened."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "What happens when a rider gets hit by an opening car door?",
+            "bullets": [
+              {
+                "label": "There's no avoiding it",
+                "detail": "a door opens into the lane and the rider is on it before anything can be done."
+              },
+              {
+                "label": "Whoever opens the door owns it",
+                "detail": "you look before you swing a door into traffic, and that goes for passengers too."
+              },
+              {
+                "label": "Where riders meet parked cars",
+                "detail": "the parking along the downtown streets off US 1, where riders pass parked cars closely by necessity."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "How does a distracted driver end up hitting a rider?",
+            "bullets": [
+              {
+                "label": "A bike is easy to miss",
+                "detail": "at a glance a motorcycle looks like a gap in traffic, especially to somebody looking at a phone."
+              },
+              {
+                "label": "It removes their defense",
+                "detail": "a driver who never looked can't claim the rider came out of nowhere."
+              },
+              {
+                "label": "And we can check",
+                "detail": "the phone records show exactly what that driver was doing in the seconds before the crash, and we can go get them."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "How does wearing a helmet, or not, affect a claim in Florida?",
+            "bullets": [
+              {
+                "label": "Adults have a choice here",
+                "detail": "Florida doesn't require a helmet if you're over twenty-one and you carry the medical coverage the law requires."
+              },
+              {
+                "label": "They will still raise it",
+                "detail": "on any head injury the other side will argue a helmet would have changed the outcome."
+              },
+              {
+                "label": "It can shrink the claim, not kill it",
+                "detail": "the argument goes to the size of the head injury claim, and here a serious one means a transfer out of the county and a longer record to build."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      },
+      {
+        "location": "Gainesville",
+        "questions": [
+          {
+            "q": "What's lane-splitting, and how is it different from filtering, on Archer Road and 13th Street?",
+            "bullets": [
+              {
+                "label": "Splitting is through moving traffic",
+                "detail": "riding the line between two lanes of cars that are still going."
+              },
+              {
+                "label": "Filtering is at a standstill",
+                "detail": "moving up between stopped cars at a light, at walking pace."
+              },
+              {
+                "label": "Neither one is legal here",
+                "detail": "Florida bans both, and a lot of students rode in another state before they moved here, so this one catches them off guard."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "If you were splitting lanes when you were hit in Gainesville, is your case over?",
+            "bullets": [
+              {
+                "label": "No, and that's the important part",
+                "detail": "breaking a traffic rule puts a share of the blame on you. It doesn't end your claim."
+              },
+              {
+                "label": "There's a cutoff",
+                "detail": "past a certain share of the blame in Florida you recover nothing, so the size of that share is everything."
+              },
+              {
+                "label": "What it looks like locally",
+                "detail": "on I-75 where traffic stacks up, and and around campus, where somebody on a scooter or a small bike moves up between cars and never realizes that counts as splitting."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "How do insurance companies use lane-splitting to blame the rider?",
+            "bullets": [
+              {
+                "label": "They lead with it",
+                "detail": "it's the first thing raised, often before anyone has established the rider was even doing it."
+              },
+              {
+                "label": "Assumption isn't evidence",
+                "detail": "an adjuster will assume a rider near campus was weaving through traffic, and it gets worse on a scooter or a smaller bike, because now they want to argue about what the rider was even riding."
+              },
+              {
+                "label": "Make them prove it",
+                "detail": "the position of the bike and the damage on both vehicles either support that story or they don't."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "What's rider bias, and how much does it actually cost people?",
+            "bullets": [
+              {
+                "label": "They decide before they read anything",
+                "detail": "the adjuster has already made up their mind about what kind of person rides a motorcycle before they open the file."
+              },
+              {
+                "label": "It shows up as a fault percentage",
+                "detail": "they assume the rider was speeding, they turn that assumption into a percentage, and they take it straight off what they pay."
+              },
+              {
+                "label": "You beat it with evidence, not argument",
+                "detail": "reconstruction, the road itself, and the driver's own record are what actually change their mind."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "How much does being seen matter to fault in Gainesville and across North Central Florida?",
+            "bullets": [
+              {
+                "label": "It's the standard defense",
+                "detail": "the driver says they never saw the bike, like that settles it."
+              },
+              {
+                "label": "Not seeing isn't an excuse",
+                "detail": "you've a duty to look, so a driver who says they never saw the bike has just admitted they weren't looking."
+              },
+              {
+                "label": "Where it really is hard to see a bike",
+                "detail": "Archer Road, University Avenue and 13th Street, where bikes, scooters, cars and people on foot all occupy the same intersection at once."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "How does the left-turn crash happen to riders in Gainesville?",
+            "bullets": [
+              {
+                "label": "It's the most common one",
+                "detail": "a car turns across the rider's path because the driver misjudged the speed or never registered the bike."
+              },
+              {
+                "label": "The rider has nowhere to go",
+                "detail": "there's no time to brake and no room to swerve once the car has committed."
+              },
+              {
+                "label": "Where it happens here",
+                "detail": "the campus intersections on Archer Road and 13th Street, where a driver turning across traffic is watching for cars and misses a bike entirely."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "How is fault decided when a car rear-ends a motorcycle?",
+            "bullets": [
+              {
+                "label": "The driver in back starts on defense",
+                "detail": "you're supposed to leave enough room to stop, so if you hit what's in front of you, you've some explaining to do."
+              },
+              {
+                "label": "They will still try",
+                "detail": "the usual line is that the rider stopped suddenly or was hard to see."
+              },
+              {
+                "label": "The damage tells the story",
+                "detail": "where the bike got hit and how far it went tell you most of what happened."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "What happens when a rider gets hit by an opening car door?",
+            "bullets": [
+              {
+                "label": "There's no avoiding it",
+                "detail": "a door opens into the lane and the rider is on it before anything can be done."
+              },
+              {
+                "label": "Whoever opens the door owns it",
+                "detail": "you look before you swing a door into traffic, and that goes for passengers too."
+              },
+              {
+                "label": "Where riders meet parked cars",
+                "detail": "the street parking around campus, where somebody swings a door open into the travel lane all the time."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "How does a distracted driver end up hitting a rider?",
+            "bullets": [
+              {
+                "label": "A bike is easy to miss",
+                "detail": "at a glance a motorcycle looks like a gap in traffic, especially to somebody looking at a phone."
+              },
+              {
+                "label": "It removes their defense",
+                "detail": "a driver who never looked can't claim the rider came out of nowhere."
+              },
+              {
+                "label": "And we can check",
+                "detail": "the phone records show exactly what that driver was doing in the seconds before the crash, and we can go get them."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "How does wearing a helmet, or not, affect a claim in Florida?",
+            "bullets": [
+              {
+                "label": "Adults have a choice here",
+                "detail": "Florida doesn't require a helmet if you're over twenty-one and you carry the medical coverage the law requires."
+              },
+              {
+                "label": "They will still raise it",
+                "detail": "on any head injury the other side will argue a helmet would have changed the outcome."
+              },
+              {
+                "label": "It can shrink the claim, not kill it",
+                "detail": "the argument goes to the size of the head injury claim, and here the trauma center is in town so the record of that injury is complete and immediate."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E12-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      }
+    ]
+  },
+  "appendix_question_bank": [
+    {
+      "n": 1,
+      "question_text": "What is lane-splitting and how is it different from lane-filtering?",
+      "ngram_ref": "bank-1"
+    },
+    {
+      "n": 2,
+      "question_text": "Is lane-splitting legal, and how does that affect a motorcycle accident claim?",
+      "ngram_ref": "bank-2"
+    },
+    {
+      "n": 3,
+      "question_text": "How do insurance companies use lane-splitting to blame the rider?",
+      "ngram_ref": "bank-3"
+    },
+    {
+      "n": 4,
+      "question_text": "What is motorcycle rider bias and how does it hurt injured riders?",
+      "ngram_ref": "bank-4"
+    },
+    {
+      "n": 5,
+      "question_text": "How does motorcycle visibility and conspicuity factor into fault?",
+      "ngram_ref": "bank-5"
+    },
+    {
+      "n": 6,
+      "question_text": "How does a left-turn collision typically happen in a motorcycle crash?",
+      "ngram_ref": "bank-6"
+    },
+    {
+      "n": 7,
+      "question_text": "How is fault decided when a car rear-ends a motorcycle?",
+      "ngram_ref": "bank-7"
+    },
+    {
+      "n": 8,
+      "question_text": "How does a door collision or dooring injure a motorcyclist?",
+      "ngram_ref": "bank-8"
+    },
+    {
+      "n": 9,
+      "question_text": "How does a distracted driver cause a motorcycle crash?",
+      "ngram_ref": "bank-9"
+    },
+    {
+      "n": 10,
+      "question_text": "How does helmet use affect a motorcycle accident claim?",
+      "ngram_ref": "bank-10"
+    },
+    {
+      "n": 11,
+      "question_text": "How does comparative fault apply when the rider made a mistake too?",
+      "ngram_ref": "bank-11"
+    },
+    {
+      "n": 12,
+      "question_text": "What injuries are most common and most severe in motorcycle crashes?",
+      "ngram_ref": "bank-12"
+    },
+    {
+      "n": 13,
+      "question_text": "How is road rash treated as a real and compensable injury?",
+      "ngram_ref": "bank-13"
+    },
+    {
+      "n": 14,
+      "question_text": "What insurance covers a motorcyclist when the at-fault driver has too little?",
+      "ngram_ref": "bank-14"
+    },
+    {
+      "n": 15,
+      "question_text": "Why are motorcyclists at special risk of a coverage gap?",
+      "ngram_ref": "bank-15"
+    },
+    {
+      "n": 16,
+      "question_text": "What should a motorcyclist do at the scene of a crash?",
+      "ngram_ref": "bank-16"
+    },
+    {
+      "n": 17,
+      "question_text": "How is fault investigated and proven in a motorcycle crash?",
+      "ngram_ref": "bank-17"
+    },
+    {
+      "n": 18,
+      "question_text": "How are damages valued in a serious motorcycle injury case?",
+      "ngram_ref": "bank-18"
+    },
+    {
+      "n": 19,
+      "question_text": "How does an attorney counter rider bias in front of an adjuster or jury?",
+      "ngram_ref": "bank-19"
+    },
+    {
+      "n": 20,
+      "question_text": "How soon must a motorcycle accident claim be filed?",
+      "ngram_ref": "bank-20"
+    },
+    {
+      "n": 21,
+      "question_text": "What common mistakes weaken a motorcycle accident claim?",
+      "ngram_ref": "bank-21"
+    },
+    {
+      "n": 22,
+      "question_text": "When should an injured motorcyclist contact an attorney?",
+      "ngram_ref": "bank-22"
+    },
+    {
+      "n": 23,
+      "question_text": "What is the single most important point about lane-splitting and rider claims?",
+      "ngram_ref": "bank-23"
+    },
+    {
+      "n": 24,
+      "question_text": "How does an accident reconstruction expert help a motorcycle case?",
+      "ngram_ref": "bank-24"
+    },
+    {
+      "n": 25,
+      "question_text": "How does punitive exposure change when a drunk or reckless driver hits a rider?",
+      "ngram_ref": "bank-25"
+    }
+  ],
+  "placeholders_used": [
+    "{{PODCAST_NAME}}",
+    "{{ATTORNEY_NAME}}",
+    "{{ATTORNEY}}",
+    "{{INTERVIEWER}}",
+    "{{FIRM_NAME}}",
+    "{{PHONE_NUMBER}}",
+    "{{WEBSITE}}",
+    "{{YEARS_PRACTICING}}"
+  ],
+  "static": {
+    "welcome": "Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "welcome_first": "Welcome to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "outro_note": "Keep it short. Thank them and mean it, sign off, then the reach-out. Do not recap the episode."
+  },
+  "cover_page": {
+    "logo_drive_id": "1pAZESV-Roq_fh0-1n8xMcMCJvtOiWAN2",
+    "logo_width_pt": 180,
+    "title": "Run of Show",
+    "prepared_by": "Prepared by Case Engine"
+  },
+  "outro_close": {},
+  "outro": {
+    "thanks": "**{{ATTORNEY}}**, thanks for being so straight about all of it. That's the clearest I have ever heard anybody explain what splitting actually costs a rider.",
+    "signoff": "That's a wrap on this one. **{{PODCAST_NAME}}**. See you on the next one.",
+    "reach": "And before you go, if you're in Florida and need a lawyer, reach out to **{{FIRM_NAME}}** at **{{PHONE_NUMBER}}**, or online at **{{WEBSITE}}**."
+  },
+  "metadata": {
+    "topic_plan_reconciled": true,
+    "topic_plan_doc_id": "1P_1tAKXf6_I7EODRnkzDGVhUqPKBncdPKL127YlxgYs",
+    "topic_plan_revision_id": "AIroW34FYjoDNe-pyO0zmcS3bcMOn0H73Q9-m2OO7TkOMdkCNXN_YAGDkb1Jlr9B8vTPL2VOBuKMHeoY85-DOkgVPQZv0OMwEA53iwt4JmQ",
+    "topic_plan_fetched_at": "2026-08-18T20:40:06Z",
+    "attribute_source": "fallback",
+    "attribute_source_pulled": "2026-08-14",
+    "attribute_source_confidence": "Inferred",
+    "outro_line1_approach": "clarity",
+    "outro_line2_index": 4,
+    "outro_line3_slots": [
+      "And before you go,",
+      0,
+      "reach out to",
+      0
+    ]
+  }
+}

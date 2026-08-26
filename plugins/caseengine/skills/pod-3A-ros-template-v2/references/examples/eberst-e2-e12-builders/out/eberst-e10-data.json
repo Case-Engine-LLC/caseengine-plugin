@@ -1,0 +1,678 @@
+{
+  "schema_version": "2.0.0",
+  "episode_format": "v2-open-interview",
+  "topic": "truck accidents",
+  "episode_title": "Federal Trucking Regulation (FMCSA)",
+  "episode_number_token": "E10",
+  "scope": "Location",
+  "location": "Stuart and Gainesville, Florida",
+  "city": "Stuart",
+  "region": "the Treasure Coast",
+  "state": "Florida",
+  "episode_goal": "Authority",
+  "duration": {
+    "segment_1_min_low": 15,
+    "segment_1_min_high": 30
+  },
+  "segment_1": {
+    "topic_phrase": "the federal rulebook sitting behind every truck on the road",
+    "setup": "I'm **{{INTERVIEWER}}**. Today we're digging into something most people in Florida don't know exists. There's a federal rulebook every trucking company has to follow, and it matters enormously if one of their trucks hits you.",
+    "credential": "**{{ATTORNEY}}**, you've spent **{{YEARS_PRACTICING}}** years on the cases most firms hand straight off to somebody else.",
+    "prompt": "Right now somebody is at home deciding whether their crash is even worth a phone call. Explain what these federal rules could do for their case. And if you've had one where a rule violation changed the outcome, take us through it.",
+    "attributes": [
+      {
+        "name": "Tried against a national company",
+        "detail": "Cases you took to a jury, and what a trucking company that size starts doing differently once it believes you'll do it again."
+      },
+      {
+        "name": "Commercial truck crashes",
+        "detail": "Not injury cases generally. Crashes involving heavy trucks, how many, and how recently."
+      },
+      {
+        "name": "License and discipline",
+        "detail": "Your license and disciplinary record, which counts for more than an award on a website."
+      },
+      {
+        "name": "Who they bring in to defend it",
+        "detail": "The county court, the judges, and the firms a carrier flies in to fight one of these."
+      },
+      {
+        "name": "Reading the federal file",
+        "detail": "What you pull from a carrier's records, and what a single violation buried in there's actually worth."
+      },
+      {
+        "name": "The preservation letter",
+        "detail": "What has to go out in the first few days, because the company decides when that truck data gets erased, and they'ren't waiting on you."
+      },
+      {
+        "name": "People who read the data",
+        "detail": "Crash reconstruction experts, the specialists who pull and read what the truck recorded, and trucking safety people who know the federal rules cold."
+      },
+      {
+        "name": "Every policy behind the truck",
+        "detail": "How you get past the policy on the truck itself to the bigger policies stacked behind it."
+      },
+      {
+        "name": "The deadline people miss",
+        "detail": "The window for getting treatment, the separate deadline for filing, and the fact that the evidence is gone well before either one runs out."
+      },
+      {
+        "name": "Who pays for the work",
+        "detail": "What the percentage is, whether it changes if a lawsuit gets filed, who fronts the cost of digging through the company's records, and what the client owes if the case is lost."
+      },
+      {
+        "name": "Who deals with their lawyers",
+        "detail": "Whether the client is hiring you or an intake operation, and who handles the carrier's counsel."
+      },
+      {
+        "name": "When they followed the rules",
+        "detail": "Sometimes the company did everything right and it's just a hard case, and you say that out loud when it's true."
+      }
+    ]
+  },
+  "segment_2": {
+    "locations": [
+      {
+        "location": "Stuart",
+        "questions": [
+          {
+            "q": "Who actually sets the rules a trucking company near Stuart has to follow?",
+            "bullets": [
+              {
+                "label": "The federal government, not the state",
+                "detail": "any truck crossing state lines runs on one national rulebook, whatever road it's on."
+              },
+              {
+                "label": "It covers everything",
+                "detail": "how long they drive, who's allowed to drive, how the truck is maintained, and how the load is tied down."
+              },
+              {
+                "label": "What that means here",
+                "detail": "most of the trucks moving through Martin County on I-95 and the Turnpike belong to companies hauling across state lines, so the full federal rulebook applies to them."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "How do the federal rules change what has to be proved?",
+            "bullets": [
+              {
+                "label": "They set the standard",
+                "detail": "there's a written line, so the argument isn't about what a careful company would have done."
+              },
+              {
+                "label": "Breaking one goes a long way",
+                "detail": "when a company breaks a rule that exists to prevent the exact crash that happened, that gets you most of the way there."
+              },
+              {
+                "label": "They're all documented",
+                "detail": "every one of those rules generates a record, and on a pass-through carrier those records usually sit in a company office in another state."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "How long is a truck driver actually allowed to drive?",
+            "bullets": [
+              {
+                "label": "Eleven hours behind the wheel",
+                "detail": "and only after ten straight hours off, which is the rule the whole schedule is built around."
+              },
+              {
+                "label": "Fourteen hours on the clock",
+                "detail": "once that window opens it keeps running through loading, fueling and lunch, and there are only narrow exceptions to it."
+              },
+              {
+                "label": "A weekly ceiling too",
+                "detail": "sixty hours in seven days, or seventy in eight, plus a required break part way through a driving day."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "What does the truck itself record about the trip?",
+            "bullets": [
+              {
+                "label": "The truck logs its own driving",
+                "detail": "there's a box wired straight into the engine that records the hours, where the truck went, and how long it ran."
+              },
+              {
+                "label": "The driver can't rewrite it",
+                "detail": "it replaced the paper logbook precisely because a paper logbook could be written to suit."
+              },
+              {
+                "label": "It doesn't keep itself",
+                "detail": "the data sits on the company's own cycle and gets written over, so a written demand has to go out in the first days."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "How do you find out whether the company that hit you near Stuart had a history?",
+            "bullets": [
+              {
+                "label": "There's a public safety score",
+                "detail": "every trucking company gets scored on unsafe driving, driving hours, maintenance and whether their drivers should be behind the wheel, and anybody can look it up."
+              },
+              {
+                "label": "A pattern changes the case",
+                "detail": "one violation is an incident, a run of them is how the company operates."
+              },
+              {
+                "label": "Where the local record sits",
+                "detail": "there's a weigh and inspection station on I-95 in Martin County, so a carrier that came through here may have a roadside inspection record attached to it."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "What does somebody need to be allowed to drive a truck at all?",
+            "bullets": [
+              {
+                "label": "A commercial driver's license",
+                "detail": "plus extra permissions added on top of it for hauling a tanker, hazardous material, or two trailers at once."
+              },
+              {
+                "label": "A current medical card",
+                "detail": "the driver has to pass a physical from a doctor on the federal list of approved examiners, and carry the card at all times."
+              },
+              {
+                "label": "Training before the test",
+                "detail": "new applicants have to complete prescribed training from an approved provider first."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "What does a trucking company have to keep on file about its driver?",
+            "bullets": [
+              {
+                "label": "A full history",
+                "detail": "the driving record, the medical certificate, previous employment and the road test."
+              },
+              {
+                "label": "It exposes the hiring",
+                "detail": "a missing or thin file is evidence about the company, not about the driver."
+              },
+              {
+                "label": "You ask for it early",
+                "detail": "the company is the one holding it, so it only comes out through a formal request, and the request has to spell out exactly which records you want."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "What are the drug and alcohol rules for truck drivers?",
+            "bullets": [
+              {
+                "label": "Several different triggers",
+                "detail": "before they get hired, at random, after a crash, when a supervisor has a reasonable suspicion, and again on the way back to driving."
+              },
+              {
+                "label": "There's a national database",
+                "detail": "a company has to check it before hiring and again every year, and a driver with an open violation can't drive."
+              },
+              {
+                "label": "The timing after a crash is tight",
+                "detail": "the testing window is short enough that a delay becomes its own evidence, so the records get requested immediately."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "How do the inspection and maintenance rules apply after a crash on I-95 or the Turnpike?",
+            "bullets": [
+              {
+                "label": "The truck gets checked before every trip",
+                "detail": "and the driver writes it up before and after, which leaves a paper trail either way."
+              },
+              {
+                "label": "A missing write-up is evidence",
+                "detail": "if a problem was never written down, either nobody looked, or somebody looked and let it go."
+              },
+              {
+                "label": "Roadside records too",
+                "detail": "anything caught at the I-95 inspection station is on record separately from whatever the company chose to write down."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "How do the rules about tying down a load matter in a Stuart crash?",
+            "bullets": [
+              {
+                "label": "There are actual standards",
+                "detail": "how many tie-downs, and how strong, based on what's being carried and how long it's."
+              },
+              {
+                "label": "A shifting load causes crashes",
+                "detail": "it changes how the trailer behaves before the driver has any idea anything moved."
+              },
+              {
+                "label": "It can point at somebody besides the driver",
+                "detail": "the people who loaded the trailer and the people who arranged the shipment can be on the hook before the driver is, and out here those are usually two separate companies in two other states."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      },
+      {
+        "location": "Gainesville",
+        "questions": [
+          {
+            "q": "Who actually sets the rules a trucking company near Gainesville has to follow?",
+            "bullets": [
+              {
+                "label": "The federal government, not the state",
+                "detail": "any truck crossing state lines runs on one national rulebook, whatever road it's on."
+              },
+              {
+                "label": "It covers everything",
+                "detail": "how long they drive, who's allowed to drive, how the truck is maintained, and how the load is tied down."
+              },
+              {
+                "label": "What that means here",
+                "detail": "I-75 is the freight spine for this whole part of the state, so a truck here's usually interstate, though a local delivery van may be under different rules entirely."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "How do the federal rules change what has to be proved?",
+            "bullets": [
+              {
+                "label": "They set the standard",
+                "detail": "there's a written line, so the argument isn't about what a careful company would have done."
+              },
+              {
+                "label": "Breaking one goes a long way",
+                "detail": "when a company breaks a rule that exists to prevent the exact crash that happened, that gets you most of the way there."
+              },
+              {
+                "label": "They're all documented",
+                "detail": "every one of those rules generates a record, and on a delivery contractor there are often two sets, one at the contractor and one at the company they drive for."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "How long is a truck driver actually allowed to drive?",
+            "bullets": [
+              {
+                "label": "Eleven hours behind the wheel",
+                "detail": "and only after ten straight hours off, which is the rule the whole schedule is built around."
+              },
+              {
+                "label": "Fourteen hours on the clock",
+                "detail": "once that window opens it keeps running through loading, fueling and lunch, and there are only narrow exceptions to it."
+              },
+              {
+                "label": "A weekly ceiling too",
+                "detail": "sixty hours in seven days, or seventy in eight, plus a required break part way through a driving day."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "What does the truck itself record about the trip?",
+            "bullets": [
+              {
+                "label": "The truck logs its own driving",
+                "detail": "there's a box wired straight into the engine that records the hours, where the truck went, and how long it ran."
+              },
+              {
+                "label": "The driver can't rewrite it",
+                "detail": "it replaced the paper logbook precisely because a paper logbook could be written to suit."
+              },
+              {
+                "label": "It doesn't keep itself",
+                "detail": "the data sits on the company's own cycle and gets written over, and on a delivery contractor the vehicle may be back in service the same week."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "How do you find out whether the company that hit you near Gainesville had a history?",
+            "bullets": [
+              {
+                "label": "There's a public safety score",
+                "detail": "every trucking company gets scored on unsafe driving, driving hours, maintenance and whether their drivers should be behind the wheel, and anybody can look it up."
+              },
+              {
+                "label": "A pattern changes the case",
+                "detail": "one violation is an incident, a run of them is how the company operates."
+              },
+              {
+                "label": "Where the local record sits",
+                "detail": "the state runs commercial vehicle size and weight inspection on I-75, so the records sit with the state rather than at a single local station."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "What does somebody need to be allowed to drive a truck at all?",
+            "bullets": [
+              {
+                "label": "A commercial driver's license",
+                "detail": "plus extra permissions added on top of it for hauling a tanker, hazardous material, or two trailers at once."
+              },
+              {
+                "label": "A current medical card",
+                "detail": "the driver has to pass a physical from a doctor on the federal list of approved examiners, and carry the card at all times."
+              },
+              {
+                "label": "Training before the test",
+                "detail": "new applicants have to complete prescribed training from an approved provider first."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "What does a trucking company have to keep on file about its driver?",
+            "bullets": [
+              {
+                "label": "A full history",
+                "detail": "the driving record, the medical certificate, previous employment and the road test."
+              },
+              {
+                "label": "It exposes the hiring",
+                "detail": "a missing or thin file is evidence about the company, not about the driver."
+              },
+              {
+                "label": "You ask for it early",
+                "detail": "the company is the one holding it, and with a delivery contractor working for a larger company there may be two sets of files at two different employers."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "What are the drug and alcohol rules for truck drivers?",
+            "bullets": [
+              {
+                "label": "Several different triggers",
+                "detail": "before they get hired, at random, after a crash, when a supervisor has a reasonable suspicion, and again on the way back to driving."
+              },
+              {
+                "label": "There's a national database",
+                "detail": "a company has to check it before hiring and again every year, and a driver with an open violation can't drive."
+              },
+              {
+                "label": "The timing after a crash is tight",
+                "detail": "the testing window is short enough that a delay becomes its own evidence, so the records get requested immediately."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "How do the inspection and maintenance rules apply after a crash on I-75?",
+            "bullets": [
+              {
+                "label": "The truck gets checked before every trip",
+                "detail": "and the driver writes it up before and after, which leaves a paper trail either way."
+              },
+              {
+                "label": "A missing write-up is evidence",
+                "detail": "if a problem was never written down, either nobody looked, or somebody looked and let it go."
+              },
+              {
+                "label": "Roadside records too",
+                "detail": "the state inspection records on I-75 are separate from the company's own write-ups, and a delivery fleet cycles through vehicles fast."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "How do the rules about tying down a load matter in a Gainesville crash?",
+            "bullets": [
+              {
+                "label": "There are actual standards",
+                "detail": "how many tie-downs, and how strong, based on what's being carried and how long it's."
+              },
+              {
+                "label": "A shifting load causes crashes",
+                "detail": "it changes how the trailer behaves before the driver has any idea anything moved."
+              },
+              {
+                "label": "It can point at somebody besides the driver",
+                "detail": "the people who loaded it and the people who arranged the shipment can be on the hook before the driver is, and on a delivery route that chain runs back to whoever the van was making deliveries for."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E10-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      }
+    ]
+  },
+  "appendix_question_bank": [
+    {
+      "n": 1,
+      "question_text": "What is the FMCSA and why does it matter to a truck accident victim?",
+      "ngram_ref": "bank-1"
+    },
+    {
+      "n": 2,
+      "question_text": "How do federal trucking regulations create a standard of care?",
+      "ngram_ref": "bank-2"
+    },
+    {
+      "n": 3,
+      "question_text": "What are the hours-of-service rules and how do they prevent driver fatigue?",
+      "ngram_ref": "bank-3"
+    },
+    {
+      "n": 4,
+      "question_text": "What is an electronic logging device and how does it track compliance?",
+      "ngram_ref": "bank-4"
+    },
+    {
+      "n": 5,
+      "question_text": "What is a CSA score and what does it reveal about a trucking company?",
+      "ngram_ref": "bank-5"
+    },
+    {
+      "n": 6,
+      "question_text": "What are the FMCSA's commercial driver's license requirements?",
+      "ngram_ref": "bank-6"
+    },
+    {
+      "n": 7,
+      "question_text": "What does the driver qualification file have to contain under federal rules?",
+      "ngram_ref": "bank-7"
+    },
+    {
+      "n": 8,
+      "question_text": "What are the federal drug and alcohol testing requirements for truck drivers?",
+      "ngram_ref": "bank-8"
+    },
+    {
+      "n": 9,
+      "question_text": "How do federal vehicle inspection and maintenance rules apply to a crash?",
+      "ngram_ref": "bank-9"
+    },
+    {
+      "n": 10,
+      "question_text": "What are the federal cargo securement rules and how do violations cause crashes?",
+      "ngram_ref": "bank-10"
+    },
+    {
+      "n": 11,
+      "question_text": "How does a federal regulation violation become negligence per se?",
+      "ngram_ref": "bank-11"
+    },
+    {
+      "n": 12,
+      "question_text": "How can the FMCSA's records and databases support a truck accident case?",
+      "ngram_ref": "bank-12"
+    },
+    {
+      "n": 13,
+      "question_text": "How do hours-of-service violations get proven after a crash?",
+      "ngram_ref": "bank-13"
+    },
+    {
+      "n": 14,
+      "question_text": "How does a carrier's pattern of violations strengthen a case?",
+      "ngram_ref": "bank-14"
+    },
+    {
+      "n": 15,
+      "question_text": "How does negligent hiring connect to FMCSA driver-screening rules?",
+      "ngram_ref": "bank-15"
+    },
+    {
+      "n": 16,
+      "question_text": "Why must FMCSA-related evidence be preserved immediately after a crash?",
+      "ngram_ref": "bank-16"
+    },
+    {
+      "n": 17,
+      "question_text": "How do federal trucking rules expand the list of parties who can be liable?",
+      "ngram_ref": "bank-17"
+    },
+    {
+      "n": 18,
+      "question_text": "How do FMCSA violations affect the value of a truck accident claim?",
+      "ngram_ref": "bank-18"
+    },
+    {
+      "n": 19,
+      "question_text": "How does an attorney use FMCSA regulations to build a truck accident case?",
+      "ngram_ref": "bank-19"
+    },
+    {
+      "n": 20,
+      "question_text": "What should a truck accident victim know about the FMCSA before talking to the carrier?",
+      "ngram_ref": "bank-20"
+    },
+    {
+      "n": 21,
+      "question_text": "What is post-accident testing and how does the FMCSA require it?",
+      "ngram_ref": "bank-21"
+    },
+    {
+      "n": 22,
+      "question_text": "How do FMCSA medical certification rules apply to a truck driver?",
+      "ngram_ref": "bank-22"
+    },
+    {
+      "n": 23,
+      "question_text": "How do federal rules treat a carrier that leases drivers or equipment?",
+      "ngram_ref": "bank-23"
+    },
+    {
+      "n": 24,
+      "question_text": "How does a federal inspection report become evidence in a truck case?",
+      "ngram_ref": "bank-24"
+    },
+    {
+      "n": 25,
+      "question_text": "What is the single most important thing to know about FMCSA rules and a truck crash?",
+      "ngram_ref": "bank-25"
+    }
+  ],
+  "placeholders_used": [
+    "{{PODCAST_NAME}}",
+    "{{ATTORNEY_NAME}}",
+    "{{ATTORNEY}}",
+    "{{INTERVIEWER}}",
+    "{{FIRM_NAME}}",
+    "{{PHONE_NUMBER}}",
+    "{{WEBSITE}}",
+    "{{YEARS_PRACTICING}}"
+  ],
+  "static": {
+    "welcome": "Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "welcome_first": "Welcome to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "outro_note": "Keep it short. Thank them and mean it, sign off, then the reach-out. Do not recap the episode."
+  },
+  "cover_page": {
+    "logo_drive_id": "1pAZESV-Roq_fh0-1n8xMcMCJvtOiWAN2",
+    "logo_width_pt": 180,
+    "title": "Run of Show",
+    "prepared_by": "Prepared by Case Engine"
+  },
+  "outro_close": {},
+  "outro": {
+    "thanks": "**{{ATTORNEY}}**, I appreciate you taking the time. You don't rattle off the rules on how long a driver can be behind the wheel like that unless you've had to argue them in front of a judge.",
+    "signoff": "That's the episode. **{{PODCAST_NAME}}**. We will see you on the next one.",
+    "reach": "And if nothing else, if you're in Florida and you want somebody to actually look at your crash, call **{{FIRM_NAME}}**. The number is **{{PHONE_NUMBER}}**, and the site is **{{WEBSITE}}**."
+  },
+  "metadata": {
+    "topic_plan_reconciled": true,
+    "topic_plan_doc_id": "1P_1tAKXf6_I7EODRnkzDGVhUqPKBncdPKL127YlxgYs",
+    "topic_plan_revision_id": "AIroW34FYjoDNe-pyO0zmcS3bcMOn0H73Q9-m2OO7TkOMdkCNXN_YAGDkb1Jlr9B8vTPL2VOBuKMHeoY85-DOkgVPQZv0OMwEA53iwt4JmQ",
+    "topic_plan_fetched_at": "2026-08-18T20:40:06Z",
+    "attribute_source": "fallback",
+    "attribute_source_pulled": "2026-08-14",
+    "attribute_source_confidence": "Inferred",
+    "outro_line1_approach": "reps",
+    "outro_line2_index": 2,
+    "outro_line3_slots": [
+      "And if nothing else,",
+      3,
+      "call",
+      1
+    ]
+  }
+}

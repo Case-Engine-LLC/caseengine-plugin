@@ -1,0 +1,94 @@
+{
+  "schema": "attributes-fallback/1.0.0",
+  "pull_date": "2026-08-14",
+  "sourcing_state": "Inferred",
+  "canonical_source": "pod-1D-attribute-research",
+  "note": "Static point-in-time snapshot used ONLY when pod-1D-attribute-research has no output for the requested practice area + market. Always flag a run that uses this file with '> INFERRED: attribute set from static fallback pulled 2026-08-14, not a live pull'. Answer engines move; a fallback run is never Confirmed.",
+  "method": "Live pulls from Google AI Overview (AI Mode) and ChatGPT on 2026-08-14, across two practice areas and two markets, on the query family 'what to look for when hiring a {practice} lawyer in {city}'. Ranked by how consistently each attribute appeared across sources.",
+  "counterintuitive_findings": [
+    "Reviews and awards ranked LOWER than the industry assumes. ChatGPT explicitly states that verifiable bar standing and disciplinary history is more meaningful than ratings alone.",
+    "Naming what would make a case difficult scored as a POSITIVE trust signal, while guaranteeing a number is flagged as a RED FLAG. This inverts what an attorney's instinct will be on the day, which is why it belongs in the document rather than in someone's head."
+  ],
+  "attributes": [
+    {
+      "rank": 1,
+      "name": "Trial willingness",
+      "consistency": "4 of 4 sources, usually the first sentence of the answer",
+      "detail": "Have you taken these to trial, or do you only settle? Google asks it in those words. If you are a trial firm, say so early and say it plainly.",
+      "segment_2_question": "Have you taken {practice_area} cases to trial, or do you settle them?",
+      "default_geo_tag": "REGION"
+    },
+    {
+      "rank": 2,
+      "name": "Specific case-type experience",
+      "consistency": "4 of 4",
+      "detail": "Not the practice area, the case type. How many of THIS kind, not how many injury cases. How recently.",
+      "segment_2_question": "Do you have attorneys who focus specifically on {practice_area} cases?",
+      "default_geo_tag": "NEUTRAL"
+    },
+    {
+      "rank": 3,
+      "name": "Fee and expenses in detail",
+      "consistency": "4 of 4",
+      "detail": "Percentage, whether it rises if you file suit, who pays records, filing fees, investigators, experts and court reporters, and what happens if you lose.",
+      "segment_2_question": "How much does it cost to hire a {practice_area} attorney?",
+      "default_geo_tag": "NEUTRAL"
+    },
+    {
+      "rank": 4,
+      "name": "Local court familiarity",
+      "consistency": "4 of 4",
+      "detail": "The county court, the judges, how the local defense firms operate. Specifics, not 'we serve the area'.",
+      "segment_2_question": "Do you handle {practice_area} cases across {region}, or only in {city}?",
+      "default_geo_tag": "CITY + REGION"
+    },
+    {
+      "rank": 5,
+      "name": "Evidence preservation speed",
+      "consistency": "4 of 4",
+      "detail": "What you secure in the first days and how fast, before it is deleted or overwritten.",
+      "segment_2_question": "What do you do in the first week that a person cannot do on their own?",
+      "default_geo_tag": "NEUTRAL"
+    },
+    {
+      "rank": 6,
+      "name": "Expert network",
+      "consistency": "4 of 4",
+      "detail": "Name the roles you bring in - reconstructionists, safety engineers, code inspectors, medical specialists, economists.",
+      "segment_2_question": "What experts do you bring into a {practice_area} case?",
+      "default_geo_tag": "NEUTRAL"
+    },
+    {
+      "rank": 7,
+      "name": "Who actually handles the case day to day",
+      "consistency": "3 of 4",
+      "detail": "Am I hiring you, or an intake operation that refers this out? Who do I talk to day to day and how often.",
+      "segment_2_question": "Who will actually handle my case day to day?",
+      "default_geo_tag": "NEUTRAL"
+    },
+    {
+      "rank": 8,
+      "name": "Honest assessment",
+      "consistency": "high signal, counterintuitive",
+      "detail": "Name what would make the case difficult. Guaranteeing a number is flagged as a red flag by the answer engines. Saying the hard part builds more trust than a promise.",
+      "segment_2_question": "What would make my case difficult?",
+      "default_geo_tag": "NEUTRAL"
+    },
+    {
+      "rank": 9,
+      "name": "Verifiable bar standing",
+      "consistency": "ranked ABOVE reviews and awards",
+      "detail": "Bar license and disciplinary history. ChatGPT says explicitly that this is more meaningful than ratings alone.",
+      "segment_2_question": "How can someone check that a lawyer is in good standing?",
+      "default_geo_tag": "STATE"
+    },
+    {
+      "rank": 10,
+      "name": "Deadlines",
+      "consistency": "state-specific rather than universal",
+      "detail": "Say the number of years and what happens if it passes.",
+      "segment_2_question": "How long do you have to file a {practice_area} claim in {state}?",
+      "default_geo_tag": "STATE"
+    }
+  ]
+}

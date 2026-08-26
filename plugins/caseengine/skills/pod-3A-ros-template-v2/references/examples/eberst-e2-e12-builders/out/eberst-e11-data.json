@@ -1,0 +1,688 @@
+{
+  "schema_version": "2.0.0",
+  "episode_format": "v2-open-interview",
+  "topic": "e-bike and e-scooter accidents",
+  "episode_title": "E-Bike and E-Scooter Laws and Liability",
+  "episode_number_token": "E11",
+  "scope": "Location",
+  "location": "Stuart and Gainesville, Florida",
+  "city": "Stuart",
+  "region": "the Treasure Coast",
+  "state": "Florida",
+  "episode_goal": "Authority",
+  "duration": {
+    "segment_1_min_low": 15,
+    "segment_1_min_high": 30
+  },
+  "segment_1": {
+    "topic_phrase": "why an electric bike or scooter leaves you with no coverage at all",
+    "setup": "I'm **{{INTERVIEWER}}**, and today we're on something almost nobody looks into until they need it. If you ride an electric bike or a scooter in Florida, you're outside the insurance system every driver takes for granted, and almost nobody knows that.",
+    "credential": "**{{ATTORNEY}}**, your firm handles a wide range of injury work, and a lot of it involves people who weren't in a car at all.",
+    "prompt": "Someone was just knocked off a scooter by a car. Lay out what's different about their situation. And if you've a real-world example, take us through it.",
+    "attributes": [
+      {
+        "name": "Tried for a rider",
+        "detail": "Cases you took to a jury, and what they did with somebody who wasn't in a car at all."
+      },
+      {
+        "name": "Riders with no policy",
+        "detail": "Not injury cases generally. People hurt on two wheels with no motor vehicle coverage behind them, how many, and how recently."
+      },
+      {
+        "name": "Standing you can look up",
+        "detail": "Your license and disciplinary history, which anybody can check before they ever call."
+      },
+      {
+        "name": "How a jury sees a rider",
+        "detail": "The county court, the judges, and what a local jury already assumes about somebody on an e-bike or a scooter."
+      },
+      {
+        "name": "Coverage from nowhere",
+        "detail": "How you find a policy for somebody the no-fault system doesn't cover at all."
+      },
+      {
+        "name": "Reading the rental terms",
+        "detail": "What's actually in a scooter app's agreement, and what a rider gives up the moment they tap accept."
+      },
+      {
+        "name": "Chasing the manufacturer",
+        "detail": "Crashes where the e-bike or scooter itself failed, and what you can recover from the company that built it."
+      },
+      {
+        "name": "Ride data vanishes",
+        "detail": "What you secure in the first days, including data a rental company overwrites on its own schedule."
+      },
+      {
+        "name": "Who examines the part",
+        "detail": "Reconstructionists, treating physicians, and the engineers who take a failed brake or battery apart."
+      },
+      {
+        "name": "The shorter deadline",
+        "detail": "Say the filing deadline in plain years, then say how much faster a rental company's ride data disappears."
+      },
+      {
+        "name": "Fees and the teardown",
+        "detail": "The percentage, whether it rises if you file suit, who pays to have a failed part examined, and what happens if you lose."
+      },
+      {
+        "name": "When there'sn'thing to reach",
+        "detail": "The cases where no coverage genuinely exists, and why you tell people that in the first conversation instead of the fourth."
+      }
+    ]
+  },
+  "segment_2": {
+    "locations": [
+      {
+        "location": "Stuart",
+        "questions": [
+          {
+            "q": "You were on an e-bike or a scooter in Stuart. What does Florida law actually call it?",
+            "bullets": [
+              {
+                "label": "It's the first question in the case",
+                "detail": "an electric bike, a scooter and a moped are three different things in Florida, and which one you were on decides the coverage."
+              },
+              {
+                "label": "An e-bike is treated like a bicycle",
+                "detail": "same rights on the road, same duties, and that's where the rules come from."
+              },
+              {
+                "label": "A scooter sits in its own category",
+                "detail": "Florida law says it'sn't a motor vehicle, and that changes everything about coverage."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "What are the three classes of e-bike in Florida, and why do they matter?",
+            "bullets": [
+              {
+                "label": "Class one and two stop at twenty",
+                "detail": "one helps only while you pedal, the other has a throttle, and both cut out at twenty miles an hour."
+              },
+              {
+                "label": "Class three goes to twenty-eight",
+                "detail": "faster, more crash energy, tighter rules about who can ride it and where."
+              },
+              {
+                "label": "The class is what the fight is about",
+                "detail": "it sets where you were allowed to ride and how fast you were allowed to go."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "Does a rented scooter work differently from your own around Stuart?",
+            "bullets": [
+              {
+                "label": "The state rules are the same",
+                "detail": "what changes is the paperwork you agreed to when you unlocked it."
+              },
+              {
+                "label": "The rental terms are the fine print",
+                "detail": "app coverage tends to carry low limits and exclusions people never read."
+              },
+              {
+                "label": "How it shows up here",
+                "detail": "most riding here's on somebody's own bike rather than a rental, so the coverage you're looking for is usually a policy on a car in that household."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "Where can you legally ride one in Stuart and across the Treasure Coast?",
+            "bullets": [
+              {
+                "label": "The road and the bike lane",
+                "detail": "an e-bike belongs where a bicycle belongs, which is the road or the bike lane, not the sidewalk in most places."
+              },
+              {
+                "label": "Sidewalks are where it changes",
+                "detail": "the sidewalk rule is set town by town, so check the rule for the town you actually ride in."
+              },
+              {
+                "label": "Where it goes wrong here",
+                "detail": "US 1 and Kanner Highway are built for speed with no real place for two wheels, and A1A puts riders alongside beach traffic at crossings that are a long way apart."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "Does Florida make you wear a helmet on one of these?",
+            "bullets": [
+              {
+                "label": "Only under sixteen",
+                "detail": "the requirement is an age rule, and above it the choice is yours."
+              },
+              {
+                "label": "Not wearing one is still used",
+                "detail": "it'sn't a violation, but the other side will raise it against a head injury claim anyway."
+              },
+              {
+                "label": "It doesn't end the claim",
+                "detail": "the other side can argue it and a jury can reduce what you recover, but it doesn't take away your right to bring the claim."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "Do you need a license, registration or insurance to ride one in Florida?",
+            "bullets": [
+              {
+                "label": "You don't register one like a car",
+                "detail": "and that's exactly why no injury coverage comes attached to it."
+              },
+              {
+                "label": "That's the trap",
+                "detail": "people assume something covers them the way a car policy does, and nothing does."
+              },
+              {
+                "label": "Check before you need to",
+                "detail": "the coverage question has an answer, and finding it out after a crash is the expensive way."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "If a car hits you on a scooter, does your own injury coverage apply?",
+            "bullets": [
+              {
+                "label": "Not the way you would expect",
+                "detail": "no-fault coverage is tied to motor vehicles, and a scooter isn't one, so nothing follows the scooter itself."
+              },
+              {
+                "label": "So nothing pays the first bills",
+                "detail": "the emergency room bill shows up and there's no coverage behind it, and around here a serious injury means a transfer out of the county, which is a second bill on top of the first."
+              },
+              {
+                "label": "It sends the claim elsewhere",
+                "detail": "straight to the driver who hit you and to your own uninsured coverage."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "A scooter isn't a motor vehicle under Florida law. Why does that one fact control the whole claim?",
+            "bullets": [
+              {
+                "label": "It takes away the automatic coverage",
+                "detail": "with a car, something pays your first bills no matter who caused the crash, and on a scooter nothing does."
+              },
+              {
+                "label": "Fault becomes everything",
+                "detail": "with nothing paying automatically, proving the driver caused it's the only route."
+              },
+              {
+                "label": "It changes the urgency",
+                "detail": "the evidence has to be locked down immediately, because there's no coverage sitting there paying while anyone works it out."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "If you own a car, can you still use that policy after a scooter crash in Stuart?",
+            "bullets": [
+              {
+                "label": "Often yes, and people never ask",
+                "detail": "your own car policy can still cover you even though you were nowhere near the car, and around here most riders do own one."
+              },
+              {
+                "label": "A relative's policy can count too",
+                "detail": "somebody in the same household with coverage may bring you inside it."
+              },
+              {
+                "label": "Bring every policy",
+                "detail": "the declarations page, the summary sheet at the front, from every car in the house, and that's the first thing to gather."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "When your own coverage doesn't apply, whose insurance actually pays?",
+            "bullets": [
+              {
+                "label": "The driver who hit you, first",
+                "detail": "their liability coverage is the main route, and in Florida that coverage is optional."
+              },
+              {
+                "label": "Then your own uninsured coverage",
+                "detail": "which is why it matters far more to a rider than to a driver."
+              },
+              {
+                "label": "Then the others in the chain",
+                "detail": "whoever built it if a part failed, and the county or the city if the road itself was the problem, and a claim against a government carries a much shorter deadline."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      },
+      {
+        "location": "Gainesville",
+        "questions": [
+          {
+            "q": "You were on an e-bike or a scooter in Gainesville. What does Florida law actually call it?",
+            "bullets": [
+              {
+                "label": "It's the first question in the case",
+                "detail": "an electric bike, a scooter and a moped are three different things in Florida, and around campus that argument comes up constantly because the machines all look alike."
+              },
+              {
+                "label": "An e-bike is treated like a bicycle",
+                "detail": "same rights on the road, same duties, and that's where the rules come from."
+              },
+              {
+                "label": "A scooter sits in its own category",
+                "detail": "Florida law says it'sn't a motor vehicle, and that changes everything about coverage."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "What are the three classes of e-bike in Florida, and why do they matter?",
+            "bullets": [
+              {
+                "label": "Class one and two stop at twenty",
+                "detail": "one helps only while you pedal, the other has a throttle, and both cut out at twenty miles an hour."
+              },
+              {
+                "label": "Class three goes to twenty-eight",
+                "detail": "faster, more crash energy, tighter rules about who can ride it and where."
+              },
+              {
+                "label": "The class is what the fight is about",
+                "detail": "it sets where you were allowed to ride and how fast you were allowed to go."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "Does a rented scooter work differently from your own around Gainesville?",
+            "bullets": [
+              {
+                "label": "The state rules are the same",
+                "detail": "what changes is the paperwork you agreed to when you unlocked it."
+              },
+              {
+                "label": "The rental terms are the fine print",
+                "detail": "app coverage tends to carry low limits and exclusions people never read."
+              },
+              {
+                "label": "How it shows up here",
+                "detail": "rentals are common around a campus, so the terms you agreed to on the app become part of the case in a way they rarely do elsewhere."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "Where can you legally ride one in Gainesville and across North Central Florida?",
+            "bullets": [
+              {
+                "label": "The road and the bike lane",
+                "detail": "an e-bike belongs where a bicycle belongs, which is the road or the bike lane, not the sidewalk in most places."
+              },
+              {
+                "label": "Sidewalks are where it changes",
+                "detail": "the sidewalk rule is set town by town, so check the rule for the town you actually ride in."
+              },
+              {
+                "label": "Where it goes wrong here",
+                "detail": "University Avenue, 13th Street and Archer Road, where riders, people on foot and cars all arrive at the same crossing at the same time."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "Does Florida make you wear a helmet on one of these?",
+            "bullets": [
+              {
+                "label": "Only under sixteen",
+                "detail": "the requirement is an age rule, and above it the choice is yours."
+              },
+              {
+                "label": "Not wearing one is still used",
+                "detail": "it'sn't a violation, but the other side will raise it against a head injury claim anyway."
+              },
+              {
+                "label": "It doesn't end the claim",
+                "detail": "the other side can argue it and a jury can reduce what you recover, but it doesn't take away your right to bring the claim."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "Do you need a license, registration or insurance to ride one in Florida?",
+            "bullets": [
+              {
+                "label": "You don't register one like a car",
+                "detail": "and that's exactly why no injury coverage comes attached to it."
+              },
+              {
+                "label": "That's the trap",
+                "detail": "people assume something covers them the way a car policy does, and nothing does."
+              },
+              {
+                "label": "Check before you need to",
+                "detail": "the coverage question has an answer, and finding it out after a crash is the expensive way."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "If a car hits you on a scooter, does your own injury coverage apply?",
+            "bullets": [
+              {
+                "label": "Not the way you would expect",
+                "detail": "no-fault coverage is tied to motor vehicles, and a scooter isn't one, so nothing follows the scooter itself."
+              },
+              {
+                "label": "So nothing pays the first bills",
+                "detail": "the emergency room bill shows up and there's no coverage behind it, and here that's the trauma center in town, so the bill comes quickly and it's a big one."
+              },
+              {
+                "label": "It sends the claim elsewhere",
+                "detail": "straight to the driver who hit you and to your own uninsured coverage."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "A scooter isn't a motor vehicle under Florida law. Why does that one fact control the whole claim?",
+            "bullets": [
+              {
+                "label": "It takes away the automatic coverage",
+                "detail": "with a car, something pays your first bills no matter who caused the crash, and on a scooter nothing does."
+              },
+              {
+                "label": "Fault becomes everything",
+                "detail": "with nothing paying automatically, proving the driver caused it's the only route."
+              },
+              {
+                "label": "It changes the urgency",
+                "detail": "the evidence has to be locked down immediately, and if it was a rental the ride data sits with the company and doesn't wait."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "If you own a car, can you still use that policy after a scooter crash in Gainesville?",
+            "bullets": [
+              {
+                "label": "Often yes, and people never ask",
+                "detail": "a car policy in your household can still cover you even though you were nowhere near the car, and for a student that's often a policy in another county."
+              },
+              {
+                "label": "A relative's policy can count too",
+                "detail": "somebody in the same household with coverage may bring you inside it."
+              },
+              {
+                "label": "Bring every policy",
+                "detail": "the declarations page, the summary sheet at the front, from every car in the house, and that's the first thing to gather."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "When your own coverage doesn't apply, whose insurance actually pays?",
+            "bullets": [
+              {
+                "label": "The driver who hit you, first",
+                "detail": "their liability coverage is the main route, and in Florida that coverage is optional."
+              },
+              {
+                "label": "Then your own uninsured coverage",
+                "detail": "which is why it matters far more to a rider than to a driver."
+              },
+              {
+                "label": "Then the others in the chain",
+                "detail": "whoever built the scooter if a part failed, the rental company if it wasn't maintained, and the city or the university if the road itself was the problem, and a claim against a government carries a much shorter deadline."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E11-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      }
+    ]
+  },
+  "appendix_question_bank": [
+    {
+      "n": 1,
+      "question_text": "What does Florida law actually consider an e-bike or an e-scooter, and why does that classification decide everything about my case?",
+      "ngram_ref": "bank-1"
+    },
+    {
+      "n": 2,
+      "question_text": "What are Florida's e-bike laws, and how do the Class 1, Class 2, and Class 3 categories change where I can legally ride?",
+      "ngram_ref": "bank-2"
+    },
+    {
+      "n": 3,
+      "question_text": "What are Florida's e-scooter laws, and does the state treat a rented scooter differently from one I own?",
+      "ngram_ref": "bank-3"
+    },
+    {
+      "n": 4,
+      "question_text": "Where can I legally ride an e-bike or e-scooter in Florida - on the sidewalk, in the bike lane, or in the road?",
+      "ngram_ref": "bank-4"
+    },
+    {
+      "n": 5,
+      "question_text": "Does Florida require a helmet on an e-bike or e-scooter, and what changes for riders under 16?",
+      "ngram_ref": "bank-5"
+    },
+    {
+      "n": 6,
+      "question_text": "Do I need a license, registration, or insurance to ride an e-scooter in Florida?",
+      "ngram_ref": "bank-6"
+    },
+    {
+      "n": 7,
+      "question_text": "If a car hits me while I'm riding an e-scooter in Florida, does any PIP coverage apply to my injuries?",
+      "ngram_ref": "bank-7"
+    },
+    {
+      "n": 8,
+      "question_text": "Why is an e-bike or e-scooter not a \"motor vehicle\" under Florida's no-fault law, and why does that distinction control my whole claim?",
+      "ngram_ref": "bank-8"
+    },
+    {
+      "n": 9,
+      "question_text": "If I own a car, can I still use my own household auto PIP or MedPay after an e-scooter crash?",
+      "ngram_ref": "bank-9"
+    },
+    {
+      "n": 10,
+      "question_text": "When PIP doesn't apply, which at-fault party's insurance actually pays - the driver, the scooter company, or the manufacturer?",
+      "ngram_ref": "bank-10"
+    },
+    {
+      "n": 11,
+      "question_text": "How does my uninsured or underinsured motorist coverage protect me when the driver who hit my e-bike has little or no insurance?",
+      "ngram_ref": "bank-11"
+    },
+    {
+      "n": 12,
+      "question_text": "When I'm hurt on a rented Lime, Bird, or Spin scooter, does the rental app's insurance cover me?",
+      "ngram_ref": "bank-12"
+    },
+    {
+      "n": 13,
+      "question_text": "If a distracted driver doors me or right-hooks me on my e-bike, how do we prove the driver was at fault?",
+      "ngram_ref": "bank-13"
+    },
+    {
+      "n": 14,
+      "question_text": "What happens if I'm the e-scooter rider who hits a pedestrian on a Florida sidewalk - am I the one who's liable?",
+      "ngram_ref": "bank-14"
+    },
+    {
+      "n": 15,
+      "question_text": "Can I sue Lime, Bird, or Spin when a poorly maintained or defective shared scooter caused my crash?",
+      "ngram_ref": "bank-15"
+    },
+    {
+      "n": 16,
+      "question_text": "When a dangerous road or missing bike lane causes a crash, can I hold a Florida city or government responsible?",
+      "ngram_ref": "bank-16"
+    },
+    {
+      "n": 17,
+      "question_text": "My e-bike's battery caught fire - who is responsible for a lithium-ion battery fire injury?",
+      "ngram_ref": "bank-17"
+    },
+    {
+      "n": 18,
+      "question_text": "If my brakes or throttle failed and caused the crash, do I have a product liability claim against the manufacturer?",
+      "ngram_ref": "bank-18"
+    },
+    {
+      "n": 19,
+      "question_text": "How does a CPSC recall or safety notice help prove an e-bike or e-scooter was defective?",
+      "ngram_ref": "bank-19"
+    },
+    {
+      "n": 20,
+      "question_text": "How does Florida's 51% comparative negligence bar affect my recovery if I wasn't wearing a helmet or rode where I shouldn't have?",
+      "ngram_ref": "bank-20"
+    },
+    {
+      "n": 21,
+      "question_text": "Can the at-fault driver's insurer blame me for breaking an e-scooter operation rule, and how do we fight that?",
+      "ngram_ref": "bank-21"
+    },
+    {
+      "n": 22,
+      "question_text": "Can you get a DUI on an e-scooter in Florida, and how does intoxicated riding affect an injury claim?",
+      "ngram_ref": "bank-22"
+    },
+    {
+      "n": 23,
+      "question_text": "What evidence matters most after an e-scooter crash, and how fast does the app's ride data disappear?",
+      "ngram_ref": "bank-23"
+    },
+    {
+      "n": 24,
+      "question_text": "How do the scooter company's GPS, speed, and maintenance records become evidence in my case?",
+      "ngram_ref": "bank-24"
+    },
+    {
+      "n": 25,
+      "question_text": "What are the most common and most serious injuries in e-bike and e-scooter crashes?",
+      "ngram_ref": "bank-25"
+    },
+    {
+      "n": 26,
+      "question_text": "What is my e-scooter accident claim worth in Florida, and what damages can I recover?",
+      "ngram_ref": "bank-26"
+    },
+    {
+      "n": 27,
+      "question_text": "How long do I have to file an e-bike or e-scooter injury lawsuit in Florida after HB 837?",
+      "ngram_ref": "bank-27"
+    }
+  ],
+  "placeholders_used": [
+    "{{PODCAST_NAME}}",
+    "{{ATTORNEY_NAME}}",
+    "{{ATTORNEY}}",
+    "{{INTERVIEWER}}",
+    "{{FIRM_NAME}}",
+    "{{PHONE_NUMBER}}",
+    "{{WEBSITE}}",
+    "{{YEARS_PRACTICING}}"
+  ],
+  "static": {
+    "welcome": "Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "welcome_first": "Welcome to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "outro_note": "Keep it short. Thank them and mean it, sign off, then the reach-out. Do not recap the episode."
+  },
+  "cover_page": {
+    "logo_drive_id": "1pAZESV-Roq_fh0-1n8xMcMCJvtOiWAN2",
+    "logo_width_pt": 180,
+    "title": "Run of Show",
+    "prepared_by": "Prepared by Case Engine"
+  },
+  "outro_close": {},
+  "outro": {
+    "thanks": "**{{ATTORNEY}}**, thank you for your time. Nobody actually explains that getting on an e-bike or a scooter puts you outside Florida's no-fault system. You just did.",
+    "signoff": "We will leave it there. This is **{{PODCAST_NAME}}**, and we will see you next episode.",
+    "reach": "And remember, if this is happening to you in Florida, get in touch with **{{FIRM_NAME}}** at **{{PHONE_NUMBER}}**, or find them at **{{WEBSITE}}**."
+  },
+  "metadata": {
+    "topic_plan_reconciled": true,
+    "topic_plan_doc_id": "1P_1tAKXf6_I7EODRnkzDGVhUqPKBncdPKL127YlxgYs",
+    "topic_plan_revision_id": "AIroW34FYjoDNe-pyO0zmcS3bcMOn0H73Q9-m2OO7TkOMdkCNXN_YAGDkb1Jlr9B8vTPL2VOBuKMHeoY85-DOkgVPQZv0OMwEA53iwt4JmQ",
+    "topic_plan_fetched_at": "2026-08-18T20:40:06Z",
+    "attribute_source": "fallback",
+    "attribute_source_pulled": "2026-08-14",
+    "attribute_source_confidence": "Inferred",
+    "outro_line1_approach": "topical",
+    "outro_line2_index": 3,
+    "outro_line3_slots": [
+      "And remember,",
+      2,
+      "get in touch with",
+      2
+    ]
+  }
+}

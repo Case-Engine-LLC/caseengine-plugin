@@ -1,0 +1,689 @@
+{
+  "schema_version": "2.0.0",
+  "episode_format": "v2-open-interview",
+  "topic": "commercial insurance coverage",
+  "episode_title": "Commercial Insurance Coverage and Policy Stacks",
+  "episode_number_token": "E6",
+  "scope": "Location",
+  "location": "Stuart and Gainesville, Florida",
+  "city": "Stuart",
+  "region": "the Treasure Coast",
+  "state": "Florida",
+  "episode_goal": "Authority",
+  "duration": {
+    "segment_1_min_low": 15,
+    "segment_1_min_high": 30
+  },
+  "segment_1": {
+    "topic_phrase": "how much insurance is actually behind the vehicle that hit you",
+    "setup": "I'm **{{INTERVIEWER}}**. Today is about something most people in Florida never think about until it matters. How much insurance is behind the vehicle that hits you, and why that number decides almost everything.",
+    "credential": "**{{ATTORNEY}}**, you've been taking these cases apart for **{{YEARS_PRACTICING}}** years.",
+    "prompt": "Somebody is still in a hospital gown and the insurance company is already building its side. Explain what they're doing in those first days. And if you've watched it play out on a case, take us through it.",
+    "attributes": [
+      {
+        "name": "Cases you took to trial",
+        "detail": "The ones you put in front of a jury instead of settling, and how the insurers stacked above the first one behave once they believe you'll do it again."
+      },
+      {
+        "name": "Business vehicle crashes",
+        "detail": "Not injury cases generally. Crashes caused by a commercial vehicle, how many, and how recently."
+      },
+      {
+        "name": "Credentials anyone can verify",
+        "detail": "Your license and your disciplinary record, which matter more than any directory badge."
+      },
+      {
+        "name": "Who the carriers hire here",
+        "detail": "The county court, the judges, and the defense firms the insurers around here actually retain."
+      },
+      {
+        "name": "Finding every policy",
+        "detail": "How you get to the coverage nobody volunteers, including the layers stacked above the first one."
+      },
+      {
+        "name": "Reading the front page of the policy",
+        "detail": "The one-page summary that lists the limits, and what on it decides whether a second and third policy can be reached at all."
+      },
+      {
+        "name": "Getting the limits in writing",
+        "detail": "How you make an insurer state its number on paper, and why a number somebody gives you over the phone is worth nothing."
+      },
+      {
+        "name": "Putting a number on the future",
+        "detail": "The experts who figure out what a lifetime of care actually costs, because that total is what you hold the insurance layers up against."
+      },
+      {
+        "name": "Evidence that gets erased",
+        "detail": "What you lock down in the first days, before the vehicle data and the company records are overwritten."
+      },
+      {
+        "name": "Three separate clocks",
+        "detail": "The medical window, the filing deadline, and the much shorter one if a public vehicle was involved."
+      },
+      {
+        "name": "Fees and who pays the costs",
+        "detail": "What the percentage is, whether it goes up if you file suit, who fronts the cost of chasing every policy, and what happens if you lose."
+      },
+      {
+        "name": "When the money isn't there",
+        "detail": "How you tell somebody the coverage doesn't exist, and why you say it in the first conversation instead of the tenth."
+      }
+    ]
+  },
+  "segment_2": {
+    "locations": [
+      {
+        "location": "Stuart",
+        "questions": [
+          {
+            "q": "Why does the insurance behind the other vehicle matter so much after a crash in Stuart?",
+            "bullets": [
+              {
+                "label": "A business vehicle isn't a car",
+                "detail": "the policy behind it's usually many times the size of anything a private driver carries."
+              },
+              {
+                "label": "The coverage decides what's possible",
+                "detail": "the injury sets what the case is worth, but the insurance behind it sets what you can actually collect."
+              },
+              {
+                "label": "Around here specifically",
+                "detail": "most of the heavy traffic on I-95 and the Turnpike is freight passing through, so the vehicle that hit you often belongs to a company with far deeper coverage than anyone local."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "How is a commercial policy different from the car insurance most people have?",
+            "bullets": [
+              {
+                "label": "It's written for a business",
+                "detail": "it covers the vehicle, the driver, and the company running both of them."
+              },
+              {
+                "label": "The numbers aren't comparable",
+                "detail": "a personal policy is written in thousands and a commercial one is often written in millions."
+              },
+              {
+                "label": "There's usually more than one",
+                "detail": "a business tends to carry layers, and the first policy anybody finds is rarely the only one."
+              },
+              {
+                "label": "What that looks like here",
+                "detail": "a long-haul trucking company running the coast is insured as an interstate operation, and that policy is far bigger and far better documented than the one on a local van."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "What are policy limits, and why are they the number that matters most?",
+            "bullets": [
+              {
+                "label": "A policy limit's a ceiling",
+                "detail": "no matter how badly somebody is hurt, that policy won't pay a dollar past it."
+              },
+              {
+                "label": "It sets the whole strategy",
+                "detail": "that number decides how the case gets built and who else gets pulled into it."
+              },
+              {
+                "label": "Getting the number in writing",
+                "detail": "Florida law lets us force the insurer to tell us the limit, and it has to come in writing so nobody can walk it back later."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "What kinds of commercial policies turn up in a crash in Stuart or across the Treasure Coast?",
+            "bullets": [
+              {
+                "label": "It depends on what was on the road",
+                "detail": "on I-95 and the Turnpike it's long-haul freight, and on US 1 and Kanner Highway it's delivery vans and service trucks, and those are different policies entirely."
+              },
+              {
+                "label": "The business itself carries more",
+                "detail": "there's often a separate policy covering the company's operations, not just the vehicle."
+              },
+              {
+                "label": "Who's named on it matters",
+                "detail": "a contractor driving for a larger company may be covered by both, or by neither, and that's a document question."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "What does it actually mean to stack coverage?",
+            "bullets": [
+              {
+                "label": "Think of it as floors",
+                "detail": "the first policy pays to its limit, then the next one starts, then the one above that."
+              },
+              {
+                "label": "Every floor is a separate fight",
+                "detail": "each insurer above the first one has its own lawyers and its own reasons why the claim isn't its problem yet."
+              },
+              {
+                "label": "The total is what matters",
+                "detail": "the number worth knowing is all of those layers added together, not what the first policy says."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "What's the difference between an umbrella policy and an excess policy?",
+            "bullets": [
+              {
+                "label": "Both sit on top",
+                "detail": "neither one pays until the policy underneath it has been used up."
+              },
+              {
+                "label": "An excess policy copies the one below it",
+                "detail": "same terms, same list of things it won't cover, just a higher ceiling."
+              },
+              {
+                "label": "Umbrella can be broader",
+                "detail": "it sometimes covers things the policy underneath never did, which is why the wording gets read line by line."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "Can you stack insurance policies in Florida?",
+            "bullets": [
+              {
+                "label": "Sometimes, and it's worth checking",
+                "detail": "more than one policy can be added together, and that's often where the real money is."
+              },
+              {
+                "label": "A form may have signed it away",
+                "detail": "there's a form people sign that trades away stacking for a cheaper premium, and most of them never realize they signed it."
+              },
+              {
+                "label": "Go read it",
+                "detail": "the one-page summary at the front of the policy from the year of the crash settles the argument, not what anyone remembers choosing."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "What happens when the vehicle that hit you in Stuart doesn't have enough coverage?",
+            "bullets": [
+              {
+                "label": "Your own policy can step in",
+                "detail": "the coverage on your own car pays when the other side runs out or never had any."
+              },
+              {
+                "label": "It'sn't automatic",
+                "detail": "it has to be claimed, and your own insurer will treat it like any other claim."
+              },
+              {
+                "label": "Then look wider",
+                "detail": "a household policy, an employer's policy, and with the number of out-of-state drivers here, sometimes a policy written in another state entirely."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "How does Florida no-fault fit into a serious injury claim?",
+            "bullets": [
+              {
+                "label": "It pays first and it's small",
+                "detail": "the coverage on your own policy handles the early bills and it runs out fast."
+              },
+              {
+                "label": "There's a fourteen-day clock",
+                "detail": "see a doctor inside two weeks, or that coverage is gone entirely."
+              },
+              {
+                "label": "Serious injuries go outside it",
+                "detail": "once an injury is permanent, the case moves past your own coverage and onto the policies behind whoever caused it."
+              },
+              {
+                "label": "Where that line sits",
+                "detail": "the serious cases here are moved out of the county for treatment, so the proof that you crossed that line arrives from two hospitals rather than one."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "What extra protection exists when a truck causes the crash near Stuart?",
+            "bullets": [
+              {
+                "label": "The federal floor",
+                "detail": "a carrier running interstate has to carry a minimum set by federal rule, well above any car policy."
+              },
+              {
+                "label": "A backstop behind it",
+                "detail": "there's a federal guarantee that can force payment to an injured person even when the insurer says the policy doesn't cover it."
+              },
+              {
+                "label": "Where the trucks come from here",
+                "detail": "the trucks through Martin County are mostly running the coast route, and there's a weigh station on I-95 that keeps inspection records on the ones that came through."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      },
+      {
+        "location": "Gainesville",
+        "questions": [
+          {
+            "q": "Why does the insurance behind the other vehicle matter so much after a crash in Gainesville?",
+            "bullets": [
+              {
+                "label": "A business vehicle isn't a car",
+                "detail": "the policy behind it's usually many times the size of anything a private driver carries."
+              },
+              {
+                "label": "The coverage decides what's possible",
+                "detail": "the injury sets what the case is worth, but the insurance behind it sets what you can actually collect."
+              },
+              {
+                "label": "Around here specifically",
+                "detail": "between the delivery vans, the university vehicles and the city buses, a lot of the traffic here belongs to an organization rather than a person, and that changes what's behind it."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R1",
+            "source_ngram_ref": "bank-1"
+          },
+          {
+            "q": "How is a commercial policy different from the car insurance most people have?",
+            "bullets": [
+              {
+                "label": "It's written for a business",
+                "detail": "it covers the vehicle, the driver, and the company running both of them."
+              },
+              {
+                "label": "The numbers aren't comparable",
+                "detail": "a personal policy is written in thousands and a commercial one is often written in millions."
+              },
+              {
+                "label": "There's usually more than one",
+                "detail": "a business tends to carry layers, and the first policy anybody finds is rarely the only one."
+              },
+              {
+                "label": "What that looks like here",
+                "detail": "a delivery van may be run by a contractor working for a much larger company, and there's often a policy on each of them."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R2",
+            "source_ngram_ref": "bank-2"
+          },
+          {
+            "q": "What are policy limits, and why are they the number that matters most?",
+            "bullets": [
+              {
+                "label": "A policy limit's a ceiling",
+                "detail": "no matter how badly somebody is hurt, that policy won't pay a dollar past it."
+              },
+              {
+                "label": "It sets the whole strategy",
+                "detail": "that number decides how the case gets built and who else gets pulled into it."
+              },
+              {
+                "label": "Getting the number in writing",
+                "detail": "Florida law lets us force the insurer to tell us the limit, and if a university, city or county vehicle was involved there's a separate notice that has to go out early."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R3",
+            "source_ngram_ref": "bank-3"
+          },
+          {
+            "q": "What kinds of commercial policies turn up in a crash in Gainesville or across North Central Florida?",
+            "bullets": [
+              {
+                "label": "It depends on what was on the road",
+                "detail": "on I-75 it's long-haul freight, and around town it's delivery contractors, university vehicles and transit buses, and each of those is a completely different policy to chase."
+              },
+              {
+                "label": "The business itself carries more",
+                "detail": "there's often a separate policy covering the company's operations, not just the vehicle."
+              },
+              {
+                "label": "Who's named on it matters",
+                "detail": "a contractor driving for a larger company may be covered by both, or by neither, and that's a document question."
+              }
+            ],
+            "geo_tag": "CITY + REGION",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R4",
+            "source_ngram_ref": "bank-4"
+          },
+          {
+            "q": "What does it actually mean to stack coverage?",
+            "bullets": [
+              {
+                "label": "Think of it as floors",
+                "detail": "the first policy pays to its limit, then the next one starts, then the one above that."
+              },
+              {
+                "label": "Every floor is a separate fight",
+                "detail": "each insurer above the first one has its own lawyers and its own reasons why the claim isn't its problem yet."
+              },
+              {
+                "label": "The total is what matters",
+                "detail": "the number worth knowing is all of those layers added together, not what the first policy says."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R5",
+            "source_ngram_ref": "bank-5"
+          },
+          {
+            "q": "What's the difference between an umbrella policy and an excess policy?",
+            "bullets": [
+              {
+                "label": "Both sit on top",
+                "detail": "neither one pays until the policy underneath it has been used up."
+              },
+              {
+                "label": "An excess policy copies the one below it",
+                "detail": "same terms, same list of things it won't cover, just a higher ceiling."
+              },
+              {
+                "label": "Umbrella can be broader",
+                "detail": "it sometimes covers things the policy underneath never did, which is why the wording gets read line by line."
+              }
+            ],
+            "geo_tag": "NEUTRAL",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R6",
+            "source_ngram_ref": "bank-6"
+          },
+          {
+            "q": "Can you stack insurance policies in Florida?",
+            "bullets": [
+              {
+                "label": "Sometimes, and it's worth checking",
+                "detail": "more than one policy can be added together, and that's often where the real money is."
+              },
+              {
+                "label": "A form may have signed it away",
+                "detail": "there's a form people sign that trades away stacking for a cheaper premium, and most of them never realize they signed it."
+              },
+              {
+                "label": "Go read it",
+                "detail": "the one-page summary at the front of the policy from the year of the crash settles the argument, not what anyone remembers choosing."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R7",
+            "source_ngram_ref": "bank-7"
+          },
+          {
+            "q": "What happens when the vehicle that hit you in Gainesville doesn't have enough coverage?",
+            "bullets": [
+              {
+                "label": "Your own policy can step in",
+                "detail": "the coverage on your own car pays when the other side runs out or never had any."
+              },
+              {
+                "label": "It'sn't automatic",
+                "detail": "it has to be claimed, and your own insurer will treat it like any other claim."
+              },
+              {
+                "label": "Then look wider",
+                "detail": "a household policy, an employer's policy, and around campus a rideshare policy that only applies during part of the trip."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R8",
+            "source_ngram_ref": "bank-8"
+          },
+          {
+            "q": "How does Florida no-fault fit into a serious injury claim?",
+            "bullets": [
+              {
+                "label": "It pays first and it's small",
+                "detail": "the coverage on your own policy handles the early bills and it runs out fast."
+              },
+              {
+                "label": "There's a fourteen-day clock",
+                "detail": "see a doctor inside two weeks, or that coverage is gone entirely."
+              },
+              {
+                "label": "Serious injuries go outside it",
+                "detail": "once an injury is permanent, the case moves past your own coverage and onto the policies behind whoever caused it."
+              },
+              {
+                "label": "Where that line sits",
+                "detail": "the trauma center is here, so the record that proves how serious it was is complete and it's all in one place."
+              }
+            ],
+            "geo_tag": "STATE",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R9",
+            "source_ngram_ref": "bank-9"
+          },
+          {
+            "q": "What extra protection exists when a truck causes the crash near Gainesville?",
+            "bullets": [
+              {
+                "label": "The federal floor",
+                "detail": "a carrier running interstate has to carry a minimum set by federal rule, well above any car policy."
+              },
+              {
+                "label": "A backstop behind it",
+                "detail": "there's a federal guarantee that can force payment to an injured person even when the insurer says the policy doesn't cover it."
+              },
+              {
+                "label": "Where the trucks come from here",
+                "detail": "I-75 is the freight spine for this whole part of the state, so a truck here's usually interstate and carrying the federal minimum or more."
+              }
+            ],
+            "geo_tag": "CITY",
+            "kind": "search-phrase",
+            "topic_plan_ref": "TP-E6-R10",
+            "source_ngram_ref": "bank-10"
+          }
+        ]
+      }
+    ]
+  },
+  "appendix_question_bank": [
+    {
+      "n": 1,
+      "question_text": "When someone is seriously hurt in a commercial vehicle crash in Florida, why does the insurance behind the at-fault party matter so much?",
+      "ngram_ref": "bank-1"
+    },
+    {
+      "n": 2,
+      "question_text": "What is a commercial insurance policy, and how is it different from the personal auto policy most people carry?",
+      "ngram_ref": "bank-2"
+    },
+    {
+      "n": 3,
+      "question_text": "What are policy limits, and why are they the single most important number in a serious-injury case?",
+      "ngram_ref": "bank-3"
+    },
+    {
+      "n": 4,
+      "question_text": "What kinds of commercial policies can be in play when a business vehicle or a truck causes a crash?",
+      "ngram_ref": "bank-4"
+    },
+    {
+      "n": 5,
+      "question_text": "What does it actually mean to 'stack' coverage, and how do primary, excess, and umbrella layers fit together?",
+      "ngram_ref": "bank-5"
+    },
+    {
+      "n": 6,
+      "question_text": "How does an umbrella policy work, and how is it different from an excess liability policy?",
+      "ngram_ref": "bank-6"
+    },
+    {
+      "n": 7,
+      "question_text": "Can you stack insurance in Florida, and what does the law say about anti-stacking and the non-stacking election?",
+      "ngram_ref": "bank-7"
+    },
+    {
+      "n": 8,
+      "question_text": "When the at-fault driver does not have enough coverage, how do uninsured and underinsured motorist coverage step in?",
+      "ngram_ref": "bank-8"
+    },
+    {
+      "n": 9,
+      "question_text": "How does Florida PIP / No-Fault coverage fit in, and when does a serious injury let you step outside the No-Fault system?",
+      "ngram_ref": "bank-9"
+    },
+    {
+      "n": 10,
+      "question_text": "In a trucking case, what is the MCS-90 endorsement and what does it actually cover for an injured person?",
+      "ngram_ref": "bank-10"
+    },
+    {
+      "n": 11,
+      "question_text": "How much insurance are trucking companies required to carry under federal law, and how do those minimums shape a case?",
+      "ngram_ref": "bank-11"
+    },
+    {
+      "n": 12,
+      "question_text": "What is bobtail or non-trucking-liability coverage, and why does it create coverage fights after a crash?",
+      "ngram_ref": "bank-12"
+    },
+    {
+      "n": 13,
+      "question_text": "Beyond the driver, who else can be on the hook, and how does Florida's dangerous instrumentality doctrine pull in the vehicle owner?",
+      "ngram_ref": "bank-13"
+    },
+    {
+      "n": 14,
+      "question_text": "How do negligent entrustment and broker or shipper liability open up additional policies in a trucking case?",
+      "ngram_ref": "bank-14"
+    },
+    {
+      "n": 15,
+      "question_text": "What is a self-insured retention, and how is it different from a regular deductible when a big company is behind the crash?",
+      "ngram_ref": "bank-15"
+    },
+    {
+      "n": 16,
+      "question_text": "What are captive insurers and fronting policies, and how can they hide or expose a defendant's real coverage?",
+      "ngram_ref": "bank-16"
+    },
+    {
+      "n": 17,
+      "question_text": "How do lawyers actually find every insurance policy that might cover an accident?",
+      "ngram_ref": "bank-17"
+    },
+    {
+      "n": 18,
+      "question_text": "Does an insurer in Florida have to disclose its policy limits, and what tools force that disclosure?",
+      "ngram_ref": "bank-18"
+    },
+    {
+      "n": 19,
+      "question_text": "What does an insurer's duty to defend and duty to indemnify mean, and why does the difference matter to an injured person?",
+      "ngram_ref": "bank-19"
+    },
+    {
+      "n": 20,
+      "question_text": "How do policy exclusions and a reservation-of-rights letter become the insurer's way of fighting coverage?",
+      "ngram_ref": "bank-20"
+    },
+    {
+      "n": 21,
+      "question_text": "What is insurance bad faith, and how does Florida's bad-faith statute create real pressure to pay full value?",
+      "ngram_ref": "bank-21"
+    },
+    {
+      "n": 22,
+      "question_text": "What is a policy-limits demand, and what is the Florida Civil Remedy Notice that has to come before a bad-faith suit?",
+      "ngram_ref": "bank-22"
+    },
+    {
+      "n": 23,
+      "question_text": "What happens when the damages are worth more than every policy limit combined?",
+      "ngram_ref": "bank-23"
+    },
+    {
+      "n": 24,
+      "question_text": "What is the single most important thing an injured Floridian should understand about commercial coverage and policy stacks?",
+      "ngram_ref": "bank-24"
+    }
+  ],
+  "placeholders_used": [
+    "{{PODCAST_NAME}}",
+    "{{ATTORNEY_NAME}}",
+    "{{ATTORNEY}}",
+    "{{INTERVIEWER}}",
+    "{{FIRM_NAME}}",
+    "{{PHONE_NUMBER}}",
+    "{{WEBSITE}}",
+    "{{YEARS_PRACTICING}}"
+  ],
+  "static": {
+    "welcome": "Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "welcome_first": "Welcome to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+    "outro_note": "Keep it short. Thank them and mean it, sign off, then the reach-out. Do not recap the episode."
+  },
+  "cover_page": {
+    "logo_drive_id": "1pAZESV-Roq_fh0-1n8xMcMCJvtOiWAN2",
+    "logo_width_pt": 180,
+    "title": "Run of Show",
+    "prepared_by": "Prepared by Case Engine"
+  },
+  "outro_close": {},
+  "outro": {
+    "thanks": "**{{ATTORNEY}}**, thanks for walking through all of that. That's the first time I have heard anyone lay out how the layers actually work in plain English.",
+    "signoff": "That's a wrap on this one. **{{PODCAST_NAME}}**. See you on the next one.",
+    "reach": "And if nothing else, if you're in Florida and need a lawyer, get in touch with **{{FIRM_NAME}}** at **{{PHONE_NUMBER}}**, or find them at **{{WEBSITE}}**."
+  },
+  "metadata": {
+    "topic_plan_reconciled": true,
+    "topic_plan_doc_id": "1P_1tAKXf6_I7EODRnkzDGVhUqPKBncdPKL127YlxgYs",
+    "topic_plan_revision_id": "AIroW34FYjoDNe-pyO0zmcS3bcMOn0H73Q9-m2OO7TkOMdkCNXN_YAGDkb1Jlr9B8vTPL2VOBuKMHeoY85-DOkgVPQZv0OMwEA53iwt4JmQ",
+    "topic_plan_fetched_at": "2026-08-18T20:40:06Z",
+    "attribute_source": "fallback",
+    "attribute_source_pulled": "2026-08-14",
+    "attribute_source_confidence": "Inferred",
+    "outro_line1_approach": "clarity",
+    "outro_line2_index": 4,
+    "outro_line3_slots": [
+      "And if nothing else,",
+      2,
+      "get in touch with",
+      2
+    ]
+  }
+}

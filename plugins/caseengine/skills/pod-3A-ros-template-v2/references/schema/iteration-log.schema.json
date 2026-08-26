@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caseengine.ai/schemas/iteration-log.schema.json",
+  "title": "CE Skill Iteration Log",
+  "description": "Schema for references/iteration-log.json - the append-only record of bugs, papercuts, drift, and fixes spotted across runs of a CE skill. Read at the start of every run to surface known issues to the agent. Never written at runtime; entries are added post-run by humans or proposed by scripts/diff_against_template.py.",
+  "type": "object",
+  "required": ["_meta", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "description": "Metadata about the log file itself.",
+      "required": ["skill_name", "schema_version", "created"],
+      "additionalProperties": false,
+      "properties": {
+        "skill_name": {
+          "type": "string",
+          "description": "Kebab-case name matching the skill folder. A leading pipeline-stage prefix segment may carry uppercase letters (pod-2A-entity-research, pod-3B-n-gram-table, pod-4A-ros-template). Accepts {{ALL_CAPS_PLACEHOLDER}} for templates.",
+          "pattern": "^([a-z0-9]+(-[a-z0-9]+)*|[0-9]+[A-Z]+(-[a-z0-9]+)+|\\{\\{[A-Z_]+\\}\\})$",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "schema_version": {
+          "type": "string",
+          "description": "Schema version this log conforms to.",
+          "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$"
+        },
+        "created": {
+          "type": "string",
+          "description": "ISO date the log was initialized. Accepts {{ALL_CAPS_PLACEHOLDER}} for templates.",
+          "pattern": "^([0-9]{4}-[0-9]{2}-[0-9]{2}|\\{\\{[A-Z0-9_-]+\\}\\})$"
+        },
+        "last_archived": {
+          "type": "string",
+          "description": "ISO date the most recent archive cut was made (resolved/old entries moved to references/iteration-log-archive-{YYYY-Q#}.json).",
+          "format": "date",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Free-text notes about the log (operator-only).",
+          "maxLength": 2000
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "description": "Append-only list of iteration log entries. Newest at the bottom; never reorder.",
+      "items": {
+        "$ref": "#/$defs/Entry"
+      }
+    }
+  },
+  "$defs": {
+    "Entry": {
+      "type": "object",
+      "required": [
+        "id",
+        "category",
+        "severity",
+        "description",
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID format YYYY-MM-DD-NNN with NNN as a zero-padded daily counter (001, 002, ...).",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$"
+        },
+        "category": {
+          "type": "string",
+          "description": "What kind of issue this is.",
+          "enum": [
+            "rendering",
+            "content",
+            "branding",
+            "logic",
+            "data",
+            "ux",
+            "schema",
+            "infra",
+            "capability"
+          ]
+        },
+        "severity": {
+          "type": "string",
+          "description": "How bad the issue is.",
+          "enum": ["low", "medium", "high", "critical"]
+        },
+        "description": {
+          "type": "string",
+          "description": "What went wrong - one to a few sentences.",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "resolution": {
+          "type": "string",
+          "description": "What fixed it (or what the proposed fix is). Optional for open / proposed entries.",
+          "maxLength": 4000
+        },
+        "fix_in_version": {
+          "type": "string",
+          "description": "Version where the fix landed, or 'pending'.",
+          "pattern": "^(v[0-9]+\\.[0-9]+(\\.[0-9]+)?|pending)$"
+        },
+        "status": {
+          "type": "string",
+          "description": "Lifecycle state. 'proposed' = surfaced by diff_against_template.py awaiting human sign-off. 'open' = human-confirmed, awaiting fix. 'in-progress' = fix being authored. 'resolved' = fixed. 'wontfix' = closed without fix.",
+          "enum": [
+            "open",
+            "in-progress",
+            "resolved",
+            "wontfix",
+            "proposed"
+          ]
+        },
+        "spotted_in_run": {
+          "type": "string",
+          "description": "Optional pointer to the run / workspace iteration where this was spotted (e.g., 'iteration-3/eval-2/with_skill').",
+          "maxLength": 200
+        },
+        "spotted_by": {
+          "type": "string",
+          "description": "Who spotted it (operator handle, 'fold-back-loop', etc.). Stripped on --fork.",
+          "maxLength": 100
+        },
+        "spotted_on": {
+          "type": "string",
+          "description": "ISO date the issue was spotted.",
+          "format": "date",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "resolved_on": {
+          "type": "string",
+          "description": "ISO date the fix landed.",
+          "format": "date",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "tags": {
+          "type": "array",
+          "description": "Free-form tags for filtering (e.g., 'cowork-only', 'breaking-change').",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+          },
+          "maxItems": 20
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": { "const": "resolved" }
+            }
+          },
+          "then": {
+            "required": ["resolution"]
+          }
+        }
+      ]
+    }
+  }
+}

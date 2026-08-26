@@ -1,0 +1,157 @@
+{
+  "$comment": "The outro's three spoken lines. NOT constants. Each line has required beats that are gated, and a bank that seeds variation. The banks are STARTING POINTS showing range, not closed menus - a generated line that satisfies the beats and the rules is valid even if it appears nowhere here. Read by steps/04-segment-1.md and references/prompts/07-outro-close.md. Narrative spec lives in references/outro.md.",
+  "version": "1.0.0",
+  "created": "2026-08-18",
+  "rationale": "Gabe, 2026-08-18: the outro must read relatively unique on every episode while always hitting the same points. Frozen strings guaranteed the points and guaranteed twelve identical episodes. Beats plus banks keep the points and lose the sameness.",
+  "line_1_thanks": {
+    "job": "Thank the attorney and credit them, in one breath.",
+    "required_beats": [
+      "Address them with {{ATTORNEY}}",
+      "Thank them explicitly",
+      "One credit clause that alludes to competence rather than announcing it"
+    ],
+    "target": "Under 30 words. One or two sentences.",
+    "invariant": "{{ATTORNEY}} appears exactly once, bold.",
+    "thanks_stems": [
+      "**{{ATTORNEY}}**, thank you for your time.",
+      "**{{ATTORNEY}}**, thanks for walking through all of that.",
+      "**{{ATTORNEY}}**, I appreciate you taking the time.",
+      "That is a good place to stop. **{{ATTORNEY}}**, thank you.",
+      "**{{ATTORNEY}}**, thanks for being so straight about all of it."
+    ],
+    "credit_approaches": {
+      "reps": {
+        "what": "Points at accumulated experience without naming a number.",
+        "examples": [
+          "You can tell that comes from having done this a few hundred times.",
+          "You do not answer that fast unless you have lived it.",
+          "You have clearly had this conversation more than a few times."
+        ]
+      },
+      "clarity": {
+        "what": "Credits the explaining, not the knowing. Best after a technical episode.",
+        "examples": [
+          "That is genuinely hard to explain simply. You made it sound easy.",
+          "That is the first time I have heard anyone lay that out in plain English.",
+          "You made something genuinely complicated sound simple, which is harder than it looks."
+        ]
+      },
+      "candor": {
+        "what": "Credits honesty. Use when the attorney named a weakness, gave an unflattering number, or said someone did not have a case.",
+        "examples": [
+          "A lot of attorneys would not have answered that as straight as you did.",
+          "I appreciate that you told people what they do not want to hear.",
+          "Not everyone would admit that part out loud."
+        ]
+      },
+      "topical": {
+        "what": "Anchors the credit to THIS episode's subject. The strongest source of per-episode uniqueness, because the clause cannot be reused on another episode. Preferred whenever {topic_phrase} is concrete.",
+        "examples": [
+          "Nobody actually explains {topic_phrase}. You just did.",
+          "Most people have to piece {topic_phrase} together themselves. That is going to save somebody a lot of time.",
+          "There is almost nothing useful out there on {topic_phrase}. Now there is.",
+          "People spend weeks trying to work out {topic_phrase}. You did it in twenty minutes.",
+          "That is the clearest answer on {topic_phrase} I have heard."
+        ],
+        "shape": "TWO SHORT SENTENCES. Name the gap, then credit them for filling it. Verb early, no nested clauses. One long sentence with a relative clause hanging off a noun phrase is the failure mode here and it does not survive being read aloud."
+      },
+      "depth": {
+        "what": "Calls back to the credential from intro line 3. Uses {{YEARS_PRACTICING}}.",
+        "examples": [
+          "That is the kind of thing you only really know after **{{YEARS_PRACTICING}}** years of it.",
+          "**{{YEARS_PRACTICING}}** years of this clearly shows."
+        ]
+      }
+    },
+    "rules": [
+      "Say it out loud before accepting it. Two short sentences beat one long one every time. If a clause hangs off a noun phrase, or the main verb arrives more than about eight words in, rewrite it.",
+      "Allude, do not gush. 'You're brilliant', 'that was incredible', 'one of the best in the state' all fail.",
+      "Credit something specific the attorney did in this episode. Generic praise is the failure mode.",
+      "Do not run the depth approach on an episode whose intro leaned hard on {{YEARS_PRACTICING}}.",
+      "Do not repeat an approach on consecutive episodes of the same show.",
+      "Never a superlative. Never a ranking. Never an award."
+    ]
+  },
+  "line_2_signoff": {
+    "job": "Signal the end and name the show.",
+    "required_beats": [
+      "A phrase that signals the episode is over",
+      "{{PODCAST_NAME}}",
+      "A forward reference to a next episode"
+    ],
+    "target": "Under 15 words.",
+    "invariant": "{{PODCAST_NAME}} appears exactly once, bold. Zero occurrences of 'Case Engine'.",
+    "variation": "LOW BY DESIGN. This is the sonic bookend to intro line 1 and repetition is most of its value. Rotate within the bank; do not generate new forms unless every bank entry has been used in the current season.",
+    "bank": [
+      "That is it for this one. **{{PODCAST_NAME}}**. We will see you next episode.",
+      "That is where we will leave it. **{{PODCAST_NAME}}**. See you next episode.",
+      "That is the episode. **{{PODCAST_NAME}}**. We will see you on the next one.",
+      "We will leave it there. This is **{{PODCAST_NAME}}**, and we will see you next episode.",
+      "That is a wrap on this one. **{{PODCAST_NAME}}**. See you on the next one.",
+      "That is all we have for this one. **{{PODCAST_NAME}}**. We will see you next time."
+    ],
+    "rules": [
+      "Never 'produced by Case Engine' or any CE credit. It is the firm's show.",
+      "Never an episode number. Numbers date an evergreen asset.",
+      "Never a next-episode tease. Publish order changes and a stale tease outlives its episode.",
+      "'We will see you next episode' stays correct on a season's last episode. The library is continuous."
+    ]
+  },
+  "line_3_reach": {
+    "job": "Tell a listener in the market how to reach the firm.",
+    "required_beats": [
+      "A hinge opener that makes a line after the sign-off sound natural",
+      "A geo qualifier carrying {{STATE}}",
+      "A neutral need clause",
+      "{{FIRM_NAME}}",
+      "{{PHONE_NUMBER}}",
+      "{{WEBSITE}}"
+    ],
+    "target": "Under 30 words.",
+    "invariant": "{{STATE}}, {{FIRM_NAME}}, {{PHONE_NUMBER}} and {{WEBSITE}} each appear exactly once, all bold. Zero occurrences of {{CITY}}.",
+    "slots": {
+      "hinge": [
+        "And remember,",
+        "And one last thing,",
+        "And before you go,",
+        "One more thing,",
+        "And if nothing else,"
+      ],
+      "geo_and_need": [
+        "if you are in **{{STATE}}** and need a lawyer,",
+        "if you are anywhere in **{{STATE}}** and need help with this,",
+        "if this is happening to you in **{{STATE}}**,",
+        "if you are in **{{STATE}}** and you want someone to actually look at it,",
+        "if you are dealing with this somewhere in **{{STATE}}**,"
+      ],
+      "verb": [
+        "reach out to",
+        "get in touch with",
+        "call"
+      ],
+      "contact_frame": [
+        "**{{FIRM_NAME}}** at **{{PHONE_NUMBER}}**, or online at **{{WEBSITE}}**.",
+        "**{{FIRM_NAME}}**. The number is **{{PHONE_NUMBER}}**, and the site is **{{WEBSITE}}**.",
+        "**{{FIRM_NAME}}** at **{{PHONE_NUMBER}}**, or find them at **{{WEBSITE}}**."
+      ]
+    },
+    "assembly": "hinge + space + geo_and_need + space + verb + space + contact_frame. The 'call' verb only pairs with a contact_frame whose first token is the firm name.",
+    "rules": [
+      "The geo is {{STATE}} and NEVER {{CITY}}. S1 is state-governed so one recording serves every city the firm covers. A city here silently makes the whole long-form segment non-reusable.",
+      "The need clause stays practice-area neutral. 'If you were hurt' is nonsense on an estate planning show and describes the wrong person on a criminal defense show.",
+      "Two contact routes, once each, phone before website. No address, no email, no social handle.",
+      "One reach-out per episode. Never two."
+    ]
+  },
+  "rotation": {
+    "$comment": "How uniqueness is actually enforced across a library rather than left to chance.",
+    "rule": "Before generating, read the prior episodes' metadata.json for this client and collect outro_line1_approach, outro_line2_index and outro_line3_slots. Do not reuse a line 1 approach or a line 2 bank entry used in either of the two preceding episodes. Line 3 must differ from the immediately preceding episode in at least two of its four slots.",
+    "tool": "scripts/outro-rotation.py",
+    "record_in_metadata": [
+      "outro_line1_approach",
+      "outro_line1_stem_index",
+      "outro_line2_index",
+      "outro_line3_slots"
+    ]
+  }
+}

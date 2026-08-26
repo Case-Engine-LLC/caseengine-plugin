@@ -1,0 +1,606 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://caseengine.ai/schemas/ros-template-v2.json",
+  "title": "ROS Template v2 Data",
+  "description": "Machine-readable payload for a v2-format (single prompt + short-form blocks) tokenized Run of Show template. Produced by pod-3A-ros-template-v2, consumed by pod-3B-client-ros at populate time. Distinct from the legacy ros-template.json shape - the two coexist and neither validates against the other. Freestanding by design: this file resolves no $ref outside its own directory and shares nothing with pod-3A-ros-template.",
+  "version": "2.5.0",
+  "version_history": [
+    "1.0.0 - initial v2 schema (2026-08-14). Segment 1 as a block set with exactly one prompt; Segment 2 as per-city question blocks with a required per-question geo tag; 13-token placeholder inventory including YEARS_PRACTICING; region as plain text, never a token.",
+    "2.0.0 - format locked 2026-08-14. Added the `static` block carrying the 15 frozen boilerplate strings as schema-level constants; added `cover_page`; replaced segment_1's block set with the locked Introduction / attributes / internal_notes shape; removed `producer_notes` entirely (the section is gone from the format); Short-Form locations renamed from `cities` and pinned to exactly 10 questions; `geo_tag` retained as a generation record that is never rendered; `answer_note` removed.",
+    "2.0.1 - reconciled against the live reference implementation 2026-08-14: STATIC is 16 keys, not 15 (attr_note split into attr_note_internal + attr_sources_internal); added segment_1.attribute_sources; dropped `consistency` from attribute items since the counts moved below the divider.",
+    "2.0.2 - outro restructured 2026-08-18. The STATIC set is THREE strings (welcome, welcome_first, outro_note); the eleven constants retired 2026-08-17 and the four outro constants are no longer pinned here. outro_plug is gone in every form. The outro's three spoken lines moved to a generated `outro` block (thanks / signoff / reach) written against the beats and banks in references/outro-banks.json, in that order - the sign-off is deliberately not last. welcome now carries {{INTERVIEWER}}, matching references/statics.json and the twelve-token taxonomy in references/placeholders.md.",
+    "2.0.3 (2026-08-18) - placeholders_used enum reconciled to the twelve in references/placeholders.md. The prior 13-token enum lacked {{ATTORNEY}}, {{INTERVIEWER}} and {{TOPIC}}, every one of which appears in the welcome or the outro, so the outro's own tokens failed the placeholder gate.",
+    "2.1.0 (2026-08-18) - Short-Form bullets restored and Topic Plan provenance gated. Every S2 question now carries `bullets` (2 to 4, `[{Label}]{.underline}: {detail}`), required, after the restore documented in references/short-form.md. Every question also carries `topic_plan_ref`, required - a question with no ref is an invented question per gate TP-2. `q` is now the only accepted question field; the renderer's `question` fallback is dead and can be dropped. Added the top-level `metadata` block: `topic_plan_reconciled` is an enum of true and \"legacy-exempt\", and `topic_plan_doc_id`, `topic_plan_revision_id` and `topic_plan_fetched_at` are all required when it is true (gate TP-1). `cold_open`, `internal_notes` and `attribute_sources` dropped out of segment_1.required - all three are retired per references/document-structure.md, and all three are still written by scripts/build-ros-template-v2-docx.py, so the properties stay defined rather than deleted until the renderer stops emitting them. Stale descriptions on `questions` (\"bare bullets ... with nothing else per question\") and `segment_2` (\"the two mode notes come from STATIC\") rewritten. placeholders_used and the static block verified against references/placeholders.md and references/statics.json - both already correct, no change.",
+    "2.1.1 (2026-08-18) - re-pinned the three static consts against references/statics.json. The welcome const still carried the pre-shrink value that merged Introduction lines 1 and 2; statics.json had already been shrunk to line 1 only, so every real payload failed the STATIC gate.",
+    "2.1.2 (2026-08-18) - added segment_1.setup as the canonical name for Introduction line 2; cold_open kept as a deprecated alias.",
+    "2.2.0 (2026-08-18) - {{RECORDING_DATE}} retired from the taxonomy. Enum drops to eleven tokens and cover_page.recording_date_token is removed. A ROS Template is generic and reusable across every firm that records the episode, so a recording date was never a template-level fact.",
+    "2.3.0 (2026-08-18) - added segment_1.credential as Introduction line 3. It was previously folded into `prompt`, which rendered the credential and the ask as one run-on paragraph. references/introduction.md always specified them as separate lines.",
+    "2.4.0 (2026-08-18) - drift sweep. segment_1.description rewritten to the four-line Introduction (welcome / setup / credential / prompt); topic_phrase no longer described as a substitution into welcome; the static block, welcome and welcome_first descriptions corrected to say NOTHING substitutes into a constant; outro_close.description drops the INTERVIEWER speaker tag, cut 2026-08-18 per gate OC-1. Descriptions only - no shape, enum, const or required change, so every payload that validated against 2.3.0 still validates.",
+    "2.5.0 (2026-08-26) - welcome and welcome_first change from const to a two-value enum: the standard string, or the embedded-name variant for podcast names that embed the attorney's name (e.g. 'Car Accident Attorney w. Robert May'), where 'with **{{ATTORNEY_NAME}}**' would double the name (Gabe, 2026-08-26). A 'w.' in the podcast name is spoken, and rendered in the welcome, as 'with'. Every payload valid against 2.4.0 stays valid."
+  ],
+  "type": "object",
+  "required": [
+    "schema_version",
+    "episode_format",
+    "topic",
+    "episode_title",
+    "scope",
+    "duration",
+    "segment_1",
+    "segment_2",
+    "appendix_question_bank",
+    "placeholders_used",
+    "static",
+    "cover_page",
+    "outro_close",
+    "outro",
+    "metadata"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "2.0.0",
+      "description": "The FORMAT generation, not this file's revision. v2 payloads carry 2.0.0 and keep carrying it; the file's own revision is the `version` field above. Bumping this const rejects every payload already in flight, so it moves only when the payload shape breaks compatibility."
+    },
+    "episode_format": {
+      "type": "string",
+      "const": "v2-open-interview",
+      "description": "Hard-pinned. A legacy-segments template does not validate against this schema and must use pod-3A-ros-template instead."
+    },
+    "topic": {
+      "type": "string",
+      "description": "Practice area, e.g. Truck Accidents."
+    },
+    "episode_title": {
+      "type": "string"
+    },
+    "episode_number_token": {
+      "type": "string",
+      "default": "{{EPISODE_NUMBER}}"
+    },
+    "scope": {
+      "type": "string",
+      "enum": [
+        "Topic Only",
+        "Location",
+        "Extension"
+      ]
+    },
+    "location": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Required when scope is Location or Extension. Format CA, CA - Los Angeles County, CA - Long Beach. No colons; dashes only. This is the Episode geo target, which may differ from the show-wide Optimization scope (show anchor)."
+    },
+    "city": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The Episode geo target city that {{CITY}} resolves to at populate time. Null at Topic Only scope."
+    },
+    "region": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "PLAIN TEXT region the city is paired with in Segment 2, e.g. 'Chatham County and coastal Georgia'. Fixed by this template's location scope. NEVER a placeholder - {{REGION}} does not exist. Null at Topic Only scope."
+    },
+    "state": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Full state name, used by STATE-tagged questions."
+    },
+    "episode_goal": {
+      "type": "string",
+      "enum": [
+        "Authority",
+        "Lead generation",
+        "Differentiation",
+        "Narrative",
+        "Conversion"
+      ],
+      "default": "Authority"
+    },
+    "duration": {
+      "type": "object",
+      "required": [
+        "segment_1_min_low",
+        "segment_1_min_high"
+      ],
+      "additionalProperties": false,
+      "description": "Segment 1 is ALWAYS a range, never a single figure, and never carries per-question budgets.",
+      "properties": {
+        "segment_1_min_low": {
+          "type": "integer",
+          "default": 15
+        },
+        "segment_1_min_high": {
+          "type": "integer",
+          "default": 30
+        },
+        "segment_2_min_per_city": {
+          "type": "integer",
+          "default": 15
+        },
+        "segment_2_answer_target_sec": {
+          "type": "integer",
+          "default": 60
+        },
+        "segment_2_answer_max_sec": {
+          "type": "integer",
+          "default": 180
+        }
+      }
+    },
+    "segment_1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "topic_phrase",
+        "prompt",
+        "attributes",
+        "follow_ups"
+      ],
+      "description": "S1: Long-Form. A four-line Introduction - STATIC welcome (line 1), generated `setup` (line 2), generated `credential` (line 3, its own paragraph), then exactly one generated credential-led `prompt` (line 4, the only bolded prompt) - followed by the attribute bullets under ATTORNEY RESPONSE. The outro closes S1. `cold_open`, `internal_notes` and `attribute_sources` are RETIRED per references/document-structure.md and are no longer required; they remain defined only because scripts/build-ros-template-v2-docx.py still renders all three.",
+      "properties": {
+        "topic_phrase": {
+          "type": "string",
+          "description": "GENERATED. The episode subject as a plain phrase. It feeds the `setup` line's subject slot and the outro's topical credit approach. It is NOT substituted into any STATIC string - it left `welcome` on 2026-08-18 when that constant shrank to Introduction line 1."
+        },
+        "cold_open": {
+          "type": "string",
+          "description": "DEPRECATED alias for setup, kept so older payloads still validate. Emit `setup`."
+        },
+        "prompt": {
+          "type": "string",
+          "description": "GENERATED. EXACTLY ONE credential-led prompt, rendered in full bold."
+        },
+        "attributes": {
+          "type": "array",
+          "minItems": 5,
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "detail"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "rank": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "detail": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "Rendered as name plus plain-language detail only, with no `Attributes to Hit` heading (retired 2026-08-17). Gate AT-2 in references/attributes.md wants TEN to TWELVE bullets; minItems stays at 5 here so the count stays a gate rather than a hard schema reject. Zero question marks anywhere in the block (AT-1)."
+        },
+        "internal_notes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "examples",
+            "need_to_know"
+          ],
+          "description": "RETIRED 2026-08-17 - references/document-structure.md lists 'Internal Notes (not read on air) and everything under it' under 'Retired - must not come back'. No longer required on segment_1. NOT deleted because scripts/build-ros-template-v2-docx.py still reads s1['internal_notes'], inotes['examples'] and inotes['need_to_know'] unguarded. When present the inner shape is still enforced so a half-populated block fails loudly rather than at render time.",
+          "properties": {
+            "examples": {
+              "type": "string",
+              "description": "GENERATED. Follows the '**Real examples.**' label."
+            },
+            "need_to_know": {
+              "type": "array",
+              "minItems": 3,
+              "items": {
+                "type": "string"
+              },
+              "description": "GENERATED. Plain-language coverage bullets, jargon-free per Editorial Guideline 3."
+            }
+          }
+        },
+        "attribute_sources": {
+          "type": "array",
+          "description": "RETIRED 2026-08-17 with the rest of the Internal Notes block - the source-consistency counts are named explicitly in references/document-structure.md -> 'Retired - must not come back', and references/attributes.md rule 'No source counts on the page'. Optional. NOT deleted because scripts/build-ros-template-v2-docx.py still iterates s1.get('attribute_sources', []) and renders a bullet per entry. Provenance belongs in metadata.",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "consistency"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "consistency": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "setup": {
+          "type": "string",
+          "description": "Introduction line 2, GENERATED. One of the ten line-2 patterns in references/introduction.md. Renamed from cold_open on 2026-08-18 when statics.json -> welcome was shrunk to line 1 only and this stopped being a cold open in any sense."
+        },
+        "credential": {
+          "type": "string",
+          "description": "Introduction line 3, GENERATED. One credential frame, ending with the turn toward the attorney. Its own paragraph: the ask in line 4 lands as a turn only if line 3 fully stops first. Placeholders carry bold; the line is not bold in full, so `prompt` remains the single bolded prompt the gate asserts."
+        },
+        "follow_ups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "description": "Interviewer notes rendered under the S1 attribute block. The first bullet is hard-coded by the renderer; these are the topic-specific ones, and at least one must prompt the attorney for a case study. Never read on air, never a question."
+        }
+      }
+    },
+    "segment_2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "locations"
+      ],
+      "description": "S2: Short-Form (60-90s). Follows the S1 outro after a horizontal divider - it no longer starts its own page, and only the Appendix still does. One block per location, each exactly ten questions, each question carrying two to four attorney bullets. The two short-form mode notes that used to head the section were retired 2026-08-17 and are not in the STATIC set; the only line above the blocks is the shipped 60-to-90-second direction note held in the renderer.",
+      "properties": {
+        "locations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "location",
+              "questions"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "location": {
+                "type": "string"
+              },
+              "questions": {
+                "type": "array",
+                "minItems": 10,
+                "maxItems": 10,
+                "description": "EXACTLY ten. Hard cap, not a range. Each renders as `**Q{N}: {q}**` - the question is bold IN FULL, `Q{N}:` label included - followed by its two to four attorney bullets. Nothing else renders under a question: no time budget, no geo tag line, no source ref, no answer-guidance note (SF-4). The ten hold the live Topic Plan Doc's relative order; tail truncation is allowed, reordering and mid-sequence gaps are not (TP-3).",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "q",
+                    "bullets",
+                    "geo_tag",
+                    "kind",
+                    "topic_plan_ref"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "q": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "THE question field. Phrased as a search, not a legal element. `question` is NOT accepted - the renderer's `q or question` fallback in scripts/build-ros-template-v2-docx.py and scripts/verify-topic-plan.py is dead once this is required, and should be dropped. Carries no `**` markers of its own; the whole line renders bold and a nested marker unbolds the token it wraps."
+                    },
+                    "bullets": {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 4,
+                      "description": "The attorney bullets, restored 2026-08-18 (references/short-form.md -> 'Why the bullets came back'). Two to four, three the default - a 60 to 90 second answer has no room for six. Each renders as `[{Label}]{.underline}: {detail}`: the label is two or three words, UNDERLINED and never bold, as pandoc and never HTML `<u>`, so the question keeps the only bold weight in the block. The detail is one clause or one short sentence saying WHAT TO COVER, never a question (SF-3), plain language and zero jargon. The object form is canonical. A preformatted string is also accepted because scripts/build-ros-template-v2-docx.py -> sf_bullets() passes one through untouched and steps/05-segment-2.md still declares `bullets: [str]`; drop the string branch here once that step emits objects.",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "required": [
+                              "label",
+                              "detail"
+                            ],
+                            "additionalProperties": false,
+                            "properties": {
+                              "label": {
+                                "type": "string",
+                                "minLength": 1,
+                                "description": "Two or three words. Rendered underlined, never bold. No trailing colon - the renderer adds it."
+                              },
+                              "detail": {
+                                "type": "string",
+                                "minLength": 1,
+                                "description": "One clause or one short sentence. What to cover, never a question."
+                              }
+                            }
+                          },
+                          {
+                            "type": "string",
+                            "minLength": 1,
+                            "pattern": "^\\[[^\\]]+\\]\\{\\.underline\\}: .+",
+                            "description": "LEGACY passthrough. An already-formatted `[{Label}]{.underline}: {detail}` string. Accepted only because the renderer accepts it; new payloads emit the object form."
+                          }
+                        ]
+                      }
+                    },
+                    "topic_plan_ref": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "REQUIRED, never null. Points at the row in the LIVE Topic Plan Google Doc this question derives from. A question with no ref is an invented question and fails gate TP-2 in references/short-form.md. Local topic-plan-v{n}.json / .md mirrors do not count - clients edit and veto in the Doc by hand and none of it propagates back."
+                    },
+                    "geo_tag": {
+                      "type": "string",
+                      "enum": [
+                        "CITY",
+                        "CITY + REGION",
+                        "REGION",
+                        "NEUTRAL",
+                        "STATE"
+                      ],
+                      "description": "Generation record only - NEVER rendered. Exactly one per question; the schema enforces the vocabulary, gate SF-5 enforces the distribution (exactly three CITY-tagged per location, across exactly ten questions). The pod-2B city-share ceiling is NOT applied here."
+                    },
+                    "kind": {
+                      "type": "string",
+                      "enum": [
+                        "top-keyword",
+                        "attribute",
+                        "search-phrase"
+                      ]
+                    },
+                    "attribute_ref": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "source_ngram_ref": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "description": "Null allowed ONLY when kind is attribute."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "appendix_question_bank": {
+      "type": "array",
+      "description": "EVERY n-gram table row, verbatim and unedited, renumbered 1..M. Audit trail and pull pool. INTERNAL - stripped by pod-3B-client-ros. Still starts its own page; S2 no longer does.",
+      "items": {
+        "type": "object",
+        "required": [
+          "n",
+          "question_text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "n": {
+            "type": "integer"
+          },
+          "question_text": {
+            "type": "string"
+          },
+          "ngram_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "placeholders_used": {
+      "type": "array",
+      "description": "The approved token taxonomy, ELEVEN tokens. VERIFIED byte-for-byte against references/placeholders.md on 2026-08-18 - the table there and this enum match exactly, no change needed. {{ATTORNEY_FIRST_NAME}}, {{HOST_NAME}} and {{PRACTICE_AREA}} were retired for {{ATTORNEY}}, {{INTERVIEWER}} and {{TOPIC}}; {{EPISODE_NUMBER}} left the rendered body and survives only in filenames. {{REGION}} does not exist and must never be invented - it was invented twice and removed twice.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "{{TOPIC}}",
+          "{{CITY}}",
+          "{{STATE}}",
+          "{{PODCAST_NAME}}",
+          "{{ATTORNEY_NAME}}",
+          "{{ATTORNEY}}",
+          "{{INTERVIEWER}}",
+          "{{FIRM_NAME}}",
+          "{{PHONE_NUMBER}}",
+          "{{WEBSITE}}",
+          "{{YEARS_PRACTICING}}"
+        ]
+      }
+    },
+    "static": {
+      "type": "object",
+      "description": "The three frozen boilerplate strings, verbatim from references/statics.json -> strings. VERIFIED byte-for-byte against that file on 2026-08-18 - all three consts match, no change needed. Byte-identical on every episode, client and scope. Never regenerated. NOTHING substitutes into any of them as of 2026-08-18, when {topic_phrase} moved out of `welcome`. Any substitution on a string carrying tokens is .replace() never .format() - str.format collapses the doubled braces and silently destroys every token. The outro's three spoken lines are NOT here; they are generated per episode against references/outro-banks.json. Eleven further constants were retired 2026-08-17 and are preserved in references/statics.json -> retired.",
+      "additionalProperties": false,
+      "required": [
+        "welcome",
+        "welcome_first"
+      ],
+      "properties": {
+        "welcome": {
+          "type": "string",
+          "enum": [
+            "Welcome back to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+            "Welcome back to the **{{PODCAST_NAME}}** Podcast."
+          ],
+          "description": "Introduction line 1, every episode after the first. The sonic marker, and nothing else - the setup that used to ride along in this string is now the generated `segment_1.setup`. No substitution. The second value is the embedded-name variant (Gabe, 2026-08-26): podcast names that embed the attorney's name never append 'with **{{ATTORNEY_NAME}}**', which would double the name."
+        },
+        "welcome_first": {
+          "type": "string",
+          "enum": [
+            "Welcome to **{{PODCAST_NAME}}** with **{{ATTORNEY_NAME}}**.",
+            "Welcome to the **{{PODCAST_NAME}}** Podcast."
+          ],
+          "description": "Introduction line 1, episode 1 only - the launch episode. There is no 'back' to welcome anyone to yet. Same shrink as `welcome`: line 1 only, no substitution. Second value is the embedded-name variant (Gabe, 2026-08-26)."
+        }
+      }
+    },
+    "cover_page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "logo_drive_id",
+        "logo_width_pt",
+        "title"
+      ],
+      "description": "Branded cover block, built to the CE deliverable cover spec (see SKILL.md Editorial Guideline 4). The logo is inserted as a separate API call after the text batch; the cover page gate checks the inline object actually landed.",
+      "properties": {
+        "logo_drive_id": {
+          "type": "string",
+          "const": "1pAZESV-Roq_fh0-1n8xMcMCJvtOiWAN2"
+        },
+        "logo_width_pt": {
+          "type": "integer",
+          "const": 180
+        },
+        "title": {
+          "type": "string",
+          "const": "Run of Show"
+        },
+        "prepared_by": {
+          "type": "string",
+          "const": "Prepared by Case Engine"
+        }
+      }
+    },
+    "outro_close": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The STATIC outro_note, then the three generated lines in order: thanks, sign-off, reach-out. No speaker tag - the INTERVIEWER tag was cut 2026-08-18, since outro_note already says who is speaking (gate OC-1). The sign-off is deliberately not last - the reach-out lands after it as a tag. Carries no fields of its own; every rendered value comes from `static.outro_note` and the `outro` block.",
+      "properties": {}
+    },
+    "outro": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The three spoken outro lines. NOT constants as of 2026-08-18 - Gabe required the outro to read unique per episode, so each line is GENERATED against the required beats, invariants and banks in references/outro-banks.json. The banks are starting points showing range, not closed menus. Only outro_note remains STATIC, and it is host direction rather than spoken. Rotation across a client's library is enforced per references/outro-banks.json -> rotation; the run records outro_line1_approach, outro_line1_stem_index, outro_line2_index and outro_line3_slots in metadata. Gates live in references/outro.md.",
+      "required": [
+        "thanks",
+        "signoff",
+        "reach"
+      ],
+      "properties": {
+        "thanks": {
+          "type": "string",
+          "description": "Line 1. Addresses {{ATTORNEY}} exactly once in bold, thanks them explicitly, and carries one credit clause that alludes to competence rather than announcing it. Under 30 words. Never a superlative, a ranking, or an award.",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "signoff": {
+          "type": "string",
+          "description": "Line 2. Signals the end, names {{PODCAST_NAME}} exactly once in bold, and points forward to a next episode. Under 15 words. Variation is LOW by design - this is the sonic bookend to intro line 1. Zero occurrences of Case Engine, no episode number, no next-episode tease.",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "reach": {
+          "type": "string",
+          "description": "Line 3, the tag AFTER the sign-off. Hinge opener, a geo qualifier carrying {{STATE}}, a practice-area-neutral need clause, then {{FIRM_NAME}}, {{PHONE_NUMBER}} and {{WEBSITE}}, each exactly once and all bold. Under 30 words. Zero occurrences of {{CITY}} - S1 is state-governed so one recording serves every city the firm covers.",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Run provenance. Mirrors metadata.json; scripts/verify-topic-plan.py reads payload['metadata'] and falls back to the payload root. Open by design - the run also records the outro rotation fields (outro_line1_approach, outro_line1_stem_index, outro_line2_index, outro_line3_slots) and the attribute provenance (attribute_source, its pull date and confidence) here, so unlisted keys are allowed.",
+      "required": [
+        "topic_plan_reconciled"
+      ],
+      "properties": {
+        "topic_plan_reconciled": {
+          "enum": [
+            true,
+            "legacy-exempt"
+          ],
+          "description": "Gate SF-9. `true` means the live Topic Plan Doc was fetched and reconciled this run. `\"legacy-exempt\"` means the plan predates the requirement and is not retrofitted - claiming it on a newly generated plan is the exact failure this field exists to make visible. There is no third value: `false` and a missing field both FAIL."
+        },
+        "topic_plan_doc_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The PUBLISHED Topic Plan Google Doc. The only authority - a run built from a local topic-plan-v{n} mirror alone FAILS (TP-1)."
+        },
+        "topic_plan_revision_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The Doc's revisionId at fetch time. Proves WHICH version of the client's edits this build reconciled against."
+        },
+        "topic_plan_fetched_at": {
+          "type": "string",
+          "format": "date-time",
+          "minLength": 1,
+          "description": "ISO 8601 UTC timestamp of the live fetch, this run."
+        },
+        "outro_line1_approach": {
+          "type": "string",
+          "enum": [
+            "topical",
+            "reps",
+            "clarity",
+            "candor",
+            "depth"
+          ],
+          "description": "Rotation record, gate OC-7. May not repeat within two episodes."
+        },
+        "outro_line1_stem_index": {
+          "type": "integer"
+        },
+        "outro_line2_index": {
+          "type": "integer",
+          "description": "Rotation record. A bank entry may not repeat within two episodes."
+        },
+        "outro_line3_slots": {
+          "type": "array",
+          "items": {
+            "type": [
+              "string",
+              "integer"
+            ]
+          },
+          "description": "The four chosen slots: hinge, geo-and-need, verb, contact frame. Must differ from the preceding episode in at least two."
+        },
+        "attribute_source": {
+          "type": "string",
+          "enum": [
+            "pod-1D",
+            "fallback"
+          ],
+          "description": "Gate AT-8. `fallback` is Inferred, never Confirmed, and carries its pull date."
+        },
+        "attribute_source_pulled": {
+          "type": "string",
+          "description": "Pull date of the attribute set, required in spirit whenever attribute_source is `fallback`."
+        },
+        "attribute_source_confidence": {
+          "type": "string",
+          "enum": [
+            "Confirmed",
+            "Inferred"
+          ]
+        }
+      },
+      "if": {
+        "properties": {
+          "topic_plan_reconciled": {
+            "const": true
+          }
+        },
+        "required": [
+          "topic_plan_reconciled"
+        ]
+      },
+      "then": {
+        "required": [
+          "topic_plan_doc_id",
+          "topic_plan_revision_id",
+          "topic_plan_fetched_at"
+        ]
+      }
+    }
+  }
+}

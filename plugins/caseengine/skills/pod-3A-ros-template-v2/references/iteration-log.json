@@ -1,0 +1,186 @@
+{
+ "_meta": {
+  "skill_name": "pod-3A-ros-template-v2",
+  "schema_version": "1.0",
+  "created": "2026-08-14",
+  "notes": "Append-only iteration log. Read at run start; never written at runtime. New entries appended manually or proposed by scripts/diff_against_template.py with status='proposed' awaiting human sign-off. ID format YYYY-MM-DD-NNN (zero-padded daily counter). Validates against ../schema/iteration-log.schema.json."
+ },
+ "entries": [
+  {
+   "id": "2026-08-14-001",
+   "category": "schema",
+   "severity": "critical",
+   "description": "pod-3B-client-ros does not resolve {{YEARS_PRACTICING}}. The v2 format declares a 13th placeholder. pod-3B-client-ros's populate taxonomy is the legacy 12. An unresolved token ships literal markup into a recording. pod-3B also strips only the legacy '## Additional Questions (Optional Pull)' section and needs to strip '# Appendix: Source Question Bank' instead, and to preserve the Segment 2 geo tags.",
+   "resolution": "RESOLVED 2026-08-18 by building the sibling skill pod-3B-client-ros-v2 v1.0.0 (the legacy pod-3B-client-ros stays untouched; both coexist behind episode_format, same pattern as 3A/3A-v2). The sibling populates the full eleven-token v2 taxonomy including {{YEARS_PRACTICING}}, {{TOPIC}}, {{CITY}}, {{ATTORNEY}}, {{INTERVIEWER}}; strips '# Appendix: Source Question Bank' (not the legacy Additional Questions reserve); preserves per-question geo_tag + source_ngram_ref into client-ros-v2-data.json; and enforces a statics-resolved-verbatim gate. Renderer scripts/build-client-ros-v2-docx.py mirrors this skill's renderer and hard-fails on any leftover token. Smoke-tested against the Eberst E2 example payload.",
+   "fix_in_version": "external: pod-3B-client-ros-v2 v1.0.0",
+   "status": "resolved"
+  },
+  {
+   "id": "2026-08-14-002",
+   "category": "schema",
+   "severity": "critical",
+   "description": "pod-3A-ros-template placeholder gate asserts exactly 12 tokens. The taxonomy is shared between the legacy and v2 skills. The legacy gate would flag {{YEARS_PRACTICING}} as an invented token. The gate needs to become 12 plus 1, with the 13th marked v2-only.",
+   "resolution": "FALSE ALARM, verified 2026-08-18. The taxonomies were never shared. pod-3A-ros-template carries its own 12-token taxonomy inline in its SKILL.md Guideline 1, has no references/placeholders.md, and contains zero references to pod-3A-ros-template-v2. The legacy gate cannot flag a v2 token because it never reads v2's taxonomy. No edit to the legacy skill was needed or made. v2 settled at its own 12 tokens on 2026-08-18, so the '12 plus 1' framing in this entry is obsolete twice over.",
+   "fix_in_version": "v1.2.0",
+   "status": "resolved"
+  },
+  {
+   "id": "2026-08-14-003",
+   "category": "logic",
+   "severity": "critical",
+   "description": "pod-2B-n-gram-table city-share ceiling must not apply to v2 blocks. 2B carries a roughly 25 to 45 percent aggregate city-share ceiling. v2 replaces it with per-question geo tags (Editorial Guideline 6). Applying the ceiling on top of the tags trims the CITY-tagged ranking targets first, which is exactly backwards.",
+   "resolution": "Verified 2026-08-18, and it was overstated. pod-2B's city-share check is a QA gate on pod-2B's OWN n-gram table output, not something applied downstream to a v2 S2 block. v2 selects ten rows from the bank and applies its own geo rule, so nothing re-applies the ceiling. The bands are also compatible: v2 mandates 3 city-tagged of 10, which is 30 percent and sits inside pod-2B's 25-45 percent band. No edit to pod-2B was needed or made. references/short-form.md states explicitly that the ceiling is not applied to a v2 block.",
+   "fix_in_version": "v1.2.0",
+   "status": "resolved"
+  },
+  {
+   "id": "2026-08-14-004",
+   "category": "content",
+   "severity": "critical",
+   "description": "pod-3C-client-guide assumes the legacy segment shape. The v2 attorney prep guide is a different document: one prompt to prepare for, three moves to rehearse, an attribute list to have ready, and a separate short-form block to warm up for. The current guide derives from a four-segment question list.",
+   "resolution": "RESOLVED 2026-08-18 by building the sibling skill pod-3C-client-guide-v2 v1.0.0 rather than branching the legacy guide (legacy pod-3C-client-guide stays untouched). The v2 guide layout is rebuilt for the v2 episode shape: 'The Interview' carries the prompt verbatim plus the What to Cover attribute list, 'Quick-Answer Rounds' carries the per-city ten-question sets with the self-contained + retakes rules stated plainly. The attorney-relevant half of this skill's Production notes routes there via its references/production-notes.md (host-only half explicitly excluded). Note: the 'three moves to rehearse' this entry anticipated were retired from the format 2026-08-17 before the guide was built, so the v2 guide never carried them.",
+   "fix_in_version": "external: pod-3C-client-guide-v2 v1.0.0",
+   "status": "resolved"
+  },
+  {
+   "id": "2026-08-14-005",
+   "category": "data",
+   "severity": "medium",
+   "description": "episode_format field does not exist yet in podcast-overview / show bible. The coexistence gate reads episode_format from the client's podcast-overview.md or show bible. The field is declared by this skill but is not yet part of pod-1-podcast-bible's output shape, so every existing client resolves to unset, which correctly means legacy.",
+   "resolution": "Add episode_format to the show bible schema with legacy-segments as the default. Until then the gate works by absence, which is safe but means v2 cannot be selected without a manual override.",
+   "fix_in_version": "pending",
+   "status": "open"
+  },
+  {
+   "id": "2026-08-14-006",
+   "category": "data",
+   "severity": "low",
+   "description": "The static attribute set will drift. references/attributes/attributes-fallback.json is a 2026-08-14 snapshot of live Google AI Overview and ChatGPT output. Answer engines move. A fallback run is Inferred, never Confirmed.",
+   "resolution": "Re-pull via pod-1D-attribute-research when it ships. Compare against the static set and log what moved - the drift is itself a signal worth keeping.",
+   "fix_in_version": "pending",
+   "status": "open"
+  },
+  {
+   "id": "2026-08-14-007",
+   "category": "content",
+   "severity": "medium",
+   "description": "The single prompt is the format's most likely regression. Silence feels risky in the room, so the predictable failure across future edits and refreshes is a second and third prompt appearing in Segment 1. That converts v2 back into legacy with fewer questions.",
+   "resolution": "The single prompt gate catches it mechanically. Watch for it in Update runs specifically, where a manual edit gets preserved rather than regenerated.",
+   "fix_in_version": "pending",
+   "status": "open"
+  },
+  {
+   "id": "2026-08-14-008",
+   "category": "rendering",
+   "severity": "medium",
+   "description": "build-ros-template-v2-docx.py has been smoke-tested only against a synthetic payload. The renderer was validated against a hand-built minimal ros-template-v2-data.json, not against a real generated template with a full n-gram appendix and multiple city blocks. Cover page, styling, and inline run handling follow the legacy builder's proven approach, but the v2 block set is new code.",
+   "resolution": "Run it against the first real v2 template and check the rendered Doc before shipping that template to a producer.",
+   "fix_in_version": "pending",
+   "status": "open"
+  },
+  {
+   "id": "2026-08-14-009",
+   "category": "content",
+   "severity": "high",
+   "description": "Live prototype doc diverges from SKILL.md Editorial Guideline 4 in six places: Cold Open/Lead-In/Prompt merged into one '## Introduction'; ten questions per set is a hard cap (SKILL.md says 10-20 default 13); 'Segment 2: Short Form' and '## Set N: {City}' naming; per-set customization is narrower (three city-tagged questions change, attribute questions carry over); three moves are bullets not a numbered list; the Truck tab is missing Interviewer Live Checklist and Co-Host Notes that the Slip tab has.",
+   "resolution": "Enumerated with live text in references/examples/ros-template-v2-examples.md. Reconcile after Gabe's formatting review. Guideline 4 is marked PENDING and must not be treated as a contract downstream until then. RESOLVED 2026-08-14: format locked and baked into SKILL.md Guideline 4, the schema, the renderer, and the prompts.",
+   "fix_in_version": "v1.1.0",
+   "status": "resolved"
+  },
+  {
+   "id": "2026-08-14-010",
+   "category": "content",
+   "severity": "high",
+   "description": "Set 2 in both live tabs interpolates a non-city label into the city slot, producing 'hiring a slip and fall lawyer in Public property in San Diego' and 'a truck accident lawyer in Garden City and the Port corridor'. The first is not a sentence; the second is not a search anyone performs. Root cause is a set requested at a scope the entity resolution does not support - the same root cause as the Ontario problem.",
+   "resolution": "Documented as BAD 3 and EDGE 2 in the examples doc. A CITY-tagged question requires a real city name; a sub-scope set either gets city-scope entity research or drops its CITY-tagged slots. Add an interpolation read-aloud check to the search-phrase gate. RESOLVED 2026-08-14: format locked and baked into SKILL.md Guideline 4, the schema, the renderer, and the prompts.",
+   "fix_in_version": "v1.1.0",
+   "status": "resolved"
+  },
+  {
+   "id": "2026-08-14-011",
+   "category": "schema",
+   "severity": "low",
+   "description": "ops-skill-creator's iteration-log.schema.json rejects pipeline-prefixed skill names via the _meta.skill_name regex, including all three examples cited in its own field description (pod-2A-entity-research, pod-3B-n-gram-table, pod-4A-ros-template). validate_structure raises the same issue as frontmatter.name.kebab against every pod-* skill, the legacy sibling included.",
+   "resolution": "Not fixed here - ops-skill-creator is a shared meta-skill outside this skill's scope. Reported to the team lead. The regex needs a leading lowercase-segment alternation to match its documented intent.",
+   "fix_in_version": "pending",
+   "status": "open"
+  },
+  {
+   "id": "2026-08-14-012",
+   "category": "content",
+   "severity": "medium",
+   "description": "The reference implementation moved while this skill was being updated. STATIC went from 15 to 16 keys (attr_note split into attr_note_internal + attr_sources_internal), attr_intro was reworded, the [Interviewer] tag was dropped from the Introduction, the S1 heading gained (15-30m), and per-attribute source-consistency counts moved below the divider into a new ATTR_SOURCES list.",
+   "resolution": "Re-read topics3.py and push_v3.py before writing and reconciled SKILL.md, the schema, and the renderer against the live values rather than the briefed ones. Generate the STATIC table from the source module rather than transcribing it; the constants are still moving.",
+   "fix_in_version": "v1.1.0",
+   "status": "resolved"
+  },
+  {
+   "id": "2026-08-18-001",
+   "category": "content",
+   "severity": "high",
+   "description": "SKILL.md, the schema, the prompts, the examples doc, and the renderer were still carrying the pre-08-17 constants after statics.json and document-structure.md were reconciled against the live doc. Three concrete breaks: the outro_note const said \"Thank the guest\", which the guest-framing gate greps for case-insensitively, so the schema's own pinned constant would have failed QA; outro_thanks addressed the attorney as {{ATTORNEY_FIRST_NAME}} instead of {{ATTORNEY}}; and the outro speaker tag rendered as the bracketed [Interviewer] rather than the unbracketed INTERVIEWER that statics.json speaker_tags defines. Separately the renderer required 16 STATIC keys, 11 of which were retired on 08-17, so it raised SystemExit on any current payload and then rendered the retired strings.",
+   "resolution": "Fixed outro_note and outro_thanks in references/schema/ros-template-v2.json, references/prompts/07-outro-close.md, and references/examples/ros-template-v2-examples.md (two occurrences each in the examples doc). Changed the outro speaker tag to INTERVIEWER in both renderer paths (docx add_note, markdown italic line) and in the 07 prompt's render order, reusing the existing gray-italic add_note mechanism rather than adding a new one. Reduced STATIC_KEYS in scripts/build-ros-template-v2-docx.py to the six constants statics.json still carries under strings (welcome, welcome_first, outro_note, outro_thanks, outro_plug, outro_signoff) and removed every render call for a retired key from both the docx and markdown paths. The retired block in statics.json was left in place on purpose. SKILL.md was deliberately not touched in this pass; its drift is larger and is being handled section by section.",
+   "fix_in_version": "v1.2.0",
+   "status": "resolved",
+   "spotted_on": "2026-08-18",
+   "resolved_on": "2026-08-18",
+   "tags": [
+    "reconciliation",
+    "guest-framing",
+    "statics"
+   ]
+  },
+  {
+   "id": "2026-08-18-002",
+   "category": "content",
+   "severity": "high",
+   "description": "The outro moved twice on 2026-08-18 while the reconciliation of 2026-08-18-001 was in flight. First the CE production credit was cut from outro_signoff and outro_plug was demoted from a frozen injury-only string to a fixed frame with four selectable practice-area triggers. Minutes later Gabe retired the four-trigger set outright: outro_plug is gone, outro_note was reworded, outro_thanks became a stem with a SELECTED praise clause appended, and a new practice-area-neutral outro_reach constant now renders AFTER the sign-off as a closing tag. Anything built against the intermediate four-trigger design was obsolete before it shipped.",
+   "resolution": "Rebuilt the downstream copies against references/statics.json as of 2026-08-18 13:46 rather than the intermediate design. Schema: outro_note and outro_thanks consts updated, outro_reach added to the static block and its required list, the briefly-added top-level outro_plug block replaced by an outro_praise block modeling pattern + clause with if/then pairing so a mismatched or free-written clause fails validation. Renderer: STATIC_KEYS is six (welcome, welcome_first, outro_note, outro_thanks, outro_signoff, outro_reach), the outro renders the thanks stem plus the selected clause on one line then signoff then reach, and praise_clause() raises rather than carrying a hardcoded copy of any clause. prompts/07-outro-close.md now defers to references/outro.md for the narrative and points at gates OC-1 through OC-7, which supersede O-1 through O-4. Examples doc outro blocks rebuilt with pattern A. Verified by rendering a current-shape payload end to end: placeholders survive, which also confirms no str.format path touches these strings.",
+   "fix_in_version": "v1.2.0",
+   "status": "resolved",
+   "spotted_on": "2026-08-18",
+   "resolved_on": "2026-08-18",
+   "tags": [
+    "reconciliation",
+    "statics",
+    "outro",
+    "moving-target"
+   ]
+  },
+  {
+   "id": "2026-08-18-003",
+   "category": "content",
+   "severity": "high",
+   "description": "The outro changed a third time on 2026-08-18, minutes after the second change, and this one inverted the model rather than the wording. Gabe required the outro to read relatively unique on every episode while always hitting the same points, so outro_thanks, outro_signoff, outro_reach and the outro_praise selection all stopped being constants. The three spoken lines are now GENERATED per episode against required beats, invariants and seed banks in the new references/outro-banks.json, with rotation enforced across a client's library. statics.json is down to three STATIC strings: welcome, welcome_first, outro_note. Work built against either of the two earlier designs on the same day was obsolete before it shipped; this entry exists so the next reader does not mistake 2026-08-18-002 for the landing state.",
+   "resolution": "Reconciled to statics.json and outro-banks.json as of 2026-08-18 13:48. Schema: static block reduced to the three surviving constants, the outro_praise block replaced by a top-level generated `outro` object carrying thanks / signoff / reach with the per-line beats and invariants in their descriptions. Renderer: STATIC_KEYS is three, an OUTRO_LINES tuple pins the render order, outro_lines() reads the three generated lines from the payload and raises if any is missing rather than carrying a hardcoded copy. prompts/07-outro-close.md rewritten from a static contract to a generation prompt driven by the banks, with the rotation step and the metadata fields it must record. Examples doc: the two sample outros now use different stems, credit approaches and bank entries so the doc demonstrates the rotation rule instead of contradicting it. Verified by rendering a current-shape payload end to end and by confirming the missing-line gate exits 1. Two follow-ups are NOT resolved: references/outro.md still describes lines 2 and 3 as STATIC and its gates OC-2, OC-3 and OC-7 still name the retired constants and praise patterns, and scripts/outro-rotation.py is referenced by outro-banks.json but does not exist.",
+   "fix_in_version": "v1.2.0",
+   "status": "resolved",
+   "spotted_on": "2026-08-18",
+   "resolved_on": "2026-08-18",
+   "tags": [
+    "reconciliation",
+    "statics",
+    "outro",
+    "moving-target",
+    "breaking-change"
+   ]
+  },
+  {
+   "id": "2026-08-18-004",
+   "category": "content",
+   "severity": "medium",
+   "description": "Final propagation of the settled outro model into the consumers that still described the old one. After the spec landed (three STATIC strings; all three spoken outro lines generated per episode against references/outro-banks.json) the schema still pinned thirteen constants and described 'the 16 frozen boilerplate strings', the examples doc still told readers all four outro lines were among sixteen frozen strings, steps/04-segment-1.md still declared the outro deterministic and pointed at a references/statics.md that has never existed, references/README.md indexed neither outro.md nor outro-banks.json, and both READMEs carried 15- and 16-string claims. Separately the schema's `welcome` const still used {{HOST_NAME}}, a token the twelve-token taxonomy in references/placeholders.md no longer contains.",
+   "resolution": "Schema bumped to 2.0.2: static block reduced to welcome / welcome_first / outro_note pinned verbatim from statics.json, the eleven retired consts dropped (they remain preserved in statics.json -> retired), welcome corrected to {{INTERVIEWER}}, version_history appended. Examples doc: the 'how little is generated' paragraph rewritten to state the three-string STATIC set and the generated outro, and the two sample outros now use different credit approaches - topical in the first, candor in the second - with different sign-off entries and reach assemblies, all wording taken from the banks. steps/04-segment-1.md: exec line changed to LLM for the introduction and the outro, asset list corrected (statics.md -> statics.json) and extended with outro.md, outro-banks.json and placeholders.md, and a six-sub-pass outro procedure added covering contract load, rotation check, credit-approach selection, generation, invariant assertion and recording the four rotation fields, plus matching outputs, validation and failure-mode rows. references/README.md: outro.md and outro-banks.json indexed with a consumption note, schema row updated to 2.0.2 and three constants, taxonomy reference corrected from 13 tokens to the twelve in placeholders.md. prompts/README.md: generated-field paragraph and the 07 execution-order row updated. scripts/README.md: the four 15/16-string claims corrected and the 'read topics3.py before quoting a constant' instruction repointed at statics.json, with topics3.py labelled a 2026-08-14 snapshot. The conflict note in prompts/07-outro-close.md was removed now that outro.md is rewritten, and the file's credit-approach list reordered to lead with topical. Verified: renderer parses and renders a current payload, statics.json carries exactly three strings, and 'produced by Case Engine' survives in the skill only in SKILL.md and in the outro-banks rule forbidding it.",
+   "fix_in_version": "v1.2.0",
+   "status": "resolved",
+   "spotted_on": "2026-08-18",
+   "resolved_on": "2026-08-18",
+   "tags": [
+    "reconciliation",
+    "outro",
+    "statics",
+    "documentation"
+   ]
+  }
+ ]
+}
