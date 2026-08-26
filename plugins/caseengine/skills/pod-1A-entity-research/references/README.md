@@ -8,6 +8,10 @@ Reference assets the skill loads at runtime. Three subfolders:
 | [`scripts/`](scripts/) | Bundled Python scripts the cowork runtime can execute (e.g., chart generation). Self-contained, dependencies declared in each script's docstring. |
 | [`examples/`](examples/) | Calibration anchors (GOOD / BAD / EDGE CASE) the skill reads before generating to set the quality bar. |
 
+Standalone reference docs at this level:
+
+- [`report-design.md`](report-design.md) - the canonical report look and feel: model Doc id, the repo renderer (`scripts/render-research-doc.py` in `case-engine-webapp`), and the design spec every rendered Doc must match.
+
 Each subfolder has its own `README.md` describing what's there and how it's used.
 
 ## How the skill consumes these

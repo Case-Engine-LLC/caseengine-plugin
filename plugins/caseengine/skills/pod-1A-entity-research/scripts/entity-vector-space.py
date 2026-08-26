@@ -14,6 +14,7 @@ import argparse
 import json
 import math
 import os
+import re
 import sys
 
 import numpy as np
@@ -45,13 +46,32 @@ TIER_COLORS = {
 }
 BRIDGE_BORDER_COLOR = '#facc15'  # gold
 BRIDGE_BORDER_WIDTH = 2.5
-DPI = 150
-FIG_SIZE = (12, 12)
-MIN_DOT_SIZE = 30
-MAX_DOT_SIZE = 400
-LABEL_FONTSIZE_T1 = 8
-LABEL_FONTSIZE_T2 = 7
-TOP_T2_LABELED = 5
+DPI = 450
+FIG_SIZE = (6.5, 5.0)   # matches the 6.5in Doc embed width -> labels render at true size
+MIN_DOT_SIZE = 14
+MAX_DOT_SIZE = 170
+LABEL_FONTSIZE_T1 = 7.5
+LABEL_FONTSIZE_T2 = 6.5
+TOP_T2_LABELED = 0      # only Tier 1 + bridges get labels; T2/T3 live in the tables
+LABEL_MAX_CHARS = 32
+
+
+def rim_fontsize(vs):
+    # all rim labels: ~4.5pt at vs .35 up to ~10pt at vs 1.0
+    return 4.5 + 5.5 * max(0.0, min(1.0, (vs - 0.35) / 0.65))
+
+
+def dot_fontsize(vs):
+    # interior labels: ~3.8pt at vs .35 up to ~6.2pt at vs .79
+    return 3.8 + 2.4 * max(0.0, min(1.0, (vs - 0.35) / 0.44))
+
+
+def short_label(name):
+    """Chart label: drop parentheticals (statute cites) and the state-name prefix
+    (the doc's scope already says the jurisdiction), cap length."""
+    s = re.sub(r"\s*\(.*?\)", "", name).strip()
+    s = re.sub(r"^(Florida|Texas|California|Georgia)\s+", "", s)
+    return s if len(s) <= LABEL_MAX_CHARS else s[:LABEL_MAX_CHARS - 1].rstrip() + "\u2026"
 
 
 # ---------------------------------------------------------------------------
@@ -102,7 +122,7 @@ def compute_positions(entities, clusters, entity_to_cluster):
     for entity in entities:
         eid = entity['id']
         vs = entity.get('vector_strength', 0.5)
-        radius = 1.0 - vs  # higher strength = closer to center
+        radius = (1.0 - vs) / 0.65  # vs 1.0 -> center, vs 0.35 -> rim (full circle used)
 
         cluster_key = entity_to_cluster.get(eid)
         if cluster_key is not None and cluster_key in cluster_angle_map:
@@ -176,13 +196,21 @@ def render_vector_space(data, output_path):
     ax.set_facecolor('white')
     ax.set_aspect('equal')
 
-    # Draw faint concentric rings for distance reference
-    for r in [0.25, 0.5, 0.75, 1.0]:
-        circle = plt.Circle((0, 0), r, fill=False, color='#e2e8f0', linewidth=0.5, linestyle='--')
-        ax.add_patch(circle)
+    # Tier bands: ring boundaries at the actual tier thresholds
+    # (vs >= .80 T1, .60-.79 T2, .40-.59 T3), radius = (1-vs)/0.65
+    R_T1, R_T2, R_T3 = (1 - .80) / .65, (1 - .60) / .65, (1 - .40) / .65
+    ax.add_patch(mpatches.Wedge((0, 0), R_T1, 0, 360, facecolor='#3b82f6', alpha=0.06, edgecolor='none', zorder=0))
+    ax.add_patch(mpatches.Wedge((0, 0), R_T2, 0, 360, width=R_T2 - R_T1, facecolor='#14b8a6', alpha=0.06, edgecolor='none', zorder=0))
+    ax.add_patch(mpatches.Wedge((0, 0), R_T3, 0, 360, width=R_T3 - R_T2, facecolor='#94a3b8', alpha=0.07, edgecolor='none', zorder=0))
+    for r in (R_T1, R_T2, R_T3):
+        ax.add_patch(plt.Circle((0, 0), r, fill=False, color='#cbd5e1', linewidth=0.6, linestyle='--'))
+    for r, lab in ((R_T1 - 0.045, 'TIER 1'), (R_T2 - 0.045, 'TIER 2'), (R_T3 - 0.045, 'TIER 3')):
+        ax.text(0, -r, lab, ha='center', va='center', fontsize=5.5, color='#94a3b8',
+                fontweight='bold', zorder=1)
 
     # Plot entities by tier (T3 first so T1 renders on top)
     texts = []
+    itexts = []
     for tier in [3, 2, 1]:
         tier_entities = [e for e in entities if e.get('tier') == tier]
         for entity in tier_entities:
@@ -203,37 +231,56 @@ def render_vector_space(data, output_path):
                            edgecolors='white', linewidths=0.5)
 
             # Label logic
-            should_label = (
-                tier == 1 or
-                (tier == 2 and eid in t2_labeled_ids)
-            )
-            if should_label:
-                fontsize = LABEL_FONTSIZE_T1 if tier == 1 else LABEL_FONTSIZE_T2
-                fontweight = 'bold' if tier == 1 else 'normal'
-                txt = ax.annotate(
-                    entity['name'],
-                    (x, y),
-                    fontsize=fontsize,
-                    fontweight=fontweight,
-                    color='#1e293b',
-                    ha='center',
-                    va='bottom',
-                    xytext=(0, 6),
-                    textcoords='offset points',
-                    zorder=5,
-                )
-                texts.append(txt)
+            texts.append((x, y, entity, tier, is_bridge))
 
     # Center label
     ax.text(0, 0, practice_area.replace('-', ' ').title(),
             ha='center', va='center',
-            fontsize=14, fontweight='bold', color='#0f172a',
+            fontsize=8.5, fontweight='bold', color='#0f172a',
             bbox=dict(boxstyle='round,pad=0.4', facecolor='white', edgecolor='#cbd5e1', alpha=0.95),
             zorder=10)
 
-    # Adjust labels if adjustText is available
-    if HAS_ADJUST and texts:
-        adjust_text(texts, ax=ax, expand_points=(1.5, 1.5), force_text=(0.3, 0.3))
+    # Elliptical callouts: label anchors sit on an ellipse that wraps the whole
+    # circle (360 look), but slots are assigned at fixed VERTICAL spacing per
+    # side, so horizontal text can never overlap. Labels near the equator sit
+    # furthest out; labels near the poles tuck in above/below the circle.
+    if texts:
+        ROW_H = 0.135    # vertical slot spacing (fits the largest font)
+        ELL_RX = 1.42    # ellipse horizontal radius
+        MIN_X = 0.10     # keep a sliver of offset at the very poles
+        left, right = [], []
+        for x, y, entity, tier, is_bridge in texts:
+            (right if x >= 0 else left).append((x, y, entity, tier, is_bridge))
+        for side, items in ((1, right), (-1, left)):
+            items.sort(key=lambda it: -it[1])  # top to bottom by dot position
+            n = len(items)
+            span = ROW_H * (n - 1)
+            ell_ry = max(span / 2 * 1.04, 0.8)
+            for k, (x, y, entity, tier, is_bridge) in enumerate(items):
+                ly = span / 2 - k * ROW_H
+                frac = 1 - (ly / ell_ry) ** 2
+                lx = side * max(ELL_RX * math.sqrt(max(frac, 0.0)), MIN_X)
+                vs = entity.get('vector_strength', 0.6)
+                ax.plot([x, lx], [y, ly], color='#dbe2ec', lw=0.45, zorder=2)
+                ax.annotate(
+                    short_label(entity['name']),
+                    (lx, ly),
+                    fontsize=rim_fontsize(vs),
+                    fontweight='bold' if tier == 1 else 'normal',
+                    color='#1e293b' if tier == 1 else ('#475569' if tier == 2 else '#7c8aa0'),
+                    ha='left' if side > 0 else 'right',
+                    va='center',
+                    xytext=(3 * side, 0),
+                    textcoords='offset points',
+                    zorder=5,
+                )
+
+    # Center label
+    ax.text(0, 0, practice_area.replace('-', ' ').title(),
+            ha='center', va='center',
+            fontsize=8.5, fontweight='bold', color='#0f172a',
+            bbox=dict(boxstyle='round,pad=0.4', facecolor='white', edgecolor='#cbd5e1', alpha=0.95),
+            zorder=10)
 
     # Legend
     legend_handles = [
@@ -244,16 +291,17 @@ def render_vector_space(data, output_path):
                    markeredgecolor=BRIDGE_BORDER_COLOR, markeredgewidth=2.5,
                    markersize=10, label='Bridge Entity'),
     ]
-    ax.legend(handles=legend_handles, loc='lower right', frameon=True,
-              facecolor='white', edgecolor='#e2e8f0', fontsize=9)
+    fig.legend(handles=legend_handles, loc='lower center', ncol=4, frameon=True,
+               facecolor='white', edgecolor='#e2e8f0', fontsize=6.5,
+               bbox_to_anchor=(0.5, 0.05))
 
     # Title
     title_text = f"Entity Vector Space: {practice_area.replace('-', ' ').title()}"
-    ax.set_title(title_text, fontsize=16, fontweight='bold', color='#0f172a', pad=20)
+    ax.set_title(title_text, fontsize=11, fontweight='bold', color='#0f172a', pad=12)
 
     # Clean up axes
-    ax.set_xlim(-1.15, 1.15)
-    ax.set_ylim(-1.15, 1.15)
+    ax.set_xlim(-2.85, 2.85)
+    ax.set_ylim(-2.0, 2.0)
     ax.axis('off')
 
     # Save
