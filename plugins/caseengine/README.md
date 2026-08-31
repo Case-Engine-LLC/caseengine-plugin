@@ -84,7 +84,7 @@ And the podcast pipeline, in the order it runs:
 | Phase | Skills |
 |---|---|
 | 1 · Research | `pod-1A-entity-research`, `pod-1B-keyword-research`, `pod-1C-virality-research` |
-| 2 · Planning | `pod-2A-topic-planner`, `pod-2A-entity-research`, `pod-2B-keyword-research`, `pod-2B-n-gram-table`, `pod-2C-virality-research` |
+| 2 · Planning | `pod-2A-topic-planner`, `pod-2B-n-gram-table` |
 | 3 · Run of show | `pod-3A-ros-template`, `pod-3B-client-ros`, `pod-3C-client-guide` |
 
 Each carries its own references and scripts, and declares its inputs and
